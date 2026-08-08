@@ -248,7 +248,20 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
   }, [imageIdx, heroImages]);
 
   return (
-    <section id="home" style={{ position: "relative", isolation: "isolate", overflow: "hidden", borderRadius: "0 0 2rem 2rem", background: "#050505" }}>
+    <section
+      id="home"
+      style={{
+        position: "relative",
+        isolation: "isolate",
+        overflow: "hidden",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        borderRadius: "0 0 2rem 2rem",
+        background: "#050505",
+      }}
+    >
       <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         {/* Base Image underneath canvas */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -284,16 +297,20 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           pointerEvents: "none",
           position: "absolute",
           insetInline: 0,
-          bottom: "7rem",
+          bottom: "5rem",
           zIndex: 1,
           textAlign: "center",
           userSelect: "none",
           fontWeight: 700,
           lineHeight: 1,
           fontSize: "var(--text-watermark)",
-          color: "#ffffff",
+          background: "linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.05) 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 100%)",
+          maskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 100%)",
           mixBlendMode: "difference",
-          opacity: introReady ? 0.35 : 0,
+          opacity: introReady ? 0.6 : 0,
           transform: introReady ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1)",
         }}
@@ -301,7 +318,21 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         BISHNOI
       </div>
 
-      <div className="shell" style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", gap: "2rem", padding: "7.5rem 1.25rem 5rem", color: "#ffffff" }}>
+      <div
+        className="shell-full grid grid-cols-1 lg:grid-cols-12"
+        style={{
+          position: "relative",
+          zIndex: 20,
+          flex: 1,
+          width: "100%",
+          maxWidth: "100%",
+          gap: "2.5rem",
+          padding: "10rem 3.25rem 3rem",
+          color: "#ffffff",
+          alignItems: "center",
+          alignContent: "space-between",
+        }}
+      >
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
           <div
             id="hero-eyebrow"
@@ -361,7 +392,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.5rem" }} className="lg:items-end lg:col-span-5">
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1.5rem" }} className="lg:col-span-5">
           {/* Reference Card Layout matching Screenshot 1 */}
           <div
             id="hero-card"
@@ -485,10 +516,12 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
 
         <div
           id="hero-status"
+          className="col-span-full w-full"
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            width: "100%",
             gap: ".75rem",
             borderTop: "1px solid rgba(255,255,255,.2)",
             padding: "1.25rem 0 0",

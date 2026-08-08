@@ -113,9 +113,18 @@ img {
   padding-inline: 1.25rem;
 }
 
+.shell-full {
+  width: 100%;
+  max-width: 100%;
+  padding-inline: 1.25rem;
+}
+
 @media (min-width: 640px) {
   .shell {
     padding-inline: 2rem;
+  }
+  .shell-full {
+    padding-inline: 3.25rem;
   }
 }
 

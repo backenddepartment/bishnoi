@@ -69,7 +69,7 @@ export default function Portfolio({ introReady }: PortfolioProps) {
           </h2>
         </div>
 
-        <ul style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem" }}>
+        <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem" }}>
           {businesses.map((biz, i) => (
             <li
               key={biz.title}

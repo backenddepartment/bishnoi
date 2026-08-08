@@ -49,7 +49,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
         alignItems: "center",
         justifyContent: "space-between",
         gap: "1.5rem",
-        padding: "1.25rem",
+        padding: "3.25rem",
         opacity: introReady ? 1 : 0,
         transform: introReady ? "translateY(0)" : "translateY(-14px)",
         transition: "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1)",

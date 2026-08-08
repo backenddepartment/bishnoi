@@ -145,7 +145,27 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
         </div>
       </div>
 
-      <div style={{ position: "absolute", insetInline: 0, bottom: "-1.5rem", zIndex: 0, textAlign: "center", pointerEvents: "none", userSelect: "none", fontWeight: 700, lineHeight: 1, fontSize: "var(--text-watermark)", color: "#ffffff", mixBlendMode: "difference", opacity: 0.1 }}>
+      <div
+        style={{
+          position: "absolute",
+          insetInline: 0,
+          bottom: "-1.5rem",
+          zIndex: 0,
+          textAlign: "center",
+          pointerEvents: "none",
+          userSelect: "none",
+          fontWeight: 700,
+          lineHeight: 1,
+          fontSize: "var(--text-watermark)",
+          background: "linear-gradient(to top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.05) 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 100%)",
+          maskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 100%)",
+          mixBlendMode: "difference",
+          opacity: 0.15,
+        }}
+      >
         BISHNOI
       </div>
     </footer>
