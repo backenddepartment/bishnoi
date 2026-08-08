@@ -9,7 +9,7 @@ const onest = Onest({
 });
 
 export const metadata: Metadata = {
-  title: "Bishnoi Omniverse LLP — Rooted in five hundred years. Building for what comes next.",
+  title: "Bishnoi — Rooted in five hundred years. Building for what comes next.",
 };
 
 export default function RootLayout({

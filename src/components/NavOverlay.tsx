@@ -55,7 +55,7 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     >
       <div className="shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem", flexShrink: 0 }}>
         <span style={{ fontSize: "1.125rem", fontWeight: 600, display: "flex", alignItems: "center", gap: ".5rem" }}>
-          <span style={{ color: "#cf8047", fontSize: "1.25rem" }}>★</span> Bishnoi Omniverse
+          <span style={{ color: "#cf8047", fontSize: "1.25rem" }}>★</span> Bishnoi
         </span>
         <button
           onClick={onClose}

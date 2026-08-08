@@ -18,7 +18,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
 
   const carouselItems = [
     { caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
-    { caption: "Bishnoi Omniverse", title: "Sustainable agritech & enterprise." },
+    { caption: "Bishnoi Group", title: "Sustainable agritech & enterprise." },
     { caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
     { caption: "Heritage Foundation", title: "29 Principles & conservation impact." },
   ];
@@ -345,7 +345,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               textShadow: "0 2px 6px rgba(0,0,0,0.8)",
             }}
           >
-            <span className="dot" style={{ background: "#cf8047" }}></span> Bishnoi Omniverse LLP
+            <span className="dot" style={{ background: "#cf8047" }}></span> Bishnoi
           </div>
 
           <h1
@@ -474,40 +474,49 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             id="hero-partners"
             style={{
               width: "100%",
-              maxWidth: "24rem",
+              maxWidth: "28rem",
               opacity: introReady ? 1 : 0,
               transform: introReady ? "translateY(0)" : "translateY(14px)",
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
-            <div style={{ marginBottom: ".5rem", fontSize: ".75rem", fontWeight: 600, color: "rgba(255,255,255,0.75)", textShadow: "0 2px 4px rgba(0,0,0,0.8)" }} className="text-left lg:text-right">
-              Core Divisions
-            </div>
-            <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", columnGap: ".75rem", rowGap: ".5rem" }}>
-              {["Getmeds Phils", "India", "Vanuatu", "Latam", "SEA", "Omniverse India", "Omniverse Phils"].map((division, idx) => (
-                <li key={division}>
-                  <button
-                    onClick={() => handleSelectDivision(idx % 4)}
-                    className="hover-spring"
+           
+            <ul style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", justifyContent: "flex-start" }} className="lg:justify-end">
+              {[
+                { name: "Getmeds Phils", domain: "getmeds.ph" },
+                { name: "Getmeds India", domain: "getmedshealthcare.com" },
+                { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com" },
+                { name: "Getmeds Latam", domain: "getmedslatom.com" },
+                { name: "Getmeds SEA", domain: "getmedssea.com" },
+                { name: "Bishnoi India", domain: "bishnoi-omniverse.in" },
+                { name: "Bishnoi Phils", domain: "bishnoi-omniverse.ph" },
+                { name: "N. Bishnoi Foundation", domain: "nbf.com" },
+                { name: "N. K. Bishnoi Office", domain: "nkb.com" },
+              ].map((entity) => (
+                <li key={entity.domain}>
+                  <a
+                    href={`https://${entity.domain}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover-spring-sm"
                     style={{
-                      display: "flex",
+                      display: "inline-flex",
                       alignItems: "center",
                       gap: ".375rem",
                       fontSize: ".75rem",
-                      color: "rgba(255,255,255,0.9)",
+                      color: "rgba(255,255,255,0.92)",
                       fontWeight: 500,
-                      background: "rgba(0,0,0,0.45)",
-                      backdropFilter: "blur(8px)",
-                      border: "1px solid rgba(255,255,255,0.15)",
+                      background: "rgba(0,0,0,0.55)",
+                      backdropFilter: "blur(12px)",
+                      border: "1px solid rgba(255,255,255,0.2)",
                       borderRadius: "9999px",
-                      padding: ".25rem .75rem",
-                      width: "100%",
-                      cursor: "pointer",
+                      padding: ".375rem .875rem",
+                      whiteSpace: "nowrap",
                     }}
                   >
-                    <span style={{ fontSize: ".625rem", color: "#cf8047" }}>☉</span>
-                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{division}</span>
-                  </button>
+                    <span>{entity.name}</span>
+                    <span style={{ fontSize: ".65rem", color: "#cf8047" }}>↗</span>
+                  </a>
                 </li>
               ))}
             </ul>

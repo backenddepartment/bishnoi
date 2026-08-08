@@ -32,7 +32,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
   return (
     <footer ref={footerRef} style={{ position: "relative", overflow: "hidden", borderRadius: "2rem 2rem 0 0", background: "#0a0a0a", color: "#fff" }}>
       <div className="shell" style={{ position: "relative", zIndex: 10, padding: "5rem 1.25rem 2.5rem" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem", borderBottom: "1px solid rgba(255,255,255,.1)", paddingBottom: "4rem" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "2rem", borderBottom: "1px solid rgba(255,255,255,.1)", paddingBottom: "4rem" }}>
           <h2 style={{ maxWidth: "20ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
               <span className="line-inner">Rooted in five hundred years.</span>
@@ -51,7 +51,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "3rem", paddingBlock: "4rem" }}>
           <div>
             <span style={{ fontSize: "1.125rem", fontWeight: 600, display: "flex", alignItems: "center", gap: ".5rem" }}>
-              <span style={{ color: "#cf8047", fontSize: "1.25rem" }}>★</span> Bishnoi Omniverse LLP
+              <span style={{ color: "#cf8047", fontSize: "1.25rem" }}>★</span> Bishnoi
             </span>
             <p style={{ maxWidth: "20rem", fontSize: ".875rem", color: "rgba(255,255,255,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
               A diversified group spanning pharmaceuticals, hydroponics, dairy and social impact — guided by a conservation philosophy older than most nations.
@@ -85,55 +85,35 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.4)" }}>Divisions</div>
+            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.4)" }}>Getmeds Ecosystem</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
-              <li>
-                <a className="animated-link legal" href="#works">
-                  <span>Pharmaceuticals</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#works">
-                  <span>Hydroponics</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#works">
-                  <span>Dairy</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#works">
-                  <span>Social Impact</span>
-                </a>
-              </li>
+              <li><a className="animated-link legal" href="https://getmeds.ph" target="_blank" rel="noreferrer"><span>getmeds.ph (Philippines)</span></a></li>
+              <li><a className="animated-link legal" href="https://getmedshealthcare.com" target="_blank" rel="noreferrer"><span>getmedshealthcare.com (India)</span></a></li>
+              <li><a className="animated-link legal" href="https://getmedsvanuatu.com" target="_blank" rel="noreferrer"><span>getmedsvanuatu.com (Vanuatu)</span></a></li>
+              <li><a className="animated-link legal" href="https://getmedslatom.com" target="_blank" rel="noreferrer"><span>getmedslatom.com (Latam)</span></a></li>
+              <li><a className="animated-link legal" href="https://getmedssea.com" target="_blank" rel="noreferrer"><span>getmedssea.com (SEA)</span></a></li>
             </ul>
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.4)" }}>Heritage</div>
+            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.4)" }}>Corporate Hubs</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
-              <li>
-                <a className="animated-link legal" href="#about">
-                  <span>Khejarli Movement</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#about">
-                  <span>Environmental Ethics</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#about">
-                  <span>Conservation Legacy</span>
-                </a>
-              </li>
+              <li><a className="animated-link legal" href="https://bishnoi-omniverse.in" target="_blank" rel="noreferrer"><span>bishnoi-omniverse.in (India)</span></a></li>
+              <li><a className="animated-link legal" href="https://bishnoi-omniverse.ph" target="_blank" rel="noreferrer"><span>bishnoi-omniverse.ph (Philippines)</span></a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.4)" }}>Foundation & Office</div>
+            <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+              <li><a className="animated-link legal" href="https://nbf.com" target="_blank" rel="noreferrer"><span>nbf.com (N. Bishnoi Foundation)</span></a></li>
+              <li><a className="animated-link legal" href="https://nkb.com" target="_blank" rel="noreferrer"><span>nkb.com (N. K. Bishnoi Office)</span></a></li>
             </ul>
           </div>
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem", borderTop: "1px solid rgba(255,255,255,.1)", paddingTop: "2rem", fontSize: ".75rem", color: "rgba(255,255,255,.45)" }}>
-          <span>© {new Date().getFullYear()} Bishnoi Omniverse LLP. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Bishnoi. All rights reserved.</span>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             <a className="animated-link legal" href="#">
               <span>Privacy Policy</span>

@@ -46,7 +46,7 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
       className={`modal-backdrop ${isOpen ? "open" : ""}`}
       role="dialog"
       aria-modal="true"
-      aria-label="Connect with Bishnoi Omniverse"
+      aria-label="Connect with Bishnoi"
       onClick={handleClose}
     >
       <div className="modal-panel" onClick={(e) => e.stopPropagation()} style={{ position: "relative" }}>
@@ -75,7 +75,7 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
               <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem", fontSize: ".875rem", fontWeight: 500, color: "rgba(17,17,17,.6)" }}>
                 <span style={{ width: ".375rem", height: ".375rem", borderRadius: "9999px", background: "#b15f2c" }}></span>Connect with us
               </div>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em" }}>Bishnoi Omniverse LLP</h2>
+              <h2 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em" }}>Bishnoi</h2>
             </div>
 
             <form id="request-form" style={{ display: "flex", flexDirection: "column", gap: "1rem" }} onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
           <div id="modal-success" style={{ display: "flex", paddingBlock: "2rem", gap: "1rem", textAlign: "center", flexDirection: "column", alignItems: "center" }}>
             <span style={{ width: "3.5rem", height: "3.5rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#0a0a0a", color: "#cf8047", fontSize: "1.5rem" }}>★</span>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Message received</h2>
-            <p style={{ maxWidth: "32ch", fontSize: ".875rem", color: "rgba(17,17,17,.6)" }}>Thank you for reaching out to Bishnoi Omniverse LLP — we will get back to you within one business day.</p>
+            <p style={{ maxWidth: "32ch", fontSize: ".875rem", color: "rgba(17,17,17,.6)" }}>Thank you for reaching out to Bishnoi — we will get back to you within one business day.</p>
             <button className="pill-btn" onClick={handleClose}>
               <span className="pill-inner pill-dark pill-no-arrow">Close</span>
             </button>

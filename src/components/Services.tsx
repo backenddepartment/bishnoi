@@ -29,17 +29,22 @@ export default function Services({ introReady }: ServicesProps) {
   }, []);
 
   const servicesList = [
-    { num: "01", title: "Getmeds Healthcare Network", desc: "Phils, India, Vanuatu, Latam & SEA pharmaceutical ecosystem." },
-    { num: "02", title: "Bishnoi Omniverse Corporate", desc: "Bishnoi Omniverse India & Bishnoi Omniverse Philippines hubs." },
-    { num: "03", title: "Financial & Capital Division", desc: "NBF (Non-Banking Financial) & NKB Group (VMAC) capital services." },
-    { num: "04", title: "History of Bishnois & Conservation", desc: "Guru Jambheshwar Bhagwan, 29 Principles & Amrita Devi Sacrifice." },
+    { num: "01", title: "Getmeds Philippines", desc: "getmeds.ph — Digital pharmacy & healthcare logistics in PH." },
+    { num: "02", title: "Getmeds India", desc: "getmedshealthcare.com — Pharmaceutical supply & wellness network." },
+    { num: "03", title: "Getmeds Vanuatu", desc: "getmedsvanuatu.com — South Pacific medical distribution hub." },
+    { num: "04", title: "Getmeds Latam", desc: "getmedslatom.com — Latin American healthcare trade operations." },
+    { num: "05", title: "Getmeds SEA", desc: "getmedssea.com — Southeast Asian regional health infrastructure." },
+    { num: "06", title: "Bishnoi India", desc: "bishnoi-omniverse.in — Industrial agritech & sustainable trade India." },
+    { num: "07", title: "Bishnoi Philippines", desc: "bishnoi-omniverse.ph — Enterprise agritech & commercial hub Phils." },
+    { num: "08", title: "Naresh Bishnoi Foundation", desc: "nbf.com — Wildlife preservation, afforestation & 29 Principles ethics." },
+    { num: "09", title: "Naresh Kumar Bishnoi", desc: "nkb.com — Strategic investments, venture capital & family office." },
   ];
 
   return (
     <section id="services" ref={sectionRef} style={{ background: "#fff" }}>
       <div className="shell" style={{ padding: "5rem 1.25rem" }}>
         <div className="eyebrow eyebrow-dark">
-          <span className="dot"></span>www.Bishnoi.AI Operating Tree
+          <span className="dot"></span> Bishnoi Centralized Conglomerate Operating Matrix
         </div>
         <h2 style={{ margin: "1.25rem 0 3rem", maxWidth: "18ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
           <span className={`reveal-line ${isVisible ? "visible" : ""}`}>

@@ -62,7 +62,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
         onClick={() => onScrollTo("home")}
         style={{ display: "flex", alignItems: "center", gap: ".5rem", fontSize: "1.125rem", fontWeight: 600, letterSpacing: "-.01em", color: "#ffffff" }}
       >
-        <span style={{ color: "#ffffff", fontSize: "1.25rem", display: "inline-flex", lineHeight: 1 }}>★</span> Bishnoi Omniverse
+        <span style={{ color: "#ffffff", fontSize: "1.25rem", display: "inline-flex", lineHeight: 1 }}>★</span> Bishnoi
       </button>
 
       <nav className="hidden lg:flex">
