@@ -1,14 +1,43 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type Lenis from "lenis";
+
+import { chapters, COL_FR, LEGACY_EASE as EASE, MOBILE_ROWS, placement, ROW_FR } from "./legacyData";
+import LegacyCard from "./LegacyCard";
+import LegacyOverlay from "./LegacyOverlay";
 
 interface ServicesProps {
   introReady: boolean;
+  lenis?: Lenis | null;
 }
 
-export default function Services({ introReady }: ServicesProps) {
+interface Origin {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  vw: number;
+  vh: number;
+}
+
+/* Engulfing. Hovering a card swells the grid TRACKS it occupies and squeezes the
+   rest; because the tracks are fr units of one box, the tiling stays gapless
+   throughout the transition. grid-template-columns/rows animate, so the whole
+   composition flows rather than snapping. */
+const TRACK_LIVE = 1.9;
+const TRACK_QUIET = 0.86;
+
+export default function Services({ lenis }: ServicesProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [active, setActive] = useState<{ index: number; origin: Origin } | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [compact, setCompact] = useState(false);
+  const [canHover, setCanHover] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const closingRef = useRef<number | undefined>(undefined);
+  const lastTrigger = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -21,76 +50,157 @@ export default function Services({ introReady }: ServicesProps) {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const servicesList = [
-    { num: "01", title: "Getmeds Philippines", desc: "getmeds.ph — Digital pharmacy & healthcare logistics in PH." },
-    { num: "02", title: "Getmeds India", desc: "getmedshealthcare.com — Pharmaceutical supply & wellness network." },
-    { num: "03", title: "Getmeds Vanuatu", desc: "getmedsvanuatu.com — South Pacific medical distribution hub." },
-    { num: "04", title: "Getmeds Latam", desc: "getmedslatom.com — Latin American healthcare trade operations." },
-    { num: "05", title: "Getmeds SEA", desc: "getmedssea.com — Southeast Asian regional health infrastructure." },
-    { num: "06", title: "Bishnoi India", desc: "bishnoi-omniverse.in — Industrial agritech & sustainable trade India." },
-    { num: "07", title: "Bishnoi Philippines", desc: "bishnoi-omniverse.ph — Enterprise agritech & commercial hub Phils." },
-    { num: "08", title: "Naresh Bishnoi Foundation", desc: "nbf.com — Wildlife preservation, afforestation & 29 Principles ethics." },
-    { num: "09", title: "Naresh Kumar Bishnoi", desc: "nkb.com — Strategic investments, venture capital & family office." },
-  ];
+  useEffect(() => {
+    const narrow = window.matchMedia("(max-width: 1023px)");
+    const hover = window.matchMedia("(hover: hover)");
+    const sync = () => {
+      setCompact(narrow.matches);
+      setCanHover(hover.matches);
+    };
+    sync();
+    narrow.addEventListener("change", sync);
+    hover.addEventListener("change", sync);
+    return () => {
+      narrow.removeEventListener("change", sync);
+      hover.removeEventListener("change", sync);
+    };
+  }, []);
+
+  // The page must not scroll behind an expanded chapter.
+  useEffect(() => {
+    if (!lenis) return;
+    if (active) lenis.stop();
+    else lenis.start();
+  }, [active, lenis]);
+
+  useEffect(() => () => window.clearTimeout(closingRef.current), []);
+
+  const open = useCallback((index: number, el: HTMLElement) => {
+    const rect = el.getBoundingClientRect();
+    lastTrigger.current = el;
+    window.clearTimeout(closingRef.current);
+    setActive({
+      index,
+      origin: {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
+        vw: window.innerWidth,
+        vh: window.innerHeight,
+      },
+    });
+    // one frame at the collapsed size, then grow
+    requestAnimationFrame(() => setExpanded(true));
+  }, []);
+
+  const close = useCallback(() => {
+    setExpanded(false);
+    closingRef.current = window.setTimeout(() => {
+      setActive(null);
+      lastTrigger.current?.focus();
+    }, 620);
+  }, []);
+
+  const live = canHover && hovered !== null ? hovered : null;
+  const liveSlot = live === null ? null : placement.find((slot) => slot.item === live) ?? null;
+  const liveCol = liveSlot ? liveSlot.col : null;
+  const liveRows = liveSlot ? liveSlot.rows : null;
 
   return (
-    <section id="services" ref={sectionRef} style={{ background: "#F7F3E8" }}>
-      <div className="shell" style={{ padding: "5rem 1.25rem" }}>
+    <section
+      id="services"
+      ref={sectionRef}
+      style={{
+        background: "#F7F3E8",
+        // one screen: the canvas below takes whatever the heading leaves
+        minHeight: compact ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* shell-full: the canvas spans the container's whole width, not the
+          narrower centred measure the text sections use */}
+      <div
+        className="shell-full"
+        style={{ paddingBlock: compact ? "4rem" : "3rem", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
+      >
         <div className="eyebrow eyebrow-dark">
-          <span className="dot"></span> Bishnoi Centralized Conglomerate Operating Matrix
+          <span className="dot"></span> Five Hundred Years of Stewardship
         </div>
-        <h2 style={{ margin: "1.25rem 0 3rem", maxWidth: "18ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
+        <h2 style={{ margin: "1rem 0 1.75rem", maxWidth: "18ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em", flexShrink: 0 }}>
           <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-            <span className="line-inner">Core Business Divisions</span>
+            <span className="line-inner">Bishnoi Legacy</span>
           </span>
         </h2>
-        <ul>
-          {servicesList.map((service, i) => (
-            <li
-              key={service.num}
-              className="service-row"
-              style={{
-                borderTop: "1px solid #E6DECB",
-                transform: isVisible ? "translateY(0)" : "translateY(32px)",
-                opacity: isVisible ? 1 : 0,
-                transition: "transform 0.7s cubic-bezier(.16,1,.3,1), opacity 0.7s cubic-bezier(.16,1,.3,1)",
-                transitionDelay: `${200 + i * 100}ms`,
-              }}
-            >
-              <a
-                href="#works"
-                className="hover-service-fill"
+
+        {/* One gapless box, subdivided by unequal grid tracks. Cards span
+            different numbers of tracks, so the composition mixes wide-and-short
+            with tall-and-thin while flowing edge to edge. */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: compact
+              ? "1.35fr 1fr"
+              : COL_FR.map((fr, i) => `${fr * (liveCol === null ? 1 : i === liveCol ? TRACK_LIVE : TRACK_QUIET)}fr`).join(" "),
+            gridTemplateRows: compact
+              ? MOBILE_ROWS
+              : ROW_FR.map((fr, i) => `${fr * (liveRows === null ? 1 : liveRows.includes(i) ? TRACK_LIVE : TRACK_QUIET)}fr`).join(" "),
+            flex: compact ? "none" : 1,
+            minHeight: 0,
+            // no gutters: the wall is one solid subdivided panel, so the
+            // rounding lives on the container instead of on each card
+            gap: 0,
+            borderRadius: "1rem",
+            overflow: "hidden",
+            opacity: isVisible ? 1 : 0,
+            transitionProperty: "grid-template-columns, grid-template-rows, opacity",
+            transitionDuration: ".7s, .7s, .8s",
+            transitionTimingFunction: EASE,
+          }}
+        >
+          {placement.map((slot) => {
+            const chapter = chapters[slot.item];
+            const isHot = live === slot.item;
+
+            return (
+              <div
+                key={chapter.title}
                 style={{
+                  gridArea: compact ? slot.mobileArea : slot.area,
                   display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  borderRadius: "1.25rem",
-                  paddingBlock: "1.5rem",
-                  paddingLeft: "1.5rem",
-                  paddingRight: "1.5rem",
-                  background: "rgba(247,243,232,0)",
+                  minWidth: 0,
+                  minHeight: 0,
                 }}
               >
-                <span style={{ width: "1.75rem", fontSize: ".875rem", fontWeight: 500, color: "rgba(74,68,60,.4)" }}>{service.num}</span>
-                <h3 style={{ flex: 1, fontSize: "1.375rem", fontWeight: 500, letterSpacing: "-.01em" }}>{service.title}</h3>
-                <p style={{ maxWidth: "22rem", fontSize: ".875rem", color: "rgba(74,68,60,.55)" }} className="hidden lg:block">
-                  {service.desc}
-                </p>
-                <span className="hover-arrow-translate" style={{ width: "2.5rem", height: "2.5rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206" }}>
-                  ↗
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+                <LegacyCard
+                  chapter={chapter}
+                  index={slot.item}
+                  grow={1}
+                  vertical={!compact && slot.vertical}
+                  isHot={isHot}
+                  quiet={live !== null && !isHot}
+                  hidden={active?.index === slot.item}
+                  compact={compact}
+                  onOpen={open}
+                  onEnter={canHover ? () => setHovered(slot.item) : undefined}
+                  onLeave={canHover ? () => setHovered(null) : undefined}
+                  revealDelay={isVisible ? "0ms" : `${140 + slot.item * 60}ms`}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
+
+      {active && <LegacyOverlay chapter={chapters[active.index]} origin={active.origin} expanded={expanded} onClose={close} />}
     </section>
   );
 }

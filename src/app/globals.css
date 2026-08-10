@@ -299,6 +299,30 @@ img {
   opacity: 1;
 }
 
+/* Scrolls, but without a visible scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Staggered entry for the principles revealed inside an opened panel. */
+@keyframes principle-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Slow vertical drift for the floating project tiles in the works section.
    Applied to a wrapper so it never collides with the scroll-driven transform
    on the parent. Killed by the reduced-motion rule above. */

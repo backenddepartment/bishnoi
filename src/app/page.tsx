@@ -9,6 +9,7 @@ import NavOverlay from "@/components/NavOverlay";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Bands from "@/components/Bands";
+import Principles from "@/components/Principles";
 import Portfolio from "@/components/Portfolio";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
@@ -110,8 +111,9 @@ export default function Home() {
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Bands introReady={introReady} />
+        <Principles introReady={introReady} />
         <Portfolio introReady={introReady} lenis={lenisRef} />
-        <Services introReady={introReady} />
+        <Services introReady={introReady} lenis={lenisRef} />
         <Stats introReady={introReady} />
       </main>
 
