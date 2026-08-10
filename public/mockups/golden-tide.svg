@@ -1,0 +1,27 @@
+<svg width="460" height="610" viewBox="0 0 460 610" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-golden-tide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1815"/>
+      <stop offset="100%" stop-color="#0E0C0A"/>
+    </linearGradient>
+    <radialGradient id="a-golden-tide" cx="35%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#C8A45D" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#C8A45D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b-golden-tide" cx="68%" cy="72%" r="55%">
+      <stop offset="0%" stop-color="#F7F3E8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#F7F3E8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="fluid-golden-tide" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.024" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+  <rect width="460" height="610" fill="url(#bg-golden-tide)"/>
+  <g filter="url(#fluid-golden-tide)">
+    <ellipse cx="161" cy="195.20000000000002" rx="193.2" ry="183" fill="url(#a-golden-tide)"/>
+    <ellipse cx="303.6" cy="427" rx="184" ry="170.8" fill="url(#b-golden-tide)"/>
+  </g>
+  <rect width="460" height="610" fill="transparent" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+</svg>
