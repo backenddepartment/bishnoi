@@ -1,162 +1,207 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type Lenis from "lenis";
+
+import { businesses, DWELL_VH, PANEL } from "./portfolioData";
+import { EntityChips, SectionHeading } from "./PortfolioParts";
+import PortfolioStage from "./PortfolioStage";
 
 interface PortfolioProps {
   introReady: boolean;
+  lenis?: Lenis | null;
 }
 
-export default function Portfolio({ introReady }: PortfolioProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+/* Share of each division's scroll segment spent fully settled, before the
+   transition to the next begins. */
+const HOLD = 0.58;
 
-  useEffect(() => {
-    const el = sectionRef.current;
+export default function Portfolio({ lenis }: PortfolioProps) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const metrics = useRef({ top: 0, height: 0, vh: 0 });
+  const rafId = useRef<number | null>(null);
+  const lastProgress = useRef(0);
+
+  const [progress, setProgress] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [canHover, setCanHover] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const [compact, setCompact] = useState(false);
+
+  const count = businesses.length;
+  const span = Math.max(count - 1, 1);
+
+  /* Each division owns a segment of the track, and most of that segment is a
+     HOLD — the division sits fully settled, sharp and readable. Only the tail
+     of the segment is spent moving to the next one. Mapping scroll linearly
+     instead leaves the whole composition permanently mid-transition. */
+  const raw = progress * span;
+  const segment = Math.min(Math.floor(raw), span - 1);
+  const withinSegment = raw - segment;
+  const t = withinSegment <= HOLD ? 0 : (withinSegment - HOLD) / (1 - HOLD);
+  const eased = t * t * (3 - 2 * t); // smoothstep, so departures and arrivals ease
+  const activeFloat = Math.min(segment + eased, span);
+
+  const activeIndex = Math.min(count - 1, Math.max(0, Math.round(activeFloat)));
+  // Content fades out through the middle of a transition and back in on arrival,
+  // so no one is ever asked to read moving copy.
+  const settle = 1 - Math.min(1, Math.abs(activeFloat - activeIndex) * 2.4);
+
+  const measure = useCallback(() => {
+    const el = trackRef.current;
     if (!el) return;
+    const rect = el.getBoundingClientRect();
+    metrics.current = {
+      top: rect.top + window.scrollY,
+      height: rect.height,
+      vh: window.innerHeight,
+    };
+  }, []);
+
+  // Environment probes: hover capability, motion preference, compact layout
+  useEffect(() => {
+    const hover = window.matchMedia("(hover: hover)");
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const narrow = window.matchMedia("(max-width: 1023px)");
+
+    const sync = () => {
+      setCanHover(hover.matches);
+      setReduced(motion.matches);
+      setCompact(narrow.matches);
+    };
+    sync();
+
+    hover.addEventListener("change", sync);
+    motion.addEventListener("change", sync);
+    narrow.addEventListener("change", sync);
+    return () => {
+      hover.removeEventListener("change", sync);
+      motion.removeEventListener("change", sync);
+      narrow.removeEventListener("change", sync);
+    };
+  }, []);
+
+  // Scroll progress. Metrics are cached and only re-read on resize; the rAF
+  // loop runs solely while the track is in view.
+  useEffect(() => {
+    if (reduced) return;
+    const el = trackRef.current;
+    if (!el) return;
+
+    measure();
+
+    const tick = () => {
+      const { top, height, vh } = metrics.current;
+      const travel = height - vh;
+      const p = travel > 0 ? (window.scrollY - top) / travel : 0;
+      const clamped = p < 0 ? 0 : p > 1 ? 1 : p;
+      if (Math.abs(clamped - lastProgress.current) > 0.0004) {
+        lastProgress.current = clamped;
+        setProgress(clamped);
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
+        if (entry.isIntersecting && rafId.current === null) {
+          rafId.current = requestAnimationFrame(tick);
+        } else if (!entry.isIntersecting && rafId.current !== null) {
+          cancelAnimationFrame(rafId.current);
+          rafId.current = null;
         }
       },
-      { threshold: 0.1 }
+      { rootMargin: "20% 0px" }
     );
-
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
-  const businesses = [
-    {
-      category: "Division 01 • Healthcare & E-Pharmacy Ecosystem",
-      title: "Getmeds Healthcare Network",
-      description: "Centralized global healthcare platform and pharmaceutical distribution across 5 international hubs.",
-      entities: [
-        { name: "Getmeds Philippines", domain: "getmeds.ph", url: "https://getmeds.ph" },
-        { name: "Getmeds India", domain: "getmedshealthcare.com", url: "https://getmedshealthcare.com" },
-        { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com", url: "https://getmedsvanuatu.com" },
-        { name: "Getmeds Latam", domain: "getmedslatom.com", url: "https://getmedslatom.com" },
-        { name: "Getmeds SEA", domain: "getmedssea.com", url: "https://getmedssea.com" },
-      ],
+    let resizeId: number | undefined;
+    const onResize = () => {
+      window.clearTimeout(resizeId);
+      resizeId = window.setTimeout(measure, 120);
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", onResize);
+      window.clearTimeout(resizeId);
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    };
+  }, [measure, reduced]);
+
+  // Selecting from the gallery moves the scroll position too, so the next wheel
+  // tick continues from the chosen division instead of snapping back.
+  const goTo = useCallback(
+    (i: number) => {
+      const { top, height, vh } = metrics.current;
+      const travel = height - vh;
+      if (travel <= 0) return;
+      // Land in the middle of that division's hold, not on the segment edge,
+      // so a click arrives at a settled state rather than a transition.
+      const rawTarget = i >= span ? span : i + HOLD / 2;
+      const target = top + (rawTarget / span) * travel;
+      if (lenis) lenis.scrollTo(target, { duration: 0.9 });
+      else window.scrollTo({ top: target, behavior: "smooth" });
     },
-    {
-      category: "Division 02 • Global Enterprise & Industrial Hubs",
-      title: "Bishnoi Corporate Hubs",
-      description: "Regional agritech, sustainable manufacturing, and industrial trade centers governing Asia-Pacific operations.",
-      entities: [
-        { name: "Bishnoi India", domain: "bishnoi-omniverse.in", url: "https://bishnoi-omniverse.in" },
-        { name: "Bishnoi Philippines", domain: "bishnoi-omniverse.ph", url: "https://bishnoi-omniverse.ph" },
-      ],
-    },
-    {
-      category: "Division 03 • Philanthropy & Environmental Ethics",
-      title: "Naresh Bishnoi Foundation",
-      description: "Dedicated to wildlife preservation, afforestation, 29 Principles stewardship, and desert eco-restoration.",
-      entities: [
-        { name: "Naresh Bishnoi Foundation", domain: "nbf.com", url: "https://nbf.com" },
-      ],
-    },
-    {
-      category: "Division 04 • Strategic Holdings & Family Office",
-      title: "Naresh Kumar Bishnoi Office",
-      description: "Strategic investment management, non-banking financial services, and global venture holdings.",
-      entities: [
-        { name: "Naresh Kumar Bishnoi", domain: "nkb.com", url: "https://nkb.com" },
-      ],
-    },
-  ];
+    [lenis, span]
+  );
+
+  /* ---------- reduced motion: the whole collection, static and readable ---------- */
+  if (reduced) {
+    return (
+      <section id="works" style={{ background: "#fff" }}>
+        <div className="shell" style={{ padding: "2.5rem 1.25rem 5rem" }}>
+          <SectionHeading />
+          <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem", marginTop: "3.5rem" }}>
+            {businesses.map((biz) => (
+              <li key={biz.title}>
+                <article
+                  style={{
+                    minHeight: "22rem",
+                    borderRadius: "2rem",
+                    background: PANEL,
+                    padding: "1.75rem",
+                    color: "#fff",
+                    boxShadow: "0 0 0 1px rgba(243,107,33,0.22)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.45)" }}>
+                      {biz.category}
+                    </div>
+                    <h3 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em", marginTop: "1rem" }}>{biz.title}</h3>
+                    <p style={{ marginTop: ".5rem", fontSize: ".875rem", color: "rgba(247,243,232,.65)", lineHeight: 1.5 }}>{biz.description}</p>
+                  </div>
+                  <EntityChips entities={biz.entities} />
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section id="works" ref={sectionRef} style={{ background: "#fff" }}>
-      <div className="shell" style={{ padding: "2.5rem 1.25rem 5rem" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", alignItems: "center", marginBottom: "3.5rem" }}>
-          <div className="eyebrow">
-            <span className="dot"></span> Centralized Conglomerate Holdings
-          </div>
-          <h2 style={{ fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em", textAlign: "center", width: "fit-content" }}>
-            <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-              <span className="line-inner">Our Operating Companies & Domains</span>
-            </span>
-          </h2>
-        </div>
-
-        <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem" }}>
-          {businesses.map((biz, i) => (
-            <li
-              key={biz.title}
-              className="portfolio-item"
-              style={{
-                transform: isVisible ? "translateY(0)" : "translateY(56px)",
-                opacity: isVisible ? 1 : 0,
-                transition: "transform 0.7s cubic-bezier(.16,1,.3,1), opacity 0.7s cubic-bezier(.16,1,.3,1)",
-                transitionDelay: `${150 + i * 110}ms`,
-              }}
-            >
-              <article
-                className="hover-translate-8 hover-scale-1012"
-                style={{
-                  position: "relative",
-                  minHeight: "24rem",
-                  overflow: "hidden",
-                  borderRadius: "2rem",
-                  background: "#0a0a0a",
-                  padding: "1.75rem",
-                  color: "#fff",
-                  boxShadow: "0 0 0 1px rgba(255,255,255,.05)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(255,255,255,.45)" }}>
-                    <span>{biz.category}</span>
-                    <span className="hover-arrow" style={{ width: "2.75rem", height: "2.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "rgba(255,255,255,.1)", color: "#fff", boxShadow: "0 0 0 1px rgba(255,255,255,.15)" }}>
-                      ↗
-                    </span>
-                  </div>
-                  <h3 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em", marginTop: "1rem" }}>{biz.title}</h3>
-                  <p style={{ marginTop: ".5rem", fontSize: ".875rem", color: "rgba(255,255,255,.65)", lineHeight: 1.5 }}>{biz.description}</p>
-                </div>
-
-                <div style={{ marginTop: "1.5rem" }}>
-                  <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(255,255,255,.4)", marginBottom: ".625rem" }}>
-                    Managed Companies & Central Domains ({biz.entities.length})
-                  </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem" }}>
-                    {biz.entities.map((entity) => (
-                      <a
-                        key={entity.domain}
-                        href={entity.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover-spring-sm"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: ".375rem",
-                          fontSize: ".75rem",
-                          fontWeight: 500,
-                          background: "rgba(255,255,255,0.08)",
-                          border: "1px solid rgba(255,255,255,0.15)",
-                          borderRadius: "9999px",
-                          padding: ".375rem .75rem",
-                          color: "#ffffff",
-                          backdropFilter: "blur(6px)",
-                        }}
-                      >
-                        <span>{entity.name}</span>
-                        <span style={{ fontSize: ".65rem", color: "#cf8047" }}>({entity.domain})</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
+    <section id="works" style={{ background: "#fff" }}>
+      <div ref={trackRef} style={{ position: "relative", height: `calc(100vh + ${count * DWELL_VH}vh)` }}>
+        <PortfolioStage
+          businesses={businesses}
+          activeFloat={activeFloat}
+          activeIndex={activeIndex}
+          settle={settle}
+          progress={progress}
+          compact={compact}
+          canHover={canHover}
+          hovered={hovered}
+          setHovered={setHovered}
+          goTo={goTo}
+        />
       </div>
     </section>
   );

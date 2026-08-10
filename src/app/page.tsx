@@ -110,7 +110,7 @@ export default function Home() {
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Bands introReady={introReady} />
-        <Portfolio introReady={introReady} />
+        <Portfolio introReady={introReady} lenis={lenisRef} />
         <Services introReady={introReady} />
         <Stats introReady={introReady} />
       </main>

@@ -55,21 +55,21 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     >
       <div className="shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem", flexShrink: 0 }}>
         <span style={{ fontSize: "1.125rem", fontWeight: 600, display: "flex", alignItems: "center", gap: ".5rem" }}>
-          <span style={{ color: "#cf8047", fontSize: "1.25rem" }}>★</span> Bishnoi
+          <span style={{ color: "#F36B21", fontSize: "1.25rem" }}>★</span> Bishnoi
         </span>
         <button
           onClick={onClose}
           style={{
             display: "inline-flex",
             gap: ".5rem",
-            border: "1px solid rgba(255,255,255,.15)",
+            border: "1px solid rgba(247,243,232,.15)",
             borderRadius: ".875rem",
             padding: ".5rem 1rem",
             fontSize: ".75rem",
             fontWeight: 500,
             textTransform: "uppercase",
             letterSpacing: ".05em",
-            color: "rgba(255,255,255,.7)",
+            color: "rgba(247,243,232,.7)",
             transition: "border .2s, color .2s",
           }}
         >
@@ -110,11 +110,11 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
                     fontWeight: 600,
                     letterSpacing: "-.02em",
                     width: "100%",
-                    color: "rgba(255,255,255,.7)",
+                    color: "rgba(247,243,232,.7)",
                     transition: "color .3s",
                   }}
                 >
-                  <span style={{ fontSize: "1rem", fontWeight: 400, color: "rgba(255,255,255,.3)" }}>{item.num}</span> {item.label}
+                  <span style={{ fontSize: "1rem", fontWeight: 400, color: "rgba(247,243,232,.3)" }}>{item.num}</span> {item.label}
                 </button>
               </li>
             );
@@ -128,12 +128,12 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
           display: "flex",
           flexDirection: "column",
           gap: ".75rem",
-          borderTop: "1px solid rgba(255,255,255,.1)",
+          borderTop: "1px solid rgba(247,243,232,.1)",
           padding: "1.5rem 1.25rem",
           fontSize: ".75rem",
           textTransform: "uppercase",
           letterSpacing: ".025em",
-          color: "rgba(255,255,255,.45)",
+          color: "rgba(247,243,232,.45)",
           flexShrink: 0,
         }}
       >
@@ -143,7 +143,7 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
             onClose();
             onOpenRequestModal();
           }}
-          style={{ color: "rgba(255,255,255,.7)", textAlign: "left", transition: "color .2s" }}
+          style={{ color: "rgba(247,243,232,.7)", textAlign: "left", transition: "color .2s" }}
         >
           Connect with us →
         </button>

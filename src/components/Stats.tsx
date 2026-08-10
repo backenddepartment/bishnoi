@@ -58,13 +58,13 @@ export default function Stats({ introReady }: StatsProps) {
   }, []);
 
   return (
-    <section style={{ background: "#fff" }}>
+    <section style={{ background: "linear-gradient(180deg,#ffffff 0%,#F7F3E8 100%)" }}>
       <div className="shell" style={{ padding: "0 1.25rem 5rem" }}>
         <div
           id="stats-panel"
           style={{
             borderRadius: "2rem",
-            background: "#0a0a0a",
+            background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)",
             padding: "3rem 1.5rem",
             color: "#fff",
             transform: isVisible ? "translateY(0) scale(1)" : "translateY(40px) scale(.99)",
@@ -102,9 +102,9 @@ export default function Stats({ introReady }: StatsProps) {
             >
               <div>
                 <span className="stat-number">0{counts[0]}</span>
-                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#cf8047" }}>Vision</span>
+                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#F36B21" }}>Vision</span>
               </div>
-              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(255,255,255,.7)", lineHeight: 1.5 }}>
+              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
                 To be a globally respected group that proves conservation and enterprise are not opposites — carrying a 500-year-old philosophy into new industries.
               </div>
             </li>
@@ -120,9 +120,9 @@ export default function Stats({ introReady }: StatsProps) {
             >
               <div>
                 <span className="stat-number">0{counts[1]}</span>
-                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#cf8047" }}>Mission</span>
+                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#F36B21" }}>Mission</span>
               </div>
-              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(255,255,255,.7)", lineHeight: 1.5 }}>
+              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
                 To build durable businesses in medicine, agriculture and dairy that operate with the same restraint and long-term care the Bishnoi community has shown the land for centuries.
               </div>
             </li>
@@ -138,9 +138,9 @@ export default function Stats({ introReady }: StatsProps) {
             >
               <div>
                 <span className="stat-number">0{counts[2]}</span>
-                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#cf8047" }}>Core Values</span>
+                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#F36B21" }}>Core Values</span>
               </div>
-              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(255,255,255,.7)", lineHeight: 1.5 }}>
+              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
                 Stewardship, compassion, integrity and patience — the four core principles inherited from Guru Jambheshwar’s 29 principles of Bishnoi tradition and applied to modern business.
               </div>
             </li>
@@ -156,10 +156,10 @@ export default function Stats({ introReady }: StatsProps) {
             >
               <div>
                 <span className="stat-number">{counts[3]}</span>
-                <span style={{ color: "#cf8047" }}>+</span>
-                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#cf8047" }}>Years</span>
+                <span style={{ color: "#F36B21" }}>+</span>
+                <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#F36B21" }}>Years</span>
               </div>
-              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(255,255,255,.7)", lineHeight: 1.5 }}>
+              <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
                 Five hundred years of stewardship, environmental protection, and principled enterprise.
               </div>
             </li>

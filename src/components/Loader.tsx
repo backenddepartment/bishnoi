@@ -54,27 +54,27 @@ export default function Loader({ onComplete }: LoaderProps) {
     >
       <div className="content">
         <div style={{ display: "flex", alignItems: "center", gap: ".5rem", fontWeight: 600, fontSize: "1.5rem" }}>
-          <span style={{ color: "#cf8047", fontSize: "1.875rem", display: "inline-flex", lineHeight: 1 }}>★</span>
+          <span style={{ color: "#F36B21", fontSize: "1.875rem", display: "inline-flex", lineHeight: 1 }}>★</span>
           <span>Bishnoi</span>
         </div>
-        <p style={{ maxWidth: "28ch", fontSize: ".875rem", color: "rgba(255,255,255,.55)", textAlign: "center" }}>
+        <p style={{ maxWidth: "28ch", fontSize: ".875rem", color: "rgba(247,243,232,.55)", textAlign: "center" }}>
           Rooted in five hundred years. Building for what comes next.
         </p>
         <div style={{ width: "min(22rem, 72vw)", display: "flex", flexDirection: "column", gap: ".75rem" }}>
-          <div style={{ height: "1px", background: "rgba(255,255,255,.15)", overflow: "hidden" }}>
+          <div style={{ height: "1px", background: "rgba(247,243,232,.15)", overflow: "hidden" }}>
             <div
               id="loader-fill"
               style={{
                 height: "100%",
-                background: "#cf8047",
+                background: "#F36B21",
                 width: `${progress}%`,
                 transition: "width .1s ease-out",
               }}
             ></div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: ".75rem", fontWeight: 500, textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(255,255,255,.45)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: ".75rem", fontWeight: 500, textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(247,243,232,.45)" }}>
             <span>Loading</span>
-            <span id="loader-counter" style={{ color: "rgba(255,255,255,.8)", fontVariantNumeric: "tabular-nums" }}>
+            <span id="loader-counter" style={{ color: "rgba(247,243,232,.8)", fontVariantNumeric: "tabular-nums" }}>
               {String(progress).padStart(3, "0")}
             </span>
           </div>

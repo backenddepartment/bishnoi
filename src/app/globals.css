@@ -1,19 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
-  --ink: #0a0a0a;
-  --muted: #8d8d8d;
-  --subtle: #b6b6b6;
-  --line: #e6e5e2;
-  --surface: #f1f0ee;
-  --surface-2: #e3e2df;
-  --accent: #b15f2c;
-  --accent-from: #cf8047;
-  --accent-to: #97501f;
-  --hero-from: #ecebe9;
-  --hero-to: #c9c9c9;
+  /* Brand — Bishnoi.AI master palette */
+  --brand-forest: #173F2A;
+  --brand-heritage: #356B3F;
+  --brand-orange: #F36B21;
+  --brand-gold: #C8A45D;
+  --brand-ivory: #F7F3E8;
+  --brand-white: #ffffff;
+
+  /* Warm neutral ink — softer than the brand forest, so long-form copy
+     reads at ease. Green is held back for accents, not used as the
+     page's base note. */
+  --ink: #4A443C;
+  --ink-soft: rgba(74, 68, 60, 0.75);
+  --ink-deep: #241F1A;
+  --muted: #8A8178;
+  --subtle: #BDB4A8;
+
+  --background: var(--brand-white);
+  --foreground: var(--ink);
+  --line: #E6DECB;
+  --surface: var(--brand-ivory);
+  --surface-2: #EFE7D6;
+  --accent: var(--brand-orange);
+  --accent-from: var(--brand-orange);
+  --accent-to: #C2521A;
+  --accent-deep: #C2521A;
+  --accent-strong: linear-gradient(140deg, #F36B21 0%, #D9551A 100%);
+  --accent-wash: rgba(243, 107, 33, 0.1);
+  --accent-wash-2: rgba(243, 107, 33, 0.16);
+  --accent-line: rgba(243, 107, 33, 0.32);
+  --on-accent: #2A1206;
+  --hero-from: var(--brand-ivory);
+  --hero-to: #D9CFB8;
   --radius-pill: 9999px;
   --radius-card: 2rem;
   --radius-card-sm: 1.25rem;
@@ -75,7 +95,7 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid #b15f2c;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -148,19 +168,42 @@ img {
 }
 
 .pill-dark {
-  background: #0a0a0a;
+  background: var(--ink-deep);
+  color: #fff;
+}
+
+/* Primary call to action — solid Signature Orange */
+.pill-accent {
+  background: var(--accent-strong);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.pill-accent .pill-badge {
+  background: var(--on-accent);
+  color: var(--brand-orange);
+}
+
+.pill-accent-outline {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-wash);
+  color: var(--accent-deep);
+}
+
+.pill-accent-outline .pill-badge {
+  background: var(--brand-orange);
   color: #fff;
 }
 
 .pill-light {
-  background: #f1f0ee;
-  color: #111;
+  background: #F7F3E8;
+  color: var(--ink);
 }
 
 .pill-outline {
-  border: 1px solid #e6e5e2;
+  border: 1px solid #E6DECB;
   background: transparent;
-  color: #111;
+  color: var(--ink);
 }
 
 .pill-with-arrow {
@@ -182,13 +225,13 @@ img {
 }
 
 .pill-dark .pill-badge {
-  background: #fff;
-  color: #0a0a0a;
+  background: var(--brand-orange);
+  color: var(--on-accent);
 }
 
 .pill-light .pill-badge,
 .pill-outline .pill-badge {
-  background: #0a0a0a;
+  background: var(--ink-deep);
   color: #fff;
 }
 
@@ -216,11 +259,11 @@ img {
 }
 
 .eyebrow-dark {
-  color: rgba(17, 17, 17, 0.7);
+  color: var(--ink-soft);
 }
 
 .eyebrow-dark .dot {
-  background: rgba(17, 17, 17, 0.5);
+  background: var(--brand-orange);
 }
 
 .eyebrow-light {
@@ -228,7 +271,7 @@ img {
 }
 
 .eyebrow-light .dot {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--brand-orange);
 }
 
 .animated-link {
@@ -256,9 +299,28 @@ img {
   opacity: 1;
 }
 
+/* Slow vertical drift for the floating project tiles in the works section.
+   Applied to a wrapper so it never collides with the scroll-driven transform
+   on the parent. Killed by the reduced-motion rule above. */
+@keyframes tile-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -1.6vh, 0);
+  }
+}
+
+.stat-number {
+  color: var(--brand-orange);
+  font-weight: 600;
+}
+
 .tag-chip {
   display: inline-flex;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--accent-line);
+  background: var(--accent-wash);
   color: #fff;
   border-radius: 9999px;
   padding: 0.5rem 1rem;
@@ -360,7 +422,7 @@ img {
   transition: background 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), padding-left 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), padding-right 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .no-touch .hover-service-fill:hover {
-  background: rgba(241, 240, 238, 1);
+  background: var(--accent-wash);
   padding-left: 2rem;
   padding-right: 1.25rem;
 }
@@ -379,7 +441,7 @@ img {
   align-items: flex-end;
   justify-content: center;
   padding: 1rem;
-  background: rgba(17, 17, 17, 0.3);
+  background: rgba(26, 22, 19, 0.34);
   backdrop-filter: blur(16px);
   opacity: 0;
   pointer-events: none;
@@ -397,7 +459,7 @@ img {
   background: #fff;
   padding: 1.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 0 1px #e6e5e2;
+  box-shadow: 0 0 0 1px #E6DECB;
   transform: translateY(28px);
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   opacity: 0;
@@ -422,7 +484,7 @@ img {
   z-index: 115;
   display: flex;
   flex-direction: column;
-  background: #0a0a0a;
+  background: var(--ink-deep);
   color: #fff;
   opacity: 0;
   pointer-events: none;
@@ -442,7 +504,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
-  background: #0a0a0a;
+  background: var(--ink-deep);
   color: #fff;
   border-radius: 0 0 2rem 2rem;
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);

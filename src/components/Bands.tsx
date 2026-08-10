@@ -29,10 +29,10 @@ export default function Bands({ introReady }: BandsProps) {
   }, []);
 
   const bands = [
-    { label: "Stewardship", bg: "#f1f0ee", color: "#111" },
-    { label: "Restraint", bg: "linear-gradient(to bottom right,#cf8047,#97501f)", color: "#fff" },
-    { label: "→", bg: "#0a0a0a", color: "#fff", isArrow: true },
-    { label: "Enterprise", bg: "rgba(241,240,238,.6)", color: "rgba(17,17,17,.5)" },
+    { label: "Stewardship", bg: "#F7F3E8", color: "#4A443C" },
+    { label: "Restraint", bg: "linear-gradient(to bottom right,#F36B21,#C2521A)", color: "#fff" },
+    { label: "→", bg: "#173F2A", color: "#fff", isArrow: true },
+    { label: "Enterprise", bg: "rgba(247,243,232,.6)", color: "rgba(74,68,60,.5)" },
   ];
 
   return (

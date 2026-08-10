@@ -41,7 +41,7 @@ export default function Services({ introReady }: ServicesProps) {
   ];
 
   return (
-    <section id="services" ref={sectionRef} style={{ background: "#fff" }}>
+    <section id="services" ref={sectionRef} style={{ background: "#F7F3E8" }}>
       <div className="shell" style={{ padding: "5rem 1.25rem" }}>
         <div className="eyebrow eyebrow-dark">
           <span className="dot"></span> Bishnoi Centralized Conglomerate Operating Matrix
@@ -57,7 +57,7 @@ export default function Services({ introReady }: ServicesProps) {
               key={service.num}
               className="service-row"
               style={{
-                borderTop: "1px solid #e6e5e2",
+                borderTop: "1px solid #E6DECB",
                 transform: isVisible ? "translateY(0)" : "translateY(32px)",
                 opacity: isVisible ? 1 : 0,
                 transition: "transform 0.7s cubic-bezier(.16,1,.3,1), opacity 0.7s cubic-bezier(.16,1,.3,1)",
@@ -75,15 +75,15 @@ export default function Services({ introReady }: ServicesProps) {
                   paddingBlock: "1.5rem",
                   paddingLeft: "1.5rem",
                   paddingRight: "1.5rem",
-                  background: "rgba(241,240,238,0)",
+                  background: "rgba(247,243,232,0)",
                 }}
               >
-                <span style={{ width: "1.75rem", fontSize: ".875rem", fontWeight: 500, color: "rgba(17,17,17,.4)" }}>{service.num}</span>
+                <span style={{ width: "1.75rem", fontSize: ".875rem", fontWeight: 500, color: "rgba(74,68,60,.4)" }}>{service.num}</span>
                 <h3 style={{ flex: 1, fontSize: "1.375rem", fontWeight: 500, letterSpacing: "-.01em" }}>{service.title}</h3>
-                <p style={{ maxWidth: "22rem", fontSize: ".875rem", color: "rgba(17,17,17,.55)" }} className="hidden lg:block">
+                <p style={{ maxWidth: "22rem", fontSize: ".875rem", color: "rgba(74,68,60,.55)" }} className="hidden lg:block">
                   {service.desc}
                 </p>
-                <span className="hover-arrow-translate" style={{ width: "2.5rem", height: "2.5rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#0a0a0a", color: "#fff" }}>
+                <span className="hover-arrow-translate" style={{ width: "2.5rem", height: "2.5rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206" }}>
                   ↗
                 </span>
               </a>

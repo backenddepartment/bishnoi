@@ -51,7 +51,7 @@ export default function About({ onScrollTo }: AboutProps) {
             style={{
               fontSize: "1.0625rem",
               lineHeight: 1.6,
-              color: "rgba(17,17,17,.75)",
+              color: "rgba(74,68,60,.75)",
               maxWidth: "42rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
@@ -65,7 +65,7 @@ export default function About({ onScrollTo }: AboutProps) {
 
         {/* Right Side: Who We Are & Quote Glass Card */}
         <div style={{ position: "relative", minHeight: "14rem" }} className="lg:col-span-5">
-          <span style={{ position: "absolute", right: "-1rem", top: "50%", transform: "translateY(-50%)", fontSize: "12rem", color: "rgba(17,17,17,.06)", pointerEvents: "none", userSelect: "none" }}>
+          <span style={{ position: "absolute", right: "-1rem", top: "50%", transform: "translateY(-50%)", fontSize: "12rem", color: "rgba(74,68,60,.06)", pointerEvents: "none", userSelect: "none" }}>
             🌱
           </span>
           <div className="eyebrow eyebrow-dark" style={{ position: "relative" }}>
@@ -80,9 +80,9 @@ export default function About({ onScrollTo }: AboutProps) {
               flexDirection: "column",
               gap: ".5rem",
               fontSize: ".875rem",
-              color: "rgba(17,17,17,.7)",
-              background: "#f9f8f6",
-              border: "1px solid #e6e5e2",
+              color: "rgba(74,68,60,.7)",
+              background: "#FBF8F1",
+              border: "1px solid #E6DECB",
               borderRadius: "1.5rem",
               padding: "1.75rem",
               boxShadow: "0 8px 30px rgba(0,0,0,0.04)",
@@ -92,10 +92,10 @@ export default function About({ onScrollTo }: AboutProps) {
               transitionDelay: "150ms",
             }}
           >
-            <p style={{ fontStyle: "italic", borderLeft: "3px solid #b15f2c", paddingLeft: "1rem", color: "rgba(17,17,17,.85)", lineHeight: 1.6, fontSize: ".9375rem" }}>
+            <p style={{ fontStyle: "italic", borderLeft: "3px solid #F36B21", paddingLeft: "1rem", color: "rgba(74,68,60,.85)", lineHeight: 1.6, fontSize: ".9375rem" }}>
               "In 1730, Amrita Devi Bishnoi and 363 others gave their lives embracing sacred Khejri trees to stop them being felled — one of the earliest recorded environmental movements in human history."
             </p>
-            <span style={{ fontSize: ".75rem", fontWeight: 600, color: "#b15f2c", paddingLeft: "1rem", marginTop: ".5rem" }}>
+            <span style={{ fontSize: ".75rem", fontWeight: 600, color: "#356B3F", paddingLeft: "1rem", marginTop: ".5rem" }}>
               — The Khejarli sacrifice, Rajasthan (1730 AD)
             </span>
           </div>
@@ -112,7 +112,7 @@ export default function About({ onScrollTo }: AboutProps) {
             justifyContent: "space-between",
             width: "100%",
             gap: "1.5rem",
-            borderTop: "1px solid #e6e5e2",
+            borderTop: "1px solid #E6DECB",
             paddingTop: "1.75rem",
             marginTop: "1rem",
             opacity: isVisible ? 1 : 0,
@@ -122,13 +122,13 @@ export default function About({ onScrollTo }: AboutProps) {
           }}
         >
           <div>
-            <div style={{ fontSize: ".875rem", color: "rgba(17,17,17,.45)", textTransform: "uppercase", letterSpacing: ".025em" }}>Heritage & 29 Principles</div>
-            <div style={{ fontSize: ".9375rem", fontWeight: 500, color: "#111", marginTop: ".25rem" }}>
+            <div style={{ fontSize: ".875rem", color: "rgba(74,68,60,.45)", textTransform: "uppercase", letterSpacing: ".025em" }}>Heritage & 29 Principles</div>
+            <div style={{ fontSize: ".9375rem", fontWeight: 500, color: "#4A443C", marginTop: ".25rem" }}>
               Guided by Guru Jambheshwar's 29 principles of environmental stewardship since 1485 AD
             </div>
           </div>
           <button className="pill-btn" onClick={() => onScrollTo("about")}>
-            <span className="pill-inner pill-outline pill-with-arrow">
+            <span className="pill-inner pill-accent-outline pill-with-arrow">
               Who we are <span className="pill-badge up-right">↗</span>
             </span>
           </button>

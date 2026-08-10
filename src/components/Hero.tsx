@@ -259,7 +259,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         flexDirection: "column",
         justifyContent: "space-between",
         borderRadius: "0 0 2rem 2rem",
-        background: "#050505",
+        background: "#1A1613",
       }}
     >
       <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
@@ -287,7 +287,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           inset: 0,
           zIndex: 1,
           pointerEvents: "none",
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)",
+          background: "linear-gradient(to bottom, rgba(26,22,19,0.72) 0%, rgba(26,22,19,0.42) 50%, rgba(26,22,19,0.82) 100%)",
         }}
       ></div>
 
@@ -345,14 +345,14 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               textShadow: "0 2px 6px rgba(0,0,0,0.8)",
             }}
           >
-            <span className="dot" style={{ background: "#cf8047" }}></span> Bishnoi
+            <span className="dot" style={{ background: "#F36B21" }}></span> Bishnoi
           </div>
 
           <h1
             id="hero-h1"
             style={{
               maxWidth: "20ch",
-              fontSize: "2.5rem",
+              fontSize: "4rem",
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-.02em",
@@ -380,13 +380,13 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             }}
           >
             <button className="pill-btn" onClick={() => onScrollTo("about")}>
-              <span className="pill-inner pill-light pill-with-arrow" style={{ background: "#0a0a0a", color: "#ffffff", border: "1px solid rgba(255,255,255,0.2)" }}>
-                Who we are <span className="pill-badge" style={{ background: "#ffffff", color: "#0a0a0a" }}>→</span>
+              <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)" }}>
+                Who we are <span className="pill-badge">→</span>
               </span>
             </button>
             <button className="pill-btn" onClick={() => onScrollTo("works")}>
-              <span className="pill-inner pill-outline pill-with-arrow" style={{ color: "#ffffff", borderColor: "rgba(255,255,255,0.5)", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)" }}>
-                Our Businesses <span className="pill-badge" style={{ background: "#ffffff", color: "#0a0a0a" }}>→</span>
+              <span className="pill-inner pill-outline pill-with-arrow" style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)" }}>
+                Our Businesses <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
               </span>
             </button>
           </div>
@@ -400,26 +400,26 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               width: "100%",
               maxWidth: "24rem",
               borderRadius: "1.25rem",
-              background: "rgba(245,245,245,0.92)",
+              background: "rgba(247,243,232,0.94)",
               padding: ".5rem",
               boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
               backdropFilter: "blur(16px)",
-              color: "#111111",
+              color: "#4A443C",
               opacity: introReady ? 1 : 0,
               transform: introReady ? "translateY(0) scale(1)" : "translateY(16px) scale(.96)",
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
             <div style={{ display: "flex", gap: ".625rem", cursor: "pointer" }} onClick={carouselNext}>
-              <div style={{ width: "5.5rem", height: "5.5rem", borderRadius: "1rem", background: "#0a0a0a", display: "grid", placeItems: "center", flexShrink: 0, boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
-                <span style={{ color: "#cf8047", fontSize: "1.75rem" }}>★</span>
+              <div style={{ width: "5.5rem", height: "5.5rem", borderRadius: "1rem", background: "linear-gradient(140deg,#F36B21 0%,#D9551A 100%)", display: "grid", placeItems: "center", flexShrink: 0, boxShadow: "0 6px 16px rgba(243,107,33,0.35)" }}>
+                <span style={{ color: "#FFF3E9", fontSize: "1.75rem" }}>★</span>
               </div>
               <div style={{ flex: 1, padding: ".375rem .25rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
-                  <span style={{ fontSize: ".65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(17,17,17,0.5)" }}>
+                  <span style={{ fontSize: ".65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(74,68,60,0.5)" }}>
                     {carouselItems[imageIdx].caption}
                   </span>
-                  <h4 style={{ fontSize: ".875rem", fontWeight: 700, lineHeight: 1.3, color: "#111111", marginTop: ".125rem" }}>
+                  <h4 style={{ fontSize: ".875rem", fontWeight: 700, lineHeight: 1.3, color: "#4A443C", marginTop: ".125rem" }}>
                     {carouselItems[imageIdx].title}
                   </h4>
                 </div>
@@ -437,7 +437,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                           height: ".25rem",
                           width: i === imageIdx ? "1.25rem" : ".375rem",
                           borderRadius: "9999px",
-                          background: i === imageIdx ? "#111111" : "rgba(17,17,17,0.25)",
+                          background: i === imageIdx ? "#6B6157" : "rgba(74,68,60,0.28)",
                           transition: "all .3s",
                           cursor: "pointer",
                         }}
@@ -446,7 +446,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                   </div>
                   <div style={{ display: "flex", gap: ".375rem" }}>
                     <button
-                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#ffffff", color: "#111111", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
+                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
                       onClick={(e) => {
                         e.stopPropagation();
                         carouselPrev();
@@ -455,7 +455,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                       <span style={{ display: "inline-block", transform: "rotate(180deg)", fontSize: ".75rem" }}>→</span>
                     </button>
                     <button
-                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#ffffff", color: "#111111", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
+                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
                       onClick={(e) => {
                         e.stopPropagation();
                         carouselNext();
@@ -506,16 +506,16 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                       fontSize: ".75rem",
                       color: "rgba(255,255,255,0.92)",
                       fontWeight: 500,
-                      background: "rgba(0,0,0,0.55)",
+                      background: "rgba(26,22,19,0.6)",
                       backdropFilter: "blur(12px)",
-                      border: "1px solid rgba(255,255,255,0.2)",
+                      border: "1px solid rgba(243,107,33,0.38)",
                       borderRadius: "9999px",
                       padding: ".375rem .875rem",
                       whiteSpace: "nowrap",
                     }}
                   >
                     <span>{entity.name}</span>
-                    <span style={{ fontSize: ".65rem", color: "#cf8047" }}>↗</span>
+                    <span style={{ fontSize: ".65rem", color: "#F36B21" }}>↗</span>
                   </a>
                 </li>
               ))}

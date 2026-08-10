@@ -93,7 +93,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             </button>
           </li>
           <li>
-            <button className="hover-lift" style={{ color: "#ffffff" }} onClick={onOpenRequestModal}>
+            <button className="hover-lift" style={{ color: "#ffffff", fontWeight: 600 }} onClick={onOpenRequestModal}>
               Contact
             </button>
           </li>
@@ -133,8 +133,10 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             background: "rgba(255,255,255,.15)",
             backdropFilter: "blur(4px)",
             borderRadius: ".875rem",
+            gap: ".75rem",
+            fontSize: ".75rem",
             color: "#ffffff",
-            transition: "background .2s",
+            alignItems: "center",
           }}
           onClick={onOpenNav}
         >
