@@ -10,6 +10,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Bands from "@/components/Bands";
 import Principles from "@/components/Principles";
+import MirrorHall from "@/components/MirrorHall";
 import Portfolio from "@/components/Portfolio";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
@@ -111,7 +112,11 @@ export default function Home() {
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Bands introReady={introReady} />
+        {/* Both sides of the merge added a section here: #principles (ours) and
+            #collective (remote). Principles runs first because MirrorHall has no
+            top padding and leans on the preceding section for its breathing room. */}
         <Principles introReady={introReady} />
+        <MirrorHall introReady={introReady} />
         <Portfolio introReady={introReady} lenis={lenisRef} />
         <Services introReady={introReady} lenis={lenisRef} />
         <Stats introReady={introReady} />

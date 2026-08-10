@@ -50,17 +50,18 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "3rem", paddingBlock: "4rem" }}>
           <div>
-            <span style={{ fontSize: "1.125rem", fontWeight: 600, display: "flex", alignItems: "center", gap: ".5rem" }}>
-              <span style={{ color: "#F36B21", fontSize: "1.25rem" }}>★</span> Bishnoi
+            <span style={{ display: "flex", alignItems: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
             </span>
-            <p style={{ maxWidth: "20rem", fontSize: ".875rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
+            <p style={{ maxWidth: "20rem", fontSize: ".9375rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
               A diversified group spanning pharmaceuticals, hydroponics, dairy and social impact — guided by a conservation philosophy older than most nations.
             </p>
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.4)" }}>Organization</div>
-            <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Organization</div>
+            <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li>
                 <a className="animated-link legal" href="#about">
                   <span>Who We Are</span>
@@ -85,8 +86,8 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.4)" }}>Getmeds Ecosystem</div>
-            <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Getmeds Ecosystem</div>
+            <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li><a className="animated-link legal" href="https://getmeds.ph" target="_blank" rel="noreferrer"><span>getmeds.ph (Philippines)</span></a></li>
               <li><a className="animated-link legal" href="https://getmedshealthcare.com" target="_blank" rel="noreferrer"><span>getmedshealthcare.com (India)</span></a></li>
               <li><a className="animated-link legal" href="https://getmedsvanuatu.com" target="_blank" rel="noreferrer"><span>getmedsvanuatu.com (Vanuatu)</span></a></li>
@@ -96,23 +97,23 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.4)" }}>Corporate Hubs</div>
-            <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Corporate Hubs</div>
+            <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li><a className="animated-link legal" href="https://bishnoi-omniverse.in" target="_blank" rel="noreferrer"><span>bishnoi-omniverse.in (India)</span></a></li>
               <li><a className="animated-link legal" href="https://bishnoi-omniverse.ph" target="_blank" rel="noreferrer"><span>bishnoi-omniverse.ph (Philippines)</span></a></li>
             </ul>
           </div>
 
           <div>
-            <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.4)" }}>Foundation & Office</div>
-            <ul style={{ marginTop: ".75rem", fontSize: ".875rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Foundation & Office</div>
+            <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li><a className="animated-link legal" href="https://nbf.com" target="_blank" rel="noreferrer"><span>nbf.com (N. Bishnoi Foundation)</span></a></li>
               <li><a className="animated-link legal" href="https://nkb.com" target="_blank" rel="noreferrer"><span>nkb.com (N. K. Bishnoi Office)</span></a></li>
             </ul>
           </div>
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem", borderTop: "1px solid rgba(247,243,232,.1)", paddingTop: "2rem", fontSize: ".75rem", color: "rgba(247,243,232,.45)" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem", borderTop: "1px solid rgba(247,243,232,.1)", paddingTop: "2rem", fontSize: ".8125rem", color: "rgba(247,243,232,.45)" }}>
           <span>© {new Date().getFullYear()} Bishnoi. All rights reserved.</span>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             <a className="animated-link legal" href="#">

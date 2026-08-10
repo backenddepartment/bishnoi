@@ -54,8 +54,9 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
       aria-label="Navigation"
     >
       <div className="shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem", flexShrink: 0 }}>
-        <span style={{ fontSize: "1.125rem", fontWeight: 600, display: "flex", alignItems: "center", gap: ".5rem" }}>
-          <span style={{ color: "#F36B21", fontSize: "1.25rem" }}>★</span> Bishnoi
+        <span style={{ display: "flex", alignItems: "center" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "2.25rem", width: "auto" }} />
         </span>
         <button
           onClick={onClose}

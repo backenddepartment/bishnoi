@@ -53,9 +53,9 @@ export default function Loader({ onComplete }: LoaderProps) {
       aria-label="Loading"
     >
       <div className="content">
-        <div style={{ display: "flex", alignItems: "center", gap: ".5rem", fontWeight: 600, fontSize: "1.5rem" }}>
-          <span style={{ color: "#F36B21", fontSize: "1.875rem", display: "inline-flex", lineHeight: 1 }}>★</span>
-          <span>Bishnoi</span>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
         </div>
         <p style={{ maxWidth: "28ch", fontSize: ".875rem", color: "rgba(247,243,232,.55)", textAlign: "center" }}>
           Rooted in five hundred years. Building for what comes next.
