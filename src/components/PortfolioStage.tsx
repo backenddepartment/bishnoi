@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { EASE, type Division } from "./portfolioData";
 import { EntityChips, SectionHeading } from "./PortfolioParts";
 
@@ -38,11 +39,14 @@ export default function PortfolioStage({
   setHovered,
   goTo,
 }: StageProps) {
+  const [hoveredSat, setHoveredSat] = useState<string | null>(null);
+
   const active = businesses[activeIndex];
   const cardW = compact ? "68vw" : "30vw";
   const cardH = compact ? "34vh" : "46vh";
   const STEP_X = compact ? 78 : 46;
-  const LANE_Y = [-7, 8, -4, 10];
+  const STEP_Y = compact ? 26 : 18;
+  const LANE_Y = [-4, 5, -3, 6];
 
   return (
     <div
@@ -53,12 +57,34 @@ export default function PortfolioStage({
         width: "100%",
         overflow: "hidden",
         background: "#ffffff",
-        color: "#35302A",
+        color: "#1C1815",
         perspective: compact ? "1400px" : "1100px",
       }}
     >
+      {/* ---------- soft faded ambient shadow background backdrop ---------- */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          background: "radial-gradient(circle at 50% 45%, #ffffff 0%, #F8F5EE 60%, #E6DFD1 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          boxShadow: "inset 0 0 140px rgba(0,0,0,0.07)",
+        }}
+      />
+
       {/* ---------- oversized watermark type behind the cards ---------- */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 1 }}>
         <span
           style={{
             position: "absolute",
@@ -66,12 +92,12 @@ export default function PortfolioStage({
             top: "46%",
             whiteSpace: "nowrap",
             fontSize: compact ? "18vw" : "13vw",
-            fontWeight: 600,
+            fontWeight: 700,
             letterSpacing: "-.04em",
             lineHeight: 1,
-            color: "rgba(74,68,60,0.06)",
+            color: "rgba(36,31,26,0.11)",
             opacity: Math.max(0, settle) * 0.9,
-            transform: `translate3d(calc(-50% + ${(activeIndex - activeFloat) * STEP_X * 1.5}vw), -50%, 0)`,
+            transform: `translate3d(calc(-50% + ${(activeIndex - activeFloat) * STEP_X * 1.5}vw), calc(-50% + ${(activeIndex - activeFloat) * STEP_Y * 1.2}vh), 0)`,
             willChange: "transform, opacity",
           }}
         >
@@ -79,8 +105,8 @@ export default function PortfolioStage({
         </span>
       </div>
 
-      {/* ---------- floating satellite project tiles (blurred in background) ---------- */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 1 }}>
+      {/* ---------- floating satellite project tiles (hoverable: clears blur on hover) ---------- */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 1 }}>
         {businesses.map((biz, i) => {
           const d = i - activeFloat;
           if (Math.abs(d) > 1.25) return null;
@@ -88,20 +114,35 @@ export default function PortfolioStage({
 
           return SATELLITES.slice(0, compact ? 3 : SATELLITES.length).map((sat, k) => {
             const src = businesses[(i + k + 1) % businesses.length].image;
+            const satKey = `${biz.title}-${k}`;
+            const isSatHovered = hoveredSat === satKey;
+
             return (
               <div
-                key={`${biz.title}-${k}`}
+                key={satKey}
+                onMouseEnter={() => setHoveredSat(satKey)}
+                onMouseLeave={() => setHoveredSat(null)}
                 style={{
                   position: "absolute",
                   left: "50%",
                   top: "50%",
                   width: `${compact ? sat.w * 1.5 : sat.w}vw`,
-                  transform: `translate3d(calc(-50% + ${sat.x + d * STEP_X * sat.depth}vw), calc(-50% + ${sat.y}vh), 0)`,
-                  opacity: presence * sat.o,
+                  transform: `translate3d(calc(-50% + ${sat.x + d * STEP_X * sat.depth}vw), calc(-50% + ${sat.y + d * STEP_Y * sat.depth}vh), 0)`,
+                  opacity: isSatHovered ? 1 : presence * sat.o,
+                  zIndex: isSatHovered ? 150 : 1,
+                  pointerEvents: "auto",
+                  cursor: "pointer",
                   willChange: "transform, opacity",
+                  transition: `opacity .3s ${EASE}`,
                 }}
               >
-                <div style={{ animation: `tile-drift ${sat.dur}s ease-in-out ${sat.delay}s infinite` }}>
+                <div
+                  style={{
+                    animation: isSatHovered ? "none" : `tile-drift ${sat.dur}s ease-in-out ${sat.delay}s infinite`,
+                    transform: isSatHovered ? "scale(1.15)" : "scale(1)",
+                    transition: `transform .3s ${EASE}`,
+                  }}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={src}
@@ -114,10 +155,11 @@ export default function PortfolioStage({
                       objectFit: "cover",
                       display: "block",
                       borderRadius: ".875rem",
-                      transform: `rotate(${sat.rot}deg) scale(1.1)`,
-                      filter: "blur(5px) saturate(1.15)",
-                      border: "1px solid #E6DECB",
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
+                      transform: `rotate(${sat.rot}deg)`,
+                      filter: isSatHovered ? "none" : "blur(5px) saturate(1.15)",
+                      border: isSatHovered ? "1.5px solid #F36B21" : "1px solid #D9CFB8",
+                      boxShadow: isSatHovered ? "0 20px 40px rgba(0,0,0,0.2)" : "0 10px 25px rgba(0,0,0,0.08)",
+                      transition: `filter .3s ${EASE}, border .3s ${EASE}, box-shadow .3s ${EASE}`,
                     }}
                   />
                 </div>
@@ -127,7 +169,7 @@ export default function PortfolioStage({
         })}
       </div>
 
-      {/* ---------- main card gallery (center image is 100% crisp & clear) ---------- */}
+      {/* ---------- main card gallery with hover clear image effect ---------- */}
       <div style={{ position: "absolute", inset: 0, transformStyle: "preserve-3d", zIndex: 2 }}>
         {businesses.map((biz, i) => {
           const d = i - activeFloat;
@@ -136,16 +178,16 @@ export default function PortfolioStage({
           const isHovered = canHover && hovered === i && !isActive;
 
           const x = d * STEP_X;
-          const y = LANE_Y[i % LANE_Y.length] * Math.min(ad, 1.4);
+          const y = d * STEP_Y + LANE_Y[i % LANE_Y.length] * Math.min(ad, 0.6);
           const z = -Math.min(ad, 3) * (compact ? 320 : 460);
           const rotY = -d * (compact ? 10 : 22);
-          const rotZ = d * 1.2;
+          const rotZ = d * (compact ? 3 : 5);
 
           let opacity = Math.max(0, 1 - ad * 0.3);
           if (ad > 3.2) opacity = 0;
 
           if (isHovered) {
-            opacity = Math.min(1, opacity + 0.3);
+            opacity = Math.min(1, opacity + 0.35);
           }
 
           return (
@@ -182,10 +224,10 @@ export default function PortfolioStage({
                   padding: compact ? "1.5rem" : "2rem",
                   background: "#ffffff",
                   boxShadow: isActive
-                    ? "0 0 0 1px #E6DECB, 0 20px 45px rgba(0,0,0,0.08)"
+                    ? "0 0 0 1px #D9CFB8, 0 25px 50px -12px rgba(0,0,0,0.15)"
                     : isHovered
-                    ? "0 0 0 1px #E6DECB, 0 15px 35px rgba(0,0,0,0.06)"
-                    : "0 0 0 1px #E6DECB, 0 10px 25px rgba(0,0,0,0.04)",
+                    ? "0 0 0 1px #D9CFB8, 0 22px 45px -10px rgba(0,0,0,0.16)"
+                    : "0 0 0 1px #E6DECB, 0 12px 30px -8px rgba(0,0,0,0.08)",
                   transform: isHovered ? "scale(1.05)" : "scale(1)",
                   opacity,
                   cursor: isActive ? "default" : "pointer",
@@ -193,7 +235,7 @@ export default function PortfolioStage({
                   willChange: "opacity",
                 }}
               >
-                {/* Center image is 100% crisp & clear (filter: "none"), background images stay blurred */}
+                {/* Active OR Hovered card image becomes 100% crisp & clear (filter: "none"), non-hovered background images stay blurred */}
                 {ad < 3.2 && (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
@@ -208,10 +250,10 @@ export default function PortfolioStage({
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      transform: "scale(1.05)",
-                      filter: isActive ? "none" : "blur(6px) saturate(1.0)",
-                      opacity: isActive ? 0.95 : 0.65,
-                      transition: `opacity .3s ${EASE}, filter .3s ${EASE}`,
+                      transform: isHovered ? "scale(1.1)" : "scale(1.05)",
+                      filter: isActive || isHovered ? "none" : "blur(6px) saturate(1.0)",
+                      opacity: isActive || isHovered ? 0.95 : 0.65,
+                      transition: `opacity .3s ${EASE}, filter .3s ${EASE}, transform .3s ${EASE}`,
                     }}
                   />
                 )}
@@ -220,7 +262,9 @@ export default function PortfolioStage({
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.85) 100%)",
+                    background: isHovered
+                      ? "linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.75) 100%)"
+                      : "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.85) 100%)",
                     transition: `background .3s ${EASE}`,
                   }}
                 />
@@ -228,10 +272,10 @@ export default function PortfolioStage({
                   style={{
                     position: "relative",
                     fontSize: compact ? "3.5rem" : "5rem",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     lineHeight: 1,
                     letterSpacing: "-.04em",
-                    color: isActive || isHovered ? "#F36B21" : "rgba(74,68,60,.5)",
+                    color: isActive || isHovered ? "#F36B21" : "#6B6157",
                     transition: `color .3s ${EASE}`,
                   }}
                 >
@@ -241,7 +285,7 @@ export default function PortfolioStage({
                   style={{
                     position: "relative",
                     fontSize: compact ? "1.375rem" : "1.875rem",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     letterSpacing: "-.01em",
                     lineHeight: 1.15,
                     maxWidth: "16ch",
@@ -304,9 +348,9 @@ export default function PortfolioStage({
                     textAlign: "right",
                     transform: `translate3d(${(1 - Math.cos(d * 0.35)) * 3.5}rem, 0, 0) scale(${1 - Math.min(ad, 3) * 0.06})`,
                     transformOrigin: "right center",
-                    opacity: Math.max(0.2, 1 - ad * 0.3),
-                    color: isActive ? "#F36B21" : "rgba(74,68,60,.75)",
-                    fontWeight: isActive ? 600 : 400,
+                    opacity: Math.max(0.35, 1 - ad * 0.25),
+                    color: isActive ? "#F36B21" : "#1C1815",
+                    fontWeight: isActive ? 700 : 600,
                     fontSize: ".9375rem",
                     willChange: "transform, opacity",
                   }}
@@ -315,9 +359,9 @@ export default function PortfolioStage({
                   <span
                     style={{
                       width: isActive ? "2.5rem" : "1rem",
-                      height: "1px",
+                      height: "2px",
                       flexShrink: 0,
-                      background: isActive ? "#F36B21" : "rgba(74,68,60,.3)",
+                      background: isActive ? "#F36B21" : "#241F1A",
                       transition: `width .3s ${EASE}`,
                     }}
                   />
@@ -344,19 +388,22 @@ export default function PortfolioStage({
         }}
       >
         <div style={{ maxWidth: compact ? "100%" : "40rem" }}>
-          <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(74,68,60,.6)" }}>{active.category}</div>
+          <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".04em", color: "#C2521A", fontWeight: 700 }}>
+            {active.category}
+          </div>
           <p
             style={{
               marginTop: ".625rem",
-              fontSize: ".9375rem",
-              color: "#4A443C",
+              fontSize: "1rem",
+              fontWeight: 500,
+              color: "#1C1815",
               lineHeight: 1.55,
               maxWidth: "44ch",
             }}
           >
             {active.description}
           </p>
-          <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(74,68,60,.5)", margin: "1.25rem 0 .625rem" }}>
+          <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".05em", color: "#241F1A", fontWeight: 700, margin: "1.25rem 0 .625rem" }}>
             Managed Companies &amp; Central Domains ({active.entities.length})
           </div>
           <EntityChips entities={active.entities} />
@@ -376,7 +423,7 @@ export default function PortfolioStage({
                 width: i === activeIndex ? "2rem" : ".5rem",
                 height: ".5rem",
                 borderRadius: "9999px",
-                background: i === activeIndex ? "#F36B21" : "rgba(74,68,60,.28)",
+                background: i === activeIndex ? "#F36B21" : "rgba(74,68,60,.4)",
                 transition: `width .3s ${EASE}, background .3s ${EASE}`,
               }}
             />
