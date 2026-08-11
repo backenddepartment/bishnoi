@@ -112,19 +112,33 @@ export default function Principles({}: PrinciplesProps) {
   }, []);
 
   return (
-    <section id="principles" ref={sectionRef} style={{ background: "#F7F3E8" }}>
+    <section id="principles" ref={sectionRef} style={{ background: "#FFFFFF" }}>
       <div className="shell" style={{ padding: "5rem 1.25rem" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", maxWidth: "46rem" }}>
-          <div className="eyebrow eyebrow-dark">
-            <span className="dot"></span> The 29 Principles
+        {/* title holds the left column; the blurb sits beside it on desktop so
+            the header spans the shell instead of trailing off to empty space */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: compact ? "column" : "row",
+            alignItems: compact ? "stretch" : "flex-end",
+            gap: compact ? "1.25rem" : "4rem",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", flex: compact ? "1 1 auto" : "1 1 0%", minWidth: 0 }}>
+            <div className="eyebrow eyebrow-dark">
+              <span className="dot"></span> The 29 Principles
+            </div>
+            <h2 style={{ fontSize: "2.25rem", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
+              <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
+                <span className="line-inner">29 Principles, One Way of Life</span>
+              </span>
+            </h2>
           </div>
-          <h2 style={{ fontSize: "2.25rem", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
-            <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-              <span className="line-inner">29 Principles, One Way of Life</span>
-            </span>
-          </h2>
           <p
             style={{
+              flex: compact ? "1 1 auto" : "1 1 0%",
+              minWidth: 0,
+              maxWidth: "34rem",
               fontSize: "1.0625rem",
               lineHeight: 1.6,
               color: "rgba(74,68,60,.75)",
@@ -235,14 +249,14 @@ export default function Principles({}: PrinciplesProps) {
                         </span>
                       </>
                     ) : (
-                      compact && <h3 style={{ fontSize: "1rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
+                      compact && <h3 style={{ fontSize: "1.375rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
                     )}
                   </div>
 
                   {/* closed spine on desktop: the title sits under the rule and
                       wraps, since the panel is too narrow for one line */}
                   {!isOpen && !compact && (
-                    <h3 style={{ marginTop: "1rem", fontSize: "1rem", fontWeight: 600, letterSpacing: "-.01em", lineHeight: 1.3 }}>{group.label}</h3>
+                    <h3 style={{ marginTop: "1rem", fontSize: "1.75rem", fontWeight: 600, letterSpacing: "-.015em", lineHeight: 1.15 }}>{group.label}</h3>
                   )}
 
                   {isOpen ? (

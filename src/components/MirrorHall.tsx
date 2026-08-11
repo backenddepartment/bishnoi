@@ -78,6 +78,11 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
   // always fills the container edge-to-edge instead of leaving empty space
   // whenever there aren't enough cards on one side (e.g. at the first card).
   const [shiftPx, setShiftPx] = useState(0);
+  // The track's full scrollable range, and the shift the bare cursor is
+  // asking for while it hovers the row — null whenever the pointer is away,
+  // which hands control back to the active card's centered shift.
+  const [maxShiftPx, setMaxShiftPx] = useState(0);
+  const [hoverShiftPx, setHoverShiftPx] = useState<number | null>(null);
 
   const count = HALL_CARDS.length;
   const active = HALL_CARDS[activeIndex];
@@ -134,6 +139,7 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
       const activeCenter = activeEl.offsetLeft + activeEl.offsetWidth / 2;
       const desired = activeCenter - containerWidth / 2;
       const maxShift = Math.max(0, trackWidth - containerWidth);
+      setMaxShiftPx(maxShift);
       setShiftPx(Math.min(Math.max(desired, 0), maxShift));
     };
 
@@ -162,11 +168,24 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!draggingRef.current) return;
-    const dx = e.clientX - startXRef.current;
-    if (Math.abs(dx) > 4) movedRef.current = true;
-    setDragOffsetPx(dx);
+    if (draggingRef.current) {
+      const dx = e.clientX - startXRef.current;
+      if (Math.abs(dx) > 4) movedRef.current = true;
+      setDragOffsetPx(dx);
+      return;
+    }
+
+    // Bare hover pans the row: the cursor's horizontal position across the
+    // container maps onto the track's full range, so you can browse the whole
+    // hall without pressing anything or reaching for the arrows below.
+    if (!canHover || e.pointerType !== "mouse" || maxShiftPx <= 0) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const margin = rect.width * 0.1; // dead zones at each edge so the ends are easy to hold
+    const ratio = (e.clientX - rect.left - margin) / Math.max(1, rect.width - margin * 2);
+    setHoverShiftPx(Math.min(1, Math.max(0, ratio)) * maxShiftPx);
   };
+
+  const handlePointerLeave = () => setHoverShiftPx(null);
 
   const endDrag = () => {
     if (!draggingRef.current) return;
@@ -175,6 +194,7 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
     if (dragOffsetPx <= -DRAG_THRESHOLD) goTo(activeIndex + 1);
     else if (dragOffsetPx >= DRAG_THRESHOLD) goTo(activeIndex - 1);
     setDragOffsetPx(0);
+    setHoverShiftPx(null);
   };
 
   // Cards are plain, uniform, front-facing flex items — no rotation, no
@@ -183,6 +203,11 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
   // there's room on both sides, and otherwise pins the track flush against
   // whichever edge it's nearest — so the row always fills the container
   // edge-to-edge instead of leaving dead space around a small centered block.
+  // While the cursor is panning the row it owns the shift; otherwise the
+  // active card's centered position does.
+  const isHoverPanning = !isDragging && hoverShiftPx !== null;
+  const effectiveShift = isHoverPanning ? (hoverShiftPx as number) : shiftPx;
+
   const trackStyle: React.CSSProperties = {
     position: "absolute",
     top: "50%",
@@ -191,8 +216,8 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
     alignItems: "center",
     gap: `${CARD_GAP}rem`,
     height: `${CARD_H}rem`,
-    transform: `translateY(-50%) translateX(${-shiftPx + dragOffsetPx}px)`,
-    transition: isDragging ? "none" : `transform .6s ${EASE}`,
+    transform: `translateY(-50%) translateX(${-effectiveShift + dragOffsetPx}px)`,
+    transition: isDragging ? "none" : `transform ${isHoverPanning ? ".45s" : ".6s"} ${EASE}`,
   };
 
   const cardBoxStyle: React.CSSProperties = {
@@ -250,14 +275,25 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
             </defs>
           </svg>
 
-          <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: "38rem", marginInline: "auto" }}>
+          <div style={{ position: "relative", zIndex: 2, textAlign: "center", marginInline: "auto" }}>
             <div className="eyebrow eyebrow-light" style={{ justifyContent: "center" }}>
               <span className="dot"></span> The Bishnoi Collective
             </div>
-            <h2 style={{ marginTop: "1rem", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em", color: "#fff" }}>
+            {/* one line at every width — the type scales with the viewport
+                rather than wrapping */}
+            <h2
+              style={{
+                marginTop: "1rem",
+                fontSize: "clamp(1.125rem, 4vw, 2.25rem)",
+                fontWeight: 600,
+                letterSpacing: "-.02em",
+                color: "#fff",
+                whiteSpace: "nowrap",
+              }}
+            >
               Every division, reflected in the same current.
             </h2>
-            <p style={{ marginTop: ".75rem", fontSize: ".9375rem", color: "rgba(247,243,232,.65)", lineHeight: 1.6 }}>
+            <p style={{ marginTop: ".75rem", maxWidth: "38rem", marginInline: "auto", fontSize: ".9375rem", color: "rgba(247,243,232,.65)", lineHeight: 1.6 }}>
               Healthcare, enterprise, capital and conservation — four ventures carrying one five-hundred-year discipline. Drag to look closer.
             </p>
           </div>
@@ -296,6 +332,7 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
                 onPointerMove={handlePointerMove}
                 onPointerUp={endDrag}
                 onPointerCancel={endDrag}
+                onPointerLeave={handlePointerLeave}
                 role="group"
                 aria-roledescription="carousel"
                 aria-label="The Bishnoi collective, divisions and current studies"
