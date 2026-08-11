@@ -32,7 +32,7 @@ export default function About({ onScrollTo }: AboutProps) {
 
   return (
     <section id="about" ref={sectionRef} style={{ background: "#fff" }}>
-      <div className="shell grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "3rem", padding: "5rem 1.25rem" }}>
+      <div className="shell grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "3rem", paddingBlock: "5rem" }}>
         {/* Left Side: Headline & Paragraph */}
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }} className="lg:col-span-7">
           <h2 id="about-h2" style={{ fontSize: "2.25rem", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>

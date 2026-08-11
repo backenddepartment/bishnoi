@@ -258,8 +258,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        borderRadius: "0 0 2rem 2rem",
-        background: "#1A1613",
+        background: "#ffffff",
       }}
     >
       <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
@@ -287,9 +286,22 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           inset: 0,
           zIndex: 1,
           pointerEvents: "none",
-          background: "linear-gradient(to bottom, rgba(26,22,19,0.72) 0%, rgba(26,22,19,0.42) 50%, rgba(26,22,19,0.82) 100%)",
+          background: "linear-gradient(to bottom, rgba(26,22,19,0.75) 0%, rgba(26,22,19,0.35) 50%, rgba(26,22,19,0.7) 100%)",
         }}
       ></div>
+
+      {/* Complete Dissolve Bottom Fade-to-White Layer */}
+      <div
+        style={{
+          position: "absolute",
+          insetInline: 0,
+          bottom: 0,
+          height: "12rem",
+          zIndex: 5,
+          pointerEvents: "none",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.95) 75%, #ffffff 100%)",
+        }}
+      />
 
       <div
         id="watermark"
@@ -480,7 +492,6 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
-           
             <ul style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", justifyContent: "flex-start" }} className="lg:justify-end">
               {[
                 { name: "Getmeds Phils", domain: "getmeds.ph" },
@@ -532,14 +543,13 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             justifyContent: "space-between",
             width: "100%",
             gap: ".75rem",
-            borderTop: "1px solid rgba(255,255,255,.2)",
+            borderTop: "1px solid rgba(74,68,60,.25)",
             padding: "1.25rem 0 0",
             fontSize: ".75rem",
-            fontWeight: 500,
+            fontWeight: 600,
             textTransform: "uppercase",
             letterSpacing: ".025em",
-            color: "rgba(255,255,255,.8)",
-            textShadow: "0 2px 4px rgba(0,0,0,0.8)",
+            color: "#35302A",
             opacity: introReady ? 1 : 0,
             transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
           }}

@@ -37,7 +37,7 @@ export default function Bands({ introReady }: BandsProps) {
 
   return (
     <section ref={sectionRef} style={{ background: "#fff" }}>
-      <ul className="shell" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", padding: "2.5rem 1.25rem" }}>
+      <ul className="shell" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", paddingBlock: "2.5rem" }}>
         {bands.map((band, idx) => (
           <li
             key={idx}

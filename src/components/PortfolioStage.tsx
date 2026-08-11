@@ -1,18 +1,16 @@
 "use client";
 
-import { EASE, PANEL, type Division } from "./portfolioData";
+import { EASE, type Division } from "./portfolioData";
 import { EntityChips, SectionHeading } from "./PortfolioParts";
 
-/* Hand-placed so the scatter looks incidental but is identical every render —
-   Math.random() would desync the server and client markup.
-   x/y are vw/vh from centre, depth is the parallax rate against card travel. */
+/* Hand-placed satellite position definitions */
 const SATELLITES = [
-  { x: -40, y: -24, w: 12, ratio: "4 / 3", rot: -7, depth: 0.45, blur: 5, o: 0.6, dur: 11, delay: 0 },
-  { x: 33, y: -30, w: 9, ratio: "3 / 4", rot: 6, depth: 0.7, blur: 7, o: 0.5, dur: 14, delay: 1.4 },
-  { x: -29, y: 27, w: 10, ratio: "1 / 1", rot: 5, depth: 0.6, blur: 6, o: 0.55, dur: 13, delay: 0.7 },
-  { x: 42, y: 21, w: 13, ratio: "4 / 3", rot: -5, depth: 0.4, blur: 8, o: 0.42, dur: 16, delay: 2.1 },
-  { x: -48, y: 4, w: 7, ratio: "3 / 4", rot: 9, depth: 0.85, blur: 5, o: 0.38, dur: 12, delay: 3.2 },
-  { x: 49, y: -6, w: 8, ratio: "1 / 1", rot: -9, depth: 0.9, blur: 6, o: 0.35, dur: 15, delay: 0.4 },
+  { x: -40, y: -24, w: 12, ratio: "4 / 3", rot: -7, depth: 0.45, o: 0.85, dur: 11, delay: 0 },
+  { x: 33, y: -30, w: 9, ratio: "3 / 4", rot: 6, depth: 0.7, o: 0.8, dur: 14, delay: 1.4 },
+  { x: -29, y: 27, w: 10, ratio: "1 / 1", rot: 5, depth: 0.6, o: 0.82, dur: 13, delay: 0.7 },
+  { x: 42, y: 21, w: 13, ratio: "4 / 3", rot: -5, depth: 0.4, o: 0.75, dur: 16, delay: 2.1 },
+  { x: -48, y: 4, w: 7, ratio: "3 / 4", rot: 9, depth: 0.85, o: 0.7, dur: 12, delay: 3.2 },
+  { x: 49, y: -6, w: 8, ratio: "1 / 1", rot: -9, depth: 0.9, o: 0.65, dur: 15, delay: 0.4 },
 ];
 
 interface StageProps {
@@ -28,9 +26,6 @@ interface StageProps {
   goTo: (i: number) => void;
 }
 
-/* Cards travel laterally through a perspective volume: each keeps its own lane,
-   angles away from the viewer as it leaves centre, and drops backward in Z.
-   Oversized division type passes behind them at a faster rate for parallax. */
 export default function PortfolioStage({
   businesses,
   activeFloat,
@@ -46,8 +41,8 @@ export default function PortfolioStage({
   const active = businesses[activeIndex];
   const cardW = compact ? "68vw" : "30vw";
   const cardH = compact ? "34vh" : "46vh";
-  const STEP_X = compact ? 78 : 46; // vw travelled per division
-  const LANE_Y = [-7, 8, -4, 10]; // vh scatter, so the wall never reads as a row
+  const STEP_X = compact ? 78 : 46;
+  const LANE_Y = [-7, 8, -4, 10];
 
   return (
     <div
@@ -57,35 +52,12 @@ export default function PortfolioStage({
         height: "100vh",
         width: "100%",
         overflow: "hidden",
-        background: PANEL,
-        color: "#fff",
+        background: "#ffffff",
+        color: "#35302A",
         perspective: compact ? "1400px" : "1100px",
       }}
     >
-      {/* ---------- ambient wash: the active division's imagery, heavily
-           blurred, giving each division its own colour mood ---------- */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-        <img
-          src={active.image}
-          alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            // scaled up so the blur never exposes a soft edge at the viewport
-            transform: "scale(1.15)",
-            filter: "blur(48px) saturate(1.15)",
-            opacity: 0.1 + Math.max(0, settle) * 0.26,
-            willChange: "opacity",
-          }}
-        />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(158deg,rgba(46,40,34,.6) 0%,rgba(20,17,15,.88) 100%)" }} />
-      </div>
-
-      {/* ---------- oversized type behind the cards ----------
-           Only the active division's title is ever drawn. Overlapping titles
-           read as noise, so this one fades out through the middle of a
-           transition and the next fades in on arrival. */}
+      {/* ---------- oversized watermark type behind the cards ---------- */}
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
         <span
           style={{
@@ -97,8 +69,8 @@ export default function PortfolioStage({
             fontWeight: 600,
             letterSpacing: "-.04em",
             lineHeight: 1,
-            color: "rgba(247,243,232,1)",
-            opacity: Math.max(0, settle) * 0.07,
+            color: "rgba(74,68,60,0.06)",
+            opacity: Math.max(0, settle) * 0.9,
             transform: `translate3d(calc(-50% + ${(activeIndex - activeFloat) * STEP_X * 1.5}vw), -50%, 0)`,
             willChange: "transform, opacity",
           }}
@@ -107,11 +79,7 @@ export default function PortfolioStage({
         </span>
       </div>
 
-      {/* ---------- floating project tiles ----------
-           Scattered around the card at mixed depths. Each parallaxes at its
-           own rate against the card travel and drifts slowly on its own clock,
-           so the arrangement never reads as a grid. Only tiles belonging to a
-           division near the active one are mounted. */}
+      {/* ---------- floating satellite project tiles (blurred in background) ---------- */}
       <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 1 }}>
         {businesses.map((biz, i) => {
           const d = i - activeFloat;
@@ -119,7 +87,6 @@ export default function PortfolioStage({
           const presence = Math.max(0, 1 - Math.abs(d) * 0.85);
 
           return SATELLITES.slice(0, compact ? 3 : SATELLITES.length).map((sat, k) => {
-            // cycle the image pool so a division's surroundings vary
             const src = businesses[(i + k + 1) % businesses.length].image;
             return (
               <div
@@ -135,6 +102,7 @@ export default function PortfolioStage({
                 }}
               >
                 <div style={{ animation: `tile-drift ${sat.dur}s ease-in-out ${sat.delay}s infinite` }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={src}
                     alt=""
@@ -146,9 +114,10 @@ export default function PortfolioStage({
                       objectFit: "cover",
                       display: "block",
                       borderRadius: ".875rem",
-                      transform: `rotate(${sat.rot}deg)`,
-                      filter: `blur(${sat.blur}px) saturate(.9)`,
-                      boxShadow: "0 18px 40px rgba(0,0,0,.45)",
+                      transform: `rotate(${sat.rot}deg) scale(1.1)`,
+                      filter: "blur(5px) saturate(1.15)",
+                      border: "1px solid #E6DECB",
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
                     }}
                   />
                 </div>
@@ -158,7 +127,7 @@ export default function PortfolioStage({
         })}
       </div>
 
-      {/* ---------- the gallery ---------- */}
+      {/* ---------- main card gallery (center image is 100% crisp & clear) ---------- */}
       <div style={{ position: "absolute", inset: 0, transformStyle: "preserve-3d", zIndex: 2 }}>
         {businesses.map((biz, i) => {
           const d = i - activeFloat;
@@ -173,19 +142,13 @@ export default function PortfolioStage({
           const rotZ = d * 1.2;
 
           let opacity = Math.max(0, 1 - ad * 0.3);
-          // Blur stays capped at two neighbours per side.
-          let blur = ad > 2.2 ? 0 : Math.min(ad, 2) * 5;
           if (ad > 3.2) opacity = 0;
 
           if (isHovered) {
             opacity = Math.min(1, opacity + 0.3);
-            blur = 0.5;
           }
 
           return (
-            // Outer node carries the scroll-driven position with no transition;
-            // the inner node owns hover, which transitions. Keeping them apart
-            // stops hover easing from lagging the scroll.
             <div
               key={biz.title}
               style={{
@@ -217,23 +180,22 @@ export default function PortfolioStage({
                   justifyContent: "space-between",
                   borderRadius: "1.5rem",
                   padding: compact ? "1.5rem" : "2rem",
-                  background: "#141110",
+                  background: "#ffffff",
                   boxShadow: isActive
-                    ? "0 0 0 1px rgba(243,107,33,0.45), 0 40px 90px rgba(0,0,0,0.55)"
+                    ? "0 0 0 1px #E6DECB, 0 20px 45px rgba(0,0,0,0.08)"
                     : isHovered
-                    ? "0 0 0 1px rgba(243,107,33,0.34), 0 30px 70px rgba(0,0,0,0.5)"
-                    : "0 0 0 1px rgba(247,243,232,0.08), 0 24px 60px rgba(0,0,0,0.45)",
+                    ? "0 0 0 1px #E6DECB, 0 15px 35px rgba(0,0,0,0.06)"
+                    : "0 0 0 1px #E6DECB, 0 10px 25px rgba(0,0,0,0.04)",
                   transform: isHovered ? "scale(1.05)" : "scale(1)",
-                  filter: blur > 0.05 ? `blur(${blur}px)` : "none",
                   opacity,
                   cursor: isActive ? "default" : "pointer",
-                  transition: `transform .3s ${EASE}, filter .3s ${EASE}, opacity .3s ${EASE}, box-shadow .3s ${EASE}`,
-                  willChange: "opacity, filter",
+                  transition: `transform .3s ${EASE}, opacity .3s ${EASE}, box-shadow .3s ${EASE}`,
+                  willChange: "opacity",
                 }}
               >
-                {/* project imagery, blurred back so the numeral and title stay
-                    dominant; only cards near the active one are worth loading */}
+                {/* Center image is 100% crisp & clear (filter: "none"), background images stay blurred */}
                 {ad < 3.2 && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={biz.image}
                     alt=""
@@ -246,9 +208,9 @@ export default function PortfolioStage({
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      transform: "scale(1.12)",
-                      filter: isActive ? "blur(7px) saturate(1.1)" : "blur(10px) saturate(.9)",
-                      opacity: isActive ? 0.62 : 0.4,
+                      transform: "scale(1.05)",
+                      filter: isActive ? "none" : "blur(6px) saturate(1.0)",
+                      opacity: isActive ? 0.95 : 0.65,
                       transition: `opacity .3s ${EASE}, filter .3s ${EASE}`,
                     }}
                   />
@@ -258,9 +220,7 @@ export default function PortfolioStage({
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background: isActive
-                      ? "linear-gradient(150deg,rgba(243,107,33,0.3) 0%,rgba(20,17,15,0.62) 45%,rgba(20,17,15,0.9) 100%)"
-                      : "linear-gradient(150deg,rgba(28,24,21,0.72) 0%,rgba(20,17,15,0.92) 100%)",
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.85) 100%)",
                     transition: `background .3s ${EASE}`,
                   }}
                 />
@@ -271,7 +231,7 @@ export default function PortfolioStage({
                     fontWeight: 600,
                     lineHeight: 1,
                     letterSpacing: "-.04em",
-                    color: isActive || isHovered ? "#F36B21" : "rgba(247,243,232,.32)",
+                    color: isActive || isHovered ? "#F36B21" : "rgba(74,68,60,.5)",
                     transition: `color .3s ${EASE}`,
                   }}
                 >
@@ -285,7 +245,7 @@ export default function PortfolioStage({
                     letterSpacing: "-.01em",
                     lineHeight: 1.15,
                     maxWidth: "16ch",
-                    textShadow: "0 2px 14px rgba(0,0,0,.6)",
+                    color: "#1C1815",
                   }}
                 >
                   {biz.title}
@@ -296,23 +256,23 @@ export default function PortfolioStage({
         })}
       </div>
 
-      {/* ---------- heading, pinned to the top of the canvas ---------- */}
+      {/* ---------- heading pinned to top of canvas ---------- */}
       <div
         style={{
           position: "absolute",
           insetInline: 0,
           top: 0,
-          padding: compact ? "2rem 1.25rem 0" : "3rem 3.25rem 0",
+          padding: compact ? "2rem 1.25rem 0" : "3rem 3.5rem 0",
           pointerEvents: "none",
           zIndex: 200,
         }}
       >
-        <SectionHeading light />
+        <SectionHeading />
       </div>
 
-      {/* ---------- reel, upper right ---------- */}
+      {/* ---------- upper right reel navigation ---------- */}
       {!compact && (
-        <div style={{ position: "absolute", right: "3.25rem", top: "34vh", width: "20rem", height: "17rem", overflow: "hidden", zIndex: 200 }}>
+        <div style={{ position: "absolute", right: "3.5rem", top: "34vh", width: "20rem", height: "17rem", overflow: "hidden", zIndex: 200 }}>
           <div
             style={{
               position: "absolute",
@@ -342,15 +302,12 @@ export default function PortfolioStage({
                     justifyContent: "flex-end",
                     gap: ".75rem",
                     textAlign: "right",
-                    // slight curve: rows bow away from the active one
                     transform: `translate3d(${(1 - Math.cos(d * 0.35)) * 3.5}rem, 0, 0) scale(${1 - Math.min(ad, 3) * 0.06})`,
                     transformOrigin: "right center",
-                    opacity: Math.max(0.15, 1 - ad * 0.3),
-                    filter: ad > 1.6 ? `blur(${Math.min((ad - 1.6) * 3, 3)}px)` : "none",
-                    color: isActive ? "#F36B21" : "rgba(247,243,232,.7)",
+                    opacity: Math.max(0.2, 1 - ad * 0.3),
+                    color: isActive ? "#F36B21" : "rgba(74,68,60,.75)",
                     fontWeight: isActive ? 600 : 400,
                     fontSize: ".9375rem",
-                    textShadow: "0 2px 12px rgba(0,0,0,.7)",
                     willChange: "transform, opacity",
                   }}
                 >
@@ -360,7 +317,7 @@ export default function PortfolioStage({
                       width: isActive ? "2.5rem" : "1rem",
                       height: "1px",
                       flexShrink: 0,
-                      background: isActive ? "#F36B21" : "rgba(247,243,232,.3)",
+                      background: isActive ? "#F36B21" : "rgba(74,68,60,.3)",
                       transition: `width .3s ${EASE}`,
                     }}
                   />
@@ -371,14 +328,14 @@ export default function PortfolioStage({
         </div>
       )}
 
-      {/* ---------- content, lower left ---------- */}
+      {/* ---------- lower left content info ---------- */}
       <div
         style={{
           position: "absolute",
           left: 0,
           right: 0,
           bottom: compact ? "3.5rem" : "2.5rem",
-          padding: compact ? "0 1.25rem" : "0 3.25rem",
+          padding: compact ? "0 1.25rem" : "0 3.5rem",
           zIndex: 200,
           opacity: Math.max(0, settle),
           transform: `translate3d(0, ${(1 - Math.max(0, settle)) * 12}px, 0)`,
@@ -387,20 +344,19 @@ export default function PortfolioStage({
         }}
       >
         <div style={{ maxWidth: compact ? "100%" : "40rem" }}>
-          <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.5)" }}>{active.category}</div>
+          <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(74,68,60,.6)" }}>{active.category}</div>
           <p
             style={{
               marginTop: ".625rem",
               fontSize: ".9375rem",
-              color: "rgba(247,243,232,.7)",
+              color: "#4A443C",
               lineHeight: 1.55,
               maxWidth: "44ch",
-              textShadow: "0 2px 12px rgba(0,0,0,.6)",
             }}
           >
             {active.description}
           </p>
-          <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(247,243,232,.4)", margin: "1.25rem 0 .625rem" }}>
+          <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".05em", color: "rgba(74,68,60,.5)", margin: "1.25rem 0 .625rem" }}>
             Managed Companies &amp; Central Domains ({active.entities.length})
           </div>
           <EntityChips entities={active.entities} />
@@ -420,18 +376,13 @@ export default function PortfolioStage({
                 width: i === activeIndex ? "2rem" : ".5rem",
                 height: ".5rem",
                 borderRadius: "9999px",
-                background: i === activeIndex ? "#F36B21" : "rgba(247,243,232,.28)",
+                background: i === activeIndex ? "#F36B21" : "rgba(74,68,60,.28)",
                 transition: `width .3s ${EASE}, background .3s ${EASE}`,
               }}
             />
           ))}
         </div>
       )}
-
-      {/* ---------- scroll progress, flush to the bottom edge ---------- */}
-      <div style={{ position: "absolute", insetInline: 0, bottom: 0, height: "2px", background: "rgba(247,243,232,.1)", zIndex: 200 }}>
-        <div style={{ height: "100%", width: `${progress * 100}%`, background: "#F36B21", willChange: "width" }} />
-      </div>
     </div>
   );
 }

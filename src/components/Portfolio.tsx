@@ -151,8 +151,8 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   /* ---------- reduced motion: the whole collection, static and readable ---------- */
   if (reduced) {
     return (
-      <section id="works" style={{ background: "#fff" }}>
-        <div className="shell" style={{ padding: "2.5rem 1.25rem 5rem" }}>
+      <section id="works" style={{ background: "#ffffff" }}>
+        <div className="shell" style={{ padding: "2.5rem 3.5rem 5rem" }}>
           <SectionHeading />
           <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem", marginTop: "3.5rem" }}>
             {businesses.map((biz) => (
@@ -161,21 +161,21 @@ export default function Portfolio({ lenis }: PortfolioProps) {
                   style={{
                     minHeight: "22rem",
                     borderRadius: "2rem",
-                    background: PANEL,
+                    background: "#FBF8F1",
                     padding: "1.75rem",
-                    color: "#fff",
-                    boxShadow: "0 0 0 1px rgba(243,107,33,0.22)",
+                    color: "#35302A",
+                    boxShadow: "0 0 0 1px #E6DECB",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(247,243,232,.45)" }}>
+                    <div style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".025em", color: "rgba(74,68,60,.5)" }}>
                       {biz.category}
                     </div>
-                    <h3 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em", marginTop: "1rem" }}>{biz.title}</h3>
-                    <p style={{ marginTop: ".5rem", fontSize: ".875rem", color: "rgba(247,243,232,.65)", lineHeight: 1.5 }}>{biz.description}</p>
+                    <h3 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em", marginTop: "1rem", color: "#35302A" }}>{biz.title}</h3>
+                    <p style={{ marginTop: ".5rem", fontSize: ".875rem", color: "rgba(74,68,60,.75)", lineHeight: 1.5 }}>{biz.description}</p>
                   </div>
                   <EntityChips entities={biz.entities} />
                 </article>

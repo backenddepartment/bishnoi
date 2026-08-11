@@ -38,6 +38,26 @@ const CARD_RADIUS = "15px";
 const CARD_GAP = 1.5; // rem — visible breathing room between cards, not overlap
 const DRAG_THRESHOLD = 55; // px
 
+// Coverflow-style curvature: cards away from the active one bend on the
+// Y-axis and shrink/dim — same curved-ring feel as the 3D carousel
+// reference, layered onto the existing flat drag track rather than
+// replacing it. Distance is fractional (see getCurveStyle) so the curve
+// eases smoothly as you drag between cards instead of snapping on release.
+//
+// The bend itself is a matrix3d, not rotateY/translateZ — same shape as:
+//   matrix3d(1,0,c,0,  0,1,0,0,  -c,0,1,0,  p,0,0,1)
+// `c` is a small-angle stand-in for sin(theta): it shears x by z and z by
+// x, i.e. rotateY(theta) for small theta. `p` lands in the w row keyed to
+// each card's own local x (not the standard z-based CSS perspective()),
+// which is what gives the row its slight fisheye-arc look rather than a
+// flat book-page rotation. Both scale with a card's distance from the
+// focal index, so cards further out bend and compress more.
+const CURVE_SHEAR_STEP = 0.1; // c per card-step
+const CURVE_PERSPECTIVE_STEP = 0.002; // p per card-step
+const CURVE_SCALE_STEP = 0.055; // scale falloff per card-step
+const CURVE_DIM_STEP = 0.12; // brightness falloff per card-step
+const CURVE_MAX_STEPS = 3; // clamp so a big in-flight drag can't over-bend
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /* Four thin L-marks framing the panel like a viewfinder. */
@@ -83,6 +103,10 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
   // which hands control back to the active card's centered shift.
   const [maxShiftPx, setMaxShiftPx] = useState(0);
   const [hoverShiftPx, setHoverShiftPx] = useState<number | null>(null);
+  // Actual rendered distance between two adjacent card centers, in px — used
+  // to turn dragOffsetPx into a fractional card-step for the curve, since
+  // CARD_W/CARD_GAP are rem values that scale with viewport width.
+  const [cardStepPx, setCardStepPx] = useState(0);
 
   const count = HALL_CARDS.length;
   const active = HALL_CARDS[activeIndex];
@@ -141,6 +165,9 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
       const maxShift = Math.max(0, trackWidth - containerWidth);
       setMaxShiftPx(maxShift);
       setShiftPx(Math.min(Math.max(desired, 0), maxShift));
+
+      const next = track.children[1] as HTMLElement | undefined;
+      if (next) setCardStepPx(next.offsetLeft - (track.children[0] as HTMLElement).offsetLeft);
     };
 
     measure();
@@ -197,16 +224,40 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
     setHoverShiftPx(null);
   };
 
-  // Cards are plain, uniform, front-facing flex items — no rotation, no
-  // per-card scale. The whole row is one flex track; a single translateX
-  // (clamped, measured above) shifts it so the active card centers when
-  // there's room on both sides, and otherwise pins the track flush against
-  // whichever edge it's nearest — so the row always fills the container
-  // edge-to-edge instead of leaving dead space around a small centered block.
-  // While the cursor is panning the row it owns the shift; otherwise the
-  // active card's centered position does.
+  // The whole row is one flex track; a single translateX (clamped, measured
+  // above) shifts it so the active card centers when there's room on both
+  // sides, and otherwise pins the track flush against whichever edge it's
+  // nearest — so the row always fills the container edge-to-edge instead of
+  // leaving dead space around a small centered block. While the cursor is
+  // panning the row it owns the shift; otherwise the active card's centered
+  // position does. On top of that flat positioning, getCurveStyle below adds
+  // a per-card 3D tilt so the row reads as a shallow curve, à la coverflow.
   const isHoverPanning = !isDragging && hoverShiftPx !== null;
   const effectiveShift = isHoverPanning ? (hoverShiftPx as number) : shiftPx;
+
+  // Per-card coverflow curvature. `distance` is fractional and includes the
+  // live drag offset, so the curve settles smoothly around whichever card
+  // ends up active rather than jumping the instant the pointer is released.
+  const getCurveStyle = (i: number): React.CSSProperties => {
+    // Dragging left (negative dragOffsetPx) slides the track toward
+    // activeIndex + 1, so the focal card-index the curve centers on is
+    // (activeIndex - dragOffsetPx/cardStepPx); a card's distance from it is
+    // i - that focal index, i.e. i - activeIndex + dragOffsetPx/cardStepPx.
+    const dragSteps = cardStepPx > 0 ? dragOffsetPx / cardStepPx : 0;
+    const distance = Math.max(-CURVE_MAX_STEPS, Math.min(CURVE_MAX_STEPS, i - activeIndex + dragSteps));
+    const abs = Math.abs(distance);
+    if (abs < 0.01) return { transform: "none" };
+    const scale = 1 - abs * CURVE_SCALE_STEP;
+    const dim = 1 - abs * CURVE_DIM_STEP;
+    const c = distance * CURVE_SHEAR_STEP;
+    const p = distance * CURVE_PERSPECTIVE_STEP;
+    const bend = [1, 0, c, 0, 0, 1, 0, 0, -c, 0, 1, 0, p, 0, 0, 1].join(",");
+    return {
+      transform: `matrix3d(${bend}) scale(${scale})`,
+      filter: `brightness(${dim})`,
+      transition: isDragging ? "none" : `transform .5s ${EASE}, filter .5s ${EASE}`,
+    };
+  };
 
   const trackStyle: React.CSSProperties = {
     position: "absolute",
@@ -357,7 +408,7 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
                       onMouseLeave={() => canHover && setHoveredIndex((h) => (h === i ? null : h))}
                       aria-label={`Show ${card.title}`}
                       aria-current={i === activeIndex}
-                      style={cardBoxStyle}
+                      style={{ ...cardBoxStyle, ...getCurveStyle(i) }}
                     >
                       <span
                         style={{
@@ -430,8 +481,8 @@ export default function MirrorHall({ introReady }: MirrorHallProps) {
                   }}
                 >
                   <div style={trackStyle}>
-                    {HALL_CARDS.map((card) => (
-                      <div key={card.id} style={cardBoxStyle}>
+                    {HALL_CARDS.map((card, i) => (
+                      <div key={card.id} style={{ ...cardBoxStyle, ...getCurveStyle(i) }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={card.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: CARD_RADIUS }} />
                       </div>

@@ -113,7 +113,7 @@ export default function Principles({}: PrinciplesProps) {
 
   return (
     <section id="principles" ref={sectionRef} style={{ background: "#FFFFFF" }}>
-      <div className="shell" style={{ padding: "5rem 1.25rem" }}>
+      <div className="shell" style={{ paddingBlock: "5rem" }}>
         {/* title holds the left column; the blurb sits beside it on desktop so
             the header spans the shell instead of trailing off to empty space */}
         <div
