@@ -185,7 +185,7 @@ export default function Principles({}: PrinciplesProps) {
                   borderRadius: "1.5rem",
                   flex: compact ? (isOpen ? "1 1 auto" : "0 0 4.5rem") : isOpen ? "4 1 0%" : "1 1 0%",
                   minWidth: 0,
-                  background: isOpen ? PANEL_DARK : "#FBF8F1",
+                  background: isOpen ? PANEL_DARK : "#ffffff",
                   boxShadow: isOpen ? "0 0 0 1px rgba(243,107,33,0.34)" : "0 0 0 1px #E6DECB",
                   color: isOpen ? "#fff" : "#4A443C",
                   cursor: isOpen ? "default" : "pointer",
@@ -201,7 +201,7 @@ export default function Principles({}: PrinciplesProps) {
                     top: isOpen ? "auto" : "38%",
                     bottom: isOpen ? "1.5rem" : "auto",
                     transform: isOpen ? "none" : "translateX(50%)",
-                    fontSize: isOpen ? "9rem" : "3rem",
+                    fontSize: isOpen ? "9rem" : "3.5rem",
                     fontWeight: 600,
                     lineHeight: 1,
                     letterSpacing: "-.05em",
@@ -242,12 +242,7 @@ export default function Principles({}: PrinciplesProps) {
                       }}
                     />
                     {isOpen ? (
-                      <>
-                        <h3 style={{ fontSize: compact ? "1.375rem" : "1.75rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
-                        <span style={{ fontSize: ".75rem", fontWeight: 600, color: "rgba(247,243,232,.45)" }}>
-                          {String(group.items.length).padStart(2, "0")} principles
-                        </span>
-                      </>
+                      <h3 style={{ fontSize: compact ? "1.375rem" : "1.75rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
                     ) : (
                       compact && <h3 style={{ fontSize: "1.375rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
                     )}
@@ -256,7 +251,7 @@ export default function Principles({}: PrinciplesProps) {
                   {/* closed spine on desktop: the title sits under the rule and
                       wraps, since the panel is too narrow for one line */}
                   {!isOpen && !compact && (
-                    <h3 style={{ marginTop: "1rem", fontSize: "1.75rem", fontWeight: 600, letterSpacing: "-.015em", lineHeight: 1.15 }}>{group.label}</h3>
+                    <h3 style={{ marginTop: "1rem", fontSize: "2rem", fontWeight: 600, letterSpacing: "-.015em", lineHeight: 1.15 }}>{group.label}</h3>
                   )}
 
                   {isOpen ? (
@@ -281,7 +276,7 @@ export default function Principles({}: PrinciplesProps) {
                             <span
                               style={{
                                 flexShrink: 0,
-                                fontSize: ".6875rem",
+                                fontSize: "1rem",
                                 fontWeight: 600,
                                 color: "#F36B21",
                                 fontVariantNumeric: "tabular-nums",
@@ -290,7 +285,7 @@ export default function Principles({}: PrinciplesProps) {
                             >
                               {String(n).padStart(2, "0")}
                             </span>
-                            <span style={{ fontSize: ".875rem", lineHeight: 1.5, color: "rgba(247,243,232,.75)" }}>{text}</span>
+                            <span style={{ fontSize: "1.0625rem", lineHeight: 1.5, color: "rgba(247,243,232,.75)" }}>{text}</span>
                           </li>
                         ))}
                       </ul>

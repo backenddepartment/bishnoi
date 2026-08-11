@@ -7,10 +7,15 @@ interface AboutProps {
   introReady: boolean;
 }
 
+const HEADLINE = "India's Original Environmentalists";
+
 export default function About({ onScrollTo }: AboutProps) {
-  const headlineWords = ["A", "modern", "group,", "an", "ancient", "discipline."];
   const [isVisible, setIsVisible] = useState(false);
+  const [canHover, setCanHover] = useState(false);
+  const [typedCount, setTypedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const timeoutRef = useRef<number | undefined>(undefined);
+  const intervalRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -30,108 +35,115 @@ export default function About({ onScrollTo }: AboutProps) {
     return () => observer.disconnect();
   }, []);
 
+  // On a touch device there's no hover to type on, so the headline still
+  // needs a fallback trigger — same probe as Portfolio.tsx/MirrorHall.tsx.
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover)");
+    const sync = () => setCanHover(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // Types the headline out like a keyboard, one character per tick, restarting
+  // from scratch each time it's called. Skips straight to the full title for
+  // prefers-reduced-motion, since this is a JS-driven reveal that the global
+  // CSS animation kill-switch can't touch.
+  const typeHeadline = () => {
+    window.clearTimeout(timeoutRef.current);
+    window.clearInterval(intervalRef.current);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTypedCount(HEADLINE.length);
+      return;
+    }
+
+    setTypedCount(0);
+    timeoutRef.current = window.setTimeout(() => {
+      let i = 0;
+      intervalRef.current = window.setInterval(() => {
+        i += 1;
+        setTypedCount(i);
+        if (i >= HEADLINE.length) window.clearInterval(intervalRef.current);
+      }, 45);
+    }, 150);
+  };
+
+  // Hover-capable pointers type the title on hover; touch devices fall back
+  // to typing it once the section scrolls into view. Deferred a tick so the
+  // effect body itself never calls setState synchronously.
+  useEffect(() => {
+    if (canHover || !isVisible) return;
+    const kickoffId = window.setTimeout(typeHeadline, 0);
+    return () => {
+      window.clearTimeout(kickoffId);
+      window.clearTimeout(timeoutRef.current);
+      window.clearInterval(intervalRef.current);
+    };
+  }, [isVisible, canHover]);
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timeoutRef.current);
+      window.clearInterval(intervalRef.current);
+    };
+  }, []);
+
   return (
-    <section id="about" ref={sectionRef} style={{ background: "#fff" }}>
+    <section
+      id="about"
+      ref={sectionRef}
+      onMouseEnter={() => canHover && typeHeadline()}
+      style={{ background: "#fff" }}
+    >
       <div className="shell grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "3rem", padding: "5rem 1.25rem" }}>
-        {/* Left Side: Headline & Paragraph */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }} className="lg:col-span-7">
-          <h2 id="about-h2" style={{ fontSize: "2.25rem", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
-            {headlineWords.map((word, i) => (
-              <span
-                key={`hw-${i}`}
-                className={`reveal-word ${isVisible ? "visible" : ""}`}
-                style={{ marginRight: ".4rem", transitionDelay: `${200 + i * 60}ms` }}
-              >
-                <span className="word-inner">{word}</span>
-              </span>
-            ))}
+        {/* Headline & Paragraph — stretched full width now that the quote card beside it is gone */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }} className="lg:col-span-12">
+          <h2 id="about-h2" aria-label={HEADLINE} style={{ fontSize: "3.25rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}>
+            <span aria-hidden="true">{HEADLINE.slice(0, typedCount)}</span>
+            <span className="typing-cursor" aria-hidden="true" />
           </h2>
 
           <p
             style={{
-              fontSize: "1.0625rem",
+              fontSize: "1.3125rem",
               lineHeight: 1.6,
               color: "rgba(74,68,60,.75)",
-              maxWidth: "42rem",
+              maxWidth: "56rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
               transitionDelay: "450ms",
             }}
           >
-            Established upon the 29 principles of environmental stewardship defined by Guru Maharaj Jambheshwar in 1485 AD (Bishnoi: 20 + 9), Bishnoi brings the same principles that protected the Thar Desert’s trees and wildlife since 1730 — restraint, stewardship and long-term thinking — into pharmaceuticals, agriculture, dairy and philanthropy today.
+            For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
           </p>
-        </div>
 
-        {/* Right Side: Who We Are & Quote Glass Card */}
-        <div style={{ position: "relative", minHeight: "14rem" }} className="lg:col-span-5">
-          <span style={{ position: "absolute", right: "-1rem", top: "50%", transform: "translateY(-50%)", fontSize: "12rem", color: "rgba(74,68,60,.06)", pointerEvents: "none", userSelect: "none" }}>
-            🌱
-          </span>
-          <div className="eyebrow eyebrow-dark" style={{ position: "relative" }}>
-            <span className="dot"></span>Who We Are
-          </div>
-          <div
-            id="about-globe-text"
+          <ul
+            id="about-stats"
             style={{
-              position: "relative",
-              marginTop: "2rem",
               display: "flex",
-              flexDirection: "column",
-              gap: ".5rem",
-              fontSize: ".875rem",
-              color: "rgba(74,68,60,.7)",
-              background: "#FBF8F1",
-              border: "1px solid #E6DECB",
-              borderRadius: "1.5rem",
-              padding: "1.75rem",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.04)",
+              flexWrap: "wrap",
+              gap: "2.5rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
-              transitionDelay: "150ms",
+              transitionDelay: "550ms",
             }}
           >
-            <p style={{ fontStyle: "italic", borderLeft: "3px solid #F36B21", paddingLeft: "1rem", color: "rgba(74,68,60,.85)", lineHeight: 1.6, fontSize: ".9375rem" }}>
-              "In 1730, Amrita Devi Bishnoi and 363 others gave their lives embracing sacred Khejri trees to stop them being felled — one of the earliest recorded environmental movements in human history."
-            </p>
-            <span style={{ fontSize: ".75rem", fontWeight: 600, color: "#356B3F", paddingLeft: "1rem", marginTop: ".5rem" }}>
-              — The Khejarli sacrifice, Rajasthan (1730 AD)
-            </span>
-          </div>
-        </div>
-
-        {/* Full-Width Bottom Bar Spread Side-by-Side */}
-        <div
-          id="about-footer"
-          className="col-span-full w-full"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            gap: "1.5rem",
-            borderTop: "1px solid #E6DECB",
-            paddingTop: "1.75rem",
-            marginTop: "1rem",
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
-            transitionDelay: "600ms",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: ".875rem", color: "rgba(74,68,60,.45)", textTransform: "uppercase", letterSpacing: ".025em" }}>Heritage & 29 Principles</div>
-            <div style={{ fontSize: ".9375rem", fontWeight: 500, color: "#4A443C", marginTop: ".25rem" }}>
-              Guided by Guru Jambheshwar's 29 principles of environmental stewardship since 1485 AD
-            </div>
-          </div>
-          <button className="pill-btn" onClick={() => onScrollTo("about")}>
-            <span className="pill-inner pill-accent-outline pill-with-arrow">
-              Who we are <span className="pill-badge up-right">↗</span>
-            </span>
-          </button>
+            <li>
+              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>1485</div>
+              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Founding year (AD)</div>
+            </li>
+            <li>
+              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>29</div>
+              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Guiding principles</div>
+            </li>
+            <li>
+              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>363</div>
+              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Lives given at Khejarli</div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

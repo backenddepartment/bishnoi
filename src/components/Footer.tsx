@@ -52,7 +52,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           <div>
             <span style={{ display: "flex", alignItems: "center" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
+              <img src="/logowhite.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
             </span>
             <p style={{ maxWidth: "20rem", fontSize: ".9375rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
               A diversified group spanning pharmaceuticals, hydroponics, dairy and social impact — guided by a conservation philosophy older than most nations.

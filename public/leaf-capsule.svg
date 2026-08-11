@@ -1,0 +1,66 @@
+<svg width="1600" height="480" viewBox="0 0 1600 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C3A26"/>
+      <stop offset="55%" stop-color="#173F2A"/>
+      <stop offset="100%" stop-color="#0D1712"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#C8A45D" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#C8A45D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="leafFillA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4C7C52"/>
+      <stop offset="100%" stop-color="#20502D"/>
+    </linearGradient>
+    <linearGradient id="leafFillB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#356B3F"/>
+      <stop offset="100%" stop-color="#153420"/>
+    </linearGradient>
+    <linearGradient id="leafFillC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C8A45D"/>
+      <stop offset="100%" stop-color="#7C5E32"/>
+    </linearGradient>
+
+    <symbol id="leaf" viewBox="0 0 200 300">
+      <path d="M100,0 C170,55 194,150 150,232 C132,266 112,288 100,300 C88,288 68,266 50,232 C6,150 30,55 100,0 Z" />
+    </symbol>
+    <symbol id="veins" viewBox="0 0 200 300">
+      <g stroke="rgba(247,243,232,.35)" stroke-width="2" fill="none" stroke-linecap="round">
+        
+  <path d="M100,18 C102,90 100,200 100,284" />
+  <path d="M100,55 L62,88" /><path d="M100,55 L138,88" />
+  <path d="M100,110 L58,146" /><path d="M100,110 L142,146" />
+  <path d="M100,168 L66,200" /><path d="M100,168 L134,200" />
+  <path d="M100,222 L78,246" /><path d="M100,222 L122,246" />
+
+      </g>
+    </symbol>
+
+    <filter id="soften" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="480" fill="url(#bg)"/>
+  <rect width="1600" height="480" fill="url(#glow)"/>
+
+  <!-- Large background leaves, filling the frame edge to edge -->
+  <g filter="url(#soften)" opacity="0.92">
+    <use href="#leaf" width="200" height="300" fill="url(#leafFillB)" transform="translate(-40,60) rotate(-18,100,150) scale(2.3)"/>
+    <use href="#leaf" width="200" height="300" fill="url(#leafFillA)" transform="translate(620,-70) rotate(12,100,150) scale(2.6)"/>
+    <use href="#leaf" width="200" height="300" fill="url(#leafFillB)" transform="translate(1180,40) rotate(-10,100,150) scale(2.4)"/>
+  </g>
+
+  <!-- Foreground accent leaf with visible veins -->
+  <g opacity="0.96">
+    <use href="#leaf" width="200" height="300" fill="url(#leafFillC)" transform="translate(430,10) rotate(8,100,150) scale(1.9)"/>
+    <use href="#veins" width="200" height="300" transform="translate(430,10) rotate(8,100,150) scale(1.9)"/>
+  </g>
+  <g opacity="0.9">
+    <use href="#leaf" width="200" height="300" fill="url(#leafFillB)" transform="translate(940,70) rotate(-6,100,150) scale(1.7)"/>
+    <use href="#veins" width="200" height="300" transform="translate(940,70) rotate(-6,100,150) scale(1.7)"/>
+  </g>
+
+  <rect width="1600" height="480" fill="rgba(13,23,18,.18)"/>
+</svg>
