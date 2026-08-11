@@ -322,6 +322,24 @@ img {
   }
 }
 
+/* Blinking caret for the typewriter-style headline in About. Killed by the
+   reduced-motion rule above like any other CSS animation. */
+.typing-cursor {
+  display: inline-block;
+  width: .06em;
+  height: .9em;
+  margin-left: .05em;
+  background: currentColor;
+  vertical-align: -0.1em;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Slow vertical drift for the floating project tiles in the works section.
    Applied to a wrapper so it never collides with the scroll-driven transform
    on the parent. Killed by the reduced-motion rule above. */

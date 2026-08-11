@@ -339,31 +339,17 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           width: "100%",
           maxWidth: "100%",
           gap: "2.5rem",
-          padding: "10rem 3.25rem 3rem",
+          padding: "13rem 3.25rem 3rem",
           color: "#ffffff",
           alignItems: "center",
           alignContent: "space-between",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
-          <div
-            id="hero-eyebrow"
-            className="eyebrow eyebrow-light"
-            style={{
-              opacity: introReady ? 1 : 0,
-              transform: introReady ? "translateY(0)" : "translateY(10px)",
-              transition: "opacity 0.6s cubic-bezier(.22,1,.36,1), transform 0.6s cubic-bezier(.22,1,.36,1)",
-              color: "#ffffff",
-              textShadow: "0 2px 6px rgba(0,0,0,0.8)",
-            }}
-          >
-            <span className="dot" style={{ background: "#F36B21" }}></span> Bishnoi
-          </div>
-
           <h1
             id="hero-h1"
             style={{
-              maxWidth: "20ch",
+              maxWidth: "26ch",
               fontSize: "4rem",
               fontWeight: 700,
               lineHeight: 1.05,
@@ -373,10 +359,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             }}
           >
             <span className={`reveal-line ${introReady ? "visible" : ""}`}>
-              <span className="line-inner">Rooted in five hundred years.</span>
-            </span>
-            <span className={`reveal-line ${introReady ? "visible" : ""}`}>
-              <span className="line-inner">Building for what comes next.</span>
+              <span className="line-inner">Rooted in five hundred years. Building for what comes next.</span>
             </span>
           </h1>
 
