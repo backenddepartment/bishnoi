@@ -242,26 +242,6 @@ export default function Principles({}: PrinciplesProps) {
                   transition: `flex .7s ${EASE}, background .5s ${EASE}, box-shadow .5s ${EASE}, color .5s ${EASE}`,
                 }}
               >
-                {/* ghost numeral, the panel's only ornament */}
-                <span
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    right: isOpen ? "2rem" : "50%",
-                    top: isOpen ? "auto" : "38%",
-                    bottom: isOpen ? "1.5rem" : "auto",
-                    transform: isOpen ? "none" : "translateX(50%)",
-                    fontSize: isOpen ? "9rem" : "3.5rem",
-                    fontWeight: 600,
-                    lineHeight: 1,
-                    letterSpacing: "-.05em",
-                    color: isOpen ? "rgba(243,107,33,.14)" : "rgba(74,68,60,.1)",
-                    pointerEvents: "none",
-                    transition: `font-size .6s ${EASE}, color .5s ${EASE}`,
-                  }}
-                >
-                  {group.numeral}
-                </span>
 
                 <button
                   type="button"
