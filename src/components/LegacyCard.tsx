@@ -3,10 +3,10 @@
 import { type Chapter, LEGACY_EASE as EASE } from "./legacyData";
 
 const TYPE = {
-  xl: { title: "1.5rem", kicker: ".625rem", mark: "2rem" },
-  lg: { title: "1.125rem", kicker: ".5625rem", mark: "1.75rem" },
-  md: { title: ".9375rem", kicker: ".5rem", mark: "1.5rem" },
-  sm: { title: ".875rem", kicker: ".5rem", mark: "1.375rem" },
+  xl: { title: "2rem", kicker: ".875rem", mark: "2.75rem" },
+  lg: { title: "1.5rem", kicker: ".8125rem", mark: "2.5rem" },
+  md: { title: "1.25rem", kicker: ".75rem", mark: "2.25rem" },
+  sm: { title: "1.125rem", kicker: ".75rem", mark: "2rem" },
 } as const;
 const NEXT_TIER = { sm: "md", md: "lg", lg: "xl", xl: "xl" } as const;
 
@@ -123,10 +123,10 @@ export default function LegacyCard({
               display: "grid",
               placeItems: "center",
               borderRadius: "9999px",
-              fontSize: ".8125rem",
-              background: isHot ? "#F36B21" : "rgba(243,107,33,0.18)",
-              border: isHot ? "1px solid #F36B21" : "1px solid rgba(243,107,33,0.34)",
-              color: isHot ? "#2A1206" : "#F36B21",
+              fontSize: "1.125rem",
+              background: "#F36B21",
+              border: "1px solid #F36B21",
+              color: "#2A1206",
               transform: isHot ? "rotate(45deg)" : "rotate(0deg)",
               transitionProperty: "background, color, transform",
               transitionDuration: ".5s",
@@ -185,10 +185,8 @@ export default function LegacyCard({
                 fontWeight: 600,
                 letterSpacing: "-.01em",
                 lineHeight: 1.2,
-                // one line only — the full title is revealed on opening
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                // wraps instead of truncating — the full title should always
+                // read, not just once the chapter is opened
                 transitionProperty: "font-size",
                 transitionDuration: ".5s",
                 transitionTimingFunction: EASE,
@@ -205,10 +203,10 @@ export default function LegacyCard({
                 display: "grid",
                 placeItems: "center",
                 borderRadius: "9999px",
-                fontSize: ".8125rem",
-                background: isHot ? "#F36B21" : "rgba(243,107,33,0.18)",
-                border: isHot ? "1px solid #F36B21" : "1px solid rgba(243,107,33,0.34)",
-                color: isHot ? "#2A1206" : "#F36B21",
+                fontSize: "1.125rem",
+                background: "#F36B21",
+                border: "1px solid #F36B21",
+                color: "#2A1206",
                 transform: isHot ? "rotate(45deg)" : "rotate(0deg)",
                 transitionProperty: "width, height, background, color, transform",
                 transitionDuration: ".5s",

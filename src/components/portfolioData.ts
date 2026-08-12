@@ -22,12 +22,12 @@ export const businesses: Division[] = [
     category: "Division 01 • Healthcare & E-Pharmacy Ecosystem",
     title: "Getmeds Healthcare Network",
     image: "/hero_pharma.jpg",
-    description: "Centralized global healthcare platform and pharmaceutical distribution across 5 international hubs.",
+    description: "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across five international hubs — spanning the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
     entities: [
       { name: "Getmeds Philippines", domain: "getmeds.ph", url: "https://getmeds.ph" },
       { name: "Getmeds India", domain: "getmedshealthcare.com", url: "https://getmedshealthcare.com" },
       { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com", url: "https://getmedsvanuatu.com" },
-      { name: "Getmeds Latam", domain: "getmedslatom.com", url: "https://getmedslatom.com" },
+      { name: "Getmeds Latam", domain: "getmedslatom.com", url: "https://getmedslatam.com" },
       { name: "Getmeds SEA", domain: "getmedssea.com", url: "https://getmedssea.com" },
     ],
   },
@@ -36,7 +36,7 @@ export const businesses: Division[] = [
     category: "Division 02 • Global Enterprise & Industrial Hubs",
     title: "Bishnoi Corporate Hubs",
     image: "/hero_hydroponics.jpg",
-    description: "Regional agritech, sustainable manufacturing, and industrial trade centers governing Asia-Pacific operations.",
+    description: "Regional centers of gravity for agritech, sustainable manufacturing, and cross-border industrial trade — anchoring the group's Asia-Pacific commercial footprint from India and the Philippines with long-horizon infrastructure investment.",
     entities: [
       { name: "Bishnoi India", domain: "bishnoi-omniverse.in", url: "https://bishnoi-omniverse.in" },
       { name: "Bishnoi Philippines", domain: "bishnoi-omniverse.ph", url: "https://bishnoi-omniverse.ph" },
@@ -47,7 +47,7 @@ export const businesses: Division[] = [
     category: "Division 03 • Philanthropy & Environmental Ethics",
     title: "Naresh Bishnoi Foundation",
     image: "/hero_wildlife.jpg",
-    description: "Dedicated to wildlife preservation, afforestation, 29 Principles stewardship, and desert eco-restoration.",
+    description: "Dedicated to wildlife preservation, mass afforestation, and the living stewardship of Guru Jambheshwar's 29 Principles — funding desert eco-restoration projects and community conservation programs that carry a five-hundred-year ecological ethic forward.",
     entities: [{ name: "Naresh Bishnoi Foundation", domain: "nbf.com", url: "https://nbf.com" }],
   },
   {
@@ -55,7 +55,7 @@ export const businesses: Division[] = [
     category: "Division 04 • Strategic Holdings & Family Office",
     title: "Naresh Kumar Bishnoi Office",
     image: "/hero_dairy.jpg",
-    description: "Strategic investment management, non-banking financial services, and global venture holdings.",
+    description: "The group's central intelligence — managing strategic investment portfolios, non-banking financial services, and global venture holdings that bind each division under one disciplined, long-term capital framework aligned with the family's founding values.",
     entities: [{ name: "Naresh Kumar Bishnoi", domain: "nkb.com", url: "https://nkb.com" }],
   },
   {
@@ -63,7 +63,7 @@ export const businesses: Division[] = [
     category: "Division 05 • Indigenous Dairy & Cattle Care",
     title: "Indigenous Dairy Care",
     image: "/hero_dairy.jpg",
-    description: "Dedicated to the preservation of indigenous cattle breeds, promoting sustainable organic dairy farming, and supporting rural livelihoods.",
+    description: "Committed to preserving indigenous cattle breeds, advancing sustainable organic dairy practices, and restoring rural livelihoods — connecting traditional Bishnoi reverence for animals with modern supply chains that prioritize welfare, purity, and community prosperity.",
     entities: [{ name: "Indigenous Dairy Care", domain: "nkb.com", url: "https://nkb.com" }],
   },
 ];

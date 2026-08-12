@@ -12,7 +12,6 @@ export default function VibeGallery({}: VibeGalleryProps) {
   const [reduced, setReduced] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const reflectionRef = useRef<HTMLDivElement>(null);
 
   const [isMouseDown, setIsMouseDown] = useState(false);
   const isMouseDownRef = useRef(false);
@@ -43,12 +42,11 @@ export default function VibeGallery({}: VibeGalleryProps) {
     const el = sectionRef.current;
     if (!el) return;
 
+    // Bidirectional — fades back out on exit too, not just in on first
+    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.15 }
     );
@@ -63,7 +61,6 @@ export default function VibeGallery({}: VibeGalleryProps) {
     if (!container) return;
     const singleSetWidth = container.scrollWidth / 3;
     container.scrollLeft = singleSetWidth;
-    if (reflectionRef.current) reflectionRef.current.scrollLeft = singleSetWidth;
   }, []);
 
   // Reflection layer skips the animated ripple for reduced-motion, same
@@ -109,8 +106,6 @@ export default function VibeGallery({}: VibeGalleryProps) {
     } else if (container.scrollLeft <= 5) {
       container.scrollLeft += singleSetWidth;
     }
-
-    if (reflectionRef.current) reflectionRef.current.scrollLeft = container.scrollLeft;
   };
 
   // Mouse Hover handlers
@@ -147,7 +142,7 @@ export default function VibeGallery({}: VibeGalleryProps) {
   };
 
   return (
-    <section ref={sectionRef} id="gallery" style={{ background: "#ffffff", padding: "5rem 0", position: "relative", overflow: "hidden" }}>
+    <section ref={sectionRef} id="gallery" style={{ background: "#ffffff", padding: "5rem 0 2rem 0", position: "relative", overflow: "hidden" }}>
       {/* Tagline Header Block — title left, subtext right */}
       <div
         className="shell grid grid-cols-1 lg:grid-cols-12"
@@ -233,63 +228,6 @@ export default function VibeGallery({}: VibeGalleryProps) {
               />
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Reflection — a mirrored, blurred, rippling copy of the same track,
-          scroll-synced to it, bowed into the same convex oval-cutout curve
-          as the slider above (reusing .image-grid-wrapper) instead of
-          sitting on a flat dark shelf. */}
-      <div
-        aria-hidden="true"
-        className="image-grid-wrapper image-grid-wrapper--reflection"
-        style={{
-          position: "relative",
-          height: "300px",
-          marginTop: "-55px",
-          pointerEvents: "none",
-        }}
-      >
-        <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
-          <defs>
-            <filter id="vibegallery-ripple" x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="11" result="noise">
-                {!reduced && <animate attributeName="baseFrequency" dur="10s" values="0.010 0.045;0.017 0.055;0.010 0.045" repeatCount="indefinite" />}
-              </feTurbulence>
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-        </svg>
-
-        {/* Sized to match the slider's card height exactly, so scaleY(-1)
-            about the default center origin flips it fully in place — an
-            unclipped, exact mirror of the row directly above. */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "480px",
-            transform: "scaleY(-1)",
-            opacity: 0.45,
-            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 100%)",
-            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 100%)",
-            filter: `blur(1px) brightness(.9) saturate(1.05) ${reduced ? "" : "url(#vibegallery-ripple)"}`,
-          }}
-        >
-          <div
-            ref={reflectionRef}
-            className="no-scrollbar"
-            style={{ display: "flex", gap: "16px", height: "480px", overflow: "hidden" }}
-          >
-            {galleryItems.map((img, idx) => (
-              <div key={idx} style={{ flexShrink: 0, width: "240px", height: "100%" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

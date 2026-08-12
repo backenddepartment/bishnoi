@@ -147,6 +147,22 @@ img {
   }
 }
 
+/* Breaks a child out of .shell-full's own padding-inline so it spans the
+   full section width edge-to-edge instead of sitting inset — the exact
+   negative-margin mirror of whatever .shell-full's padding is at each
+   breakpoint, so it always cancels out precisely. */
+.full-bleed {
+  margin-inline: -3.5rem;
+  width: calc(100% + 7rem);
+}
+
+@media (max-width: 768px) {
+  .full-bleed {
+    margin-inline: -1.5rem;
+    width: calc(100% + 3rem);
+  }
+}
+
 .pill-btn {
   display: inline-block;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -499,14 +515,19 @@ img {
   height: 100%;
 }
 
+/* A right-docked drawer, not a centered dialog — slides in from off-screen
+   right to left when opening, and back out left to right when closing. */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 110;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 1rem;
+  align-items: stretch;
+  justify-content: flex-end;
+  /* gap from the top, right, and bottom edges — left stays flush against
+     the sliding boundary, so the drawer reads as inset/floating instead
+     of pinned edge-to-edge */
+  padding: 1.5rem 1.5rem 1.5rem 0;
   background: rgba(26, 22, 19, 0.34);
   backdrop-filter: blur(16px);
   opacity: 0;
@@ -519,28 +540,40 @@ img {
 }
 .modal-panel {
   width: 100%;
-  max-width: 32rem;
-  overflow: hidden;
-  border-radius: 2rem;
+  max-width: 30rem;
+  overflow-y: auto;
+  border-radius: 1.25rem;
   background: #fff;
-  padding: 1.5rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 0 1px #E6DECB;
-  transform: translateY(28px);
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  opacity: 0;
+  padding: 2rem 1.5rem;
+  box-shadow: -20px 0 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateX(calc(100% + 1.5rem));
+  transition: transform 0.45s cubic-bezier(.22,1,.36,1);
+  /* light gray scrollbar, no up/down arrow buttons */
+  scrollbar-width: thin;
+  scrollbar-color: #D9D9D6 transparent;
 }
 .modal-backdrop.open .modal-panel {
-  transform: translateY(0);
-  opacity: 1;
+  transform: translateX(0);
+}
+.modal-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-panel::-webkit-scrollbar-thumb {
+  background: #D9D9D6;
+  border-radius: 9999px;
+}
+.modal-panel::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 @media (min-width: 640px) {
-  .modal-backdrop {
-    align-items: center;
-  }
   .modal-panel {
-    padding: 2rem;
+    padding: 3rem 2.5rem;
   }
 }
 

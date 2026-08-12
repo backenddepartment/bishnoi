@@ -15,12 +15,11 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
     const el = footerRef.current;
     if (!el) return;
 
+    // Bidirectional — fades back out on exit too, not just in on first
+    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.15 }
     );
@@ -33,7 +32,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
     <footer ref={footerRef} style={{ position: "relative", overflow: "hidden", borderRadius: "2rem 2rem 0 0", background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)", color: "#fff" }}>
       <div className="shell" style={{ position: "relative", zIndex: 10, padding: "5rem 1.25rem 2.5rem" }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "2rem", borderBottom: "1px solid rgba(247,243,232,.1)", paddingBottom: "4rem" }}>
-          <h2 style={{ maxWidth: "20ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
+          <h2 style={{ maxWidth: "32ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
               <span className="line-inner">Rooted in five hundred years.</span>
             </span>

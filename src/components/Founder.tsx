@@ -16,6 +16,7 @@ export default function Founder({}: FounderProps) {
   const [canHover, setCanHover] = useState(false);
   const [typedCount, setTypedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | undefined>(undefined);
   const intervalRef = useRef<number | undefined>(undefined);
 
@@ -23,18 +24,33 @@ export default function Founder({}: FounderProps) {
     const el = sectionRef.current;
     if (!el) return;
 
+    // Bidirectional — fades back out on exit too, not just in on first
+    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.15 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
+  }, []);
+
+  // Publishes this container's live rendered height as a CSS custom
+  // property, so other sections (PortfolioStack) can size themselves to
+  // genuinely match it at whatever width the page is viewed at, instead of
+  // a single guessed rem value that only held true at one screen size.
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      // getBoundingClientRect (not entry.contentRect, which excludes padding)
+      // so this matches the card's true rendered box height.
+      document.documentElement.style.setProperty("--founder-card-height", `${el.getBoundingClientRect().height}px`);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   useEffect(() => {
@@ -137,6 +153,7 @@ export default function Founder({}: FounderProps) {
 
         {/* Bottom: the biography, in three paragraphs, inside a green container */}
         <div
+          ref={cardRef}
           style={{
             position: "relative",
             overflow: "hidden",

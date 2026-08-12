@@ -12,14 +12,46 @@ interface PortfolioStackProps {
 }
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
-// Alternates green / orange per card, matching the Founder section's palette.
-const CARD_COLORS = ["var(--brand-heritage)", "var(--brand-orange)"];
+// One fixed color per card, in order.
+const CARD_COLORS = ["#173F2A", "#356B3F", "#F36B21", "#C8A45D"];
+// The shared "Division 0X • " prefix is stripped from the category label —
+// it's still useful as a data label elsewhere, just redundant next to the
+// title here.
+const stripDivisionPrefix = (category: string) => category.replace(/^Division\s*\d+\s*•\s*/i, "");
+
+// A cluster of layered, low-opacity circles scattered in the bottom-right
+// corner of each card — a soft decorative shade rather than a literal icon.
+// One scatter pattern per card so the four don't look identical.
+const CARD_CIRCLES = [
+  [
+    { size: 220, right: -70, bottom: -90, opacity: 0.1 },
+    { size: 130, right: 30, bottom: -20, opacity: 0.14 },
+    { size: 70, right: 150, bottom: 50, opacity: 0.16 },
+  ],
+  [
+    { size: 180, right: -40, bottom: -110, opacity: 0.12 },
+    { size: 100, right: 90, bottom: -10, opacity: 0.15 },
+    { size: 55, right: 40, bottom: 70, opacity: 0.18 },
+    { size: 30, right: 170, bottom: 30, opacity: 0.2 },
+  ],
+  [
+    { size: 240, right: -100, bottom: -60, opacity: 0.09 },
+    { size: 110, right: 10, bottom: 40, opacity: 0.15 },
+    { size: 60, right: 110, bottom: -20, opacity: 0.18 },
+  ],
+  [
+    { size: 160, right: -30, bottom: -70, opacity: 0.12 },
+    { size: 95, right: 100, bottom: -50, opacity: 0.14 },
+    { size: 45, right: 30, bottom: 60, opacity: 0.2 },
+    { size: 75, right: 160, bottom: 80, opacity: 0.15 },
+  ],
+];
 // Reserved space above the card's "home" box so older cards have somewhere
 // to peek from as they tuck in behind — clipped beyond this, so a still
 // off-screen upcoming card (parked one full height below) stays invisible.
-const PEEK_PX = 96;
+const PEEK_PX = 60;
 const PEEK_PX_COMPACT = 20;
-const PEEK_STEP_PX = 20;
+const PEEK_STEP_PX = 16;
 const PEEK_STEP_PX_COMPACT = 6;
 const MAX_BEHIND_STEPS = 4;
 
@@ -42,8 +74,8 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
         height: "calc(100vh - 3.75rem)",
         display: "grid",
         gridTemplateRows: "auto 1fr auto",
-        rowGap: compact ? ".75rem" : "1rem",
-        padding: compact ? ".75rem 0" : "1rem 0",
+        rowGap: compact ? ".75rem" : ".5rem",
+        padding: compact ? ".75rem 0" : ".5rem 0",
       }}
     >
       <div className="shell">
@@ -61,10 +93,11 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
               below stay fully hidden until their turn. */}
           <div style={{ position: "absolute", inset: 0 }}>
             {/* The "home" box — where the active (depth 0) card sits. On
-                desktop it's capped at 29rem, matching the Founder section's
-                green container at its own typical (desktop) size, rather
-                than stretching to fill all available space; it still
-                shrinks below that on short viewports so nothing clips.
+                desktop it tracks the Founder section's green container's
+                actual live height (published as a CSS var by Founder.tsx
+                via ResizeObserver, so it stays accurate at any screen width
+                instead of a single guessed rem value), capped so it still
+                shrinks below that on short viewports and never clips.
                 Compact keeps filling the available space, since Founder's
                 own height balloons unusably tall on narrow screens. */}
             <div
@@ -73,128 +106,115 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                 top: `${peekPx}px`,
                 left: 0,
                 right: 0,
-                ...(compact ? { bottom: 0 } : { height: `min(29rem, calc(100% - ${peekPx}px))` }),
+                bottom: 0,
               }}
             >
               {businesses.map((biz, i) => {
-              const depth = i - activeFloat;
-              // Not yet reached: parked one full card-height below, sliding
-              // up to 0 as depth counts down to 0.
-              const incoming = Math.min(Math.max(depth, 0), 1);
-              // Already passed: shrinks and tucks in behind, peeking above.
-              const behind = Math.min(Math.max(-depth, 0), MAX_BEHIND_STEPS);
+                const depth = i - activeFloat;
+                // Not yet reached: parked one full card-height below, sliding
+                // up to 0 as depth counts down to 0.
+                const incoming = Math.min(Math.max(depth, 0), 1);
+                // Already passed: shrinks and tucks in behind, peeking above.
+                const behind = Math.min(Math.max(-depth, 0), MAX_BEHIND_STEPS);
 
-              const translateY = incoming > 0 ? `${incoming * 100}%` : `${-behind * peekStepPx}px`;
-              const scale = 1 - behind * 0.035;
-              const opacity = 1 - Math.min(behind, MAX_BEHIND_STEPS) * 0.12;
-              const contentOpacity = Math.max(0, 1 - Math.abs(depth) * 3);
-              const color = CARD_COLORS[i % CARD_COLORS.length];
+                const translateY = incoming > 0 ? `${incoming * 100}%` : `${-behind * peekStepPx}px`;
+                const scale = 1 - behind * 0.035;
+                const opacity = 1 - Math.min(behind, MAX_BEHIND_STEPS) * 0.12;
+                const contentOpacity = Math.max(0, 1 - Math.abs(depth) * 3);
+                const color = CARD_COLORS[i % CARD_COLORS.length];
 
-              return (
-                <article
-                  key={biz.title}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    zIndex: i,
-                    borderRadius: "2rem",
-                    background: color,
-                    color: "#F7F3E8",
-                    padding: compact ? "2.25rem" : "3rem 3.5rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    overflow: "hidden",
-                    transform: `translateY(${translateY}) scale(${scale})`,
-                    opacity,
-                    boxShadow: "0 30px 60px -20px rgba(0,0,0,.35)",
-                    transition: `transform .6s ${EASE}, opacity .6s ${EASE}`,
-                    pointerEvents: i === activeIndex ? "auto" : "none",
-                  }}
-                >
-                  <div style={{ opacity: contentOpacity, transition: `opacity .4s ${EASE}` }}>
-                    <div
-                      style={{
-                        fontSize: ".8125rem",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: ".06em",
-                        color: "rgba(247,243,232,.7)",
-                      }}
-                    >
-                      {biz.category}
-                    </div>
-                    <h3
-                      style={{
-                        marginTop: ".75rem",
-                        fontSize: compact ? "2rem" : "3rem",
-                        fontWeight: 600,
-                        lineHeight: 1.1,
-                        letterSpacing: "-.02em",
-                        maxWidth: "20ch",
-                      }}
-                    >
-                      {biz.title}
-                    </h3>
-                  </div>
-
-                  {/* Decorative play affordance — purely visual, echoes the
-                      reference design's centered play button. Skipped on
-                      compact layouts, where the card is too tight for it not
-                      to collide with the entity chips/description below. */}
-                  {!compact && (
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: "6rem",
-                        height: "6rem",
-                        borderRadius: "9999px",
-                        background: "rgba(247,243,232,.16)",
-                        display: "grid",
-                        placeItems: "center",
-                        opacity: contentOpacity,
-                      }}
-                    >
-                      <span
+                return (
+                  <article
+                    key={biz.title}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      zIndex: i,
+                      borderRadius: "2rem",
+                      background: color,
+                      color: "#F7F3E8",
+                      padding: compact ? "2.25rem" : "3rem 3.5rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      overflow: "hidden",
+                      transform: `translateY(${translateY}) scale(${scale})`,
+                      opacity,
+                      boxShadow: "0 30px 60px -20px rgba(0,0,0,.35)",
+                      transition: `transform .6s ${EASE}, opacity .6s ${EASE}`,
+                      pointerEvents: i === activeIndex ? "auto" : "none",
+                    }}
+                  >
+                    <div style={{ opacity: contentOpacity, transition: `opacity .4s ${EASE}` }}>
+                      <div
                         style={{
-                          marginLeft: "4px",
-                          width: 0,
-                          height: 0,
-                          borderStyle: "solid",
-                          borderWidth: "13px 0 13px 20px",
-                          borderColor: "transparent transparent transparent rgba(247,243,232,.85)",
+                          fontSize: ".8125rem",
+                          fontWeight: 600,
+                          letterSpacing: ".02em",
+                          color: "rgba(247,243,232,.7)",
                         }}
-                      />
+                      >
+                        {stripDivisionPrefix(biz.category)}
+                      </div>
+                      <h3
+                        style={{
+                          marginTop: ".75rem",
+                          fontSize: compact ? "1.75rem" : "2.5rem",
+                          fontWeight: 600,
+                          lineHeight: 1.1,
+                          letterSpacing: "-.02em",
+                          maxWidth: i === 0 ? "none" : "20ch",
+                          whiteSpace: i === 0 && !compact ? "nowrap" : undefined,
+                        }}
+                      >
+                        {biz.title}
+                      </h3>
+                      {/* Pills sit immediately under the title */}
+                      <div style={{ marginTop: ".75rem" }}>
+                        <EntityChips entities={biz.entities} glass />
+                      </div>
+                      {/* Description sits right below the pills */}
+                      <p
+                        style={{
+                          marginTop: ".625rem",
+                          display: "flex",
+                          gap: ".5rem",
+                          fontSize: "1.125rem",
+                          lineHeight: 1.6,
+                          color: "rgba(247,243,232,.9)",
+                          maxWidth: "56rem",
+                          opacity: contentOpacity,
+                          transition: `opacity .4s ${EASE}`,
+                        }}
+                      >
+                        <span aria-hidden="true" style={{ flexShrink: 0 }}>✳</span>
+                        {biz.description}
+                      </p>
                     </div>
-                  )}
 
-                  <div style={{ opacity: contentOpacity, transition: `opacity .4s ${EASE}` }}>
-                    <div style={{ paddingBottom: "1rem", borderBottom: "1px solid rgba(247,243,232,.22)" }}>
-                      <EntityChips entities={biz.entities} />
+                    {/* Layered, low-opacity circles scattered in the
+                        bottom-right corner — a soft decorative shade. */}
+                    <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+                      {CARD_CIRCLES[i % CARD_CIRCLES.length].map((c, k) => {
+                        const scale = compact ? 0.7 : 1;
+                        return (
+                          <span
+                            key={k}
+                            style={{
+                              position: "absolute",
+                              right: `${c.right * scale}px`,
+                              bottom: `${c.bottom * scale}px`,
+                              width: `${c.size * scale}px`,
+                              height: `${c.size * scale}px`,
+                              borderRadius: "9999px",
+                              background: `rgba(247,243,232,${c.opacity})`,
+                            }}
+                          />
+                        );
+                      })}
                     </div>
-                    <p
-                      style={{
-                        marginTop: "1rem",
-                        display: "flex",
-                        gap: ".625rem",
-                        fontSize: "1rem",
-                        lineHeight: 1.6,
-                        color: "rgba(247,243,232,.9)",
-                        maxWidth: "42rem",
-                      }}
-                    >
-                      <span aria-hidden="true" style={{ flexShrink: 0 }}>
-                        ✳
-                      </span>
-                      {biz.description}
-                    </p>
-                  </div>
-                </article>
-              );
+                  </article>
+                );
               })}
             </div>
           </div>

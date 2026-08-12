@@ -14,6 +14,7 @@ import Bands from "@/components/Bands";
 import Principles from "@/components/Principles";
 import Portfolio from "@/components/Portfolio";
 import VibeGallery from "@/components/VibeGallery";
+import OurVision from "@/components/OurVision";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
@@ -119,8 +120,9 @@ export default function Home() {
         <Principles introReady={introReady} />
         <Portfolio introReady={introReady} lenis={lenisRef} />
         <VibeGallery onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />
+        <OurVision />
         <Services introReady={introReady} lenis={lenisRef} />
-        <Stats introReady={introReady} />
+        {/* Temporarily hidden — <Stats introReady={introReady} /> */}
       </main>
 
       <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />

@@ -43,12 +43,11 @@ export default function Services({ lenis }: ServicesProps) {
     const el = sectionRef.current;
     if (!el) return;
 
+    // Bidirectional — fades back out on exit too, not just in on first
+    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.1 }
     );
@@ -119,9 +118,9 @@ export default function Services({ lenis }: ServicesProps) {
       id="services"
       ref={sectionRef}
       style={{
-        background: "#F7F3E8",
-        // one screen: the canvas below takes whatever the heading leaves
-        minHeight: compact ? "auto" : "100vh",
+        background: "#ffffff",
+        // taller than one screen now, so the mosaic gets more room to breathe
+        minHeight: compact ? "auto" : "135vh",
         display: "flex",
         flexDirection: "column",
       }}
@@ -132,19 +131,34 @@ export default function Services({ lenis }: ServicesProps) {
         className="shell-full"
         style={{ paddingBlock: compact ? "4rem" : "3rem", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
       >
-        <div className="eyebrow eyebrow-dark">
-          <span className="dot"></span> Five Hundred Years of Stewardship
+        <div
+          className="grid grid-cols-1 lg:grid-cols-12"
+          style={{ alignItems: "flex-start", gap: "2rem", marginBottom: "1.75rem", flexShrink: 0 }}
+        >
+          <div className="lg:col-span-5">
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+              <span className="dot dot-blink"></span> Five Hundred Years of Stewardship
+            </div>
+            <h2 style={{ margin: ".75rem 0 0", fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
+              <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
+                <span className="line-inner">Bishnoi Legacy</span>
+              </span>
+            </h2>
+          </div>
+
+          <p className="lg:col-span-7" style={{ fontSize: "1.3125rem", lineHeight: 1.6, color: "rgba(74,68,60,.75)" }}>
+            Eight chapters of the same discipline &mdash; sacrifice, migration, conservation, and craft &mdash; carried from Amrita Devi&rsquo;s
+            stand at Khejarli to the wildlife wardens and artisans who still live it today.
+          </p>
         </div>
-        <h2 style={{ margin: "1rem 0 1.75rem", maxWidth: "18ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em", flexShrink: 0 }}>
-          <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-            <span className="line-inner">Bishnoi Legacy</span>
-          </span>
-        </h2>
 
         {/* One gapless box, subdivided by unequal grid tracks. Cards span
             different numbers of tracks, so the composition mixes wide-and-short
-            with tall-and-thin while flowing edge to edge. */}
+            with tall-and-thin while flowing edge to edge. full-bleed breaks it
+            out of .shell-full's own padding so it spans the entire section
+            width, not just the padded measure the heading sits in. */}
         <div
+          className="full-bleed"
           style={{
             display: "grid",
             gridTemplateColumns: compact
@@ -155,10 +169,10 @@ export default function Services({ lenis }: ServicesProps) {
               : ROW_FR.map((fr, i) => `${fr * (liveRows === null ? 1 : liveRows.includes(i) ? TRACK_LIVE : TRACK_QUIET)}fr`).join(" "),
             flex: compact ? "none" : 1,
             minHeight: 0,
-            // no gutters: the wall is one solid subdivided panel, so the
-            // rounding lives on the container instead of on each card
+            // no gutters: the wall is one solid subdivided panel. Full-bleed
+            // now runs it flush to the section's own edges, so there's no
+            // inset rectangle left to round.
             gap: 0,
-            borderRadius: "1rem",
             overflow: "hidden",
             opacity: isVisible ? 1 : 0,
             transitionProperty: "grid-template-columns, grid-template-rows, opacity",

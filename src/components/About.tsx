@@ -27,12 +27,11 @@ export default function About({ onScrollTo }: AboutProps) {
     const el = sectionRef.current;
     if (!el) return;
 
+    // Bidirectional — fades back out on exit too, not just in on first
+    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.15 }
     );

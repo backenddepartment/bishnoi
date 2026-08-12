@@ -26,7 +26,11 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   const [reduced, setReduced] = useState(false);
   const [compact, setCompact] = useState(false);
 
-  const count = businesses.length;
+  // Only the first four divisions appear in the stack — it's sized to match
+  // the four-color palette (green/green/orange/gold), not the full shared
+  // business list (which MirrorHall's carousel still uses in full).
+  const stackBusinesses = businesses.slice(0, 4);
+  const count = stackBusinesses.length;
   const span = Math.max(count - 1, 1);
 
   /* Each division owns a segment of the track, and most of that segment is a
@@ -146,7 +150,7 @@ export default function Portfolio({ lenis }: PortfolioProps) {
         <div className="shell" style={{ padding: "2.5rem 3.5rem 5rem" }}>
           <SectionHeading />
           <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem", marginTop: "3.5rem" }}>
-            {businesses.map((biz) => (
+            {stackBusinesses.map((biz) => (
               <li key={biz.title}>
                 <article
                   style={{
@@ -181,7 +185,7 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   return (
     <section id="works" style={{ background: "#fff" }}>
       <div ref={trackRef} style={{ position: "relative", height: `calc(100vh + ${count * DWELL_VH}vh)` }}>
-        <PortfolioStack businesses={businesses} activeFloat={activeFloat} activeIndex={activeIndex} compact={compact} goTo={goTo} />
+        <PortfolioStack businesses={stackBusinesses} activeFloat={activeFloat} activeIndex={activeIndex} compact={compact} goTo={goTo} />
       </div>
     </section>
   );
