@@ -7,10 +7,12 @@ interface VibeGalleryProps {
   onOpenRequestModal?: () => void;
 }
 
-export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
+export default function VibeGallery({}: VibeGalleryProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [reduced, setReduced] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const reflectionRef = useRef<HTMLDivElement>(null);
 
   const [isMouseDown, setIsMouseDown] = useState(false);
   const isMouseDownRef = useRef(false);
@@ -61,6 +63,17 @@ export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
     if (!container) return;
     const singleSetWidth = container.scrollWidth / 3;
     container.scrollLeft = singleSetWidth;
+    if (reflectionRef.current) reflectionRef.current.scrollLeft = singleSetWidth;
+  }, []);
+
+  // Reflection layer skips the animated ripple for reduced-motion, same
+  // probe as MirrorHall.tsx.
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   // Sync ref for animation loop
@@ -84,7 +97,8 @@ export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  // Infinite scroll loop reset handler
+  // Infinite scroll loop reset handler — also keeps the reflection track
+  // (below) locked to the same horizontal offset as the live slider.
   const handleScroll = () => {
     const container = gridRef.current;
     if (!container) return;
@@ -95,6 +109,8 @@ export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
     } else if (container.scrollLeft <= 5) {
       container.scrollLeft += singleSetWidth;
     }
+
+    if (reflectionRef.current) reflectionRef.current.scrollLeft = container.scrollLeft;
   };
 
   // Mouse Hover handlers
@@ -132,54 +148,34 @@ export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
 
   return (
     <section ref={sectionRef} id="gallery" style={{ background: "#ffffff", padding: "5rem 0", position: "relative", overflow: "hidden" }}>
-      {/* Tagline Header Block */}
+      {/* Tagline Header Block — title left, subtext right */}
       <div
-        className="tagline-header"
+        className="shell grid grid-cols-1 lg:grid-cols-12"
         style={{
-          maxWidth: "550px",
-          textAlign: "center",
-          margin: "0 auto 3rem",
-          color: "#333",
-          padding: "0 1.25rem",
+          alignItems: "flex-start",
+          gap: "2rem",
+          margin: "0 auto 1.5rem",
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? "translateY(0)" : "translateY(24px)",
           transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
         }}
       >
         <h2
+          className="lg:col-span-5"
           style={{
-            textTransform: "uppercase",
-            fontWeight: 800,
-            lineHeight: 1.05,
-            fontSize: "2.5rem",
+            fontSize: "3rem",
+            fontWeight: 600,
+            lineHeight: 1.15,
             letterSpacing: "-.02em",
-            color: "#333",
           }}
         >
-          Capturing the vibe,
+          The Bishnoi Legacy,
           <br />
-          Freezing the moment
+          In Every Frame
         </h2>
-        <p style={{ marginTop: "1rem", fontSize: "0.875rem", color: "rgba(51,51,51,0.8)", lineHeight: 1.6 }}>
-          Specialized in nurturing amazing pictures and moments you would always remember
+        <p className="lg:col-span-7" style={{ fontSize: "1.3125rem", color: "rgba(74,68,60,.75)", lineHeight: 1.6 }}>
+          From sacred groves to protected wildlife &mdash; a visual record of five hundred years of faith, conservation, and community.
         </p>
-        <button
-          onClick={onOpenRequestModal}
-          className="pill-btn hover-spring"
-          style={{
-            display: "inline-block",
-            marginTop: "1.25rem",
-            padding: "0.75rem 1.75rem",
-            backgroundColor: "#333",
-            color: "#ffffff",
-            borderRadius: "30px",
-            fontWeight: 500,
-            fontSize: "0.875rem",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-          }}
-        >
-          Send Us A Message
-        </button>
       </div>
 
       {/* Image Grid Wrapper with Oval Framing Cutouts */}
@@ -237,6 +233,63 @@ export default function VibeGallery({ onOpenRequestModal }: VibeGalleryProps) {
               />
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Reflection — a mirrored, blurred, rippling copy of the same track,
+          scroll-synced to it, bowed into the same convex oval-cutout curve
+          as the slider above (reusing .image-grid-wrapper) instead of
+          sitting on a flat dark shelf. */}
+      <div
+        aria-hidden="true"
+        className="image-grid-wrapper image-grid-wrapper--reflection"
+        style={{
+          position: "relative",
+          height: "300px",
+          marginTop: "-55px",
+          pointerEvents: "none",
+        }}
+      >
+        <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="vibegallery-ripple" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="11" result="noise">
+                {!reduced && <animate attributeName="baseFrequency" dur="10s" values="0.010 0.045;0.017 0.055;0.010 0.045" repeatCount="indefinite" />}
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
+
+        {/* Sized to match the slider's card height exactly, so scaleY(-1)
+            about the default center origin flips it fully in place — an
+            unclipped, exact mirror of the row directly above. */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "480px",
+            transform: "scaleY(-1)",
+            opacity: 0.45,
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 100%)",
+            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 100%)",
+            filter: `blur(1px) brightness(.9) saturate(1.05) ${reduced ? "" : "url(#vibegallery-ripple)"}`,
+          }}
+        >
+          <div
+            ref={reflectionRef}
+            className="no-scrollbar"
+            style={{ display: "flex", gap: "16px", height: "480px", overflow: "hidden" }}
+          >
+            {galleryItems.map((img, idx) => (
+              <div key={idx} style={{ flexShrink: 0, width: "240px", height: "100%" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

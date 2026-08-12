@@ -70,12 +70,17 @@ const numberedGroups = groups.map((group, i) => ({
 const EASE = "cubic-bezier(.22,1,.36,1)";
 const PANEL_DARK = "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)";
 
+const HEADLINE = "29 Principles, One Way of Life";
+
 export default function Principles({}: PrinciplesProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [openIndex, setOpenIndex] = useState(0);
   const [compact, setCompact] = useState(false);
   const [canHover, setCanHover] = useState(false);
+  const [typedCount, setTypedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const timeoutRef = useRef<number | undefined>(undefined);
+  const intervalRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -111,9 +116,55 @@ export default function Principles({}: PrinciplesProps) {
     };
   }, []);
 
+  // Types the headline out like a keyboard, one character per tick — same
+  // pattern as About.tsx/Founder.tsx.
+  const typeHeadline = () => {
+    window.clearTimeout(timeoutRef.current);
+    window.clearInterval(intervalRef.current);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTypedCount(HEADLINE.length);
+      return;
+    }
+
+    setTypedCount(0);
+    timeoutRef.current = window.setTimeout(() => {
+      let i = 0;
+      intervalRef.current = window.setInterval(() => {
+        i += 1;
+        setTypedCount(i);
+        if (i >= HEADLINE.length) window.clearInterval(intervalRef.current);
+      }, 45);
+    }, 150);
+  };
+
+  // Hover-capable pointers type the title on hover; touch devices fall back
+  // to typing it once the section scrolls into view.
+  useEffect(() => {
+    if (canHover || !isVisible) return;
+    const kickoffId = window.setTimeout(typeHeadline, 0);
+    return () => {
+      window.clearTimeout(kickoffId);
+      window.clearTimeout(timeoutRef.current);
+      window.clearInterval(intervalRef.current);
+    };
+  }, [isVisible, canHover]);
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timeoutRef.current);
+      window.clearInterval(intervalRef.current);
+    };
+  }, []);
+
   return (
-    <section id="principles" ref={sectionRef} style={{ background: "#FFFFFF" }}>
-      <div className="shell" style={{ paddingBlock: "5rem" }}>
+    <section
+      id="principles"
+      ref={sectionRef}
+      onMouseEnter={() => canHover && typeHeadline()}
+      style={{ background: "#FFFFFF" }}
+    >
+      <div className="shell" style={{ paddingTop: "1.5rem", paddingBottom: "5rem" }}>
         {/* title holds the left column; the blurb sits beside it on desktop so
             the header spans the shell instead of trailing off to empty space */}
         <div
@@ -125,13 +176,12 @@ export default function Principles({}: PrinciplesProps) {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", flex: compact ? "1 1 auto" : "1 1 0%", minWidth: 0 }}>
-            <div className="eyebrow eyebrow-dark">
-              <span className="dot"></span> The 29 Principles
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+              <span className="dot dot-blink"></span> The 29 Principles
             </div>
-            <h2 style={{ fontSize: "2.25rem", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
-              <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-                <span className="line-inner">29 Principles, One Way of Life</span>
-              </span>
+            <h2 aria-label={HEADLINE} style={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}>
+              <span aria-hidden="true">{HEADLINE.slice(0, typedCount)}</span>
+              <span className="typing-cursor" aria-hidden="true" />
             </h2>
           </div>
           <p
@@ -139,7 +189,7 @@ export default function Principles({}: PrinciplesProps) {
               flex: compact ? "1 1 auto" : "1 1 0%",
               minWidth: 0,
               maxWidth: "34rem",
-              fontSize: "1.0625rem",
+              fontSize: "1.3125rem",
               lineHeight: 1.6,
               color: "rgba(74,68,60,.75)",
               opacity: isVisible ? 1 : 0,

@@ -8,6 +8,8 @@ import Header from "@/components/Header";
 import NavOverlay from "@/components/NavOverlay";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Founder from "@/components/Founder";
+import Mukam from "@/components/Mukam";
 import Bands from "@/components/Bands";
 import Principles from "@/components/Principles";
 import Portfolio from "@/components/Portfolio";
@@ -111,7 +113,9 @@ export default function Home() {
           introReady={introReady}
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
-        <Bands introReady={introReady} />
+        <Founder introReady={introReady} />
+        <Mukam introReady={introReady} />
+        {/* Temporarily hidden — <Bands introReady={introReady} /> */}
         <Principles introReady={introReady} />
         <Portfolio introReady={introReady} lenis={lenisRef} />
         <VibeGallery onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />

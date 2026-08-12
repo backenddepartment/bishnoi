@@ -3,10 +3,22 @@ import type { Entity } from "./portfolioData";
 export function SectionHeading({ light }: { light?: boolean }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: ".75rem", alignItems: "center", flexShrink: 0 }}>
-      <div className="eyebrow eyebrow-dark" style={{ color: "#241F1A", fontWeight: 600 }}>
-        <span className="dot"></span> Centralized Conglomerate Holdings
+      <div
+        className={`eyebrow ${light ? "eyebrow-light" : "eyebrow-dark"}`}
+        style={{ color: light ? "rgba(247,243,232,.85)" : "#241F1A", fontWeight: 600, fontSize: "1.25rem" }}
+      >
+        <span className="dot" style={light ? { background: "var(--brand-forest)" } : undefined}></span> Centralized Conglomerate Holdings
       </div>
-      <h2 style={{ fontSize: "2.25rem", fontWeight: 700, letterSpacing: "-.02em", textAlign: "center", color: "#1C1815" }}>
+      <h2
+        style={{
+          fontSize: "3rem",
+          fontWeight: 600,
+          lineHeight: 1.15,
+          letterSpacing: "-.02em",
+          textAlign: "center",
+          color: light ? "#F7F3E8" : "#1C1815",
+        }}
+      >
         Our Operating Companies &amp; Domains
       </h2>
     </div>

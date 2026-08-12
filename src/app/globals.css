@@ -340,6 +340,22 @@ img {
   }
 }
 
+/* Live-status pulse for the eyebrow dot on the Founder section — a soft
+   breathing opacity fade rather than a hard on/off blink. */
+.dot-blink {
+  animation: dot-blink 1.6s ease-in-out infinite;
+}
+
+@keyframes dot-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
 /* Slow vertical drift for the floating project tiles in the works section.
    Applied to a wrapper so it never collides with the scroll-driven transform
    on the parent. Killed by the reduced-motion rule above. */
@@ -459,13 +475,22 @@ img {
 .no-touch .hover-arrow-translate:hover {
   transform: translateX(5px);
 }
-.no-touch .hover-service-fill {
-  transition: background 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), padding-left 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), padding-right 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* Underline that draws in left-to-right on hover, then retracts the same
+   way (right edge recedes back toward the left) on hover-out. */
+.hover-underline-slide::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.4rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-orange), var(--brand-white));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.no-touch .hover-service-fill:hover {
-  background: var(--accent-wash);
-  padding-left: 2rem;
-  padding-right: 1.25rem;
+.no-touch .hover-underline-slide:hover::after {
+  transform: scaleX(1);
 }
 
 .scroll-lock {
@@ -591,6 +616,17 @@ img {
 
 .image-grid-wrapper::before {
   inset: var(--y-offset) var(--x-offset) 0;
+}
+
+/* The reflection sits flush under the slider's own bottom curve — its own
+   top oval would double that curve and leave a blank lens-shaped gap at
+   the seam, so only its bottom oval (the closing curve) is kept. */
+.image-grid-wrapper--reflection {
+  padding-top: 0;
+}
+
+.image-grid-wrapper--reflection::before {
+  content: none;
 }
 
 .image-grid-wrapper::after {

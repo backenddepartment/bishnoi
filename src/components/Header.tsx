@@ -135,7 +135,21 @@ interface BusinessesPanelProps {
 
 /* Full-width mega-menu — matches the navbar's own width exactly and sits
    flush against its bottom edge, no gap, no shadow. */
-function BusinessesPanel({ dropdown, onScrollTo }: BusinessesPanelProps) {
+function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
+  const getLinkStyle = (delay: number) => ({
+    display: "block",
+    position: "relative" as const,
+    padding: "0.75rem 1rem",
+    borderRadius: "0.75rem",
+    color: "var(--ink)",
+    fontSize: "1.15rem",
+    fontWeight: 600,
+    opacity: dropdown.open ? 1 : 0,
+    transform: dropdown.open ? "translateY(0)" : "translateY(12px)",
+    transition: "opacity 0.5s cubic-bezier(.22, 1, .36, 1), transform 0.5s cubic-bezier(.22, 1, .36, 1), background-color 0.2s",
+    transitionDelay: dropdown.open ? `${delay}ms` : "0ms",
+  });
+
   return (
     <div
       role="menu"
@@ -146,43 +160,122 @@ function BusinessesPanel({ dropdown, onScrollTo }: BusinessesPanelProps) {
         insetInline: 0,
         top: "100%",
         background: "#fff",
-        borderTop: "1px solid #E6DECB",
         borderBottom: "1px solid #E6DECB",
+        borderBottomLeftRadius: "var(--radius-card, 2rem)",
+        borderBottomRightRadius: "var(--radius-card, 2rem)",
+        overflow: "hidden",
         opacity: dropdown.open ? 1 : 0,
         visibility: dropdown.open ? "visible" : "hidden",
-        transform: dropdown.open ? "translateY(0)" : "translateY(-8px)",
-        transition: `opacity .2s ${EASE}, transform .2s ${EASE}, visibility .2s`,
+        transform: dropdown.open ? "translateY(0)" : "translateY(-20px)",
+        transition: "opacity 0.6s cubic-bezier(.16, 1, .3, 1), transform 0.6s cubic-bezier(.16, 1, .3, 1), visibility 0.6s",
         pointerEvents: dropdown.open ? "auto" : "none",
         zIndex: 80,
       }}
     >
-      <div className="shell" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0,1fr))", gap: "1rem", padding: "2rem 3.25rem" }}>
-        {businesses.map((biz) => (
-          <button
-            key={biz.numeral}
-            role="menuitem"
-            className="hover-service-fill"
-            onClick={() => {
-              onScrollTo("works");
-            }}
-            style={{ display: "flex", flexDirection: "column", gap: ".375rem", textAlign: "left", padding: "1rem", borderRadius: "1rem" }}
+      <div className="shell" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "2rem", padding: "2rem 3.25rem" }}>
+        {/* Column 1: Healthcare */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <a
+            href="https://getmeds.ph"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(100)}
           >
-            <span style={{ fontSize: ".6875rem", fontWeight: 700, color: "#F36B21" }}>{biz.numeral}</span>
-            <span style={{ fontSize: "1rem", fontWeight: 600, color: "var(--ink)" }}>{biz.title}</span>
-            <span style={{ fontSize: ".8125rem", color: "rgba(74,68,60,.55)" }}>{biz.category.split("•")[1]?.trim() ?? biz.category}</span>
-          </button>
-        ))}
+            Getmeds Philippines
+          </a>
+          <a
+            href="https://getmedshealthcare.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(150)}
+          >
+            Getmeds India
+          </a>
+          <a
+            href="https://getmedsvanuatu.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(200)}
+          >
+            Getmeds Vanuatu
+          </a>
+          <a
+            href="https://getmedslatom.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(250)}
+          >
+            Getmeds Latam
+          </a>
+          <a
+            href="https://getmedssea.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(300)}
+          >
+            Getmeds SEA
+          </a>
+        </div>
+
+        {/* Column 2: Omniverse */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <a
+            href="https://bishnoi-omniverse.in"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(150)}
+          >
+            Bishnoi Omniverse India
+          </a>
+          <a
+            href="https://bishnoi-omniverse.ph"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(200)}
+          >
+            Bishnoi Omniverse Philippines
+          </a>
+        </div>
+
+        {/* Column 3: Foundations & Offices */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <a
+            href="https://nbf.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(200)}
+          >
+            Naresh Bishnoi Foundation
+          </a>
+          <a
+            href="https://nkb.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(250)}
+          >
+            Naresh Kumar Bishnoi Office
+          </a>
+        </div>
       </div>
     </div>
   );
 }
 
 export default function Header({ onOpenRequestModal, onScrollTo, introReady }: HeaderProps) {
-  // A second, fixed navbar that slides in with the colored logo — but only
-  // while scrolling up, and only once the hero (with its own white/absolute
-  // header) has scrolled out of view, so the two never overlap.
+  // A second, fixed navbar that slides in with the colored logo once the
+  // hero (with its own white/absolute header) has scrolled out of view —
+  // and stays pinned regardless of scroll direction, so the two never
+  // overlap but the sticky nav is always available past the hero.
   const [stickyVisible, setStickyVisible] = useState(false);
-  const lastScrollYRef = useRef(0);
 
   const heroHeaderRef = useRef<HTMLElement>(null);
   const stickyHeaderRef = useRef<HTMLElement>(null);
@@ -190,19 +283,15 @@ export default function Header({ onOpenRequestModal, onScrollTo, introReady }: H
   const stickyDropdown = useDropdown(stickyHeaderRef);
 
   useEffect(() => {
-    lastScrollYRef.current = window.scrollY;
-
     const handleScroll = () => {
       const y = window.scrollY;
       const heroHeight = window.innerHeight;
-      const scrollingUp = y < lastScrollYRef.current;
 
-      if (y > heroHeight * 0.6 && scrollingUp) setStickyVisible(true);
-      else if (!scrollingUp || y <= heroHeight * 0.3) setStickyVisible(false);
-
-      lastScrollYRef.current = y;
+      if (y > heroHeight * 0.6) setStickyVisible(true);
+      else if (y <= heroHeight * 0.3) setStickyVisible(false);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -278,7 +367,7 @@ export default function Header({ onOpenRequestModal, onScrollTo, introReady }: H
           gap: "1.5rem",
           padding: ".75rem 3.25rem",
           background: "#ffffff",
-          boxShadow: "0 1px 0 rgba(0,0,0,.08)",
+          boxShadow: "none",
           transform: stickyVisible ? "translateY(0)" : "translateY(-100%)",
           transition: `transform .4s ${EASE}`,
         }}

@@ -259,6 +259,8 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         flexDirection: "column",
         justifyContent: "space-between",
         background: "#ffffff",
+        borderBottomLeftRadius: "var(--radius-card, 2rem)",
+        borderBottomRightRadius: "var(--radius-card, 2rem)",
       }}
     >
       <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
@@ -290,18 +292,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         }}
       ></div>
 
-      {/* Complete Dissolve Bottom Fade-to-White Layer */}
-      <div
-        style={{
-          position: "absolute",
-          insetInline: 0,
-          bottom: 0,
-          height: "12rem",
-          zIndex: 5,
-          pointerEvents: "none",
-          background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.95) 75%, #ffffff 100%)",
-        }}
-      />
+
 
       <div
         id="watermark"
@@ -526,13 +517,13 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             justifyContent: "space-between",
             width: "100%",
             gap: ".75rem",
-            borderTop: "1px solid rgba(74,68,60,.25)",
+            borderTop: "1px solid rgba(255,255,255,0.2)",
             padding: "1.25rem 0 0",
             fontSize: ".75rem",
             fontWeight: 600,
             textTransform: "uppercase",
             letterSpacing: ".025em",
-            color: "#35302A",
+            color: "rgba(255,255,255,0.7)",
             opacity: introReady ? 1 : 0,
             transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
           }}

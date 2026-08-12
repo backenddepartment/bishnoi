@@ -29,6 +29,7 @@ const HALL_CARDS: HallCard[] = [
   { id: "mock-amber", image: "/mockups/amber-drift.svg", tag: "Drift", title: "Amber Drift" },
   { id: `division-${businesses[3].numeral}`, image: businesses[3].image, tag: "Capital", title: businesses[3].title },
   { id: "mock-quiet", image: "/mockups/quiet-current.svg", tag: "Calm", title: "Quiet Current" },
+  { id: `division-${businesses[4].numeral}`, image: businesses[4].image, tag: "Dairy", title: businesses[4].title },
   { id: "mock-bloom", image: "/mockups/heritage-bloom.svg", tag: "Bloom", title: "Heritage Bloom" },
 ];
 

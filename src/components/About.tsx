@@ -7,7 +7,13 @@ interface AboutProps {
   introReady?: boolean;
 }
 
-const HEADLINE = "India's Original Environmentalists";
+const HEADLINE = "India's Original\nEnvironmentalists";
+
+const STATS = [
+  { value: "1485", label: "Year the faith was founded" },
+  { value: "29", label: "Guiding principles" },
+  { value: "363", label: "Lives given at Khejarli, 1730\n" },
+];
 
 export default function About({ onScrollTo }: AboutProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -96,20 +102,38 @@ export default function About({ onScrollTo }: AboutProps) {
       onMouseEnter={() => canHover && typeHeadline()}
       style={{ background: "#fff" }}
     >
-      <div className="shell grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "3rem", paddingBlock: "5rem" }}>
+      <div className="shell" style={{ display: "flex", flexDirection: "column", gap: "3.5rem", paddingBlock: "5rem" }}>
         {/* Headline & Paragraph */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }} className="lg:col-span-12">
-          <h2 id="about-h2" aria-label={HEADLINE} style={{ fontSize: "3.25rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}>
-            <span aria-hidden="true">{HEADLINE.slice(0, typedCount)}</span>
-            <span className="typing-cursor" aria-hidden="true" />
-          </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2rem" }}>
+          <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+              <span className="dot dot-blink"></span> The Bishnoi
+            </div>
+            <h2
+              id="about-h2"
+              aria-label={HEADLINE.replace("\n", " ")}
+              style={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}
+            >
+              <span aria-hidden="true">
+                {HEADLINE.slice(0, typedCount)
+                  .split("\n")
+                  .map((line, i, arr) => (
+                    <span key={i}>
+                      {line}
+                      {i < arr.length - 1 && <br />}
+                    </span>
+                  ))}
+              </span>
+              <span className="typing-cursor" aria-hidden="true" />
+            </h2>
+          </div>
 
           <p
+            className="lg:col-span-7"
             style={{
               fontSize: "1.3125rem",
               lineHeight: 1.6,
               color: "rgba(74,68,60,.75)",
-              maxWidth: "56rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
@@ -118,33 +142,39 @@ export default function About({ onScrollTo }: AboutProps) {
           >
             For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
           </p>
-
-          <ul
-            id="about-stats"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "2.5rem",
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(20px)",
-              transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
-              transitionDelay: "550ms",
-            }}
-          >
-            <li>
-              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>1485</div>
-              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Founding year (AD)</div>
-            </li>
-            <li>
-              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>29</div>
-              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Guiding principles</div>
-            </li>
-            <li>
-              <div style={{ fontSize: "2.5rem", fontWeight: 700, color: "#356B3F", letterSpacing: "-.02em", lineHeight: 1 }}>363</div>
-              <div style={{ marginTop: ".375rem", fontSize: ".8125rem", color: "rgba(74,68,60,.6)" }}>Lives given at Khejarli</div>
-            </li>
-          </ul>
         </div>
+
+        {/* Stats — stacked horizontally along the bottom, sliding in one after another */}
+        <ul
+          id="about-stats"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            borderTop: "1px solid rgba(74,68,60,.15)",
+            paddingTop: "2.5rem",
+          }}
+        >
+          {STATS.map((stat, i) => (
+            <li
+              key={stat.label}
+              style={{
+                flex: "1 1 0",
+                minWidth: "12rem",
+                textAlign: "center",
+                padding: "0 1.5rem",
+                borderRight: i < STATS.length - 1 ? "1px solid rgba(74,68,60,.15)" : "none",
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateX(0)" : "translateX(48px)",
+                transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
+                transitionDelay: `${550 + i * 150}ms`,
+              }}
+            >
+              <div style={{ fontSize: "3.25rem", fontWeight: 700, color: "#F36B21", letterSpacing: "-.02em", lineHeight: 1 }}>{stat.value}</div>
+              <div style={{ marginTop: ".625rem", fontSize: "1.125rem", color: "rgba(74,68,60,.6)" }}>{stat.label}</div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

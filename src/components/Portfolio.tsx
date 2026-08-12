@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type Lenis from "lenis";
 
-import { businesses, DWELL_VH, PANEL } from "./portfolioData";
+import { businesses, DWELL_VH } from "./portfolioData";
 import { EntityChips, SectionHeading } from "./PortfolioParts";
-import PortfolioStage from "./PortfolioStage";
+import PortfolioStack from "./PortfolioStack";
 
 interface PortfolioProps {
   introReady: boolean;
@@ -23,8 +23,6 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   const lastProgress = useRef(0);
 
   const [progress, setProgress] = useState(0);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [canHover, setCanHover] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [compact, setCompact] = useState(false);
 
@@ -43,9 +41,6 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   const activeFloat = Math.min(segment + eased, span);
 
   const activeIndex = Math.min(count - 1, Math.max(0, Math.round(activeFloat)));
-  // Content fades out through the middle of a transition and back in on arrival,
-  // so no one is ever asked to read moving copy.
-  const settle = 1 - Math.min(1, Math.abs(activeFloat - activeIndex) * 2.4);
 
   const measure = useCallback(() => {
     const el = trackRef.current;
@@ -58,24 +53,20 @@ export default function Portfolio({ lenis }: PortfolioProps) {
     };
   }, []);
 
-  // Environment probes: hover capability, motion preference, compact layout
+  // Environment probes: motion preference, compact layout
   useEffect(() => {
-    const hover = window.matchMedia("(hover: hover)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const narrow = window.matchMedia("(max-width: 1023px)");
 
     const sync = () => {
-      setCanHover(hover.matches);
       setReduced(motion.matches);
       setCompact(narrow.matches);
     };
     sync();
 
-    hover.addEventListener("change", sync);
     motion.addEventListener("change", sync);
     narrow.addEventListener("change", sync);
     return () => {
-      hover.removeEventListener("change", sync);
       motion.removeEventListener("change", sync);
       narrow.removeEventListener("change", sync);
     };
@@ -190,18 +181,7 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   return (
     <section id="works" style={{ background: "#fff" }}>
       <div ref={trackRef} style={{ position: "relative", height: `calc(100vh + ${count * DWELL_VH}vh)` }}>
-        <PortfolioStage
-          businesses={businesses}
-          activeFloat={activeFloat}
-          activeIndex={activeIndex}
-          settle={settle}
-          progress={progress}
-          compact={compact}
-          canHover={canHover}
-          hovered={hovered}
-          setHovered={setHovered}
-          goTo={goTo}
-        />
+        <PortfolioStack businesses={businesses} activeFloat={activeFloat} activeIndex={activeIndex} compact={compact} goTo={goTo} />
       </div>
     </section>
   );
