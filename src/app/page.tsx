@@ -21,8 +21,8 @@ import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 
 export default function Home() {
-  const [showLoader, setShowLoader] = useState(true);
-  const [introReady, setIntroReady] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const [introReady, setIntroReady] = useState(true);
   const [navOpen, setNavOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [lenisRef, setLenisRef] = useState<Lenis | null>(null);
