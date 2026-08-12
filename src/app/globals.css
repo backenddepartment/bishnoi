@@ -660,6 +660,153 @@ img {
   border-radius: 0 !important;
 }
 
+/* Ashtadham Seamless Cards (No Container, Bigger & Lighter Typography) */
+.ashtadham-scroll-row {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: transparent;
+  border: none;
+}
+
+.ashtadham-scroll-row::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.ashtadham-card {
+  flex: 1 0 280px;
+  min-width: 280px;
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Image Background: initially top portion, expands to 100% height to engulf background on hover */
+.ashtadham-card-img-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52%;
+  overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+}
+
+.ashtadham-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
+  filter: brightness(0.95);
+}
+
+.ashtadham-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+  opacity: 0.3;
+  transition: opacity 0.5s ease, background 0.5s ease;
+}
+
+/* Text Content: Bigger, Lighter, Layered on top */
+.ashtadham-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1.25rem 0.5rem 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.4s ease;
+}
+
+.ashtadham-card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(42, 37, 31, 0.85);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition: color 0.4s ease;
+}
+
+.ashtadham-card-location {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(53, 107, 63, 0.85);
+  line-height: 1.35;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: color 0.4s ease;
+}
+
+.ashtadham-card-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0.25rem 0;
+  transition: background 0.4s ease;
+}
+
+.ashtadham-card-desc {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(74, 68, 60, 0.65);
+  transition: color 0.4s ease;
+}
+
+/* Hover State: Image expands upwards to engulf entire card background */
+.ashtadham-card:hover .ashtadham-card-img-bg {
+  height: 100%;
+}
+
+.ashtadham-card:hover .ashtadham-card-img {
+  transform: scale(1.08);
+  filter: brightness(0.6);
+}
+
+.ashtadham-card:hover .ashtadham-card-overlay {
+  opacity: 0.85;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+}
+
+.ashtadham-card:hover .ashtadham-card-content {
+  mix-blend-mode: difference;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: #ffffff;
+}
+
+.ashtadham-card:hover .ashtadham-card-title {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+.ashtadham-card:hover .ashtadham-card-location {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ashtadham-card:hover .ashtadham-card-divider {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ashtadham-card:hover .ashtadham-card-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+
 
 
 

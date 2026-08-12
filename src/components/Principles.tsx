@@ -58,12 +58,20 @@ const groups = [
   },
 ];
 
+const GROUP_IMAGES = [
+  "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop", // Personal hygiene & health
+  "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop", // Social conduct
+  "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1200&auto=format&fit=crop", // Worship
+  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop", // Living with nature
+];
+
 /* 01–29 runs unbroken across the four groups: they are one set, not four
    lists. Numbered once at module scope so nothing mutates during render. */
 let running = 0;
 const numberedGroups = groups.map((group, i) => ({
   ...group,
   numeral: String(i + 1).padStart(2, "0"),
+  image: GROUP_IMAGES[i],
   items: group.items.map((text) => ({ text, n: (running += 1) })),
 }));
 
@@ -242,6 +250,41 @@ export default function Principles({}: PrinciplesProps) {
                   transition: `flex .7s ${EASE}, background .5s ${EASE}, box-shadow .5s ${EASE}, color .5s ${EASE}`,
                 }}
               >
+                {/* Background Image & Gradient Overlay */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 0,
+                    pointerEvents: "none",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={group.image}
+                    alt=""
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      opacity: isOpen ? 0.75 : 0.35,
+                      filter: isOpen ? "brightness(0.75) contrast(1.15)" : "brightness(0.85)",
+                      transform: isOpen ? "scale(1.06)" : "scale(1)",
+                      transition: `opacity .6s ${EASE}, transform .8s ${EASE}, filter .6s ${EASE}`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: isOpen
+                        ? "linear-gradient(180deg, rgba(15, 12, 10, 0.45) 0%, rgba(15, 12, 10, 0.78) 100%)"
+                        : "linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(248, 245, 238, 0.85) 100%)",
+                      transition: `background .5s ${EASE}`,
+                    }}
+                  />
+                </div>
 
                 <button
                   type="button"
@@ -249,6 +292,7 @@ export default function Principles({}: PrinciplesProps) {
                   onClick={open}
                   style={{
                     position: "relative",
+                    zIndex: 1,
                     width: "100%",
                     height: "100%",
                     display: "flex",
@@ -272,7 +316,7 @@ export default function Principles({}: PrinciplesProps) {
                       }}
                     />
                     {isOpen ? (
-                      <h3 style={{ fontSize: compact ? "1.375rem" : "1.75rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
+                      <h3 style={{ fontSize: compact ? "1.375rem" : "1.75rem", fontWeight: 600, letterSpacing: "-.01em", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>{group.label}</h3>
                     ) : (
                       compact && <h3 style={{ fontSize: "1.375rem", fontWeight: 600, letterSpacing: "-.01em" }}>{group.label}</h3>
                     )}
@@ -298,7 +342,7 @@ export default function Principles({}: PrinciplesProps) {
                               gap: ".875rem",
                               alignItems: "baseline",
                               padding: ".625rem 0",
-                              borderTop: "1px solid rgba(247,243,232,.12)",
+                              borderTop: "1px solid rgba(255,255,255,.2)",
                               opacity: 0,
                               animation: `principle-in .5s ${EASE} ${120 + k * 45}ms forwards`,
                             }}
@@ -307,7 +351,7 @@ export default function Principles({}: PrinciplesProps) {
                               style={{
                                 flexShrink: 0,
                                 fontSize: "1rem",
-                                fontWeight: 600,
+                                fontWeight: 700,
                                 color: "#F36B21",
                                 fontVariantNumeric: "tabular-nums",
                                 paddingTop: ".15rem",
@@ -315,7 +359,7 @@ export default function Principles({}: PrinciplesProps) {
                             >
                               {String(n).padStart(2, "0")}
                             </span>
-                            <span style={{ fontSize: "1.0625rem", lineHeight: 1.5, color: "rgba(247,243,232,.75)" }}>{text}</span>
+                            <span style={{ fontSize: "1.0625rem", lineHeight: 1.5, color: "#FFFFFF", textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>{text}</span>
                           </li>
                         ))}
                       </ul>
