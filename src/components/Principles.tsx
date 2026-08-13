@@ -108,7 +108,12 @@ export default function Principles({}: PrinciplesProps) {
   }, []);
 
   useEffect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
+    // The 4-column side-by-side spine layout only has room to breathe at
+    // true desktop widths — tablet landscape (1024–1194px) squeezes the
+    // three closed panels down to ~130px, clipping/wrapping their titles.
+    // Below 1280px we fall back to the stacked accordion used on phones
+    // and tablet portrait instead.
+    const narrow = window.matchMedia("(max-width: 1279px)");
     const hover = window.matchMedia("(hover: hover)");
     const sync = () => {
       setCompact(narrow.matches);

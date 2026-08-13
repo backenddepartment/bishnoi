@@ -16,10 +16,21 @@ const NAV_ITEMS = [
   { label: "Who We Are", id: "about" },
   { label: "Businesses", id: "works", hasDropdown: true },
   { label: "Philosophy", id: "services" },
-  { label: "Vision & Mission", id: "stats-panel" },
+  { label: "Vision", id: "vision" },
 ];
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
+
+/* Hamburger trigger for the mobile/tablet nav drawer — only ever rendered
+   below the `lg` breakpoint (the desktop nav in `NavItems` takes over at
+   `lg` and up), so it never has to coexist with the full inline nav. */
+function MenuIcon() {
+  return (
+    <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+      <path d="M1 1H21M1 8H21M1 15H21" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -91,6 +102,7 @@ function useDropdown(containerRef: React.RefObject<HTMLElement | null>) {
 interface NavItemsProps {
   textColor: string;
   fontSize: string;
+  fontWeight?: number;
   onScrollTo: (id: string) => void;
   dropdown: ReturnType<typeof useDropdown>;
   trailing?: React.ReactNode;
@@ -98,15 +110,15 @@ interface NavItemsProps {
 
 /* The plain link list — the "Businesses" trigger only opens the dropdown
    (rendered separately, full-width, by the parent); it no longer scrolls. */
-function NavItems({ textColor, fontSize, onScrollTo, dropdown, trailing }: NavItemsProps) {
+function NavItems({ textColor, fontSize, fontWeight = 400, onScrollTo, dropdown, trailing }: NavItemsProps) {
   return (
-    <ul style={{ display: "flex", gap: "2rem", fontSize, fontWeight: 400, color: textColor }}>
+    <ul style={{ display: "flex", gap: "2rem", fontSize, fontWeight, color: textColor, transition: "color .35s ease" }}>
       {NAV_ITEMS.map((item) =>
         item.hasDropdown ? (
           <li key={item.id} {...dropdown.hoverProps}>
             <button
               className="hover-lift"
-              style={{ color: textColor, display: "inline-flex", alignItems: "center", gap: ".4rem" }}
+              style={{ color: textColor, fontWeight, display: "inline-flex", alignItems: "center", gap: ".4rem", transition: "color .35s ease" }}
               aria-haspopup="true"
               aria-expanded={dropdown.open}
               onClick={dropdown.openNow}
@@ -117,7 +129,12 @@ function NavItems({ textColor, fontSize, onScrollTo, dropdown, trailing }: NavIt
           </li>
         ) : (
           <li key={item.id}>
-            <button className="hover-lift" style={{ color: textColor }} aria-current={item.current ? "page" : undefined} onClick={() => onScrollTo(item.id)}>
+            <button
+              className="hover-lift"
+              style={{ color: textColor, fontWeight, transition: "color .35s ease" }}
+              aria-current={item.current ? "page" : undefined}
+              onClick={() => onScrollTo(item.id)}
+            >
               {item.label}
             </button>
           </li>
@@ -136,7 +153,16 @@ interface BusinessesPanelProps {
 /* Full-width mega-menu — matches the navbar's own width exactly and sits
    flush against its bottom edge, no gap, no shadow. */
 function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
-  const getLinkStyle = (delay: number) => ({
+  // Slow, deliberate cascade — each row stacks in well after the last
+  // (ROW_STEP) and each column starts slightly behind the one before it
+  // (COL_STEP), so the whole panel reads as a gentle diagonal stack rather
+  // than everything popping in at once.
+  const ROW_STEP = 130;
+  const COL_STEP = 90;
+  const BASE_DELAY = 150;
+  const linkDelay = (col: number, row: number) => BASE_DELAY + col * COL_STEP + row * ROW_STEP;
+
+  const getLinkStyle = (col: number, row: number) => ({
     display: "block",
     position: "relative" as const,
     padding: "0.75rem 1rem",
@@ -145,12 +171,16 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
     fontSize: "1.15rem",
     fontWeight: 600,
     opacity: dropdown.open ? 1 : 0,
-    transform: dropdown.open ? "translateY(0)" : "translateY(12px)",
-    transition: "opacity 0.5s cubic-bezier(.22, 1, .36, 1), transform 0.5s cubic-bezier(.22, 1, .36, 1), background-color 0.2s",
-    transitionDelay: dropdown.open ? `${delay}ms` : "0ms",
+    transform: dropdown.open ? "translateY(0)" : "translateY(18px)",
+    transition: "opacity 0.75s cubic-bezier(.16, 1, .3, 1), transform 0.75s cubic-bezier(.16, 1, .3, 1), background-color 0.2s",
+    transitionDelay: dropdown.open ? `${linkDelay(col, row)}ms` : "0ms",
   });
 
   return (
+    // Rounded bottom corners are meant to cut away to whatever's behind the
+    // panel (the hero photo, on the hero header) — that's the natural look
+    // of a floating rounded card, not a bug. A solid backer here would just
+    // paint an ugly flat white patch over that curve, so there isn't one.
     <div
       role="menu"
       aria-hidden={!dropdown.open}
@@ -170,9 +200,43 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
         transition: "opacity 0.6s cubic-bezier(.16, 1, .3, 1), transform 0.6s cubic-bezier(.16, 1, .3, 1), visibility 0.6s",
         pointerEvents: dropdown.open ? "auto" : "none",
         zIndex: 80,
+        // The hero header sets a white-on-photo text-shadow for legibility;
+        // as an inherited property it otherwise bleeds onto this panel's
+        // dark text on a white background, reading as smudged/blurry type.
+        textShadow: "none",
       }}
     >
-      <div className="shell" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "2rem", padding: "2rem 3.25rem" }}>
+        <div
+          className="shell"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0,1.2fr) repeat(3, minmax(0,1fr))",
+            gap: "2rem",
+            padding: "2rem 3.25rem",
+          }}
+        >
+        {/* Intro column — heading + short description, mirrors the linked
+            navigation columns to its right. */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: ".75rem",
+            paddingRight: "2rem",
+            borderRight: "1px solid #E6DECB",
+            opacity: dropdown.open ? 1 : 0,
+            transform: dropdown.open ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 0.6s cubic-bezier(.16, 1, .3, 1), transform 0.6s cubic-bezier(.16, 1, .3, 1)",
+            transitionDelay: dropdown.open ? "80ms" : "0ms",
+          }}
+        >
+          <span style={{ fontSize: "2rem", fontWeight: 700, color: "var(--brand-orange)" }}>Businesses</span>
+          <p style={{ fontSize: "1.1875rem", lineHeight: 1.65, color: "var(--ink-soft)" }}>
+            Five hundred years of Bishnoi discipline, carried into healthcare, industry, philanthropy and family office holdings across borders.
+            Each division below runs independently, yet answers to the same founding principles.
+          </p>
+        </div>
+
         {/* Column 1: Healthcare */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <a
@@ -180,7 +244,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(100)}
+            style={getLinkStyle(0, 0)}
           >
             Getmeds Philippines
           </a>
@@ -189,7 +253,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(150)}
+            style={getLinkStyle(0, 1)}
           >
             Getmeds India
           </a>
@@ -198,7 +262,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(200)}
+            style={getLinkStyle(0, 2)}
           >
             Getmeds Vanuatu
           </a>
@@ -207,7 +271,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(250)}
+            style={getLinkStyle(0, 3)}
           >
             Getmeds Latam
           </a>
@@ -216,7 +280,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(300)}
+            style={getLinkStyle(0, 4)}
           >
             Getmeds SEA
           </a>
@@ -229,7 +293,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(150)}
+            style={getLinkStyle(1, 0)}
           >
             Bishnoi Omniverse India
           </a>
@@ -238,7 +302,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(200)}
+            style={getLinkStyle(1, 1)}
           >
             Bishnoi Omniverse Philippines
           </a>
@@ -251,7 +315,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(200)}
+            style={getLinkStyle(2, 0)}
           >
             Naresh Bishnoi Foundation
           </a>
@@ -260,17 +324,17 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"
-            style={getLinkStyle(250)}
+            style={getLinkStyle(2, 1)}
           >
             Naresh Kumar Bishnoi Office
           </a>
         </div>
+        </div>
       </div>
-    </div>
   );
 }
 
-export default function Header({ onOpenRequestModal, onScrollTo, introReady }: HeaderProps) {
+export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, introReady }: HeaderProps) {
   // A second, fixed navbar that slides in with the colored logo once the
   // hero (with its own white/absolute header) has scrolled out of view —
   // and stays pinned regardless of scroll direction, so the two never
@@ -313,34 +377,56 @@ export default function Header({ onOpenRequestModal, onScrollTo, introReady }: H
           padding: "2rem 3.25rem",
           opacity: introReady ? 1 : 0,
           transform: introReady ? "translateY(0)" : "translateY(-14px)",
-          transition: "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1)",
-          color: "#ffffff",
-          textShadow: "0 2px 6px rgba(0,0,0,.8)",
+          // White bg + orange links only kick in once the Businesses dropdown
+          // is open (hover or click on that one nav item) — not on hovering
+          // the navbar generally — so the bar visually matches the white
+          // mega-menu it's about to open beneath it.
+          background: heroDropdown.open ? "#ffffff" : "transparent",
+          color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+          textShadow: heroDropdown.open ? "none" : "0 2px 6px rgba(0,0,0,.8)",
+          transition:
+            "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease",
         }}
       >
         {/* Plain white + drop-shadow instead of mix-blend-mode: difference —
             difference shifts hue against colored (e.g. sunset-toned) hero
             photos instead of staying white, which read as a gray cast. A drop
-            shadow keeps it legible without touching its actual color. */}
+            shadow keeps it legible without touching its actual color. When
+            the Businesses dropdown opens, the bar goes white, so the logo
+            swaps to its colored mark and drops the shadow it no longer needs. */}
         <button className="hover-spring-sm" onClick={() => onScrollTo("home")} style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logowhite.png"
+            src={heroDropdown.open ? "/logo.png" : "/logowhite.png"}
             alt="Bishnoi Omniverse"
-            style={{ height: "3.5rem", width: "auto", filter: "drop-shadow(0 2px 6px rgba(0,0,0,.8))" }}
+            style={{
+              height: "3.5rem",
+              width: "auto",
+              filter: heroDropdown.open ? "none" : "drop-shadow(0 2px 6px rgba(0,0,0,.8))",
+              transition: "filter .35s ease",
+            }}
           />
         </button>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flex: 1 }}>
           <nav className="hidden lg:flex">
             <NavItems
-              textColor="#ffffff"
+              textColor={heroDropdown.open ? "var(--brand-orange)" : "#ffffff"}
               fontSize="1rem"
+              fontWeight={heroDropdown.open ? 600 : 400}
               onScrollTo={onScrollTo}
               dropdown={heroDropdown}
               trailing={
                 <li>
-                  <button className="hover-lift" style={{ color: "#ffffff" }} onClick={onOpenRequestModal}>
+                  <button
+                    className="hover-lift"
+                    style={{
+                      color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+                      fontWeight: heroDropdown.open ? 600 : 400,
+                      transition: "color .35s ease",
+                    }}
+                    onClick={onOpenRequestModal}
+                  >
                     Contact
                   </button>
                 </li>
@@ -348,6 +434,23 @@ export default function Header({ onOpenRequestModal, onScrollTo, introReady }: H
             />
           </nav>
         </div>
+
+        {/* Mobile/tablet nav trigger — the inline `nav` above is `hidden`
+            below `lg`, so this is the only way to reach NavOverlay there. */}
+        <button
+          className="hover-spring-sm flex lg:hidden"
+          aria-label="Open menu"
+          onClick={onOpenNav}
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            padding: ".625rem",
+            color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+            transition: "color .35s ease",
+          }}
+        >
+          <MenuIcon />
+        </button>
 
         <BusinessesPanel dropdown={heroDropdown} onScrollTo={onScrollTo} />
       </header>
@@ -383,11 +486,24 @@ export default function Header({ onOpenRequestModal, onScrollTo, introReady }: H
           </nav>
         </div>
 
-        <button className="pill-btn" onClick={onOpenRequestModal}>
-          <span className="pill-inner pill-accent pill-no-arrow" style={{ fontSize: ".875rem", padding: ".5rem 1.5rem", color: "#ffffff" }}>
-            Contact
-          </span>
-        </button>
+        <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
+          {/* Mobile/tablet nav trigger — mirrors the hero header's; the
+              inline `nav` above is `hidden` below `lg`. */}
+          <button
+            className="hover-spring-sm flex lg:hidden"
+            aria-label="Open menu"
+            onClick={onOpenNav}
+            style={{ alignItems: "center", justifyContent: "center", padding: ".625rem", color: "var(--ink)" }}
+          >
+            <MenuIcon />
+          </button>
+
+          <button className="pill-btn" onClick={onOpenRequestModal}>
+            <span className="pill-inner pill-accent pill-no-arrow" style={{ fontSize: ".875rem", padding: ".5rem 1.5rem", color: "#ffffff" }}>
+              Contact
+            </span>
+          </button>
+        </div>
 
         <BusinessesPanel dropdown={stickyDropdown} onScrollTo={onScrollTo} />
       </header>

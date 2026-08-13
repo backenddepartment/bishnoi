@@ -186,7 +186,13 @@ export default function LegacyCard({
                 letterSpacing: "-.01em",
                 lineHeight: 1.2,
                 // wraps instead of truncating — the full title should always
-                // read, not just once the chapter is opened
+                // read, not just once the chapter is opened. Long single
+                // words (e.g. "Traditions") don't have a natural break point
+                // and would otherwise overflow past this narrow column and
+                // under the arrow badge on compact/mobile card widths — so
+                // let the browser break mid-word rather than overflow.
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
                 transitionProperty: "font-size",
                 transitionDuration: ".5s",
                 transitionTimingFunction: EASE,

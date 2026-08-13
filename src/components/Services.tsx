@@ -214,6 +214,56 @@ export default function Services({ lenis }: ServicesProps) {
         </div>
       </div>
 
+      {/* Two closing notes below the mosaic — outside .shell-full's flex
+          column so they don't compete with the mosaic's own flex:1 sizing,
+          using the narrower .shell measure since this is reading copy, not
+          the full-bleed canvas. */}
+      <div className="shell" style={{ paddingBlock: compact ? "3rem" : "4rem" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: compact ? "3rem" : "4rem" }}>
+          <div>
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+              <span className="dot dot-blink"></span> Today
+            </div>
+            <h3 style={{ margin: ".75rem 0 1rem", fontSize: "1.875rem", fontWeight: 600, letterSpacing: "-.01em" }}>
+              Faces of the Community
+            </h3>
+            <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "rgba(74,68,60,.75)" }}>
+              The community&rsquo;s values live on through people like Bhajan Lal, a former Chief Minister of Haryana; Ravi Bishnoi, an Indian
+              international cricketer; and conservationists Khamu Ram Bishnoi and Radheshyam Bishnoi, who carry the community&rsquo;s
+              centuries-old commitment to wildlife into the present day.
+            </p>
+          </div>
+
+          <div>
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+              <span className="dot dot-blink"></span> Join the Story
+            </div>
+            <h3 style={{ margin: ".75rem 0 1rem", fontSize: "1.875rem", fontWeight: 600, letterSpacing: "-.01em" }}>
+              Green Before Green Was a Movement
+            </h3>
+            <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "rgba(74,68,60,.75)" }}>
+              Five centuries before climate change entered the global conversation, the Bishnoi were already living the answer to it. Explore
+              the 29 principles, walk through the story of Khejarli, or discover how a 15th-century faith still shapes conservation in the Thar
+              Desert today.
+            </p>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: ".75rem", marginTop: "1.5rem" }}>
+              <a href="#principles" className="pill-btn">
+                <span className="pill-inner pill-accent pill-no-arrow" style={{ color: "#fff" }}>
+                  Explore the 29 Principles
+                </span>
+              </a>
+              <button type="button" className="pill-btn" onClick={(e) => open(0, e.currentTarget)}>
+                <span className="pill-inner pill-outline pill-no-arrow">The Story of Amrita Devi</span>
+              </button>
+              <a href="#mukam" className="pill-btn">
+                <span className="pill-inner pill-outline pill-no-arrow">Visit Mukam</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {active && <LegacyOverlay chapter={chapters[active.index]} origin={active.origin} expanded={expanded} onClose={close} />}
     </section>
   );

@@ -104,13 +104,14 @@ export default function About({ onScrollTo }: AboutProps) {
       <div className="shell" style={{ display: "flex", flexDirection: "column", gap: "3.5rem", paddingBlock: "5rem" }}>
         {/* Headline & Paragraph */}
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2rem" }}>
-          <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
             <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
               <span className="dot dot-blink"></span> The Bishnoi
             </div>
             <h2
               id="about-h2"
               aria-label={HEADLINE.replace("\n", " ")}
+              className="break-words"
               style={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}
             >
               <span aria-hidden="true">
@@ -128,7 +129,7 @@ export default function About({ onScrollTo }: AboutProps) {
           </div>
 
           <p
-            className="lg:col-span-7"
+            className="lg:col-span-6 xl:col-span-7"
             style={{
               fontSize: "1.3125rem",
               lineHeight: 1.6,
@@ -146,10 +147,9 @@ export default function About({ onScrollTo }: AboutProps) {
         {/* Stats — stacked horizontally along the bottom, sliding in one after another */}
         <ul
           id="about-stats"
+          className="flex-col sm:flex-row flex-wrap"
           style={{
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
             borderTop: "1px solid rgba(74,68,60,.15)",
             paddingTop: "2.5rem",
           }}
@@ -157,12 +157,13 @@ export default function About({ onScrollTo }: AboutProps) {
           {STATS.map((stat, i) => (
             <li
               key={stat.label}
+              className={`py-6 sm:py-0 ${i < STATS.length - 1 ? "border-b sm:border-b-0 sm:border-r" : ""}`}
               style={{
                 flex: "1 1 0",
                 minWidth: "12rem",
                 textAlign: "center",
-                padding: "0 1.5rem",
-                borderRight: i < STATS.length - 1 ? "1px solid rgba(74,68,60,.15)" : "none",
+                paddingInline: "1.5rem",
+                borderColor: "rgba(74,68,60,.15)",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(48px)",
                 transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",

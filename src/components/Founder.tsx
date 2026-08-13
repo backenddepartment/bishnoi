@@ -12,7 +12,6 @@ const HEADLINE = "The Man Who Answered a\nDrought With 29 Rules";
 
 export default function Founder({}: FounderProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [compact, setCompact] = useState(false);
   const [canHover, setCanHover] = useState(false);
   const [typedCount, setTypedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,14 +50,6 @@ export default function Founder({}: FounderProps) {
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 1023px)");
-    const sync = () => setCompact(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
   }, []);
 
   // On a touch device there's no hover to type on, so the headline still
@@ -154,15 +145,12 @@ export default function Founder({}: FounderProps) {
         {/* Bottom: the biography, in three paragraphs, inside a green container */}
         <div
           ref={cardRef}
+          className="p-9 lg:py-12 lg:px-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-10"
           style={{
             position: "relative",
             overflow: "hidden",
             borderRadius: "2rem",
             background: "var(--brand-heritage)",
-            padding: compact ? "2.25rem" : "3rem 3.5rem",
-            display: "grid",
-            gridTemplateColumns: compact ? "1fr" : "repeat(3, 1fr)",
-            gap: compact ? "1.5rem" : "2.5rem",
             fontSize: "1.3125rem",
             lineHeight: 1.6,
             color: "rgba(247,243,232,.85)",

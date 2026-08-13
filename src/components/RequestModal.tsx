@@ -131,10 +131,10 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                 />
               </label>
 
-              <div style={{ marginTop: ".5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+              <div style={{ marginTop: ".5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
                 <span style={{ fontSize: ".75rem", color: "rgba(74,68,60,.45)" }}>We reply within one business day.</span>
-                <button type="submit" className="pill-btn" disabled={isSubmitting}>
-                  <span className="pill-inner pill-accent pill-with-arrow">
+                <button type="submit" className="pill-btn" disabled={isSubmitting} style={{ flexShrink: 0 }}>
+                  <span className="pill-inner pill-accent pill-with-arrow" style={{ whiteSpace: "nowrap" }}>
                     {isSubmitting ? "Sending…" : <>Send inquiry <span className="pill-badge up-right">↗</span></>}
                   </span>
                 </button>

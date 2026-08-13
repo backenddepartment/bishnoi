@@ -52,6 +52,12 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  /* The root scrolling box is <html>, not <body> — body's own overflow-x:
+     hidden below doesn't stop it from panning horizontally when a
+     descendant (an off-canvas drawer translated past the viewport edge, a
+     horizontally-scrolling card row, etc.) extends past the initial
+     containing block. Needs to be set here too, not just on body. */
+  overflow-x: hidden;
 }
 
 body {
@@ -716,11 +722,9 @@ img {
   flex: 1 0 280px;
   min-width: 280px;
   position: relative;
-  height: 420px;
+  height: 440px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  border-radius: 15px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -732,7 +736,7 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  height: 52%;
+  height: 45%;
   overflow: hidden;
   transition: height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 1;
@@ -754,9 +758,17 @@ img {
   transition: opacity 0.5s ease, background 0.5s ease;
 }
 
-/* Text Content: Bigger, Lighter, Layered on top */
+/* Text Content: anchored to the card's own bottom edge instead of relying
+   on flex to push it there — the image above it is position:absolute, so
+   it never occupied flex space to begin with, and a long description
+   pushed this block's top edge up over the image's bottom edge. Pinning
+   it to the bottom directly (with the description's height capped below)
+   keeps it flush under the image on every card regardless of copy length. */
 .ashtadham-card-content {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   padding: 1.25rem 0.5rem 1rem 0.5rem;
   display: flex;
@@ -798,6 +810,13 @@ img {
   line-height: 1.6;
   color: rgba(74, 68, 60, 0.65);
   transition: color 0.4s ease;
+  /* capped to 3 lines so content height stays predictable across cards —
+     otherwise a longer description grows the block tall enough to overlap
+     the image above it */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 /* Hover State: Image expands upwards to engulf entire card background */
