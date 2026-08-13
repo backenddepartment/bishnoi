@@ -105,7 +105,7 @@ export default function About({ onScrollTo }: AboutProps) {
         {/* Headline & Paragraph */}
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
+            <div id="about-eyebrow" className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
               <span className="dot dot-blink"></span> The Bishnoi
             </div>
             <h2
@@ -129,6 +129,7 @@ export default function About({ onScrollTo }: AboutProps) {
           </div>
 
           <p
+            id="about-p"
             className="lg:col-span-6 xl:col-span-7"
             style={{
               fontSize: "1.3125rem",

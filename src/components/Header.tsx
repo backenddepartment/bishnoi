@@ -458,6 +458,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
       {/* Sticky navbar — colored logo, plain white bar, appears only when
           scrolling up past the hero. */}
       <header
+        id="sticky-nav"
         ref={stickyHeaderRef}
         style={{
           position: "fixed",

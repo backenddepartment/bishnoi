@@ -896,10 +896,131 @@ img {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* Sticky navbar — mobile padding override.
+   The desktop inline style sets padding-inline to 3.25rem; on narrow screens
+   that eats too much space and pushes the logo and hamburger together.
+   This overrides to a tighter value below lg (1024px) without touching desktop. */
+@media (max-width: 1023px) {
+  #sticky-nav {
+    padding-inline: 1.25rem !important;
+  }
+}
 
 
-
-
-
-
-
+/* Hero navbar — mobile overrides (≤1023px only, desktop untouched).
+   Reduces side padding so logo and hamburger spread edge-to-edge,
+   and shrinks the white logo to a more proportional mobile size. */
+@media (max-width: 1023px) {
+  #header {
+    padding-inline: 1.25rem !important;
+    padding-block: 1.25rem !important;
+  }
+  #header > button img {
+    height: 2.25rem !important;
+  }
+  #home {
+    min-height: 75vh !important;
+  }
+  #home .shell-full {
+    padding-block: 6.5rem 2rem !important;
+    gap: 1.5rem !important;
+  }
+  #watermark {
+    font-size: clamp(3.5rem, 16vw, 6.5rem) !important;
+    bottom: 2.5rem !important;
+  }
+  #hero-title-wrapper {
+    margin-top: 2rem !important;
+    gap: 1rem !important;
+  }
+  #hero-h1 {
+    text-align: center !important;
+    margin-inline: auto !important;
+  }
+  #hero-h1 .line-inner {
+    text-align: center !important;
+    display: block !important;
+  }
+  #hero-ctas {
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+  }
+  #hero-ctas .pill-inner {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.75rem !important;
+  }
+  #hero-ctas .pill-badge {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    font-size: 0.65rem !important;
+  }
+  #hero-status {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    font-size: 0.65rem !important;
+    gap: 0.5rem !important;
+  }
+  #hero-status span {
+    white-space: nowrap !important;
+  }
+  #hero-partners {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-block: 0.25rem !important;
+  }
+  #hero-partners::-webkit-scrollbar {
+    display: none !important;
+  }
+  #hero-partners ul {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    width: max-content !important;
+    padding-inline: 0.25rem !important;
+  }
+  #hero-partners li {
+    flex-shrink: 0 !important;
+  }
+  /* About section mobile typography adjustments */
+  #about-eyebrow {
+    font-size: 0.9375rem !important;
+  }
+  #about-h2 {
+    font-size: 1.85rem !important;
+    line-height: 1.2 !important;
+  }
+  #about-p {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+  }
+  /* About stats 1-line layout on mobile */
+  #about-stats {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    padding-top: 1.5rem !important;
+  }
+  #about-stats li {
+    padding-inline: 0.375rem !important;
+    padding-block: 0 !important;
+    min-width: 0 !important;
+    border-bottom: none !important;
+    border-right: 1px solid rgba(74, 68, 60, 0.15) !important;
+  }
+  #about-stats li:last-child {
+    border-right: none !important;
+  }
+  #about-stats li > div:first-child {
+    font-size: 1.75rem !important;
+  }
+  #about-stats li > div:last-child {
+    font-size: 0.75rem !important;
+    margin-top: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+}

@@ -336,7 +336,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           alignContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
+        <div id="hero-title-wrapper" style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
           <h1
             id="hero-h1"
             className="text-[1.85rem] sm:text-[2.5rem] md:text-[4rem]"
@@ -454,6 +454,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           {/* Trusted Ecosystem Divisions Grid matching Screenshot 1 */}
           <div
             id="hero-partners"
+            data-lenis-prevent
             style={{
               width: "100%",
               maxWidth: "28rem",
