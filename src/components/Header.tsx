@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { label: "Home", id: "home", current: true },
   { label: "Who We Are", id: "about" },
   { label: "Businesses", id: "works", hasDropdown: true },
-  { label: "Philosophy", id: "services" },
+  { label: "Legacy", id: "services" },
   { label: "Vision", id: "vision" },
 ];
 

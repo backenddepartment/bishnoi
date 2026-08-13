@@ -10,6 +10,15 @@ const onest = Onest({
 
 export const metadata: Metadata = {
   title: "Bishnoi — Rooted in five hundred years. Building for what comes next.",
+  icons: {
+    icon: [
+      { url: "/logo_favicon.png", type: "image/png" },
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+    shortcut: "/logo_favicon.png",
+  },
 };
 
 export default function RootLayout({
