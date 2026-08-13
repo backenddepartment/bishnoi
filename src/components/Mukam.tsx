@@ -221,66 +221,61 @@ export default function Mukam({}: MukamProps) {
             transitionDelay: "450ms",
           }}
         >
-          {/* Floating Left Drag Indicator (fades out at start, fades in when scrolled right) */}
-          {/* Floating Left Drag Indicator */}
+          {/* Floating Left Arrow Indicator */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
-              left: "1rem",
+              left: "0.75rem",
               top: "22%",
               transform: "translateY(-50%)",
               zIndex: 10,
               pointerEvents: "none",
-              opacity: showLeftArrow ? 0.75 : 0,
+              opacity: showLeftArrow ? 0.85 : 0,
               transition: "opacity 0.35s ease, transform 0.35s ease",
-              background: "rgba(26, 22, 19, 0.75)",
+              background: "rgba(26, 22, 19, 0.8)",
               backdropFilter: "blur(12px)",
               color: "#ffffff",
-              padding: "0.5rem 1rem",
+              width: "2.25rem",
+              height: "2.25rem",
               borderRadius: "9999px",
               display: "flex",
               alignItems: "center",
-              gap: "0.5rem",
-              fontSize: "0.8125rem",
-              fontWeight: 600,
-              boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+              justifyContent: "center",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 19 5 12 12 5" />
             </svg>
-            <span>Drag</span>
           </div>
 
-          {/* Floating Right "See more" Indicator */}
+          {/* Floating Right Arrow Indicator */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
-              right: "1rem",
+              right: "0.75rem",
               top: "22%",
               transform: "translateY(-50%)",
               zIndex: 10,
               pointerEvents: "none",
-              opacity: showRightArrow ? 0.75 : 0,
+              opacity: showRightArrow ? 0.85 : 0,
               transition: "opacity 0.35s ease, transform 0.35s ease",
-              background: "rgba(26, 22, 19, 0.75)",
+              background: "rgba(26, 22, 19, 0.8)",
               backdropFilter: "blur(12px)",
               color: "#ffffff",
-              padding: "0.5rem 1.125rem",
+              width: "2.25rem",
+              height: "2.25rem",
               borderRadius: "9999px",
               display: "flex",
               alignItems: "center",
-              gap: "0.5rem",
-              fontSize: "0.8125rem",
-              fontWeight: 600,
-              boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+              justifyContent: "center",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
             }}
           >
-            <span>See more</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>

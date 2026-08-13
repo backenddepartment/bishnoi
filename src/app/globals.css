@@ -873,7 +873,7 @@ img {
      text the whole card to grow into instead of just the bottom 48%. */
   top: 6%;
   justify-content: flex-end;
-  mix-blend-mode: difference;
+  mix-blend-mode: normal;
   padding-left: 1rem;
   padding-right: 1rem;
   color: #ffffff;
@@ -1056,5 +1056,37 @@ img {
     line-height: 1.5 !important;
     -webkit-line-clamp: 5 !important;
   }
+  /* Mobile touch/hover: image slides down to 100% and text stays clean & visible in solid white */
+  .ashtadham-card:hover .ashtadham-card-content {
+    mix-blend-mode: normal !important;
+    top: 6% !important;
+    justify-content: flex-end !important;
+    color: #ffffff !important;
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+  .ashtadham-card:hover .ashtadham-card-img-bg {
+    height: 100% !important;
+  }
+  .ashtadham-card:hover .ashtadham-card-img {
+    transform: scale(1.08) !important;
+    filter: brightness(0.6) !important;
+  }
+  .ashtadham-card:hover .ashtadham-card-title {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-weight: 500 !important;
+    white-space: normal !important;
+  }
+  .ashtadham-card:hover .ashtadham-card-location span {
+    color: rgba(255, 255, 255, 0.85) !important;
+    white-space: normal !important;
+  }
+  .ashtadham-card:hover .ashtadham-card-desc {
+    color: rgba(255, 255, 255, 0.8) !important;
+    display: block !important;
+    overflow: visible !important;
+    -webkit-line-clamp: unset !important;
+  }
 }
+
 
