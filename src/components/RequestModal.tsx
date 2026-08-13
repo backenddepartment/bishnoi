@@ -75,7 +75,7 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
         {!isSubmitted ? (
           <div id="modal-form">
             <div style={{ marginBottom: "1.5rem" }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem", fontSize: ".875rem", fontWeight: 500, color: "rgba(74,68,60,.6)" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem", fontSize: "1rem", fontWeight: 500, color: "rgba(74,68,60,.6)" }}>
                 <span style={{ width: ".375rem", height: ".375rem", borderRadius: "9999px", background: "#F36B21" }}></span>Connect with us
               </div>
               <p style={{ marginTop: ".5rem", fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.4, color: "#241F1A" }}>
@@ -89,10 +89,10 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                 <input
                   type="text"
                   required
-                  placeholder="Your full name"
+                  placeholder="Juan Dela Cruz"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  style={{ width: "100%", border: "1px solid #E2E2DE", background: "#F5F5F4", borderRadius: "10px", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "border .2s, background .2s" }}
+                  style={{ width: "100%", border: "none", background: "#F5F5F4", borderRadius: "1rem", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "background .2s" }}
                 />
               </label>
 
@@ -101,10 +101,10 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                 <input
                   type="email"
                   required
-                  placeholder="you@company.com"
+                  placeholder="e.g.juandelacruz@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  style={{ width: "100%", border: "1px solid #E2E2DE", background: "#F5F5F4", borderRadius: "10px", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "border .2s, background .2s" }}
+                  style={{ width: "100%", border: "none", background: "#F5F5F4", borderRadius: "1rem", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "background .2s" }}
                 />
               </label>
 
@@ -115,7 +115,7 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                   placeholder="+63 900 000 0000"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  style={{ width: "100%", border: "1px solid #E2E2DE", background: "#F5F5F4", borderRadius: "10px", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "border .2s, background .2s" }}
+                  style={{ width: "100%", border: "none", background: "#F5F5F4", borderRadius: "1rem", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", transition: "background .2s" }}
                 />
               </label>
 
@@ -127,12 +127,12 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                   placeholder="Please share details regarding your inquiry or partnership interest."
                   value={formData.inquiry}
                   onChange={(e) => setFormData({ ...formData, inquiry: e.target.value })}
-                  style={{ width: "100%", border: "1px solid #E2E2DE", background: "#F5F5F4", borderRadius: "10px", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", resize: "none", transition: "border .2s, background .2s" }}
+                  style={{ width: "100%", border: "none", background: "#F5F5F4", borderRadius: "1rem", padding: ".75rem 1rem", fontSize: ".875rem", outline: "none", resize: "none", transition: "background .2s" }}
                 />
               </label>
 
               <div style={{ marginTop: ".5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-                <span style={{ fontSize: ".75rem", color: "rgba(74,68,60,.45)" }}>We reply within one business day.</span>
+                <span style={{ fontSize: "1.25rem", fontWeight: 700, color: "#231F1A" }}>We reply within<br /> one business day.</span>
                 <button type="submit" className="pill-btn" disabled={isSubmitting} style={{ flexShrink: 0 }}>
                   <span className="pill-inner pill-accent pill-with-arrow" style={{ whiteSpace: "nowrap" }}>
                     {isSubmitting ? "Sending…" : <>Send inquiry <span className="pill-badge up-right">↗</span></>}

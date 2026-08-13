@@ -11,8 +11,8 @@ interface HeroProps {
 export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: HeroProps) {
   const heroImages = [
     "/hero_pharma.jpg",
-    "/hero_hydroponics.jpg",
-    "/hero_dairy.jpg",
+    "/hero_hydroponics.JPG",
+    "/hero_orange.png",
     "/hero_wildlife.jpg",
   ];
 
