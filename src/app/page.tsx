@@ -116,13 +116,13 @@ export default function Home() {
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Founder introReady={introReady} />
         <Mukam introReady={introReady} />
-        {/* Temporarily hidden — <Bands introReady={introReady} /> */}
+        <Bands introReady={introReady} />
         <Principles introReady={introReady} />
         <Portfolio introReady={introReady} lenis={lenisRef} />
         <VibeGallery onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />
         <OurVision />
         <Services introReady={introReady} lenis={lenisRef} />
-        {/* Temporarily hidden — <Stats introReady={introReady} /> */}
+        <Stats introReady={introReady} />
       </main>
 
       <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />

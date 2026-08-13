@@ -13,7 +13,7 @@ interface PortfolioStackProps {
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
 // One fixed color per card, in order.
-const CARD_COLORS = ["#173F2A", "#356B3F", "#F36B21", "#C8A45D"];
+const CARD_COLORS = ["#173F2A", "#356B3F", "#F36B21", "#C8A45D", "#2E5B42"];
 // The shared "Division 0X • " prefix is stripped from the category label —
 // it's still useful as a data label elsewhere, just redundant next to the
 // title here.

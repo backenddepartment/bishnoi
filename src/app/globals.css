@@ -106,24 +106,19 @@ img {
   }
 }
 
-@media (max-width: 1920px) {
-  html {
-    font-size: 0.833333vw;
-  }
-}
 @media (max-width: 1440px) {
   html {
-    font-size: 1.111111vw;
+    font-size: 15px;
   }
 }
 @media (max-width: 1024px) {
   html {
-    font-size: 1.5625vw;
+    font-size: 14px;
   }
 }
 @media (max-width: 640px) {
   html {
-    font-size: 4.444444vw;
+    font-size: 14px;
   }
 }
 

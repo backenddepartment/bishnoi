@@ -29,7 +29,7 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   // Only the first four divisions appear in the stack — it's sized to match
   // the four-color palette (green/green/orange/gold), not the full shared
   // business list (which MirrorHall's carousel still uses in full).
-  const stackBusinesses = businesses.slice(0, 4);
+  const stackBusinesses = businesses;
   const count = stackBusinesses.length;
   const span = Math.max(count - 1, 1);
 
