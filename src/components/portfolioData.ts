@@ -58,14 +58,6 @@ export const businesses: Division[] = [
     description: "The group's central intelligence — managing strategic investment portfolios, non-banking financial services, and global venture holdings that bind each division under one disciplined, long-term capital framework aligned with the family's founding values.",
     entities: [{ name: "Naresh Kumar Bishnoi", domain: "nkb.com", url: "https://nkb.com" }],
   },
-  {
-    numeral: "05",
-    category: "Division 05 • Indigenous Dairy & Cattle Care",
-    title: "Indigenous Dairy Care",
-    image: "/hero_dairy.jpg",
-    description: "Committed to preserving indigenous cattle breeds, advancing sustainable organic dairy practices, and restoring rural livelihoods — connecting traditional Bishnoi reverence for animals with modern supply chains that prioritize welfare, purity, and community prosperity.",
-    entities: [{ name: "Indigenous Dairy Care", domain: "nkb.com", url: "https://nkb.com" }],
-  },
 ];
 
 export const PANEL = "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)";

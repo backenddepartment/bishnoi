@@ -41,7 +41,7 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     { num: "02", label: "Who We Are", target: "about" },
     { num: "03", label: "Businesses", target: "works" },
     { num: "04", label: "Philosophy", target: "services" },
-    { num: "05", label: "Vision & Mission", target: "stats-panel" },
+    { num: "05", label: "Vision", target: "vision" },
     { num: "06", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 

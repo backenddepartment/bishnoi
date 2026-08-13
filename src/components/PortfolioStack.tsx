@@ -13,7 +13,7 @@ interface PortfolioStackProps {
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
 // One fixed color per card, in order.
-const CARD_COLORS = ["#173F2A", "#356B3F", "#F36B21", "#C8A45D", "#2E5B42"];
+const CARD_COLORS = ["#173F2A", "#356B3F", "#F36B21", "#C8A45D"];
 // The shared "Division 0X • " prefix is stripped from the category label —
 // it's still useful as a data label elsewhere, just redundant next to the
 // title here.
@@ -79,7 +79,7 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
       }}
     >
       <div className="shell">
-        <SectionHeading />
+        <SectionHeading compact={compact} />
       </div>
 
       {/* Plain (non-positioned) shell, so its own left/right padding pushes
@@ -157,11 +157,18 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                         {stripDivisionPrefix(biz.category)}
                       </div>
                       <h3
+                        // Compact (mobile/tablet, both orientations) clamps to two
+                        // lines — at 1.5rem in a narrow card, a full title plus a
+                        // wrapped 5-pill entity row plus the description no longer
+                        // reliably fits the home box, and the card clips its own
+                        // overflow rather than growing, so a still-legible clamp
+                        // beats letting the tail run under the rounded corner.
+                        className={compact ? "line-clamp-2" : undefined}
                         style={{
                           marginTop: ".75rem",
-                          fontSize: compact ? "1.75rem" : "2.5rem",
+                          fontSize: compact ? "1.5rem" : "2.5rem",
                           fontWeight: 600,
-                          lineHeight: 1.1,
+                          lineHeight: 1.15,
                           letterSpacing: "-.02em",
                           maxWidth: i === 0 ? "none" : "20ch",
                           whiteSpace: i === 0 && !compact ? "nowrap" : undefined,
@@ -171,16 +178,20 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                       </h3>
                       {/* Pills sit immediately under the title */}
                       <div style={{ marginTop: ".75rem" }}>
-                        <EntityChips entities={biz.entities} glass />
+                        <EntityChips entities={biz.entities} glass compact={compact} />
                       </div>
-                      {/* Description sits right below the pills */}
+                      {/* Description sits right below the pills. Font size
+                          shrinks in compact so the four-item content stack
+                          (eyebrow/title/pills/description) has a chance of
+                          fitting a short mobile/tablet viewport; the text
+                          itself is clamped rather than left to overflow. */}
                       <p
                         style={{
                           marginTop: ".625rem",
                           display: "flex",
                           gap: ".5rem",
-                          fontSize: "1.125rem",
-                          lineHeight: 1.6,
+                          fontSize: compact ? ".875rem" : "1.125rem",
+                          lineHeight: compact ? 1.5 : 1.6,
                           color: "rgba(247,243,232,.9)",
                           maxWidth: "56rem",
                           opacity: contentOpacity,
@@ -188,7 +199,7 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                         }}
                       >
                         <span aria-hidden="true" style={{ flexShrink: 0 }}>✳</span>
-                        {biz.description}
+                        <span className={compact ? "line-clamp-3" : undefined}>{biz.description}</span>
                       </p>
                     </div>
 

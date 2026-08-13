@@ -7,17 +7,9 @@ interface RequestModalProps {
   onClose: () => void;
 }
 
-// Static export (output: "export") means there's no server to receive this
-// form, so it submits straight from the browser to Web3Forms, which relays
-// it to the inbox tied to this access key. Get one at https://web3forms.com
-// (verify naresh@getmeds.ph there) and drop it in .env.local as
-// NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY — see .env.local.example.
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
-
 export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", inquiry: "" });
 
   useEffect(() => {
@@ -35,47 +27,17 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
     setTimeout(() => {
       setIsSubmitted(false);
       setIsSubmitting(false);
-      setSubmitError(null);
       setFormData({ name: "", email: "", phone: "", inquiry: "" });
     }, 300);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitError(null);
-
-    if (!WEB3FORMS_ACCESS_KEY) {
+    setTimeout(() => {
       setIsSubmitting(false);
-      setSubmitError("Form isn't connected yet — missing Web3Forms access key.");
-      return;
-    }
-
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `New inquiry from ${formData.name} — Bishnoi site`,
-          from_name: formData.name,
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.inquiry,
-        }),
-      });
-      const result = await res.json();
-      if (result.success) {
-        setIsSubmitted(true);
-      } else {
-        setSubmitError(result.message || "Something went wrong sending your message. Please try again.");
-      }
-    } catch {
-      setSubmitError("Couldn't reach the server. Please check your connection and try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+      setIsSubmitted(true);
+    }, 800);
   };
 
   return (
@@ -169,16 +131,10 @@ export default function RequestModal({ isOpen, onClose }: RequestModalProps) {
                 />
               </label>
 
-              {submitError && (
-                <p style={{ fontSize: ".8125rem", color: "#C2521A", background: "rgba(243,107,33,.08)", border: "1px solid rgba(243,107,33,.25)", borderRadius: "10px", padding: ".625rem .875rem" }}>
-                  {submitError}
-                </p>
-              )}
-
-              <div style={{ marginTop: ".5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+              <div style={{ marginTop: ".5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
                 <span style={{ fontSize: ".75rem", color: "rgba(74,68,60,.45)" }}>We reply within one business day.</span>
-                <button type="submit" className="pill-btn" disabled={isSubmitting}>
-                  <span className="pill-inner pill-accent pill-with-arrow">
+                <button type="submit" className="pill-btn" disabled={isSubmitting} style={{ flexShrink: 0 }}>
+                  <span className="pill-inner pill-accent pill-with-arrow" style={{ whiteSpace: "nowrap" }}>
                     {isSubmitting ? "Sending…" : <>Send inquiry <span className="pill-badge up-right">↗</span></>}
                   </span>
                 </button>

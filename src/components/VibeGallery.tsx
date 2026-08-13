@@ -30,7 +30,7 @@ export default function VibeGallery({}: VibeGalleryProps) {
     { src: "/legacy/traditions.jpg", alt: "Festivals & Living Traditions", title: "Living Traditions" },
     { src: "/hero_wildlife.jpg", alt: "Thar Desert Wildlife Sanctuary", title: "Wildlife Sanctuary" },
     { src: "/hero_hydroponics.jpg", alt: "Sustainable Eco-Agriculture", title: "Sustainable Agriculture" },
-    { src: "/hero_dairy.jpg", alt: "Indigenous Dairy & Cattle Care", title: "Indigenous Dairy Care" },
+    { src: "/hero_dairy.jpg", alt: "Organic Farming & Cattle Welfare", title: "Organic Farming" },
     { src: "/hero_pharma.jpg", alt: "Natural Pharma & Healthcare", title: "Healthcare & Wellness" },
   ];
 
@@ -156,9 +156,8 @@ export default function VibeGallery({}: VibeGalleryProps) {
         }}
       >
         <h2
-          className="lg:col-span-5"
+          className="lg:col-span-5 text-[2.25rem] sm:text-[3rem]"
           style={{
-            fontSize: "3rem",
             fontWeight: 600,
             lineHeight: 1.15,
             letterSpacing: "-.02em",

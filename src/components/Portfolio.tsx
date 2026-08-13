@@ -60,7 +60,14 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   // Environment probes: motion preference, compact layout
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const narrow = window.matchMedia("(max-width: 1023px)");
+    // Covers phones through tablet-landscape (~1194px) — "desktop" for this
+    // section starts at 1280px, so compact styling should own everything
+    // below that, not just the traditional <1024 "tablet portrait and down"
+    // cut. Without this, a 1024-1194px iPad-landscape viewport fell through
+    // to non-compact styling (larger padding/fonts, unconstrained/nowrap
+    // title on the active card) despite having a short, tablet-shaped
+    // viewport that needs the compact treatment just as much as portrait.
+    const narrow = window.matchMedia("(max-width: 1279px)");
 
     const sync = () => {
       setReduced(motion.matches);
@@ -147,7 +154,12 @@ export default function Portfolio({ lenis }: PortfolioProps) {
   if (reduced) {
     return (
       <section id="works" style={{ background: "#ffffff" }}>
-        <div className="shell" style={{ padding: "2.5rem 3.5rem 5rem" }}>
+        {/* Horizontal padding is left to .shell (which itself collapses to
+            1.5rem below 768px) instead of being hardcoded here — a
+            shorthand `padding` inline style would otherwise pin
+            padding-inline at 3.5rem at every viewport and defeat that
+            collapse on mobile. */}
+        <div className="shell" style={{ paddingTop: "2.5rem", paddingBottom: "5rem" }}>
           <SectionHeading />
           <ul className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem", marginTop: "3.5rem" }}>
             {stackBusinesses.map((biz) => (

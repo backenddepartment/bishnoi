@@ -144,11 +144,13 @@ export default function OurVision() {
           }}
         />
 
-        {/* Four pillars */}
+        {/* Four pillars. Explicit column counts per breakpoint (instead of
+            auto-fit/minmax) avoid an orphaned 4th item wrapping alone onto
+            its own row with an awkward gap beside it — which auto-fit did
+            at ~768px and ~1024px, where 3 tracks fit but not 4. */}
         <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "2rem",
           }}
         >

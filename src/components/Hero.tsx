@@ -330,7 +330,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           width: "100%",
           maxWidth: "100%",
           gap: "2.5rem",
-          padding: "13rem 3.25rem 3rem",
+          paddingBlock: "13rem 3rem",
           color: "#ffffff",
           alignItems: "center",
           alignContent: "space-between",
@@ -339,9 +339,9 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
           <h1
             id="hero-h1"
+            className="text-[1.85rem] sm:text-[2.5rem] md:text-[4rem]"
             style={{
               maxWidth: "26ch",
-              fontSize: "4rem",
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-.02em",
@@ -366,90 +366,86 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             }}
           >
             <button className="pill-btn" onClick={() => onScrollTo("about")}>
-              <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)" }}>
+              <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)", whiteSpace: "nowrap" }}>
                 Who we are <span className="pill-badge">→</span>
               </span>
             </button>
             <button className="pill-btn" onClick={() => onScrollTo("works")}>
-              <span className="pill-inner pill-outline pill-with-arrow" style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)" }}>
+              <span
+                className="pill-inner pill-outline pill-with-arrow"
+                style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)", whiteSpace: "nowrap" }}
+              >
                 Our Businesses <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
               </span>
             </button>
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1.5rem" }} className="lg:col-span-5">
+        <div
+          style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}
+          className="gap-3 sm:gap-6 lg:col-span-5"
+        >
           {/* Reference Card Layout matching Screenshot 1 */}
           <div
             id="hero-card"
             style={{
               width: "100%",
               maxWidth: "24rem",
-              borderRadius: "1.25rem",
-              background: "rgba(247,243,232,0.94)",
-              padding: ".5rem",
-              boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-              backdropFilter: "blur(16px)",
-              color: "#4A443C",
+              padding: "1.25rem 1.5rem",
+              color: "#ffffff",
+              textShadow: "0 2px 10px rgba(0,0,0,.7)",
               opacity: introReady ? 1 : 0,
               transform: introReady ? "translateY(0) scale(1)" : "translateY(16px) scale(.96)",
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
-            <div style={{ display: "flex", gap: ".625rem", cursor: "pointer" }} onClick={carouselNext}>
-              <div style={{ width: "5.5rem", height: "5.5rem", borderRadius: "1rem", background: "linear-gradient(140deg,#F36B21 0%,#D9551A 100%)", display: "grid", placeItems: "center", flexShrink: 0, boxShadow: "0 6px 16px rgba(243,107,33,0.35)" }}>
-                <span style={{ color: "#FFF3E9", fontSize: "1.75rem" }}>★</span>
-              </div>
-              <div style={{ flex: 1, padding: ".375rem .25rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                <div>
-                  <span style={{ fontSize: ".65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(74,68,60,0.5)" }}>
-                    {carouselItems[imageIdx].caption}
-                  </span>
-                  <h4 style={{ fontSize: ".875rem", fontWeight: 700, lineHeight: 1.3, color: "#4A443C", marginTop: ".125rem" }}>
-                    {carouselItems[imageIdx].title}
-                  </h4>
-                </div>
+            <div style={{ cursor: "pointer", marginTop: ".75rem" }} onClick={carouselNext}>
+              <span style={{ fontSize: ".8125rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(255,255,255,0.7)" }}>
+                {carouselItems[imageIdx].caption}
+              </span>
+              <h4 style={{ fontSize: "1.5rem", fontWeight: 700, lineHeight: 1.3, color: "#ffffff", marginTop: ".25rem" }}>
+                {carouselItems[imageIdx].title}
+              </h4>
 
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: ".5rem" }}>
-                  <div style={{ display: "flex", gap: ".375rem" }}>
-                    {heroImages.map((_, i) => (
-                      <span
-                        key={i}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleSelectDivision(i);
-                        }}
-                        style={{
-                          height: ".25rem",
-                          width: i === imageIdx ? "1.25rem" : ".375rem",
-                          borderRadius: "9999px",
-                          background: i === imageIdx ? "#6B6157" : "rgba(74,68,60,0.28)",
-                          transition: "all .3s",
-                          cursor: "pointer",
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <div style={{ display: "flex", gap: ".375rem" }}>
-                    <button
-                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: ".5rem" }}>
+                <div style={{ display: "flex", gap: ".375rem" }}>
+                  {heroImages.map((_, i) => (
+                    <span
+                      key={i}
                       onClick={(e) => {
                         e.stopPropagation();
-                        carouselPrev();
+                        handleSelectDivision(i);
                       }}
-                    >
-                      <span style={{ display: "inline-block", transform: "rotate(180deg)", fontSize: ".75rem" }}>→</span>
-                    </button>
-                    <button
-                      style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        carouselNext();
+                      style={{
+                        height: ".25rem",
+                        width: i === imageIdx ? "1.25rem" : ".375rem",
+                        borderRadius: "9999px",
+                        background: i === imageIdx ? "#ffffff" : "rgba(255,255,255,0.32)",
+                        transition: "all .3s",
+                        cursor: "pointer",
                       }}
-                    >
-                      <span style={{ fontSize: ".75rem" }}>→</span>
-                    </button>
-                  </div>
+                    />
+                  ))}
+                </div>
+                <div style={{ display: "flex", gap: ".375rem" }}>
+                  <button
+                    style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      carouselPrev();
+                    }}
+                  >
+                    <span style={{ display: "inline-block", transform: "rotate(180deg)", fontSize: ".75rem" }}>→</span>
+                  </button>
+                  <button
+                    style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      carouselNext();
+                    }}
+                  >
+                    <span style={{ fontSize: ".75rem" }}>→</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -466,7 +462,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
-            <ul style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", justifyContent: "flex-start" }} className="lg:justify-end">
+            <ul style={{ display: "flex", flexWrap: "wrap", gap: ".5rem" }} className="justify-start lg:justify-end">
               {[
                 { name: "Getmeds Phils", domain: "getmeds.ph" },
                 { name: "Getmeds India", domain: "getmedshealthcare.com" },
@@ -488,19 +484,19 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                       display: "inline-flex",
                       alignItems: "center",
                       gap: ".375rem",
-                      fontSize: ".75rem",
+                      fontSize: ".8125rem",
+                      padding: ".4rem 1rem",
                       color: "rgba(255,255,255,0.92)",
                       fontWeight: 500,
                       background: "rgba(26,22,19,0.6)",
                       backdropFilter: "blur(12px)",
                       border: "1px solid rgba(243,107,33,0.38)",
                       borderRadius: "9999px",
-                      padding: ".375rem .875rem",
                       whiteSpace: "nowrap",
                     }}
                   >
                     <span>{entity.name}</span>
-                    <span style={{ fontSize: ".65rem", color: "#F36B21" }}>↗</span>
+                    <span className="text-[.75rem] sm:text-[.65rem]" style={{ color: "#F36B21" }}>↗</span>
                   </a>
                 </li>
               ))}

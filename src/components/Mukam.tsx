@@ -69,11 +69,20 @@ export default function Mukam({}: MukamProps) {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
 
   const sectionRef = useRef<HTMLElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | undefined>(undefined);
   const intervalRef = useRef<number | undefined>(undefined);
+
+  const updateScrollIndicators = () => {
+    if (!sliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    setShowLeftArrow(scrollLeft > 15);
+    setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 15);
+  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!sliderRef.current) return;
@@ -88,11 +97,19 @@ export default function Mukam({}: MukamProps) {
     const x = e.pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX) * 1.5;
     sliderRef.current.scrollLeft = scrollLeftState - walk;
+    updateScrollIndicators();
   };
 
   const handleMouseUpOrLeave = () => {
     setIsMouseDown(false);
   };
+
+  useEffect(() => {
+    const handleResize = () => updateScrollIndicators();
+    window.addEventListener("resize", handleResize);
+    updateScrollIndicators();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -204,9 +221,74 @@ export default function Mukam({}: MukamProps) {
             transitionDelay: "450ms",
           }}
         >
+          {/* Floating Left Drag Indicator (fades out at start, fades in when scrolled right) */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "1rem",
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 10,
+              pointerEvents: "none",
+              opacity: showLeftArrow ? 0.75 : 0,
+              transition: "opacity 0.35s ease, transform 0.35s ease",
+              background: "rgba(26, 22, 19, 0.75)",
+              backdropFilter: "blur(12px)",
+              color: "#ffffff",
+              padding: "0.5rem 1rem",
+              borderRadius: "9999px",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontSize: "0.8125rem",
+              fontWeight: 600,
+              boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            <span>Drag</span>
+          </div>
+
+          {/* Floating Right "See more" Indicator (fades out when reached the right end) */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              right: "1rem",
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 10,
+              pointerEvents: "none",
+              opacity: showRightArrow ? 0.75 : 0,
+              transition: "opacity 0.35s ease, transform 0.35s ease",
+              background: "rgba(26, 22, 19, 0.75)",
+              backdropFilter: "blur(12px)",
+              color: "#ffffff",
+              padding: "0.5rem 1.125rem",
+              borderRadius: "9999px",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontSize: "0.8125rem",
+              fontWeight: 600,
+              boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+            }}
+          >
+            <span>See more</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </div>
+
           <div
             ref={sliderRef}
             className="ashtadham-scroll-row"
+            onScroll={updateScrollIndicators}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUpOrLeave}
