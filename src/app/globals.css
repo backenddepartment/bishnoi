@@ -57,14 +57,14 @@ html {
      descendant (an off-canvas drawer translated past the viewport edge, a
      horizontally-scrolling card row, etc.) extends past the initial
      containing block. Needs to be set here too, not just on body. */
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-onest), sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {

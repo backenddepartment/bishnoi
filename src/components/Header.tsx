@@ -206,15 +206,15 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
         textShadow: "none",
       }}
     >
-        <div
-          className="shell"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "minmax(0,1.2fr) repeat(3, minmax(0,1fr))",
-            gap: "2rem",
-            padding: "2rem 3.25rem",
-          }}
-        >
+      <div
+        className="shell"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0,1.2fr) repeat(3, minmax(0,1fr))",
+          gap: "2rem",
+          padding: "2rem 3.25rem",
+        }}
+      >
         {/* Intro column — heading + short description, mirrors the linked
             navigation columns to its right. */}
         <div
@@ -329,8 +329,8 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Naresh Kumar Bishnoi Office
           </a>
         </div>
-        </div>
       </div>
+    </div>
   );
 }
 
@@ -475,7 +475,15 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
           transition: `transform .4s ${EASE}`,
         }}
       >
-        <button className="hover-spring-sm" onClick={() => onScrollTo("home")} style={{ display: "flex", alignItems: "center" }}>
+        {/* Extra left clearance below `lg` only — the hamburger has its own
+            button padding giving it breathing room from the edge, but the
+            logo had none, so it read tighter against the edge in comparison.
+            `lg:ml-0` keeps desktop exactly as it was. */}
+        <button
+          className="hover-spring-sm ml-2 lg:ml-4"
+          onClick={() => onScrollTo("home")}
+          style={{ display: "flex", alignItems: "center" }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "2.25rem", width: "auto" }} />
         </button>
@@ -498,11 +506,20 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             <MenuIcon />
           </button>
 
-          <button className="pill-btn" onClick={onOpenRequestModal}>
-            <span className="pill-inner pill-accent pill-no-arrow" style={{ fontSize: ".875rem", padding: ".5rem 1.5rem", color: "#ffffff" }}>
-              Contact
-            </span>
-          </button>
+          {/* Hidden below `lg` — Contact is already reachable from the
+              NavOverlay this hamburger opens, so showing it here too would
+              be a redundant second button. Wrapped in its own span rather
+              than putting `hidden` directly on the button: `.pill-btn`'s own
+              `display: inline-block` (globals.css, loaded after Tailwind's
+              utilities) wins the display tie-break on the same element and
+              would silently cancel `hidden`. */}
+          <span className="hidden lg:inline-block lg:mr-4">
+            <button className="pill-btn" onClick={onOpenRequestModal}>
+              <span className="pill-inner pill-accent pill-no-arrow" style={{ fontSize: ".875rem", padding: ".5rem 1.5rem", color: "#ffffff" }}>
+                Contact
+              </span>
+            </button>
+          </span>
         </div>
 
         <BusinessesPanel dropdown={stickyDropdown} onScrollTo={onScrollTo} />

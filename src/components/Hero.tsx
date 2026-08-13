@@ -339,7 +339,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="lg:col-span-7">
           <h1
             id="hero-h1"
-            className="text-[2rem] sm:text-[2.5rem] md:text-[4rem]"
+            className="text-[1.85rem] sm:text-[2.5rem] md:text-[4rem]"
             style={{
               maxWidth: "26ch",
               fontWeight: 700,
@@ -366,19 +366,25 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             }}
           >
             <button className="pill-btn" onClick={() => onScrollTo("about")}>
-              <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)" }}>
+              <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)", whiteSpace: "nowrap" }}>
                 Who we are <span className="pill-badge">→</span>
               </span>
             </button>
             <button className="pill-btn" onClick={() => onScrollTo("works")}>
-              <span className="pill-inner pill-outline pill-with-arrow" style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)" }}>
+              <span
+                className="pill-inner pill-outline pill-with-arrow"
+                style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)", whiteSpace: "nowrap" }}
+              >
                 Our Businesses <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
               </span>
             </button>
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1.5rem" }} className="lg:col-span-5">
+        <div
+          style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}
+          className="gap-3 sm:gap-6 lg:col-span-5"
+        >
           {/* Reference Card Layout matching Screenshot 1 */}
           <div
             id="hero-card"
@@ -478,19 +484,19 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
                       display: "inline-flex",
                       alignItems: "center",
                       gap: ".375rem",
-                      fontSize: ".75rem",
+                      fontSize: ".8125rem",
+                      padding: ".4rem 1rem",
                       color: "rgba(255,255,255,0.92)",
                       fontWeight: 500,
                       background: "rgba(26,22,19,0.6)",
                       backdropFilter: "blur(12px)",
                       border: "1px solid rgba(243,107,33,0.38)",
                       borderRadius: "9999px",
-                      padding: ".375rem .875rem",
                       whiteSpace: "nowrap",
                     }}
                   >
                     <span>{entity.name}</span>
-                    <span style={{ fontSize: ".65rem", color: "#F36B21" }}>↗</span>
+                    <span className="text-[.75rem] sm:text-[.65rem]" style={{ color: "#F36B21" }}>↗</span>
                   </a>
                 </li>
               ))}

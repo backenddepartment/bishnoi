@@ -145,12 +145,13 @@ export default function Founder({}: FounderProps) {
         {/* Bottom: the biography, in three paragraphs, inside a green container */}
         <div
           ref={cardRef}
-          className="p-9 lg:py-12 lg:px-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-10"
+          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-10"
           style={{
             position: "relative",
             overflow: "hidden",
             borderRadius: "2rem",
             background: "var(--brand-heritage)",
+            padding: "clamp(2rem, 4vw, 3.5rem)",
             fontSize: "1.3125rem",
             lineHeight: 1.6,
             color: "rgba(247,243,232,.85)",
