@@ -222,12 +222,13 @@ export default function Mukam({}: MukamProps) {
           }}
         >
           {/* Floating Left Drag Indicator (fades out at start, fades in when scrolled right) */}
+          {/* Floating Left Drag Indicator */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
               left: "1rem",
-              top: "50%",
+              top: "22%",
               transform: "translateY(-50%)",
               zIndex: 10,
               pointerEvents: "none",
@@ -253,13 +254,13 @@ export default function Mukam({}: MukamProps) {
             <span>Drag</span>
           </div>
 
-          {/* Floating Right "See more" Indicator (fades out when reached the right end) */}
+          {/* Floating Right "See more" Indicator */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
               right: "1rem",
-              top: "50%",
+              top: "22%",
               transform: "translateY(-50%)",
               zIndex: 10,
               pointerEvents: "none",

@@ -987,17 +987,28 @@ img {
   #hero-partners li {
     flex-shrink: 0 !important;
   }
-  /* About section mobile typography adjustments */
-  #about-eyebrow {
+  /* Global section typography mobile adjustments */
+  .eyebrow {
     font-size: 0.9375rem !important;
   }
-  #about-h2 {
+  section h2 {
     font-size: 2.25rem !important;
     line-height: 1.18 !important;
   }
-  #about-p {
+  section p.lg\:col-span-6,
+  section p.lg\:col-span-7,
+  #about-p,
+  #founder p,
+  #principles p,
+  #services p,
+  #mukam p,
+  #works p {
     font-size: 1.0625rem !important;
     line-height: 1.55 !important;
+  }
+  #vision p:first-of-type {
+    font-size: 2.25rem !important;
+    line-height: 1.18 !important;
   }
   /* About stats 1-line layout on mobile */
   #about-stats {
@@ -1023,4 +1034,27 @@ img {
     margin-top: 0.25rem !important;
     line-height: 1.2 !important;
   }
+  /* Ashtadham card height & text cutoff fix on mobile */
+  .ashtadham-card {
+    height: 490px !important;
+  }
+  .ashtadham-card-img-bg {
+    height: 40% !important;
+  }
+  .ashtadham-card-content {
+    top: 43% !important;
+    padding: 0.75rem 0.5rem 0.5rem 0.5rem !important;
+  }
+  .ashtadham-card-title {
+    font-size: 1.35rem !important;
+  }
+  .ashtadham-card-location {
+    font-size: 0.875rem !important;
+  }
+  .ashtadham-card-desc {
+    font-size: 0.9375rem !important;
+    line-height: 1.5 !important;
+    -webkit-line-clamp: 5 !important;
+  }
 }
+
