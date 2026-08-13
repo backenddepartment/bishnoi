@@ -481,7 +481,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             logo had none, so it read tighter against the edge in comparison.
             `lg:ml-0` keeps desktop exactly as it was. */}
         <button
-          className="hover-spring-sm ml-2 lg:ml-4"
+          className="hover-spring-sm ml-2 lg:ml-0"
           onClick={() => onScrollTo("home")}
           style={{ display: "flex", alignItems: "center" }}
         >
@@ -514,7 +514,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
               `display: inline-block` (globals.css, loaded after Tailwind's
               utilities) wins the display tie-break on the same element and
               would silently cancel `hidden`. */}
-          <span className="hidden lg:inline-block lg:mr-4">
+          <span className="hidden lg:inline-block">
             <button className="pill-btn" onClick={onOpenRequestModal}>
               <span className="pill-inner pill-accent pill-no-arrow" style={{ fontSize: ".875rem", padding: ".5rem 1.5rem", color: "#ffffff" }}>
                 Contact

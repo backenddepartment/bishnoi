@@ -50,9 +50,9 @@ const CARD_CIRCLES = [
 // to peek from as they tuck in behind — clipped beyond this, so a still
 // off-screen upcoming card (parked one full height below) stays invisible.
 const PEEK_PX = 60;
-const PEEK_PX_COMPACT = 20;
+const PEEK_PX_COMPACT = 64;
 const PEEK_STEP_PX = 16;
-const PEEK_STEP_PX_COMPACT = 6;
+const PEEK_STEP_PX_COMPACT = 22;
 const MAX_BEHIND_STEPS = 4;
 
 export default function PortfolioStack({ businesses, activeFloat, activeIndex, compact, goTo }: PortfolioStackProps) {
@@ -133,7 +133,7 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                       borderRadius: "2rem",
                       background: color,
                       color: "#F7F3E8",
-                      padding: compact ? "2.25rem" : "3rem 3.5rem",
+                      padding: compact ? "1.375rem 1.25rem" : "3rem 3.5rem",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "flex-start",
@@ -180,11 +180,7 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                       <div style={{ marginTop: ".75rem" }}>
                         <EntityChips entities={biz.entities} glass compact={compact} />
                       </div>
-                      {/* Description sits right below the pills. Font size
-                          shrinks in compact so the four-item content stack
-                          (eyebrow/title/pills/description) has a chance of
-                          fitting a short mobile/tablet viewport; the text
-                          itself is clamped rather than left to overflow. */}
+                      {/* Description sits right below the pills */}
                       <p
                         style={{
                           marginTop: ".625rem",
@@ -199,7 +195,7 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                         }}
                       >
                         <span aria-hidden="true" style={{ flexShrink: 0 }}>✳</span>
-                        <span className={compact ? "line-clamp-3" : undefined}>{biz.description}</span>
+                        <span>{biz.description}</span>
                       </p>
                     </div>
 
