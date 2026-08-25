@@ -16,49 +16,49 @@ const SHRINES = [
     location: "Nokha tehsil, Bikaner district, Rajasthan",
     matters:
       "The community's holiest shrine — a marble temple built over Guru Jambheshwar's samadhi, enclosing the sacred khejri tree beneath which he was laid to rest.",
-    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=800&auto=format&fit=crop",
+    image: "/mukam.jpg",
   },
   {
     site: "Samrathal Dhora",
     location: "~3 km south of Mukam, Bikaner district",
     matters: "The dune where Jambheshwar had his awakening in 1485 and preached the sermons that founded the faith.",
-    image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=800&auto=format&fit=crop",
+    image: "/samrathal%20dhora.jpg",
   },
   {
     site: "Peepasar",
     location: "Nagaur district, Rajasthan",
     matters: "His birthplace, home to an ancient khejri tree and annual Janmashtami celebrations.",
-    image: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=800&auto=format&fit=crop",
+    image: "/pipasar.png",
   },
   {
     site: "Lalasar",
     location: "Southeast of Bikaner, Rajasthan",
     matters: "Where he passed away in 1536, before his body was carried to Mukam.",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop",
+    image: "/lalasar.jpg",
   },
   {
     site: "Jambholav",
     location: "Phalodi district, Rajasthan",
     matters: "Site of an annual fair on Chaitra Amavasya, honoring the practical application of his teachings.",
-    image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=800&auto=format&fit=crop",
+    image: "/jhambolav.avif",
   },
   {
     site: "Lohawat",
     location: "Jodhpur district, Rajasthan",
     matters: "Linked to his historic meeting with a Marwar prince.",
-    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=800&auto=format&fit=crop",
+    image: "/lohawat.jpg",
   },
   {
     site: "Janglu",
     location: "Nokha tehsil, Bikaner district",
     matters: "Home to personal relics associated with the Guru.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
+    image: "/jangladesh.jpg",
   },
   {
     site: "Rotu",
     location: "Nagaur district, Rajasthan",
     matters: "One of the eight principal Ashtadham shrine sites.",
-    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop",
+    image: "/rotu.jpeg",
   },
 ];
 

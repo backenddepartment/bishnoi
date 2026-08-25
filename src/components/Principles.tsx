@@ -89,6 +89,8 @@ export default function Principles({}: PrinciplesProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const timeoutRef = useRef<number | undefined>(undefined);
   const intervalRef = useRef<number | undefined>(undefined);
+  // One ref per panel so we can scroll the opened one into view on mobile.
+  const panelRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -232,11 +234,30 @@ export default function Principles({}: PrinciplesProps) {
         >
           {numberedGroups.map((group, i) => {
             const isOpen = i === openIndex;
-            const open = () => setOpenIndex(i);
+            const open = () => {
+              setOpenIndex(i);
+              // On mobile/compact layout, scroll the top of this panel into
+              // view after state updates so the user always sees the panel
+              // heading rather than landing mid-content.
+              if (compact) {
+                requestAnimationFrame(() => {
+                  const el = panelRefs.current[i];
+                  if (!el) return;
+                  // 80px clears the sticky nav bar on mobile.
+                  const HEADER_OFFSET = 80;
+                  const top =
+                    el.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    HEADER_OFFSET;
+                  window.scrollTo({ top, behavior: "smooth" });
+                });
+              }
+            };
 
             return (
               <section
                 key={group.label}
+                ref={(el) => { panelRefs.current[i] = el; }}
                 aria-label={group.label}
                 onMouseEnter={canHover && !compact ? open : undefined}
                 onClick={open}
