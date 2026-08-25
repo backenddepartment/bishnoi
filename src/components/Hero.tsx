@@ -61,192 +61,6 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
     setImageIdx(idx);
   };
 
-  // Canvas liquid reveal logic
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const afterImgRef = useRef<HTMLImageElement | null>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const canvas = canvasRef.current;
-    if (!container || !canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const nextImageSrc = heroImages[(imageIdx + 1) % heroImages.length];
-
-    const afterImg = new Image();
-    afterImg.src = nextImageSrc;
-    afterImgRef.current = afterImg;
-
-    let W = 0,
-      H = 0,
-      dpr = 1,
-      radius = 143;
-    const decay = 0.016;
-    let points: { x: number; y: number }[] = [];
-    let idle = 0;
-    let drawing = false;
-
-    const coverCanvas = document.createElement("canvas");
-    const coverCtx = coverCanvas.getContext("2d");
-    const brushCanvas = document.createElement("canvas");
-    const brushCtx = brushCanvas.getContext("2d");
-
-    if (!coverCtx || !brushCtx) return;
-
-    function resize() {
-      if (!container || !canvas || !coverCtx || !brushCtx) return;
-      const rect = container.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = rect.width * dpr;
-      H = rect.height * dpr;
-      canvas.width = W;
-      canvas.height = H;
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
-      coverCanvas.width = W;
-      coverCanvas.height = H;
-      brushCanvas.width = Math.ceil(radius * 2 * dpr);
-      brushCanvas.height = Math.ceil(radius * 2 * dpr);
-      if (afterImg.complete && afterImg.naturalWidth) drawCover();
-    }
-
-    function drawCover() {
-      if (!coverCtx) return;
-      const iw = afterImg.naturalWidth || W;
-      const ih = afterImg.naturalHeight || H;
-      const scale = Math.max(W / iw, H / ih);
-      const sw = iw * scale;
-      const sh = ih * scale;
-      const sx = (W - sw) / 2;
-      const sy = (H - sh) / 2;
-      coverCtx.clearRect(0, 0, W, H);
-      coverCtx.drawImage(afterImg, sx, sy, sw, sh);
-    }
-
-    afterImg.onload = function () {
-      if (W && H) drawCover();
-    };
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const ro = new ResizeObserver(() => {
-      resize();
-    });
-    ro.observe(container);
-    requestAnimationFrame(() => {
-      resize();
-    });
-
-    function getCanvasCoords(e: PointerEvent) {
-      if (!canvas) return { x: 0, y: 0 };
-      const rect = canvas.getBoundingClientRect();
-      return { x: (e.clientX - rect.left) * dpr, y: (e.clientY - rect.top) * dpr };
-    }
-
-    function stamp(x: number, y: number) {
-      if (!brushCtx || !ctx) return;
-      const r = radius * dpr;
-      const diam = Math.ceil(r * 2);
-      const cx = r,
-        cy = r;
-      brushCtx.clearRect(0, 0, diam, diam);
-      const grad = brushCtx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      grad.addColorStop(0, "rgba(255,255,255,1)");
-      grad.addColorStop(0.55, "rgba(255,255,255,.82)");
-      grad.addColorStop(1, "rgba(255,255,255,0)");
-      brushCtx.fillStyle = grad;
-      brushCtx.fillRect(0, 0, diam, diam);
-      brushCtx.globalCompositeOperation = "source-in";
-      const sx = Math.round(x - r);
-      const sy = Math.round(y - r);
-      brushCtx.drawImage(coverCanvas, sx, sy, diam, diam, 0, 0, diam, diam);
-      brushCtx.globalCompositeOperation = "source-over";
-      ctx.drawImage(brushCanvas, sx, sy);
-    }
-
-    function clearCanvas() {
-      if (ctx) ctx.clearRect(0, 0, W, H);
-    }
-
-    let animId: number;
-
-    function tick() {
-      if (!W || !H || !ctx) return;
-      if (points.length > 0) {
-        idle = 0;
-        drawing = true;
-      } else {
-        idle++;
-      }
-
-      const fade = drawing ? decay : Math.min(decay + idle * 0.004, 0.5);
-      if (idle > 120) {
-        clearCanvas();
-        drawing = false;
-        idle = 0;
-        animId = requestAnimationFrame(tick);
-        return;
-      }
-
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = `rgba(0,0,0,${fade})`;
-      ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = "source-over";
-
-      if (drawing) {
-        for (const p of points) stamp(p.x, p.y);
-        points = [];
-      }
-
-      animId = requestAnimationFrame(tick);
-    }
-    animId = requestAnimationFrame(tick);
-
-    let lastMove: { x: number; y: number } | null = null;
-
-    function handlePointerMove(e: PointerEvent) {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      triggerInteractionPause();
-      const { x, y } = getCanvasCoords(e);
-      if (x < -radius || x > W + radius || y < -radius || y > H + radius) {
-        lastMove = null;
-        return;
-      }
-      const r = radius * dpr;
-      if (lastMove) {
-        const dx = x - lastMove.x,
-          dy = y - lastMove.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const step = Math.max(r * 0.3, 1);
-        const n = Math.min(Math.ceil(dist / step), 60);
-        for (let i = 1; i <= n; i++) {
-          const t = i / n;
-          points.push({ x: lastMove.x + dx * t, y: lastMove.y + dy * t });
-        }
-      } else {
-        points.push({ x, y });
-      }
-      lastMove = { x, y };
-    }
-
-    function handlePointerLeave() {
-      lastMove = null;
-    }
-
-    window.addEventListener("pointermove", handlePointerMove);
-    document.addEventListener("pointerleave", handlePointerLeave);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      ro.disconnect();
-      window.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("pointerleave", handlePointerLeave);
-    };
-  }, [imageIdx, heroImages]);
-
   return (
     <section
       id="home"
@@ -263,21 +77,14 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         borderBottomRightRadius: "var(--radius-card, 2rem)",
       }}
     >
-      <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        {/* Base Image underneath canvas */}
+      <div id="liquid-container" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        {/* Base Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           id="liquid-before"
           src={heroImages[imageIdx]}
           alt="Hero background"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transition: "opacity 0.6s ease" }}
-        />
-        {/* Canvas painting the next image in sequence */}
-        <canvas
-          id="liquid-canvas"
-          ref={canvasRef}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-          aria-hidden="true"
         />
       </div>
 

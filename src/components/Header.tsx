@@ -12,11 +12,11 @@ interface HeaderProps {
 }
 
 const NAV_ITEMS = [
-  { label: "Home", id: "home", current: true },
-  { label: "Who We Are", id: "about" },
-  { label: "Businesses", id: "works", hasDropdown: true },
-  { label: "Legacy", id: "services" },
-  { label: "Vision", id: "vision" },
+  { label: "Home", id: "home", href: "/" },
+  { label: "Who We Are", id: "about", href: "/#about" },
+  { label: "Legacy", id: "services", href: "/#services" },
+  { label: "Vision", id: "vision", href: "/#vision" },
+  { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
@@ -108,38 +108,37 @@ interface NavItemsProps {
   trailing?: React.ReactNode;
 }
 
-/* The plain link list — the "Businesses" trigger only opens the dropdown
-   (rendered separately, full-width, by the parent); it no longer scrolls. */
 function NavItems({ textColor, fontSize, fontWeight = 400, onScrollTo, dropdown, trailing }: NavItemsProps) {
   return (
     <ul style={{ display: "flex", gap: "2rem", fontSize, fontWeight, color: textColor, transition: "color .35s ease" }}>
-      {NAV_ITEMS.map((item) =>
-        item.hasDropdown ? (
-          <li key={item.id} {...dropdown.hoverProps}>
-            <button
-              className="hover-lift"
-              style={{ color: textColor, fontWeight, display: "inline-flex", alignItems: "center", gap: ".4rem", transition: "color .35s ease" }}
-              aria-haspopup="true"
-              aria-expanded={dropdown.open}
-              onClick={dropdown.openNow}
-            >
-              {item.label}
-              <ChevronIcon open={dropdown.open} />
-            </button>
-          </li>
-        ) : (
-          <li key={item.id}>
-            <button
-              className="hover-lift"
-              style={{ color: textColor, fontWeight, transition: "color .35s ease" }}
-              aria-current={item.current ? "page" : undefined}
-              onClick={() => onScrollTo(item.id)}
-            >
-              {item.label}
-            </button>
-          </li>
-        )
-      )}
+      {NAV_ITEMS.map((item) => (
+        <li key={item.id} {...(item.hasDropdown ? dropdown.hoverProps : {})}>
+          <a
+            href={item.href}
+            className="hover-lift"
+            style={{
+              color: textColor,
+              fontWeight,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: ".4rem",
+              transition: "color .35s ease",
+            }}
+            onClick={(e) => {
+              if (item.id === "works" || item.href === "/businesses") {
+                return; // Direct browser navigation to /businesses
+              }
+              if (typeof window !== "undefined" && window.location.pathname === "/") {
+                e.preventDefault();
+                onScrollTo(item.id);
+              }
+            }}
+          >
+            {item.label}
+            {item.hasDropdown && <ChevronIcon open={dropdown.open} />}
+          </a>
+        </li>
+      ))}
       {trailing}
     </ul>
   );
@@ -394,7 +393,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             shadow keeps it legible without touching its actual color. When
             the Businesses dropdown opens, the bar goes white, so the logo
             swaps to its colored mark and drops the shadow it no longer needs. */}
-        <button className="hover-spring-sm" onClick={() => onScrollTo("home")} style={{ display: "flex", alignItems: "center" }}>
+        <a href="/" className="hover-spring-sm" style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={heroDropdown.open ? "/logo.png" : "/logowhite.png"}
@@ -406,7 +405,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
               transition: "filter .35s ease",
             }}
           />
-        </button>
+        </a>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flex: 1 }}>
           <nav className="hidden lg:flex">
@@ -480,14 +479,14 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             button padding giving it breathing room from the edge, but the
             logo had none, so it read tighter against the edge in comparison.
             `lg:ml-0` keeps desktop exactly as it was. */}
-        <button
+        <a
+          href="/"
           className="hover-spring-sm ml-2 lg:ml-0"
-          onClick={() => onScrollTo("home")}
           style={{ display: "flex", alignItems: "center" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "2.25rem", width: "auto" }} />
-        </button>
+        </a>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flex: 1 }}>
           <nav className="hidden lg:flex">

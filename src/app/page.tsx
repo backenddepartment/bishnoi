@@ -12,12 +12,12 @@ import Founder from "@/components/Founder";
 import Mukam from "@/components/Mukam";
 import Bands from "@/components/Bands";
 import Principles from "@/components/Principles";
-import Portfolio from "@/components/Portfolio";
 import VibeGallery from "@/components/VibeGallery";
 import OurVision from "@/components/OurVision";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
+import BehindBishnoi from "@/components/BehindBishnoi";
 import RequestModal from "@/components/RequestModal";
 
 export default function Home() {
@@ -108,20 +108,15 @@ export default function Home() {
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
       <main id="main">
-        <Hero
-          onOpenRequestModal={() => setModalOpen(true)}
-          onScrollTo={handleScrollTo}
-          introReady={introReady}
-        />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Founder introReady={introReady} />
         <Mukam introReady={introReady} />
         {/* Temporarily hidden — <Bands introReady={introReady} /> */}
         <Principles introReady={introReady} />
-        <Portfolio introReady={introReady} lenis={lenisRef} />
-        <VibeGallery onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />
-        <OurVision />
+        {/* <VibeGallery onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} /> */}
         <Services introReady={introReady} lenis={lenisRef} />
+        <OurVision />
+        <BehindBishnoi />
         {/* Temporarily hidden — <Stats introReady={introReady} /> */}
       </main>
 

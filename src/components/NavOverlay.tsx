@@ -37,11 +37,11 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   }, [isOpen, onClose]);
 
   const navItems = [
-    { num: "01", label: "Home", target: "home" },
-    { num: "02", label: "Who We Are", target: "about" },
-    { num: "03", label: "Businesses", target: "works" },
-    { num: "04", label: "Legacy", target: "services" },
-    { num: "05", label: "Vision", target: "vision" },
+    { num: "01", label: "Home", href: "/" },
+    { num: "02", label: "Who We Are", href: "/#about" },
+    { num: "03", label: "Businesses", href: "/businesses" },
+    { num: "04", label: "Legacy", href: "/#services" },
+    { num: "05", label: "Vision", href: "/#vision" },
     { num: "06", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 
@@ -54,10 +54,10 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
       aria-label="Navigation"
     >
       <div className="shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem", flexShrink: 0 }}>
-        <span style={{ display: "flex", alignItems: "center" }}>
+        <a href="/" style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Bishnoi Omniverse" style={{ height: "2.25rem", width: "auto" }} />
-        </span>
+        </a>
         <button
           onClick={onClose}
           style={{
@@ -97,9 +97,15 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
                   onClick={() => {
                     if (item.action) {
                       item.action();
-                    } else if (item.target) {
+                    } else if (item.href) {
                       onClose();
-                      onScrollTo(item.target);
+                      if (typeof window !== "undefined") {
+                        if (window.location.pathname === "/" && item.href.startsWith("/#")) {
+                          onScrollTo(item.href.replace("/#", ""));
+                        } else {
+                          window.location.href = item.href;
+                        }
+                      }
                     }
                   }}
                   style={{

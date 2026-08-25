@@ -8,64 +8,35 @@ interface MukamProps {
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
 
-const HEADLINE = "Mukam: The Heart of the Faith";
-
 const SHRINES = [
   {
-    site: "Mukam (Muktidham)",
-    location: "Nokha tehsil, Bikaner district, Rajasthan",
-    matters:
-      "The community's holiest shrine — a marble temple built over Guru Jambheshwar's samadhi, enclosing the sacred khejri tree beneath which he was laid to rest.",
-    image: "/mukam.jpg",
-  },
-  {
     site: "Samrathal Dhora",
-    location: "~3 km south of Mukam, Bikaner district",
-    matters: "The dune where Jambheshwar had his awakening in 1485 and preached the sermons that founded the faith.",
+    location: "Bikaner district, Rajasthan",
+    matters: "The sacred sand dune where Guru Jambheshwar first experienced spiritual awakening and revealed the 29 principles in 1485.",
     image: "/samrathal%20dhora.jpg",
   },
   {
-    site: "Peepasar",
-    location: "Nagaur district, Rajasthan",
-    matters: "His birthplace, home to an ancient khejri tree and annual Janmashtami celebrations.",
-    image: "/pipasar.png",
-  },
-  {
-    site: "Lalasar",
-    location: "Southeast of Bikaner, Rajasthan",
-    matters: "Where he passed away in 1536, before his body was carried to Mukam.",
-    image: "/lalasar.jpg",
-  },
-  {
-    site: "Jambholav",
+    site: "Jhambolav",
     location: "Phalodi district, Rajasthan",
-    matters: "Site of an annual fair on Chaitra Amavasya, honoring the practical application of his teachings.",
+    matters: "A historic sacred pond built by Bishnoi followers for water conservation and community gatherings.",
     image: "/jhambolav.avif",
   },
   {
-    site: "Lohawat",
-    location: "Jodhpur district, Rajasthan",
-    matters: "Linked to his historic meeting with a Marwar prince.",
-    image: "/lohawat.jpg",
-  },
-  {
-    site: "Janglu",
-    location: "Nokha tehsil, Bikaner district",
-    matters: "Home to personal relics associated with the Guru.",
-    image: "/jangladesh.jpg",
-  },
-  {
-    site: "Rotu",
+    site: "Pipasar",
     location: "Nagaur district, Rajasthan",
-    matters: "One of the eight principal Ashtadham shrine sites.",
-    image: "/rotu.jpeg",
+    matters: "The birthplace of Guru Jambheshwar, home to ancient sacred Khejri trees and annual commemorative festivals.",
+    image: "/pipasar.png",
+  },
+  {
+    site: "Mukam (Muktidham)",
+    location: "Nokha tehsil, Bikaner district",
+    matters: "The primary shrine enclosing Guru Jambheshwar's samadhi where thousands gather twice a year to renew their vows to nature.",
+    image: "/mukam.jpg",
   },
 ];
 
 export default function Mukam({}: MukamProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [canHover, setCanHover] = useState(false);
-  const [typedCount, setTypedCount] = useState(0);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftState, setScrollLeftState] = useState(0);
@@ -74,8 +45,6 @@ export default function Mukam({}: MukamProps) {
 
   const sectionRef = useRef<HTMLElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<number | undefined>(undefined);
-  const intervalRef = useRef<number | undefined>(undefined);
 
   const updateScrollIndicators = () => {
     if (!sliderRef.current) return;
@@ -115,8 +84,6 @@ export default function Mukam({}: MukamProps) {
     const el = sectionRef.current;
     if (!el) return;
 
-    // Bidirectional — fades back out on exit too, not just in on first
-    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -128,97 +95,46 @@ export default function Mukam({}: MukamProps) {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: hover)");
-    const sync = () => setCanHover(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  // Types the headline out like a keyboard — same pattern as
-  // About.tsx/Founder.tsx/Principles.tsx.
-  const typeHeadline = () => {
-    window.clearTimeout(timeoutRef.current);
-    window.clearInterval(intervalRef.current);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setTypedCount(HEADLINE.length);
-      return;
-    }
-
-    setTypedCount(0);
-    timeoutRef.current = window.setTimeout(() => {
-      let i = 0;
-      intervalRef.current = window.setInterval(() => {
-        i += 1;
-        setTypedCount(i);
-        if (i >= HEADLINE.length) window.clearInterval(intervalRef.current);
-      }, 45);
-    }, 150);
-  };
-
-  useEffect(() => {
-    if (canHover || !isVisible) return;
-    const kickoffId = window.setTimeout(typeHeadline, 0);
-    return () => {
-      window.clearTimeout(kickoffId);
-      window.clearTimeout(timeoutRef.current);
-      window.clearInterval(intervalRef.current);
-    };
-  }, [isVisible, canHover]);
-
-  useEffect(() => {
-    return () => {
-      window.clearTimeout(timeoutRef.current);
-      window.clearInterval(intervalRef.current);
-    };
-  }, []);
-
   return (
     <section
       id="mukam"
       ref={sectionRef}
-      onMouseEnter={() => canHover && typeHeadline()}
       style={{ background: "#fff" }}
     >
-      <div className="shell" style={{ paddingTop: "1.5rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
         {/* Eyebrow + headline + intro paragraph */}
         <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
-            <span className="dot dot-blink"></span> Guru Jambheshwar Bhawan
+          <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
+            <span className="dot dot-blink"></span> Faith & The Sacred Land
           </div>
-          <h2 aria-label={HEADLINE} style={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}>
-            <span aria-hidden="true">{HEADLINE.slice(0, typedCount)}</span>
-            <span className="typing-cursor" aria-hidden="true" />
+          <h2 style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
+            Mukam: The Heart of the Faith
           </h2>
 
           <p
             style={{
-              fontSize: "1.3125rem",
-              lineHeight: 1.6,
-              color: "rgba(74,68,60,.75)",
+              fontSize: "1.25rem",
+              lineHeight: 1.65,
+              color: "rgba(74,68,60,.82)",
+              maxWidth: "46ch",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               transition: `transform .7s ${EASE}, opacity .7s ${EASE}`,
-              transitionDelay: "300ms",
+              transitionDelay: "200ms",
             }}
           >
-            The Bishnoi faith recognizes eight principal shrine sites, together known as the Ashtadham. Chief among them is Mukam &mdash; the Guru
-            Jambheshwar Bhawan &mdash; in Bikaner district, where a marble temple encloses Guru Jambheshwar&rsquo;s samadhi and the sacred khejri
-            tree beneath which he was laid to rest. Each year, thousands of pilgrims travel to Mukam for the community&rsquo;s largest gathering,
-            held around the new moon of Bhadrapad (roughly August&ndash;September).
+            For Bishnois, holy sites are not distant monuments; they are living places of connection. Mukam is the central pilgrimage site — the final resting place of Guru Jambheshwar — where thousands gather twice a year to renew their vows to nature and community.
           </p>
         </div>
 
-        {/* The eight Ashtadham shrine sites zero-gap side-by-side card row with floating indicators */}
+        {/* Sacred Sites Cards Slider */}
         <div
           style={{
             position: "relative",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(24px)",
             transition: `transform .7s ${EASE}, opacity .7s ${EASE}`,
-            transitionDelay: "450ms",
+            transitionDelay: "350ms",
           }}
         >
           {/* Floating Left Arrow Indicator */}
@@ -296,13 +212,11 @@ export default function Mukam({}: MukamProps) {
           >
             {SHRINES.map((row) => (
               <div key={row.site} className="ashtadham-card">
-                {/* Image Background (animates upwards to engulf full card height on hover) */}
                 <div className="ashtadham-card-img-bg">
                   <img src={row.image} alt={row.site} className="ashtadham-card-img" />
                   <div className="ashtadham-card-overlay" />
                 </div>
 
-                {/* Text Content Overlay (negative contrast blend effect on hover) */}
                 <div className="ashtadham-card-content">
                   <h4 className="ashtadham-card-title">
                     {row.site}

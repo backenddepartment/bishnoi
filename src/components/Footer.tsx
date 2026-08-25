@@ -32,12 +32,12 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
     <footer ref={footerRef} style={{ position: "relative", overflow: "hidden", borderRadius: "2rem 2rem 0 0", background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)", color: "#fff" }}>
       <div className="shell" style={{ position: "relative", zIndex: 10, padding: "5rem 1.25rem 2.5rem" }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "2rem", borderBottom: "1px solid rgba(247,243,232,.1)", paddingBottom: "4rem" }}>
-          <h2 style={{ maxWidth: "32ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em" }}>
+          <h2 style={{ maxWidth: "34ch", fontSize: "2.25rem", fontWeight: 600, letterSpacing: "-.02em", lineHeight: 1.25 }}>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-              <span className="line-inner">Rooted in five hundred years.</span>
+              <span className="line-inner">Building a smarter, healthier, and more sustainable</span>
             </span>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-              <span className="line-inner">Building for what comes next.</span>
+              <span className="line-inner">world through innovation, integrity and impact.</span>
             </span>
           </h2>
           <button className="pill-btn" onClick={onOpenRequestModal}>
@@ -67,7 +67,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
                 </a>
               </li>
               <li>
-                <a className="animated-link legal" href="#works">
+                <a className="animated-link legal" href="/businesses">
                   <span>Businesses</span>
                 </a>
               </li>

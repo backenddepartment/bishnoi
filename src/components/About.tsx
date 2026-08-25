@@ -7,28 +7,20 @@ interface AboutProps {
   introReady?: boolean;
 }
 
-const HEADLINE = "India's Original\nEnvironmentalists";
-
 const STATS = [
   { value: "1485", label: "Year the faith was founded" },
   { value: "29", label: "Guiding principles" },
-  { value: "363", label: "Lives given at Khejarli, 1730\n" },
+  { value: "363", label: "Lives given at Khejarli, 1730" },
 ];
 
-export default function About({ onScrollTo }: AboutProps) {
+export default function About({ onScrollTo, introReady = true }: AboutProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [canHover, setCanHover] = useState(false);
-  const [typedCount, setTypedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const timeoutRef = useRef<number | undefined>(undefined);
-  const intervalRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
-    // Bidirectional — fades back out on exit too, not just in on first
-    // entry, so the section reads like a slide transitioning in and out.
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -40,118 +32,91 @@ export default function About({ onScrollTo }: AboutProps) {
     return () => observer.disconnect();
   }, []);
 
-  // On a touch device there's no hover to type on, so the headline still
-  // needs a fallback trigger — same probe as Portfolio.tsx/MirrorHall.tsx.
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: hover)");
-    const sync = () => setCanHover(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  // Types the headline out like a keyboard, one character per tick, restarting
-  // from scratch each time it's called. Skips straight to the full title for
-  // prefers-reduced-motion, since this is a JS-driven reveal that the global
-  // CSS animation kill-switch can't touch.
-  const typeHeadline = () => {
-    window.clearTimeout(timeoutRef.current);
-    window.clearInterval(intervalRef.current);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setTypedCount(HEADLINE.length);
-      return;
-    }
-
-    setTypedCount(0);
-    timeoutRef.current = window.setTimeout(() => {
-      let i = 0;
-      intervalRef.current = window.setInterval(() => {
-        i += 1;
-        setTypedCount(i);
-        if (i >= HEADLINE.length) window.clearInterval(intervalRef.current);
-      }, 45);
-    }, 150);
-  };
-
-  // Hover-capable pointers type the title on hover; touch devices fall back
-  // to typing it once the section scrolls into view. Deferred a tick so the
-  // effect body itself never calls setState synchronously.
-  useEffect(() => {
-    if (canHover || !isVisible) return;
-    const kickoffId = window.setTimeout(typeHeadline, 0);
-    return () => {
-      window.clearTimeout(kickoffId);
-      window.clearTimeout(timeoutRef.current);
-      window.clearInterval(intervalRef.current);
-    };
-  }, [isVisible, canHover]);
-
-  useEffect(() => {
-    return () => {
-      window.clearTimeout(timeoutRef.current);
-      window.clearInterval(intervalRef.current);
-    };
-  }, []);
-
   return (
     <section
       id="about"
       ref={sectionRef}
-      onMouseEnter={() => canHover && typeHeadline()}
-      style={{ background: "#fff" }}
+      style={{
+        position: "relative",
+        background: "linear-gradient(180deg, #1C1815 0%, #2E2822 100%)",
+        color: "#ffffff",
+        minHeight: "88vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        paddingTop: "11rem",
+        paddingBottom: "4rem",
+        borderBottomLeftRadius: "var(--radius-card, 2rem)",
+        borderBottomRightRadius: "var(--radius-card, 2rem)",
+      }}
     >
-      <div className="shell" style={{ display: "flex", flexDirection: "column", gap: "3.5rem", paddingBlock: "5rem" }}>
-        {/* Headline & Paragraph */}
-        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2rem" }}>
+      <div className="shell" style={{ display: "flex", flexDirection: "column", gap: "3.5rem", flex: 1, justifyContent: "center" }}>
+        {/* Headline & Narrative Hero Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            <div id="about-eyebrow" className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
-              <span className="dot dot-blink"></span> The Bishnoi
+            <div id="about-eyebrow" className="eyebrow eyebrow-light" style={{ fontSize: "1.125rem" }}>
+              <span className="dot dot-blink"></span> The Bishnoi Community
             </div>
-            <h2
-              id="about-h2"
-              aria-label={HEADLINE.replace("\n", " ")}
-              className="break-words"
-              style={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-.02em" }}
+            <h1
+              id="about-h1"
+              className="break-words text-[2.5rem] sm:text-[3.25rem] md:text-[3.75rem]"
+              style={{
+                fontWeight: 700,
+                lineHeight: 1.1,
+                letterSpacing: "-.025em",
+                color: "#ffffff",
+              }}
             >
-              <span aria-hidden="true">
-                {HEADLINE.slice(0, typedCount)
-                  .split("\n")
-                  .map((line, i, arr) => (
-                    <span key={i}>
-                      {line}
-                      {i < arr.length - 1 && <br />}
-                    </span>
-                  ))}
-              </span>
-              <span className="typing-cursor" aria-hidden="true" />
-            </h2>
+              India&apos;s Original<br />Environmentalists
+            </h1>
           </div>
 
-          <p
-            id="about-p"
+          <div
             className="lg:col-span-6 xl:col-span-7"
             style={{
-              fontSize: "1.3125rem",
-              lineHeight: 1.6,
-              color: "rgba(74,68,60,.75)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
-              transitionDelay: "450ms",
+              transitionDelay: "250ms",
             }}
           >
-            For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
-          </p>
+            <p
+              id="about-p"
+              style={{
+                fontSize: "1.25rem",
+                lineHeight: 1.65,
+                color: "rgba(247,243,232,0.82)",
+              }}
+            >
+              For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
+            </p>
+
+            {/* Hero CTAs */}
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem", paddingTop: ".5rem" }}>
+              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("principles") : (window.location.href = "/#principles")}>
+                <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)" }}>
+                  Explore the 29 Principles <span className="pill-badge">→</span>
+                </span>
+              </button>
+              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("services") : (window.location.href = "/#services")}>
+                <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(247,243,232,0.3)", background: "rgba(255,255,255,0.06)", color: "#ffffff" }}>
+                  The Story of Khejarli <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Stats — stacked horizontally along the bottom, sliding in one after another */}
+        {/* Stats — stacked horizontally along the bottom */}
         <ul
           id="about-stats"
           className="flex-col sm:flex-row flex-wrap"
           style={{
             display: "flex",
-            borderTop: "1px solid rgba(74,68,60,.15)",
+            borderTop: "1px solid rgba(247,243,232,0.15)",
             paddingTop: "2.5rem",
           }}
         >
@@ -164,15 +129,15 @@ export default function About({ onScrollTo }: AboutProps) {
                 minWidth: "12rem",
                 textAlign: "center",
                 paddingInline: "1.5rem",
-                borderColor: "rgba(74,68,60,.15)",
+                borderColor: "rgba(247,243,232,0.15)",
                 opacity: isVisible ? 1 : 0,
-                transform: isVisible ? "translateX(0)" : "translateX(48px)",
+                transform: isVisible ? "translateX(0)" : "translateX(30px)",
                 transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
-                transitionDelay: `${550 + i * 150}ms`,
+                transitionDelay: `${400 + i * 120}ms`,
               }}
             >
               <div style={{ fontSize: "3.25rem", fontWeight: 700, color: "#F36B21", letterSpacing: "-.02em", lineHeight: 1 }}>{stat.value}</div>
-              <div style={{ marginTop: ".625rem", fontSize: "1.125rem", color: "rgba(74,68,60,.6)" }}>{stat.label}</div>
+              <div style={{ marginTop: ".625rem", fontSize: "1.0625rem", color: "rgba(247,243,232,0.7)" }}>{stat.label}</div>
             </li>
           ))}
         </ul>
