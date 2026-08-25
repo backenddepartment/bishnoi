@@ -10,28 +10,53 @@ const EASE = "cubic-bezier(.22,1,.36,1)";
 
 const SHRINES = [
   {
+    site: "Mukam (Muktidham)",
+    location: "Nokha tehsil, Bikaner district",
+    matters:
+      "The community's holiest shrine — a marble temple built over Guru Jambheshwar's samadhi, enclosing the sacred khejri tree beneath which he was laid to rest.",
+    image: "/mukam.jpg",
+  },
+  {
     site: "Samrathal Dhora",
-    location: "Bikaner district, Rajasthan",
-    matters: "The sacred sand dune where Guru Jambheshwar first experienced spiritual awakening and revealed the 29 principles in 1485.",
+    location: "~3 km south of Mukam, Bikaner district",
+    matters: "The dune where Jambheshwar had his awakening in 1485 and preached the sermons that founded the faith.",
     image: "/samrathal%20dhora.jpg",
+  },
+  {
+    site: "Peepasar",
+    location: "Nagaur district, Rajasthan",
+    matters: "His birthplace, home to an ancient khejri tree and annual Janmashtami celebrations.",
+    image: "/pipasar.png",
+  },
+  {
+    site: "Lalasar",
+    location: "Southeast of Bikaner, Rajasthan",
+    matters: "Where he passed away in 1536, before his body was carried to Mukam.",
+    image: "/lalasar.jpg",
   },
   {
     site: "Jhambolav",
     location: "Phalodi district, Rajasthan",
-    matters: "A historic sacred pond built by Bishnoi followers for water conservation and community gatherings.",
+    matters: "Site of an annual fair on Chaitra Amavasya, honoring the practical application of his teachings.",
     image: "/jhambolav.avif",
   },
   {
-    site: "Pipasar",
-    location: "Nagaur district, Rajasthan",
-    matters: "The birthplace of Guru Jambheshwar, home to ancient sacred Khejri trees and annual commemorative festivals.",
-    image: "/pipasar.png",
+    site: "Lohawat",
+    location: "Jodhpur district, Rajasthan",
+    matters: "Linked to his historic meeting with a Marwar prince.",
+    image: "/lohawat.jpg",
   },
   {
-    site: "Mukam (Muktidham)",
+    site: "Janglu",
     location: "Nokha tehsil, Bikaner district",
-    matters: "The primary shrine enclosing Guru Jambheshwar's samadhi where thousands gather twice a year to renew their vows to nature.",
-    image: "/mukam.jpg",
+    matters: "Home to personal relics associated with the Guru.",
+    image: "/jangladesh.jpg",
+  },
+  {
+    site: "Rotu",
+    location: "Nagaur district, Rajasthan",
+    matters: "One of the eight principal Ashtadham shrine sites.",
+    image: "/rotu.jpeg",
   },
 ];
 
