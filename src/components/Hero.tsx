@@ -73,8 +73,6 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
         flexDirection: "column",
         justifyContent: "space-between",
         background: "#ffffff",
-        borderBottomLeftRadius: "var(--radius-card, 2rem)",
-        borderBottomRightRadius: "var(--radius-card, 2rem)",
       }}
     >
       <div id="liquid-container" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
