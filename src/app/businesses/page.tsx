@@ -403,8 +403,125 @@ export default function BusinessesPage() {
                     <p style={{ fontSize: "1rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
                   </div>
 
-                  {/* Featured panel on the left (image on top, details
-                      stacked below it inside the panel), tabs on the right. */}
+                  {group.name === "Getmeds Ecosystem" ? (
+                    /* Case-study card grid — every business in the group
+                       shown at once as its own card, instead of one
+                       featured item swapped via tabs. */
+                    <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "2rem" }}>
+                      {groupItems.map((groupItem) => (
+                        <div
+                          key={groupItem.title}
+                          style={{
+                            background: "#ffffff",
+                            borderRadius: "1.5rem",
+                            border: "1px solid #E6DECB",
+                            overflow: "hidden",
+                            boxShadow: "0 10px 30px -14px rgba(28,24,21,0.18)",
+                            transition: "transform .25s ease, box-shadow .25s ease",
+                          }}
+                          className="hover-scale-1012"
+                        >
+                          {/* Cover image */}
+                          <div style={{ position: "relative", aspectRatio: "16 / 11", overflow: "hidden" }}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={groupItem.image}
+                              alt={groupItem.title}
+                              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                background: "linear-gradient(160deg, rgba(28,24,21,0.1) 0%, rgba(28,24,21,0.6) 100%)",
+                              }}
+                            />
+                            {/* Category badge */}
+                            <span
+                              style={{
+                                position: "absolute",
+                                top: ".9rem",
+                                right: ".9rem",
+                                fontSize: ".6875rem",
+                                fontWeight: 600,
+                                letterSpacing: ".04em",
+                                textTransform: "uppercase",
+                                color: "#ffffff",
+                                background: "rgba(20,16,13,0.55)",
+                                padding: ".3rem .65rem",
+                                borderRadius: "9999px",
+                                backdropFilter: "blur(4px)",
+                              }}
+                            >
+                              {groupItem.category.split("•")[1]?.trim() ?? groupItem.category}
+                            </span>
+                            {/* Centered mark + wordmark */}
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: ".6rem",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  width: "2.25rem",
+                                  height: "2.25rem",
+                                  borderRadius: "9999px",
+                                  background: "rgba(243,107,33,0.9)",
+                                  display: "grid",
+                                  placeItems: "center",
+                                  color: "#ffffff",
+                                  fontSize: "1.125rem",
+                                }}
+                              >
+                                ✦
+                              </span>
+                              <span
+                                style={{
+                                  fontSize: "1.375rem",
+                                  fontWeight: 700,
+                                  color: "#ffffff",
+                                  letterSpacing: "-.01em",
+                                  textShadow: "0 2px 10px rgba(0,0,0,.35)",
+                                }}
+                              >
+                                {groupItem.title}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Details */}
+                          <div style={{ padding: "1.5rem 1.5rem 1.35rem" }}>
+                            <p style={{ fontSize: ".9375rem", lineHeight: 1.6, color: "var(--ink-soft)", marginBottom: "1.25rem" }}>
+                              {groupItem.description}
+                            </p>
+                            <a
+                              href={groupItem.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                fontSize: ".875rem",
+                                fontWeight: 600,
+                                color: "#2E2822",
+                                textDecoration: "none",
+                              }}
+                            >
+                              Read full case study
+                              <span style={{ color: "var(--brand-orange)" }}>→</span>
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
                   <div
                     className={groupItems.length > 1 ? "grid grid-cols-1 lg:grid-cols-[1fr_240px]" : ""}
                     style={{ gap: groupItems.length > 1 ? "2rem" : 0, alignItems: "start" }}
@@ -581,6 +698,7 @@ export default function BusinessesPage() {
                       </div>
                     )}
                   </div>
+                  )}
                 </div>
               );
             })}
