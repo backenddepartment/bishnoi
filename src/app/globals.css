@@ -320,6 +320,61 @@ img {
   opacity: 1;
 }
 
+/* Business tile hover swap — light cards flip to solid orange, the accent
+   (orange) card flips to white, on hover. Child elements read their color
+   from these custom properties so everything inverts together. */
+.biz-tile {
+  --tile-bg: #ffffff;
+  --tile-border: #E6DECB;
+  --tile-text: var(--ink-soft);
+  --tile-watermark: var(--accent-wash-2);
+  --tile-badge-bg: var(--brand-orange);
+  --tile-badge-text: #ffffff;
+  --tile-circle-bg: var(--accent-wash);
+  --tile-circle-text: var(--brand-orange);
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.no-touch .biz-tile:hover {
+  --tile-bg: var(--brand-orange);
+  --tile-border: var(--brand-orange);
+  --tile-text: rgba(255, 255, 255, 0.92);
+  --tile-watermark: rgba(255, 255, 255, 0.22);
+  --tile-badge-bg: #ffffff;
+  --tile-badge-text: var(--brand-orange);
+  --tile-circle-bg: rgba(255, 255, 255, 0.25);
+  --tile-circle-text: #ffffff;
+}
+
+.biz-tile-accent {
+  --tile-bg: var(--accent-strong);
+  --tile-border: transparent;
+  --tile-text: rgba(255, 255, 255, 0.92);
+  --tile-watermark: rgba(255, 255, 255, 0.18);
+  --tile-badge-bg: #ffffff;
+  --tile-badge-text: #2A1206;
+  --tile-circle-bg: rgba(255, 255, 255, 0.2);
+  --tile-circle-text: #ffffff;
+}
+
+.no-touch .biz-tile-accent:hover {
+  --tile-bg: #ffffff;
+  --tile-border: #E6DECB;
+  --tile-text: var(--ink-soft);
+  --tile-watermark: var(--accent-wash-2);
+  --tile-badge-bg: var(--brand-orange);
+  --tile-badge-text: #ffffff;
+  --tile-circle-bg: var(--accent-wash);
+  --tile-circle-text: var(--brand-orange);
+}
+
+.biz-tile-text { color: var(--tile-text); transition: color 0.35s ease; }
+.biz-tile-watermark { color: var(--tile-watermark); transition: color 0.35s ease; }
+.biz-tile-badge { background: var(--tile-badge-bg); color: var(--tile-badge-text); transition: background 0.35s ease, color 0.35s ease; }
+.biz-tile-circle { background: var(--tile-circle-bg); color: var(--tile-circle-text); transition: background 0.35s ease, color 0.35s ease; }
+
 /* Scrolls, but without a visible scrollbar. */
 .no-scrollbar {
   scrollbar-width: none;

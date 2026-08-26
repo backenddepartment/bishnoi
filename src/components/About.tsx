@@ -38,13 +38,13 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
       ref={sectionRef}
       style={{
         position: "relative",
-        background: "linear-gradient(180deg, #1C1815 0%, #2E2822 100%)",
-        color: "#ffffff",
+        background: "#ffffff",
+        color: "var(--ink)",
         minHeight: "88vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        paddingTop: "11rem",
+        paddingTop: "3rem",
         paddingBottom: "4rem",
         borderBottomLeftRadius: "var(--radius-card, 2rem)",
         borderBottomRightRadius: "var(--radius-card, 2rem)",
@@ -54,7 +54,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
         {/* Headline & Narrative Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            <div id="about-eyebrow" className="eyebrow eyebrow-light" style={{ fontSize: "1.125rem" }}>
+            <div id="about-eyebrow" className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
               <span className="dot dot-blink"></span> The Bishnoi Community
             </div>
             <h1
@@ -64,7 +64,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                 fontWeight: 700,
                 lineHeight: 1.1,
                 letterSpacing: "-.025em",
-                color: "#ffffff",
+                color: "var(--ink-deep)",
               }}
             >
               India&apos;s Original<br />Environmentalists
@@ -88,7 +88,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
               style={{
                 fontSize: "1.25rem",
                 lineHeight: 1.65,
-                color: "rgba(247,243,232,0.82)",
+                color: "var(--ink-soft)",
               }}
             >
               For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
@@ -102,7 +102,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                 </span>
               </button>
               <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("services") : (window.location.href = "/#services")}>
-                <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(247,243,232,0.3)", background: "rgba(255,255,255,0.06)", color: "#ffffff" }}>
+                <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
                   The Story of Khejarli <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
                 </span>
               </button>
@@ -116,7 +116,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
           className="flex-col sm:flex-row flex-wrap"
           style={{
             display: "flex",
-            borderTop: "1px solid rgba(247,243,232,0.15)",
+            borderTop: "1px solid rgba(74,68,60,0.15)",
             paddingTop: "2.5rem",
           }}
         >
@@ -129,7 +129,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                 minWidth: "12rem",
                 textAlign: "center",
                 paddingInline: "1.5rem",
-                borderColor: "rgba(247,243,232,0.15)",
+                borderColor: "rgba(74,68,60,0.15)",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(30px)",
                 transition: "transform 0.7s cubic-bezier(.22,1,.36,1), opacity 0.7s cubic-bezier(.22,1,.36,1)",
@@ -137,7 +137,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
               }}
             >
               <div style={{ fontSize: "3.25rem", fontWeight: 700, color: "#F36B21", letterSpacing: "-.02em", lineHeight: 1 }}>{stat.value}</div>
-              <div style={{ marginTop: ".625rem", fontSize: "1.0625rem", color: "rgba(247,243,232,0.7)" }}>{stat.label}</div>
+              <div style={{ marginTop: ".625rem", fontSize: "1.0625rem", color: "var(--ink-soft)" }}>{stat.label}</div>
             </li>
           ))}
         </ul>

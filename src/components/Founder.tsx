@@ -45,39 +45,47 @@ export default function Founder({}: FounderProps) {
       style={{ background: "#fff" }}
     >
       <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "3.5rem" }}>
-        {/* Quote Block without container */}
-        <p
-          style={{
-            fontSize: "clamp(1.25rem, 2vw, 1.625rem)",
-            fontStyle: "italic",
-            lineHeight: 1.5,
-            color: "var(--ink-soft)",
-            margin: 0,
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(16px)",
-            transition: `transform .6s ${EASE}, opacity .6s ${EASE}`,
-          }}
-        >
-          &ldquo;For the Bishnoi, nature is not a resource to be managed; it is a sacred trust. A faith born in the desert, written in 29 rules, and proven with 363 lives.&rdquo;
-        </p>
-
-        {/* Eyebrow + headline, full width */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
-            <span className="dot dot-blink"></span> The Founder
+        {/* Eyebrow + headline (left) / quote (right, smaller) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
+          <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
+              <span className="dot dot-blink"></span> The Founder
+            </div>
+            <h2
+              style={{
+                fontSize: "clamp(2.25rem, 3.5vw, 3rem)",
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: "-.02em",
+                color: "#2E2822",
+              }}
+            >
+              <span style={{ display: "block", whiteSpace: "nowrap" }}>The Man Who Answered a</span>
+              <span style={{ display: "block", whiteSpace: "nowrap" }}>Drought With 29 Rules</span>
+            </h2>
           </div>
-          <h2
-            style={{
-              fontSize: "3rem",
-              fontWeight: 700,
-              lineHeight: 1.15,
-              letterSpacing: "-.02em",
-              maxWidth: "22ch",
-              color: "#2E2822",
-            }}
+
+          <div
+            className="lg:col-span-6 xl:col-span-7"
+            style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", paddingLeft: "2rem" }}
           >
-            The Man Who Answered a<br />Drought With 29 Rules
-          </h2>
+            <p
+              style={{
+                fontSize: "1.25rem",
+                fontStyle: "italic",
+                lineHeight: 1.65,
+                color: "var(--ink-soft)",
+                maxWidth: "46ch",
+                margin: 0,
+                marginTop: "1.5rem",
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(16px)",
+                transition: `transform .6s ${EASE}, opacity .6s ${EASE}`,
+              }}
+            >
+              &ldquo;For the Bishnoi, nature is not a resource to be managed; it is a sacred trust. A faith born in the desert, written in 29 rules, and proven with 363 lives.&rdquo;
+            </p>
+          </div>
         </div>
 
         {/* Biography inside green container */}

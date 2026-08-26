@@ -27,8 +27,9 @@ export default function BehindBishnoi() {
       id="behind-bishnoi"
       style={{
         position: "relative",
-        padding: "6rem 0",
-        background: "linear-gradient(180deg, #FBF8F1 0%, #F4ECE0 100%)",
+        paddingTop: "1.5rem",
+        paddingBottom: "6rem",
+        background: "#ffffff",
         color: "var(--ink)",
         overflow: "hidden",
       }}
@@ -113,7 +114,7 @@ export default function BehindBishnoi() {
                   href="/businesses"
                   className="animated-link"
                   style={{
-                    fontSize: "1rem",
+                    fontSize: "1.375rem",
                     fontWeight: 600,
                     color: "var(--brand-orange)",
                     display: "inline-flex",
@@ -121,7 +122,7 @@ export default function BehindBishnoi() {
                     gap: ".4rem",
                   }}
                 >
-                  <span>Read his full story →</span>
+                  <span>Read his full story ↗</span>
                 </a>
               </div>
             </div>
@@ -136,7 +137,6 @@ export default function BehindBishnoi() {
             borderRadius: "1.75rem",
             background: "#1C1815",
             color: "#ffffff",
-            boxShadow: "0 20px 50px -15px rgba(28,24,21,0.25)",
             position: "relative",
             overflow: "hidden",
             opacity: isVisible ? 1 : 0,
@@ -168,7 +168,6 @@ export default function BehindBishnoi() {
               fontStyle: "italic",
               lineHeight: 1.5,
               color: "#F7F3E8",
-              maxWidth: "44ch",
               margin: 0,
             }}
           >
@@ -184,212 +183,225 @@ export default function BehindBishnoi() {
             transition: "opacity 0.8s cubic-bezier(.22,1,.36,1) 0.3s, transform 0.8s cubic-bezier(.22,1,.36,1) 0.3s",
           }}
         >
-          <div style={{ marginBottom: "3rem" }}>
-            <h3
-              style={{
-                fontSize: "clamp(2rem, 3.5vw, 2.75rem)",
-                fontWeight: 700,
-                letterSpacing: "-.02em",
-                color: "#2E2822",
-              }}
-            >
-              His Businesses
-            </h3>
-            <p
-              style={{
-                fontSize: "1.25rem",
-                color: "var(--ink-soft)",
-                marginTop: ".35rem",
-              }}
-            >
-              From Vision to the World.
-            </p>
-          </div>
-
-          {/* Cards Grid */}
+          {/* Card Grid — headline tile + business tiles, tall vertical cards
+              with a "+" badge in the corner and content anchored top/bottom */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "2rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "1.5rem",
               marginBottom: "3.5rem",
             }}
           >
-            {/* Card 1: Getmeds Ecosystem */}
+            {/* Tile 0: Section headline */}
             <div
               style={{
-                background: "#ffffff",
-                borderRadius: "1.5rem",
-                padding: "2rem",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
-                border: "1px solid #E6DECB",
+                position: "relative",
+                borderRadius: "1.75rem",
+                padding: "1.75rem",
+                minHeight: "420px",
+                background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: "-4rem",
+                  left: "-3rem",
+                  width: "16rem",
+                  height: "16rem",
+                  borderRadius: "50%",
+                  background: "radial-gradient(circle, rgba(243,107,33,0.75) 0%, rgba(243,107,33,0.15) 55%, rgba(243,107,33,0) 75%)",
+                  pointerEvents: "none",
+                }}
+              />
+              <h3
+                style={{
+                  position: "relative",
+                  fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
+                  fontWeight: 700,
+                  letterSpacing: "-.02em",
+                  lineHeight: 1.2,
+                  color: "#ffffff",
+                  maxWidth: "14ch",
+                }}
+              >
+                His Businesses
+              </h3>
+              <p
+                style={{
+                  position: "relative",
+                  fontSize: "1.0625rem",
+                  color: "rgba(247,243,232,0.7)",
+                  marginTop: ".5rem",
+                }}
+              >
+                From Vision to the World.
+              </p>
+            </div>
+
+            {/* Tile 1: Getmeds Ecosystem */}
+            <div
+              className="biz-tile"
+              style={{
+                position: "relative",
+                borderRadius: "1.75rem",
+                padding: "1.75rem",
+                minHeight: "420px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                overflow: "hidden",
               }}
             >
-              <div>
-                <span
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: 600,
-                    letterSpacing: ".06em",
-                    textTransform: "uppercase",
-                    color: "var(--brand-orange)",
-                    backgroundColor: "var(--accent-wash)",
-                    padding: ".3rem .6rem",
-                    borderRadius: ".5rem",
-                  }}
-                >
-                  Healthcare Ecosystem
-                </span>
-                <h4
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: 700,
-                    color: "#2E2822",
-                    marginTop: "1rem",
-                    marginBottom: ".75rem",
-                  }}
-                >
-                  Getmeds Ecosystem
-                </h4>
-                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--ink-soft)" }}>
-                  Connecting healthcare and pharmaceutical solutions to communities worldwide.
-                </p>
-              </div>
-
-              <div
+              <span
+                className="biz-tile-circle"
                 style={{
-                  marginTop: "1.75rem",
-                  paddingTop: "1rem",
-                  borderTop: "1px solid #E6DECB",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  position: "absolute",
+                  top: "1.25rem",
+                  right: "1.25rem",
+                  width: "2rem",
+                  height: "2rem",
+                  borderRadius: "50%",
+                  display: "grid",
+                  placeItems: "center",
+                  fontSize: "1.125rem",
+                  fontWeight: 600,
                 }}
               >
-                <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--ink)" }}>
-                  Asia · Latin America · Oceania | Caribbean
+                ↗
+              </span>
+              <div aria-hidden="true" className="biz-tile-watermark" style={{ fontSize: "6rem", fontWeight: 800, lineHeight: 1 }}>
+                G
+              </div>
+              <div>
+                <span
+                  className="biz-tile-badge"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: ".3rem",
+                    fontSize: ".8125rem",
+                    fontWeight: 600,
+                    padding: ".3rem .7rem",
+                    borderRadius: "9999px",
+                  }}
+                >
+                  Getmeds Ecosystem <span style={{ fontSize: ".75rem" }}>↗</span>
                 </span>
+                <p className="biz-tile-text" style={{ fontSize: "1rem", lineHeight: 1.6, marginTop: ".75rem" }}>
+                  Connecting healthcare and pharmaceutical solutions to communities across Asia, Latin America, Oceania and the Caribbean.
+                </p>
               </div>
             </div>
 
-            {/* Card 2: Bishnoi Omniverse */}
+            {/* Tile 2: Bishnoi Omniverse — accent tile */}
             <div
+              className="biz-tile biz-tile-accent"
               style={{
-                background: "#ffffff",
-                borderRadius: "1.5rem",
-                padding: "2rem",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
-                border: "1px solid #E6DECB",
+                position: "relative",
+                borderRadius: "1.75rem",
+                padding: "1.75rem",
+                minHeight: "420px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                overflow: "hidden",
               }}
             >
-              <div>
-                <span
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: 600,
-                    letterSpacing: ".06em",
-                    textTransform: "uppercase",
-                    color: "var(--brand-orange)",
-                    backgroundColor: "var(--accent-wash)",
-                    padding: ".3rem .6rem",
-                    borderRadius: ".5rem",
-                  }}
-                >
-                  Supply Infrastructure
-                </span>
-                <h4
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: 700,
-                    color: "#2E2822",
-                    marginTop: "1rem",
-                    marginBottom: ".75rem",
-                  }}
-                >
-                  Bishnoi Omniverse
-                </h4>
-                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--ink-soft)" }}>
-                  Building the healthcare supply powerhouse designed to serve hospitals across their full spectrum of needs.
-                </p>
-              </div>
-
-              <div
+              <span
+                className="biz-tile-circle"
                 style={{
-                  marginTop: "1.75rem",
-                  paddingTop: "1rem",
-                  borderTop: "1px solid #E6DECB",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  position: "absolute",
+                  top: "1.25rem",
+                  right: "1.25rem",
+                  width: "2rem",
+                  height: "2rem",
+                  borderRadius: "50%",
+                  display: "grid",
+                  placeItems: "center",
+                  fontSize: "1.125rem",
+                  fontWeight: 600,
                 }}
               >
-                <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--ink)" }}>
-                  India · Philippines
+                ↗
+              </span>
+              <div aria-hidden="true" className="biz-tile-watermark" style={{ fontSize: "6rem", fontWeight: 800, lineHeight: 1 }}>
+                B
+              </div>
+              <div>
+                <span
+                  className="biz-tile-badge"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: ".3rem",
+                    fontSize: ".8125rem",
+                    fontWeight: 600,
+                    padding: ".3rem .7rem",
+                    borderRadius: "9999px",
+                  }}
+                >
+                  Bishnoi Omniverse <span style={{ fontSize: ".75rem" }}>↗</span>
                 </span>
+                <p className="biz-tile-text" style={{ fontSize: "1rem", lineHeight: 1.6, marginTop: ".75rem" }}>
+                  Building the healthcare supply powerhouse serving hospitals across India and the Philippines.
+                </p>
               </div>
             </div>
 
-            {/* Card 3: Other Ventures */}
+            {/* Tile 3: Other Ventures */}
             <div
+              className="biz-tile"
               style={{
-                background: "#ffffff",
-                borderRadius: "1.5rem",
-                padding: "2rem",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
-                border: "1px solid #E6DECB",
+                position: "relative",
+                borderRadius: "1.75rem",
+                padding: "1.75rem",
+                minHeight: "420px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                overflow: "hidden",
               }}
             >
+              <span
+                className="biz-tile-circle"
+                style={{
+                  position: "absolute",
+                  top: "1.25rem",
+                  right: "1.25rem",
+                  width: "2rem",
+                  height: "2rem",
+                  borderRadius: "50%",
+                  display: "grid",
+                  placeItems: "center",
+                  fontSize: "1.125rem",
+                  fontWeight: 600,
+                }}
+              >
+                ↗
+              </span>
+              <div aria-hidden="true" className="biz-tile-watermark" style={{ fontSize: "6rem", fontWeight: 800, lineHeight: 1 }}>
+                N
+              </div>
               <div>
                 <span
+                  className="biz-tile-badge"
                   style={{
-                    fontSize: ".75rem",
+                    fontSize: ".8125rem",
                     fontWeight: 600,
-                    letterSpacing: ".06em",
-                    textTransform: "uppercase",
-                    color: "var(--brand-orange)",
-                    backgroundColor: "var(--accent-wash)",
-                    padding: ".3rem .6rem",
-                    borderRadius: ".5rem",
+                    padding: ".3rem .7rem",
+                    borderRadius: "9999px",
                   }}
                 >
                   Foundations & Digital
                 </span>
-                <h4
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: 700,
-                    color: "#2E2822",
-                    marginTop: "1rem",
-                    marginBottom: ".75rem",
-                  }}
-                >
-                  Other Ventures
-                </h4>
-                <ul style={{ fontSize: "1rem", lineHeight: 1.8, color: "var(--ink-soft)", paddingLeft: "1.25rem", listStyle: "disc" }}>
+                <ul className="biz-tile-text" style={{ fontSize: "1rem", lineHeight: 1.8, marginTop: ".75rem", paddingLeft: "1.1rem", listStyle: "disc" }}>
                   <li>Naresh Bishnoi Foundation</li>
                   <li>NKB.com</li>
                 </ul>
-              </div>
-
-              <div
-                style={{
-                  marginTop: "1.75rem",
-                  paddingTop: "1rem",
-                  borderTop: "1px solid #E6DECB",
-                }}
-              >
-                <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--brand-orange)" }}>
-                  Impact & Digital Initiatives
-                </span>
               </div>
             </div>
           </div>

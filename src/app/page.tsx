@@ -108,6 +108,11 @@ export default function Home() {
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
       <main id="main">
+        <Hero
+          onOpenRequestModal={() => setModalOpen(true)}
+          onScrollTo={handleScrollTo}
+          introReady={introReady}
+        />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Founder introReady={introReady} />
         <Mukam introReady={introReady} />

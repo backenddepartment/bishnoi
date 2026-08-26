@@ -10,6 +10,7 @@ import RequestModal from "@/components/RequestModal";
 import Hero from "@/components/Hero";
 
 interface BusinessItem {
+  group: "Getmeds Ecosystem" | "Bishnoi Omniverse" | "Foundations & Digital";
   category: string;
   title: string;
   subtitle?: string;
@@ -22,6 +23,7 @@ interface BusinessItem {
 
 const BUSINESSES: BusinessItem[] = [
   {
+    group: "Getmeds Ecosystem",
     category: "Getmeds Ecosystem • Philippines",
     title: "Getmeds Philippines",
     description:
@@ -31,6 +33,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/hero_pharma.jpg",
   },
   {
+    group: "Getmeds Ecosystem",
     category: "Getmeds Ecosystem • Global Export",
     title: "Getmeds Healthcare",
     description:
@@ -40,6 +43,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/patient.jpg",
   },
   {
+    group: "Getmeds Ecosystem",
     category: "Getmeds Ecosystem • Pacific Region",
     title: "Getmeds Vanuatu",
     description:
@@ -49,6 +53,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/hero_hydroponics.jpg",
   },
   {
+    group: "Getmeds Ecosystem",
     category: "Getmeds Ecosystem • Regional Expansion",
     title: "Getmeds Latin America",
     description:
@@ -58,6 +63,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/hero_dairy.jpg",
   },
   {
+    group: "Bishnoi Omniverse",
     category: "Bishnoi Omniverse • Infrastructure",
     title: "Bishnoi Omniverse",
     subtitle: "Building the infrastructure behind healthcare.",
@@ -69,6 +75,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/bishnoione.jpg",
   },
   {
+    group: "Foundations & Digital",
     category: "Impact & Initiatives • Philanthropy",
     title: "Naresh Bishnoi Foundation",
     description:
@@ -78,6 +85,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/hero_wildlife.jpg",
   },
   {
+    group: "Foundations & Digital",
     category: "Impact & Initiatives • Digital Platform",
     title: "NKB.COM",
     description:
@@ -87,6 +95,7 @@ const BUSINESSES: BusinessItem[] = [
     image: "/mukam.jpg",
   },
   {
+    group: "Foundations & Digital",
     category: "Global Commitment • Sustainability",
     title: "United Nations Global Compact",
     description:
@@ -94,6 +103,23 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Learn More →",
     url: "https://unglobalcompact.org",
     image: "/jangladesh.jpg",
+  },
+];
+
+// The showcase below renders one subsection per group, in this order, each
+// with its own featured panel + tabs instead of one flat list of eight.
+const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string }[] = [
+  {
+    name: "Getmeds Ecosystem",
+    blurb: "Healthcare and pharmaceutical access spanning Asia, Latin America, and Oceania.",
+  },
+  {
+    name: "Bishnoi Omniverse",
+    blurb: "The infrastructure powering healthcare supply at scale.",
+  },
+  {
+    name: "Foundations & Digital",
+    blurb: "Philanthropy, culture, and the digital presence behind the name.",
   },
 ];
 
@@ -110,6 +136,10 @@ export default function BusinessesPage() {
   const [navOpen, setNavOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [lenisRef, setLenisRef] = useState<Lenis | null>(null);
+  // Which business each group's featured panel is currently displaying —
+  // clicking a tab below a group swaps that group's panel instead of the
+  // page scrolling through all eight businesses stacked full-height.
+  const [activeByGroup, setActiveByGroup] = useState<Record<string, number>>({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -209,8 +239,8 @@ export default function BusinessesPage() {
             position: "relative",
             paddingTop: "6rem",
             paddingBottom: "4.5rem",
-            background: "linear-gradient(180deg, #1C1815 0%, #2E2822 100%)",
-            color: "#ffffff",
+            background: "#ffffff",
+            color: "#2E2822",
           }}
         >
           <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
@@ -244,7 +274,7 @@ export default function BusinessesPage() {
                 letterSpacing: "-.02em",
                 lineHeight: 1.1,
                 marginBottom: ".5rem",
-                color: "#ffffff",
+                color: "#2E2822",
               }}
             >
               Naresh Kumar Bishnoi
@@ -253,7 +283,7 @@ export default function BusinessesPage() {
               style={{
                 fontSize: "clamp(1.25rem, 2.5vw, 1.875rem)",
                 fontWeight: 400,
-                color: "rgba(247,243,232,0.75)",
+                color: "rgba(46,40,34,0.75)",
                 marginBottom: "2rem",
               }}
             >
@@ -268,7 +298,7 @@ export default function BusinessesPage() {
                 alignItems: "start",
               }}
             >
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(247,243,232,0.85)" }}>
+              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(46,40,34,0.85)" }}>
                 <p style={{ marginBottom: "1.25rem" }}>
                   From a small village in Haryana, India, to building businesses serving healthcare markets and
                   communities around the world, Naresh Bishnoi’s journey has been shaped by challenges, lessons,
@@ -281,7 +311,7 @@ export default function BusinessesPage() {
                 </p>
               </div>
 
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(247,243,232,0.85)" }}>
+              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(46,40,34,0.85)" }}>
                 <p style={{ marginBottom: "1.75rem" }}>
                   What began with a vision in healthcare has grown into an expanding ecosystem spanning pharmaceutical
                   distribution, healthcare supply, technology, and social initiatives—building businesses with the
@@ -296,11 +326,11 @@ export default function BusinessesPage() {
                       style={{
                         padding: ".4rem .85rem",
                         borderRadius: "9999px",
-                        background: "rgba(247,243,232,0.08)",
-                        border: "1px solid rgba(247,243,232,0.18)",
+                        background: "var(--brand-orange)",
+                        border: "1px solid var(--brand-orange)",
                         fontSize: ".8125rem",
                         fontWeight: 500,
-                        color: "#F7F3E8",
+                        color: "#ffffff",
                       }}
                     >
                       {badge}
@@ -312,8 +342,11 @@ export default function BusinessesPage() {
           </div>
         </section>
 
-        {/* Right - Left - Right - Left Alternating Business Showcase Section */}
-        <section id="businesses-showcase" style={{ padding: "5rem 0 6rem 0" }}>
+        {/* Businesses Showcase — one featured panel + a row of tabs below it,
+            instead of all eight businesses stacked full-height one after
+            another. Clicking a tab swaps the featured panel's content, so
+            reaching any business takes one click rather than a long scroll. */}
+        <section id="businesses-showcase" style={{ padding: "5rem 0 6rem 0", background: "#ffffff" }}>
           <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "4rem" }}>
               <h2
@@ -339,179 +372,218 @@ export default function BusinessesPage() {
               </p>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "4rem" }}>
-              {BUSINESSES.map((item, index) => {
-                const isEven = index % 2 === 0; // Alternates Left (0) / Right (1)
+            {BUSINESS_GROUPS.map((group, groupIndex) => {
+              const groupItems = BUSINESSES.filter((b) => b.group === group.name);
+              const activeIndex = activeByGroup[group.name] ?? 0;
+              const item = groupItems[activeIndex];
 
-                return (
-                  <article
-                    key={item.title}
+              return (
+                <div key={group.name} style={{ marginBottom: groupIndex < BUSINESS_GROUPS.length - 1 ? "5rem" : 0 }}>
+                  {/* Group heading */}
+                  <div
                     style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                      gap: "3rem",
-                      alignItems: "center",
-                      backgroundColor: "#ffffff",
-                      borderRadius: "2rem",
-                      padding: "2.5rem",
-                      boxShadow: "0 10px 40px -10px rgba(0,0,0,0.05)",
-                      border: "1px solid #E6DECB",
-                      overflow: "hidden",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "baseline",
+                      justifyContent: "space-between",
+                      gap: "1rem",
+                      marginBottom: "2rem",
                     }}
                   >
-                    {/* Visual Card (Swaps DOM order or CSS grid order based on isEven for Right-Left design) */}
-                    <div
+                    <h3
                       style={{
-                        order: isEven ? 1 : 2,
-                        position: "relative",
-                        minHeight: "320px",
-                        borderRadius: "1.5rem",
-                        overflow: "hidden",
-                        background: "#1C1815",
+                        fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
+                        fontWeight: 700,
+                        letterSpacing: "-.01em",
+                        color: "#2E2822",
                       }}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          filter: "brightness(0.85)",
-                          transition: "transform .5s ease",
-                        }}
-                      />
+                      {group.name}
+                    </h3>
+                    <p style={{ fontSize: "1rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
+                  </div>
+
+                  {/* Featured panel on the left (image on top, details
+                      stacked below it inside the panel), tabs on the right. */}
+                  <div
+                    className={groupItems.length > 1 ? "grid grid-cols-1 lg:grid-cols-[1fr_240px]" : ""}
+                    style={{ gap: groupItems.length > 1 ? "2rem" : 0, alignItems: "start" }}
+                  >
+                    {/* Featured panel — image on top, details below it,
+                        no card wrapper so it sits flush on the left. */}
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {/* Featured image */}
                       <div
                         style={{
-                          position: "absolute",
-                          inset: 0,
-                          background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)",
-                        }}
-                      />
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: "1.5rem",
-                          left: "1.5rem",
-                          right: "1.5rem",
-                          color: "#ffffff",
+                          position: "relative",
+                          minHeight: "320px",
+                          borderRadius: "1.5rem",
+                          overflow: "hidden",
+                          background: "#1C1815",
+                          marginBottom: "1.25rem",
                         }}
                       >
-                        <span
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          key={item.image}
+                          src={item.image}
+                          alt={item.title}
                           style={{
-                            fontSize: ".75rem",
-                            fontWeight: 600,
-                            letterSpacing: ".06em",
-                            textTransform: "uppercase",
-                            color: "var(--brand-orange)",
-                            backgroundColor: "rgba(0,0,0,0.6)",
-                            padding: ".3rem .6rem",
-                            borderRadius: ".5rem",
-                            backdropFilter: "blur(4px)",
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            filter: "brightness(0.85)",
                           }}
-                        >
-                          {item.category.split("•")[0]}
-                        </span>
-                        {item.footprint && (
-                          <div
-                            style={{
-                              marginTop: ".75rem",
-                              fontSize: ".875rem",
-                              fontWeight: 600,
-                              color: "rgba(255,255,255,0.9)",
-                            }}
-                          >
-                            Footprint: {item.footprint}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Text Details Content */}
-                    <div
-                      style={{
-                        order: isEven ? 2 : 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        gap: "1.25rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: ".8125rem",
-                          fontWeight: 600,
-                          letterSpacing: ".05em",
-                          textTransform: "uppercase",
-                          color: "var(--brand-orange)",
-                        }}
-                      >
-                        {item.category}
-                      </div>
-
-                      <div>
-                        <h3
+                        />
+                        <div
                           style={{
-                            fontSize: "2rem",
-                            fontWeight: 700,
-                            letterSpacing: "-.01em",
-                            color: "#2E2822",
-                            lineHeight: 1.2,
+                            position: "absolute",
+                            inset: 0,
+                            background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)",
                           }}
-                        >
-                          {item.title}
-                        </h3>
-                        {item.subtitle && (
-                          <p
-                            style={{
-                              fontSize: "1.125rem",
-                              fontWeight: 500,
-                              color: "var(--ink-soft)",
-                              marginTop: ".35rem",
-                            }}
-                          >
-                            {item.subtitle}
-                          </p>
-                        )}
-                      </div>
-
-                      <p
-                        style={{
-                          fontSize: "1.0625rem",
-                          lineHeight: 1.65,
-                          color: "var(--ink-soft)",
-                        }}
-                      >
-                        {item.description}
-                      </p>
-
-                      <div style={{ paddingTop: ".5rem" }}>
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="pill-btn"
+                        />
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: "1.5rem",
+                            left: "1.5rem",
+                            right: "1.5rem",
+                            color: "#ffffff",
+                          }}
                         >
                           <span
-                            className="pill-inner pill-accent pill-with-arrow"
                             style={{
-                              fontSize: ".9375rem",
-                              padding: ".625rem 1.5rem",
-                              boxShadow: "0 6px 20px rgba(243,107,33,0.25)",
+                              fontSize: ".75rem",
+                              fontWeight: 600,
+                              letterSpacing: ".06em",
+                              textTransform: "uppercase",
+                              color: "var(--brand-orange)",
+                              backgroundColor: "rgba(0,0,0,0.6)",
+                              padding: ".3rem .6rem",
+                              borderRadius: ".5rem",
+                              backdropFilter: "blur(4px)",
                             }}
                           >
-                            {item.linkText}
+                            {item.category.split("•")[0]}
                           </span>
-                        </a>
+                          {item.footprint && (
+                            <div
+                              style={{
+                                marginTop: ".75rem",
+                                fontSize: ".875rem",
+                                fontWeight: 600,
+                                color: "rgba(255,255,255,0.9)",
+                              }}
+                            >
+                              Footprint: {item.footprint}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Text details */}
+                      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        <div
+                          style={{
+                            fontSize: ".8125rem",
+                            fontWeight: 600,
+                            letterSpacing: ".05em",
+                            textTransform: "uppercase",
+                            color: "var(--brand-orange)",
+                          }}
+                        >
+                          {item.category}
+                        </div>
+
+                        <div>
+                          <h3
+                            style={{
+                              fontSize: "2.25rem",
+                              fontWeight: 800,
+                              letterSpacing: "-.01em",
+                              color: "#2E2822",
+                              lineHeight: 1.15,
+                            }}
+                          >
+                            {item.title}
+                          </h3>
+                          {item.subtitle && (
+                            <p
+                              style={{
+                                fontSize: "1.125rem",
+                                fontWeight: 500,
+                                color: "var(--ink-soft)",
+                                marginTop: ".35rem",
+                              }}
+                            >
+                              {item.subtitle}
+                            </p>
+                          )}
+                        </div>
+
+                        <p
+                          style={{
+                            fontSize: "1.0625rem",
+                            lineHeight: 1.65,
+                            color: "var(--ink-soft)",
+                          }}
+                        >
+                          {item.description}
+                        </p>
+
+                        <div style={{ paddingTop: ".5rem" }}>
+                          <a href={item.url} target="_blank" rel="noreferrer" className="pill-btn">
+                            <span
+                              className="pill-inner pill-accent pill-with-arrow"
+                              style={{
+                                fontSize: ".9375rem",
+                                padding: ".625rem 1.5rem",
+                                boxShadow: "0 6px 20px rgba(243,107,33,0.25)",
+                              }}
+                            >
+                              {item.linkText}
+                            </span>
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </article>
-                );
-              })}
-            </div>
+
+                    {groupItems.length > 1 && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        {groupItems.map((groupItem, index) => {
+                          const active = index === activeIndex;
+                          return (
+                            <button
+                              key={groupItem.title}
+                              onClick={() => setActiveByGroup((prev) => ({ ...prev, [group.name]: index }))}
+                              aria-pressed={active}
+                              style={{
+                                borderRadius: "1.25rem",
+                                padding: "1.5rem 1.25rem",
+                                textAlign: "left",
+                                background: active ? "var(--accent-strong)" : "#ffffff",
+                                color: active ? "#ffffff" : "#2E2822",
+                                border: active ? "none" : "1px solid #E6DECB",
+                                boxShadow: active ? "0 10px 30px -8px rgba(243,107,33,0.45)" : "none",
+                                fontWeight: 700,
+                                fontSize: "1.0625rem",
+                                lineHeight: 1.3,
+                                transition: "background .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease",
+                              }}
+                              className="hover-scale-1012"
+                            >
+                              {groupItem.title}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 

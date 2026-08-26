@@ -127,29 +127,36 @@ export default function Mukam({}: MukamProps) {
       style={{ background: "#fff" }}
     >
       <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-        {/* Eyebrow + headline + intro paragraph */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
-            <span className="dot dot-blink"></span> Faith & The Sacred Land
+        {/* Eyebrow + headline (left) / intro paragraph (right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
+          <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
+              <span className="dot dot-blink"></span> Faith & The Sacred Land
+            </div>
+            <h2 style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
+              Mukam: The Heart of the Faith
+            </h2>
           </div>
-          <h2 style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
-            Mukam: The Heart of the Faith
-          </h2>
 
-          <p
-            style={{
-              fontSize: "1.25rem",
-              lineHeight: 1.65,
-              color: "rgba(74,68,60,.82)",
-              maxWidth: "46ch",
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(20px)",
-              transition: `transform .7s ${EASE}, opacity .7s ${EASE}`,
-              transitionDelay: "200ms",
-            }}
+          <div
+            className="lg:col-span-6 xl:col-span-7"
+            style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", paddingLeft: "2rem" }}
           >
-            For Bishnois, holy sites are not distant monuments; they are living places of connection. Mukam is the central pilgrimage site — the final resting place of Guru Jambheshwar — where thousands gather twice a year to renew their vows to nature and community.
-          </p>
+            <p
+              style={{
+                fontSize: "1.25rem",
+                lineHeight: 1.65,
+                color: "rgba(74,68,60,.82)",
+                maxWidth: "46ch",
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(20px)",
+                transition: `transform .7s ${EASE}, opacity .7s ${EASE}`,
+                transitionDelay: "200ms",
+              }}
+            >
+              For Bishnois, holy sites are not distant monuments; they are living places of connection. Mukam is the central pilgrimage site — the final resting place of Guru Jambheshwar — where thousands gather twice a year to renew their vows to nature and community.
+            </p>
+          </div>
         </div>
 
         {/* Sacred Sites Cards Slider */}
