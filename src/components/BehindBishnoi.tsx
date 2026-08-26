@@ -4,7 +4,16 @@ import { useEffect, useRef, useState } from "react";
 
 export default function BehindBishnoi() {
   const [isVisible, setIsVisible] = useState(false);
+  const [photoFailed, setPhotoFailed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const photoRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = photoRef.current;
+    if (img && img.complete && img.naturalWidth === 0) {
+      setPhotoFailed(true);
+    }
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -68,13 +77,68 @@ export default function BehindBishnoi() {
 
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              display: "flex",
+              flexWrap: "wrap",
               gap: "3rem",
-              alignItems: "start",
+              alignItems: "flex-start",
               marginBottom: "4rem",
             }}
           >
+            {/* Portrait */}
+            <div
+              style={{
+                flex: "0 0 220px",
+                width: "220px",
+                aspectRatio: "4 / 5",
+                borderRadius: "1.5rem",
+                overflow: "hidden",
+                position: "relative",
+                boxShadow: "0 20px 40px -20px rgba(28,24,21,0.3)",
+                border: "1px solid #E6DECB",
+                background: "linear-gradient(135deg, #2E2822 0%, #1C1815 100%)",
+              }}
+            >
+              {!photoFailed && (
+                <img
+                  ref={photoRef}
+                  src="/naresh.jpg"
+                  alt="Naresh Bishnoi"
+                  onError={() => setPhotoFailed(true)}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              )}
+              {photoFailed && (
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "3.5rem",
+                    fontWeight: 700,
+                    letterSpacing: "-.02em",
+                    color: "rgba(247,243,232,0.85)",
+                  }}
+                >
+                  NB
+                </div>
+              )}
+            </div>
+
+            <div
+              style={{
+                flex: "1 1 480px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                gap: "3rem",
+              }}
+            >
             <div>
               <h2
                 style={{
@@ -125,6 +189,7 @@ export default function BehindBishnoi() {
                   <span>Read his full story ↗</span>
                 </a>
               </div>
+            </div>
             </div>
           </div>
         </div>

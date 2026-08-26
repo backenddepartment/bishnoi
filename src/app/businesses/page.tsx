@@ -40,7 +40,7 @@ const BUSINESSES: BusinessItem[] = [
       "A pharmaceutical exporter from India to the world, enabling patients to access essential and specialized medicines through compassionate access.",
     linkText: "Visit Getmeds Healthcare →",
     url: "https://getmedshealthcare.com",
-    image: "/patient.jpg",
+    image: "/businesses/getmeds_healthcare.jpg",
   },
   {
     group: "Getmeds Ecosystem",
@@ -50,7 +50,7 @@ const BUSINESSES: BusinessItem[] = [
       "The first specialty pharmacy in the Pacific, serving communities in Vanuatu with local access to life-saving cancer medicines.",
     linkText: "Visit Getmeds Vanuatu →",
     url: "https://getmedsvanuatu.com",
-    image: "/hero_hydroponics.jpg",
+    image: "/businesses/getmeds_vauatu.jpg",
   },
   {
     group: "Getmeds Ecosystem",
@@ -82,7 +82,7 @@ const BUSINESSES: BusinessItem[] = [
       "A lifelong commitment to education, empowerment, innovation, and cultural growth. The Foundation works to create opportunities through education, emerging fields, agricultural development, and the advancement of Indian culture—empowering communities and creating lasting impact for generations.",
     linkText: "Visit Naresh Bishnoi Foundation →",
     url: "https://nbf.com",
-    image: "/hero_wildlife.jpg",
+    image: "/businesses/naresh_foundation.jpg",
   },
   {
     group: "Foundations & Digital",
@@ -92,7 +92,7 @@ const BUSINESSES: BusinessItem[] = [
       "A digital platform representing the broader world of Naresh Bishnoi—his ideas, ventures, initiatives, and ongoing work.",
     linkText: "Visit NKB.COM →",
     url: "https://nkb.com",
-    image: "/mukam.jpg",
+    image: "/businesses/nkb.jpg",
   },
   {
     group: "Foundations & Digital",
@@ -102,7 +102,7 @@ const BUSINESSES: BusinessItem[] = [
       "Member of the United Nations Global Compact, committed to responsible business and advancing sustainable development. The commitment reflects a broader vision of building businesses that create lasting value while supporting principles of responsible business, sustainability, and positive social impact.",
     linkText: "Learn More →",
     url: "https://unglobalcompact.org",
-    image: "/jangladesh.jpg",
+    image: "/businesses/ungc.jpg",
   },
 ];
 
