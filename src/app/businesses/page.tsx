@@ -37,7 +37,7 @@ const BUSINESSES: BusinessItem[] = [
       "A pharmaceutical exporter from India to the world, enabling patients to access essential and specialized medicines through compassionate access.",
     linkText: "Visit Getmeds Healthcare →",
     url: "https://getmedshealthcare.com",
-    image: "/patient.jpg",
+    image: "/businesses/getmeds_healthcare.jpg",
   },
   {
     category: "Getmeds Ecosystem • Pacific Region",
@@ -46,7 +46,7 @@ const BUSINESSES: BusinessItem[] = [
       "The first specialty pharmacy in the Pacific, serving communities in Vanuatu with local access to life-saving cancer medicines.",
     linkText: "Visit Getmeds Vanuatu →",
     url: "https://getmedsvanuatu.com",
-    image: "/hero_hydroponics.jpg",
+    image: "/businesses/getmeds_vauatu.jpg",
   },
   {
     category: "Getmeds Ecosystem • Regional Expansion",
@@ -75,7 +75,7 @@ const BUSINESSES: BusinessItem[] = [
       "A lifelong commitment to education, empowerment, innovation, and cultural growth. The Foundation works to create opportunities through education, emerging fields, agricultural development, and the advancement of Indian culture—empowering communities and creating lasting impact for generations.",
     linkText: "Visit Naresh Bishnoi Foundation →",
     url: "https://nbf.com",
-    image: "/hero_wildlife.jpg",
+    image: "/businesses/naresh_foundation.jpg",
   },
   {
     category: "Impact & Initiatives • Digital Platform",
@@ -84,7 +84,7 @@ const BUSINESSES: BusinessItem[] = [
       "A digital platform representing the broader world of Naresh Bishnoi—his ideas, ventures, initiatives, and ongoing work.",
     linkText: "Visit NKB.COM →",
     url: "https://nkb.com",
-    image: "/mukam.jpg",
+    image: "/businesses/nkb.jpg",
   },
   {
     category: "Global Commitment • Sustainability",
@@ -93,17 +93,8 @@ const BUSINESSES: BusinessItem[] = [
       "Member of the United Nations Global Compact, committed to responsible business and advancing sustainable development. The commitment reflects a broader vision of building businesses that create lasting value while supporting principles of responsible business, sustainability, and positive social impact.",
     linkText: "Learn More →",
     url: "https://unglobalcompact.org",
-    image: "/jangladesh.jpg",
+    image: "/businesses/ungc.jpg",
   },
-];
-
-const BADGES = [
-  "Founder of Getmeds & 2MG Inc",
-  "Oncology Medicine Supply Specialist",
-  "Rare Medicines",
-  "Medicine Donations & Global Healthcare",
-  "European Society for Medical Oncology Member",
-  "UN Global Compact Member",
 ];
 
 export default function BusinessesPage() {
@@ -157,11 +148,8 @@ export default function BusinessesPage() {
       }
     }
     if (id === "about") {
-      const el = document.getElementById("founder-spotlight");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
     if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -200,117 +188,8 @@ export default function BusinessesPage() {
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={true}
+          variant="founder"
         />
-
-        {/* Founder Spotlight Hero */}
-        <section
-          id="founder-spotlight"
-          style={{
-            position: "relative",
-            paddingTop: "6rem",
-            paddingBottom: "4.5rem",
-            background: "linear-gradient(180deg, #1C1815 0%, #2E2822 100%)",
-            color: "#ffffff",
-          }}
-        >
-          <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  backgroundColor: "var(--brand-orange)",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: ".875rem",
-                  fontWeight: 600,
-                  letterSpacing: ".08em",
-                  textTransform: "uppercase",
-                  color: "var(--brand-orange)",
-                }}
-              >
-                Businesses & Impact
-              </span>
-            </div>
-
-            <h1
-              style={{
-                fontSize: "clamp(2.5rem, 5vw, 4.25rem)",
-                fontWeight: 700,
-                letterSpacing: "-.02em",
-                lineHeight: 1.1,
-                marginBottom: ".5rem",
-                color: "#ffffff",
-              }}
-            >
-              Naresh Kumar Bishnoi
-            </h1>
-            <p
-              style={{
-                fontSize: "clamp(1.25rem, 2.5vw, 1.875rem)",
-                fontWeight: 400,
-                color: "rgba(247,243,232,0.75)",
-                marginBottom: "2rem",
-              }}
-            >
-              From Vision to the World.
-            </p>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "2.5rem",
-                alignItems: "start",
-              }}
-            >
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(247,243,232,0.85)" }}>
-                <p style={{ marginBottom: "1.25rem" }}>
-                  From a small village in Haryana, India, to building businesses serving healthcare markets and
-                  communities around the world, Naresh Bishnoi’s journey has been shaped by challenges, lessons,
-                  failures, and remarkable opportunities.
-                </p>
-                <p>
-                  Driven by a commitment to making healthcare more accessible, Naresh has built his work around
-                  strengthening the movement of medicines across borders, overcoming geographical barriers, and creating
-                  pathways for patients and healthcare institutions to access what they need.
-                </p>
-              </div>
-
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(247,243,232,0.85)" }}>
-                <p style={{ marginBottom: "1.75rem" }}>
-                  What began with a vision in healthcare has grown into an expanding ecosystem spanning pharmaceutical
-                  distribution, healthcare supply, technology, and social initiatives—building businesses with the
-                  ambition to create lasting impact across markets and generations.
-                </p>
-
-                {/* Badges / Memberships */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: ".625rem" }}>
-                  {BADGES.map((badge) => (
-                    <span
-                      key={badge}
-                      style={{
-                        padding: ".4rem .85rem",
-                        borderRadius: "9999px",
-                        background: "rgba(247,243,232,0.08)",
-                        border: "1px solid rgba(247,243,232,0.18)",
-                        fontSize: ".8125rem",
-                        fontWeight: 500,
-                        color: "#F7F3E8",
-                      }}
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Right - Left - Right - Left Alternating Business Showcase Section */}
         <section id="businesses-showcase" style={{ padding: "5rem 0 6rem 0" }}>

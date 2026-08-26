@@ -453,7 +453,7 @@ export default function BehindBishnoi() {
                 }}
               >
                 <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--brand-orange)" }}>
-                  Impact & Digital Initiatives
+                  Beyond Business
                 </span>
               </div>
             </div>

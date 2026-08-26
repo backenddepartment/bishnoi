@@ -1,65 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { HERO_CAROUSEL, HERO_CONTENT, type HeroVariant } from "./heroContent";
+import HeroPillList from "./HeroPillList";
 
 interface HeroProps {
   onOpenRequestModal: () => void;
   onScrollTo: (id: string) => void;
   introReady: boolean;
+  variant?: HeroVariant;
 }
 
-export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: HeroProps) {
-  const heroImages = [
-    "/hero_pharma.jpg",
-    "/hero_hydroponics.JPG",
-    "/hero_orange.png",
-    "/hero_wildlife.jpg",
-  ];
+const CAROUSEL_INTERVAL_MS = 5000;
 
-  const carouselItems = [
-    { caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
-    { caption: "Bishnoi Group", title: "Sustainable agritech & enterprise." },
-    { caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
-    { caption: "Heritage Foundation", title: "29 Principles & conservation impact." },
-  ];
+export default function Hero({ onScrollTo, introReady, variant = "default" }: HeroProps) {
+  const content = HERO_CONTENT[variant];
 
   const [imageIdx, setImageIdx] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-advance timer carousel (every 5 seconds)
+  // Auto-advance the background image every few seconds.
   useEffect(() => {
-    if (isPaused) return;
     const interval = setInterval(() => {
-      setImageIdx((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+      setImageIdx((prev) => (prev + 1) % HERO_CAROUSEL.length);
+    }, CAROUSEL_INTERVAL_MS);
 
     return () => clearInterval(interval);
-  }, [isPaused, heroImages.length]);
-
-  // Pause timer on manual interaction
-  const triggerInteractionPause = () => {
-    setIsPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => {
-      setIsPaused(false);
-    }, 8000);
-  };
-
-  const carouselNext = () => {
-    triggerInteractionPause();
-    setImageIdx((prev) => (prev + 1) % heroImages.length);
-  };
-
-  const carouselPrev = () => {
-    triggerInteractionPause();
-    setImageIdx((prev) => (prev - 1 + heroImages.length) % heroImages.length);
-  };
-
-  const handleSelectDivision = (idx: number) => {
-    triggerInteractionPause();
-    setImageIdx(idx);
-  };
+  }, []);
 
   return (
     <section
@@ -76,11 +43,10 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
       }}
     >
       <div id="liquid-container" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        {/* Base Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           id="liquid-before"
-          src={heroImages[imageIdx]}
+          src={HERO_CAROUSEL[imageIdx].image}
           alt="Hero background"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transition: "opacity 0.6s ease" }}
         />
@@ -95,9 +61,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           pointerEvents: "none",
           background: "linear-gradient(to bottom, rgba(26,22,19,0.75) 0%, rgba(26,22,19,0.35) 50%, rgba(26,22,19,0.7) 100%)",
         }}
-      ></div>
-
-
+      />
 
       <div
         id="watermark"
@@ -155,9 +119,49 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
             }}
           >
             <span className={`reveal-line ${introReady ? "visible" : ""}`}>
-              <span className="line-inner">Rooted in five hundred years. Building for what comes next.</span>
+              <span className="line-inner">{content.headline}</span>
             </span>
           </h1>
+
+          {(content.subtitle || content.bio) && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                opacity: introReady ? 1 : 0,
+                transform: introReady ? "translateY(0)" : "translateY(14px)",
+                transition: "opacity 0.6s cubic-bezier(.22,1,.36,1), transform 0.6s cubic-bezier(.22,1,.36,1)",
+              }}
+            >
+              {content.subtitle && (
+                <p
+                  style={{
+                    fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.85)",
+                    textShadow: "0 2px 10px rgba(0,0,0,.7)",
+                  }}
+                >
+                  {content.subtitle}
+                </p>
+              )}
+              {content.bio?.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  style={{
+                    maxWidth: "58ch",
+                    fontSize: "1.0625rem",
+                    lineHeight: 1.7,
+                    color: "rgba(255,255,255,0.85)",
+                    textShadow: "0 2px 10px rgba(0,0,0,.7)",
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          )}
 
           <div
             id="hero-ctas"
@@ -186,77 +190,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
           </div>
         </div>
 
-        <div
-          style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}
-          className="gap-3 sm:gap-6 lg:col-span-5"
-        >
-          {/* Reference Card Layout matching Screenshot 1 */}
-          <div
-            id="hero-card"
-            style={{
-              width: "100%",
-              maxWidth: "24rem",
-              padding: "1.25rem 1.5rem",
-              color: "#ffffff",
-              textShadow: "0 2px 10px rgba(0,0,0,.7)",
-              opacity: introReady ? 1 : 0,
-              transform: introReady ? "translateY(0) scale(1)" : "translateY(16px) scale(.96)",
-              transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
-            }}
-          >
-            <div style={{ cursor: "pointer", marginTop: ".75rem" }} onClick={carouselNext}>
-              <span style={{ fontSize: ".8125rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(255,255,255,0.7)" }}>
-                {carouselItems[imageIdx].caption}
-              </span>
-              <h4 style={{ fontSize: "1.5rem", fontWeight: 700, lineHeight: 1.3, color: "#ffffff", marginTop: ".25rem" }}>
-                {carouselItems[imageIdx].title}
-              </h4>
-
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: ".5rem" }}>
-                <div style={{ display: "flex", gap: ".375rem" }}>
-                  {heroImages.map((_, i) => (
-                    <span
-                      key={i}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleSelectDivision(i);
-                      }}
-                      style={{
-                        height: ".25rem",
-                        width: i === imageIdx ? "1.25rem" : ".375rem",
-                        borderRadius: "9999px",
-                        background: i === imageIdx ? "#ffffff" : "rgba(255,255,255,0.32)",
-                        transition: "all .3s",
-                        cursor: "pointer",
-                      }}
-                    />
-                  ))}
-                </div>
-                <div style={{ display: "flex", gap: ".375rem" }}>
-                  <button
-                    style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      carouselPrev();
-                    }}
-                  >
-                    <span style={{ display: "inline-block", transform: "rotate(180deg)", fontSize: ".75rem" }}>→</span>
-                  </button>
-                  <button
-                    style={{ width: "1.75rem", height: "1.75rem", display: "grid", placeItems: "center", borderRadius: "9999px", background: "#F36B21", color: "#2A1206", border: "1px solid rgba(0,0,0,0.15)", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      carouselNext();
-                    }}
-                  >
-                    <span style={{ fontSize: ".75rem" }}>→</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Trusted Ecosystem Divisions Grid matching Screenshot 1 */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }} className="gap-3 sm:gap-6 lg:col-span-5">
           <div
             id="hero-partners"
             data-lenis-prevent
@@ -268,45 +202,7 @@ export default function Hero({ onOpenRequestModal, onScrollTo, introReady }: Her
               transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
             }}
           >
-            <ul style={{ display: "flex", flexWrap: "wrap", gap: ".5rem" }} className="justify-start lg:justify-end">
-              {[
-                { name: "Getmeds Phils", domain: "getmeds.ph" },
-                { name: "Getmeds India", domain: "getmedshealthcare.com" },
-                { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com" },
-                { name: "Getmeds Latam", domain: "getmedslatom.com" },
-                { name: "Getmeds SEA", domain: "getmedssea.com" },
-                { name: "Bishnoi India", domain: "bishnoi-omniverse.in" },
-                { name: "Bishnoi Phils", domain: "bishnoi-omniverse.ph" },
-                { name: "N. Bishnoi Foundation", domain: "nbf.com" },
-                { name: "N. K. Bishnoi Office", domain: "nkb.com" },
-              ].map((entity) => (
-                <li key={entity.domain}>
-                  <a
-                    href={`https://${entity.domain}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover-spring-sm"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: ".375rem",
-                      fontSize: ".8125rem",
-                      padding: ".4rem 1rem",
-                      color: "rgba(255,255,255,0.92)",
-                      fontWeight: 500,
-                      background: "rgba(26,22,19,0.6)",
-                      backdropFilter: "blur(12px)",
-                      border: "1px solid rgba(243,107,33,0.38)",
-                      borderRadius: "9999px",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    <span>{entity.name}</span>
-                    <span className="text-[.75rem] sm:text-[.65rem]" style={{ color: "#F36B21" }}>↗</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <HeroPillList pills={content.pills} />
           </div>
         </div>
 
