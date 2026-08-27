@@ -283,6 +283,15 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
           >
             Getmeds SEA
           </a>
+          <a
+            href="https://2mginc.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover-underline-slide"
+            style={getLinkStyle(0, 5)}
+          >
+            2MG Incorporated
+          </a>
         </div>
 
         {/* Column 2: Omniverse */}
@@ -390,18 +399,25 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
         {/* Plain white + drop-shadow instead of mix-blend-mode: difference —
             difference shifts hue against colored (e.g. sunset-toned) hero
             photos instead of staying white, which read as a gray cast. A drop
-            shadow keeps it legible without touching its actual color. When
+            shadow keeps it legible without touching its actual color. Always
+            the same colored logo.png — the white-in-hero look comes from a
+            filter (brightness(0) invert(1) crushes any color to solid white
+            while preserving transparency) instead of a separate pre-made
+            white asset, so there's one source image to keep in sync. When
             the Businesses dropdown opens, the bar goes white, so the logo
-            swaps to its colored mark and drops the shadow it no longer needs. */}
+            drops the filter (and the shadow it no longer needs) to show its
+            real colors instead. */}
         <a href="/" className="hover-spring-sm" style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={heroDropdown.open ? "/logo.png" : "/logowhite.png"}
+            src="/logo.png"
             alt="Bishnoi Omniverse"
             style={{
               height: "3.5rem",
               width: "auto",
-              filter: heroDropdown.open ? "none" : "drop-shadow(0 2px 6px rgba(0,0,0,.8))",
+              filter: heroDropdown.open
+                ? "none"
+                : "brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.8))",
               transition: "filter .35s ease",
             }}
           />

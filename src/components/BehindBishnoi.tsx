@@ -4,16 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function BehindBishnoi() {
   const [isVisible, setIsVisible] = useState(false);
-  const [photoFailed, setPhotoFailed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const photoRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const img = photoRef.current;
-    if (img && img.complete && img.naturalWidth === 0) {
-      setPhotoFailed(true);
-    }
-  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -84,53 +75,6 @@ export default function BehindBishnoi() {
               marginBottom: "4rem",
             }}
           >
-            {/* Portrait */}
-            <div
-              style={{
-                flex: "0 0 220px",
-                width: "220px",
-                aspectRatio: "4 / 5",
-                borderRadius: "1.5rem",
-                overflow: "hidden",
-                position: "relative",
-                boxShadow: "0 20px 40px -20px rgba(28,24,21,0.3)",
-                border: "1px solid #E6DECB",
-                background: "linear-gradient(135deg, #2E2822 0%, #1C1815 100%)",
-              }}
-            >
-              {!photoFailed && (
-                <img
-                  ref={photoRef}
-                  src="/naresh.jpg"
-                  alt="Naresh Bishnoi"
-                  onError={() => setPhotoFailed(true)}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-              )}
-              {photoFailed && (
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "3.5rem",
-                    fontWeight: 700,
-                    letterSpacing: "-.02em",
-                    color: "rgba(247,243,232,0.85)",
-                  }}
-                >
-                  NB
-                </div>
-              )}
-            </div>
-
             <div
               style={{
                 flex: "1 1 480px",
@@ -159,7 +103,7 @@ export default function BehindBishnoi() {
                   marginTop: ".5rem",
                 }}
               >
-                Member of the Bishnoi Community
+                Born into the Bishnoi Community
               </p>
             </div>
 
@@ -307,8 +251,10 @@ export default function BehindBishnoi() {
               </p>
             </div>
 
-            {/* Tile 1: Getmeds Ecosystem */}
-            <div
+            {/* Tile 1: Getmeds Ecosystem — the whole card links to its
+                section on the Businesses page, not just the arrow badge. */}
+            <a
+              href="/businesses#getmeds-ecosystem"
               className="biz-tile"
               style={{
                 position: "relative",
@@ -319,6 +265,7 @@ export default function BehindBishnoi() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 overflow: "hidden",
+                textDecoration: "none",
               }}
             >
               <span
@@ -360,10 +307,11 @@ export default function BehindBishnoi() {
                   Connecting healthcare and pharmaceutical solutions to communities across Asia, Latin America, Oceania and the Caribbean.
                 </p>
               </div>
-            </div>
+            </a>
 
             {/* Tile 2: Bishnoi Omniverse — accent tile */}
-            <div
+            <a
+              href="/businesses#bishnoi-omniverse"
               className="biz-tile biz-tile-accent"
               style={{
                 position: "relative",
@@ -374,6 +322,7 @@ export default function BehindBishnoi() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 overflow: "hidden",
+                textDecoration: "none",
               }}
             >
               <span
@@ -415,10 +364,11 @@ export default function BehindBishnoi() {
                   Building the healthcare supply powerhouse serving hospitals across India and the Philippines.
                 </p>
               </div>
-            </div>
+            </a>
 
             {/* Tile 3: Other Ventures */}
-            <div
+            <a
+              href="/businesses#foundations-digital"
               className="biz-tile"
               style={{
                 position: "relative",
@@ -429,6 +379,7 @@ export default function BehindBishnoi() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 overflow: "hidden",
+                textDecoration: "none",
               }}
             >
               <span
@@ -468,7 +419,7 @@ export default function BehindBishnoi() {
                   <li>NKB.com</li>
                 </ul>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Bottom Bar: UN Global Compact badge & Visit Businesses CTA */}

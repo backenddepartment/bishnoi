@@ -169,6 +169,21 @@ img {
   }
 }
 
+/* One-sided version of .full-bleed — pulls a child out past just the
+   shell's left padding so it sits flush against the viewport's left edge
+   while whatever sits beside it stays put at its normal position. */
+.bleed-left {
+  margin-left: -3.5rem;
+  width: calc(100% + 3.5rem);
+}
+
+@media (max-width: 768px) {
+  .bleed-left {
+    margin-left: -1.5rem;
+    width: calc(100% + 1.5rem);
+  }
+}
+
 .pill-btn {
   display: inline-block;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -533,6 +548,49 @@ img {
 }
 .no-touch .hover-scale-1012:hover {
   transform: scale(1.012);
+}
+/* Getmeds Ecosystem card logo badge: colored mark bottom-right by default;
+   on hover it fades out as the orange overlay (white mark + name) fades in. */
+.eco-card-logo-badge {
+  transition: opacity 0.25s ease;
+}
+.eco-card-hover-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.no-touch .eco-card:hover .eco-card-logo-badge {
+  opacity: 0;
+}
+.no-touch .eco-card:hover .eco-card-hover-overlay {
+  opacity: 1;
+}
+/* Staggered fade-in for the hover overlay's contents — logo first, then the
+   name, then the button. Each starts faded/shifted down; only the :hover
+   rule carries a transition-delay, so hovering in cascades but hovering out
+   (governed by the base rule below, no delay) fades everything back out
+   together instead of un-staggering in reverse. */
+.eco-card-hover-logo,
+.eco-card-hover-title,
+.eco-card-hover-btn {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.no-touch .eco-card:hover .eco-card-hover-logo {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+.no-touch .eco-card:hover .eco-card-hover-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease 0.45s, transform 0.7s ease 0.45s;
+}
+.no-touch .eco-card:hover .eco-card-hover-btn {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
 }
 .no-touch .hover-translate-8 {
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);

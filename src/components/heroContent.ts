@@ -34,6 +34,7 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
       { label: "Getmeds Vanuatu", href: "https://getmedsvanuatu.com" },
       { label: "Getmeds Latam", href: "https://getmedslatom.com" },
       { label: "Getmeds SEA", href: "https://getmedssea.com" },
+      { label: "2MG Incorporated", href: "https://2mginc.com/" },
       { label: "Bishnoi India", href: "https://bishnoi-omniverse.in" },
       { label: "Bishnoi Phils", href: "https://bishnoi-omniverse.ph" },
       { label: "N. Bishnoi Foundation", href: "https://nbf.com" },

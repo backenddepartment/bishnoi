@@ -29,6 +29,7 @@ export const businesses: Division[] = [
       { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com", url: "https://getmedsvanuatu.com" },
       { name: "Getmeds Latam", domain: "getmedslatom.com", url: "https://getmedslatam.com" },
       { name: "Getmeds SEA", domain: "getmedssea.com", url: "https://getmedssea.com" },
+      { name: "2MG Incorporated", domain: "2mginc.com", url: "https://2mginc.com/" },
     ],
   },
   {

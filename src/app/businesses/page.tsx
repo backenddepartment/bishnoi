@@ -19,6 +19,30 @@ interface BusinessItem {
   linkText: string;
   url: string;
   image: string;
+  // Colored + white logo marks, shown only on Getmeds Ecosystem cards —
+  // colored badge bottom-right by default, white mark on the orange
+  // hover overlay. Businesses without a supplied logo skip both.
+  logo?: string;
+  logoWhite?: string;
+  // Override the details-row logo height (default "4.5rem") for a mark that
+  // reads too small next to the others at the shared height.
+  logoHeight?: string;
+  // Nudge a logo up/down from the row's center alignment (e.g. "-0.5rem").
+  logoOffsetY?: string;
+  // Override the hover overlay's logo bounding box (defaults "13rem"/"8rem")
+  // and its gap to the title below it (default "1rem") — for a mark that
+  // should read bigger and sit closer to the company name.
+  logoWhiteWidth?: string;
+  logoWhiteHeight?: string;
+  logoWhiteGap?: string;
+  // Text fallback for a business with no logo artwork — a bold letter (or
+  // couple of letters) shown in a colored circle instead of an <img>, in
+  // both the details-row badge and the orange hover overlay.
+  logoInitial?: string;
+  // "grid" (default) puts this item in the group's card grid; "featured"
+  // pulls it out into its own full-width left-image/right-details panel —
+  // the same layout Bishnoi Omniverse uses — below the rest of the grid.
+  layout?: "grid" | "featured";
 }
 
 const BUSINESSES: BusinessItem[] = [
@@ -30,7 +54,12 @@ const BUSINESSES: BusinessItem[] = [
       "A healthcare and pharmaceutical company focused on expanding access to essential medicines in the Philippines.",
     linkText: "Visit Getmeds Philippines →",
     url: "https://getmeds.ph",
-    image: "/hero_pharma.jpg",
+    image: "/getmedsph.jpeg",
+    logo: "/logos/getmeds-philippines-logo.png",
+    logoWhite: "/logos/getmeds-philippines-logo-white.png",
+    logoWhiteWidth: "15.5rem",
+    logoWhiteHeight: "9.5rem",
+    logoWhiteGap: ".75rem",
   },
   {
     group: "Getmeds Ecosystem",
@@ -41,6 +70,8 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Visit Getmeds Healthcare →",
     url: "https://getmedshealthcare.com",
     image: "/businesses/getmeds_healthcare.jpg",
+    logo: "/logos/getmeds-healthcare-logo.png",
+    logoWhite: "/logos/getmeds-healthcare-logo-white.png",
   },
   {
     group: "Getmeds Ecosystem",
@@ -51,6 +82,11 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Visit Getmeds Vanuatu →",
     url: "https://getmedsvanuatu.com",
     image: "/businesses/getmeds_vauatu.jpg",
+    logo: "/logos/getmeds-vanuatu-logo.png",
+    logoWhite: "/logos/getmeds-vanuatu-logo-white.png",
+    logoWhiteWidth: "15.5rem",
+    logoWhiteHeight: "9.5rem",
+    logoWhiteGap: ".75rem",
   },
   {
     group: "Getmeds Ecosystem",
@@ -60,7 +96,53 @@ const BUSINESSES: BusinessItem[] = [
       "Expanding Getmeds’ footprint across Latin America, forging new partnerships and establishing a stronger presence across the region.",
     linkText: "Visit Getmeds Latin America →",
     url: "https://getmedslatam.com",
-    image: "/hero_dairy.jpg",
+    image: "/getmedslatinamerica.jpg",
+    logo: "/logos/getmeds-latam-logo.png",
+    logoWhite: "/logos/getmeds-latam-logo-white.png",
+    // Aspect-ratio math alone says this should already match Philippines'
+    // fill, but the mark itself reads visually smaller (thinner wordmark,
+    // more internal negative space) — sized up further and the gap tightened
+    // to compensate.
+    logoWhiteWidth: "20rem",
+    logoWhiteHeight: "11.5rem",
+    logoWhiteGap: ".25rem",
+  },
+  {
+    group: "Getmeds Ecosystem",
+    category: "Getmeds Ecosystem • Southeast Asia",
+    title: "Getmeds South East Asia (SEA)",
+    description:
+      "Growing Getmeds’ presence across Southeast Asia, connecting patients and healthcare providers to essential medicines throughout the region.",
+    linkText: "Visit Getmeds South East Asia (SEA) →",
+    url: "#",
+    image: "/GETMEDSSEA.jpg",
+    logo: "/logos/getmeds-sea-logo.png",
+    logoWhite: "/logos/getmeds-sea-logo-white.png",
+    // SEA's white mark is much wider (~2.5:1) than Vanuatu's (~1.58:1), so at
+    // the same box it's width-constrained and renders shorter — widened here
+    // so it reaches the same ~9.5rem height instead of only ~6.2rem.
+    logoWhiteWidth: "24rem",
+    logoWhiteHeight: "9.5rem",
+    logoWhiteGap: ".75rem",
+  },
+  {
+    group: "Getmeds Ecosystem",
+    category: "Getmeds Ecosystem • Group Holding",
+    title: "2MG Incorporated",
+    description:
+      "The holding company behind the Getmeds group of businesses, providing strategic direction and support across its healthcare ventures worldwide.",
+    linkText: "Visit 2MG Incorporated →",
+    url: "https://2mginc.com/",
+    image: "/2mgincorp.jpg",
+    logo: "/logos/2mg-inc-logo.png",
+    logoWhite: "/logos/2mg-inc-logo-white.png",
+    // 2MG's mark is wider/shorter than the others (different aspect ratio),
+    // so the box height is trimmed to match — otherwise it only fills part
+    // of a 9.5rem box, leaving dead space above the gap no matter how small
+    // logoWhiteGap is set.
+    logoWhiteWidth: "15.5rem",
+    logoWhiteHeight: "7rem",
+    logoWhiteGap: ".15rem",
   },
   {
     group: "Bishnoi Omniverse",
@@ -72,7 +154,9 @@ const BUSINESSES: BusinessItem[] = [
     footprint: "India · Philippines",
     linkText: "Visit Bishnoi Omniverse →",
     url: "https://bishnoi-omniverse.in",
-    image: "/bishnoione.jpg",
+    image: "/bishnoiimage.jpeg",
+    logo: "/logo.png",
+    logoWhite: "/logowhite.png",
   },
   {
     group: "Foundations & Digital",
@@ -83,6 +167,9 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Visit Naresh Bishnoi Foundation →",
     url: "https://nbf.com",
     image: "/businesses/naresh_foundation.jpg",
+    logo: "/logos/naresh-bishnoi-foundation-logo.png",
+    logoWhite: "/logos/naresh-bishnoi-foundation-logo-white.png",
+    logoHeight: "6rem",
   },
   {
     group: "Foundations & Digital",
@@ -93,6 +180,7 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Visit NKB.COM →",
     url: "https://nkb.com",
     image: "/businesses/nkb.jpg",
+    logoInitial: "N",
   },
   {
     group: "Foundations & Digital",
@@ -103,23 +191,28 @@ const BUSINESSES: BusinessItem[] = [
     linkText: "Learn More →",
     url: "https://unglobalcompact.org",
     image: "/businesses/ungc.jpg",
+    logoInitial: "UN",
+    layout: "featured",
   },
 ];
 
 // The showcase below renders one subsection per group, in this order, each
 // with its own featured panel + tabs instead of one flat list of eight.
-const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string }[] = [
+const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string; id: string }[] = [
   {
     name: "Getmeds Ecosystem",
     blurb: "Healthcare and pharmaceutical access spanning Asia, Latin America, and Oceania.",
+    id: "getmeds-ecosystem",
   },
   {
     name: "Bishnoi Omniverse",
     blurb: "The infrastructure powering healthcare supply at scale.",
+    id: "bishnoi-omniverse",
   },
   {
     name: "Foundations & Digital",
     blurb: "Philanthropy, culture, and the digital presence behind the name.",
+    id: "foundations-digital",
   },
 ];
 
@@ -132,6 +225,189 @@ const BADGES = [
   "UN Global Compact Member",
 ];
 
+// Left image / right details, side by side — image is plain (no overlaid
+// badges/gradient), details column leads with a dot + eyebrow label above
+// the title. Used for Bishnoi Omniverse (its only item) and for any other
+// business explicitly flagged layout: "featured" instead of sitting in its
+// group's card grid.
+function FeaturedPanel({ item }: { item: BusinessItem }) {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 eco-card" style={{ gap: "3rem", alignItems: "center" }}>
+      <div
+        className="hover-scale-1012"
+        style={{
+          position: "relative",
+          aspectRatio: "16 / 9",
+          borderRadius: "1.5rem",
+          overflow: "hidden",
+          boxShadow: "0 10px 30px -14px rgba(28,24,21,0.18)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.image}
+          alt={item.title}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+        />
+
+        {/* Same hover reveal as the Getmeds Ecosystem cards — image turns
+            orange on hover with the logo (or initial), name, and a link. */}
+        <div
+          className="eco-card-hover-overlay"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "var(--accent-strong, var(--brand-orange))",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {(item.logoWhite || item.logoInitial) && (
+            <div
+              className="eco-card-hover-logo"
+              style={{
+                width: item.logoWhiteWidth ?? "13rem",
+                height: item.logoWhiteHeight ?? "8rem",
+                maxWidth: "78%",
+                marginBottom: item.logoWhiteGap ?? "1rem",
+                display: item.logoWhite ? undefined : "flex",
+                alignItems: item.logoWhite ? undefined : "center",
+                justifyContent: item.logoWhite ? undefined : "center",
+              }}
+            >
+              {item.logoWhite ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={item.logoWhite}
+                  alt={`${item.title} logo`}
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                />
+              ) : (
+                <span style={{ fontSize: "5.5rem", fontWeight: 800, color: "#ffffff", lineHeight: 1 }}>
+                  {item.logoInitial}
+                </span>
+              )}
+            </div>
+          )}
+          <span
+            className="eco-card-hover-title"
+            style={{
+              fontSize: "1.125rem",
+              fontWeight: 700,
+              color: "#ffffff",
+              letterSpacing: "-.01em",
+              textAlign: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            {item.title}
+          </span>
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            className="eco-card-hover-btn"
+            style={{
+              pointerEvents: "auto",
+              display: "inline-block",
+              fontSize: ".875rem",
+              fontWeight: 600,
+              color: "var(--brand-orange)",
+              background: "#ffffff",
+              border: "1.5px solid #ffffff",
+              borderRadius: "9999px",
+              padding: ".55rem 1.5rem",
+              textDecoration: "none",
+              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.35)",
+            }}
+          >
+            View Website
+          </a>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem" }}>
+          <span
+            style={{
+              display: "inline-block",
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              backgroundColor: "var(--brand-orange)",
+            }}
+          />
+          <span
+            style={{
+              fontSize: ".8125rem",
+              fontWeight: 600,
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+              color: "var(--brand-orange)",
+            }}
+          >
+            {item.category}
+          </span>
+        </div>
+
+        <div>
+          <h3
+            style={{
+              fontSize: "clamp(2rem, 3.5vw, 2.75rem)",
+              fontWeight: 800,
+              letterSpacing: "-.01em",
+              color: "#2E2822",
+              lineHeight: 1.15,
+            }}
+          >
+            {item.title}
+          </h3>
+          {item.subtitle && (
+            <p
+              style={{
+                fontSize: "1.125rem",
+                fontWeight: 500,
+                color: "var(--ink-soft)",
+                marginTop: ".5rem",
+              }}
+            >
+              {item.subtitle}
+            </p>
+          )}
+        </div>
+
+        <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--ink-soft)" }}>
+          {item.description}
+        </p>
+
+        {item.footprint && (
+          <div style={{ fontSize: "1rem", fontWeight: 700, color: "#2E2822" }}>
+            Footprint: {item.footprint}
+          </div>
+        )}
+
+        <div style={{ paddingTop: ".5rem" }}>
+          <a href={item.url} target="_blank" rel="noreferrer" className="pill-btn">
+            <span
+              className="pill-inner pill-accent pill-with-arrow"
+              style={{
+                fontSize: ".9375rem",
+                padding: ".625rem 1.5rem",
+                color: "#ffffff",
+                boxShadow: "none",
+              }}
+            >
+              {item.linkText}
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function BusinessesPage() {
   const [navOpen, setNavOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -142,7 +418,13 @@ export default function BusinessesPage() {
   const [activeByGroup, setActiveByGroup] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // A link in from elsewhere (e.g. the home page's "His Businesses" tiles)
+    // arrives as /businesses#<group-id> — jump to that section instead of
+    // forcing scroll-to-top, which would otherwise stomp the browser's
+    // native hash-jump before Lenis ever takes over scrolling.
+    const targetId = window.location.hash ? window.location.hash.slice(1) : null;
+    if (!targetId) window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       smoothWheel: true,
     });
@@ -154,6 +436,17 @@ export default function BusinessesPage() {
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
+
+    if (targetId) {
+      const target = document.getElementById(targetId);
+      if (target) {
+        // Wait a frame so layout (images, fonts) has settled before Lenis
+        // measures scroll distance, or it can land short.
+        requestAnimationFrame(() => {
+          lenis.scrollTo(target, { offset: 0 });
+        });
+      }
+    }
 
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
       document.documentElement.classList.add("touch");
@@ -378,7 +671,11 @@ export default function BusinessesPage() {
               const item = groupItems[activeIndex];
 
               return (
-                <div key={group.name} style={{ marginBottom: groupIndex < BUSINESS_GROUPS.length - 1 ? "5rem" : 0 }}>
+                <div
+                  key={group.name}
+                  id={group.id}
+                  style={{ marginBottom: groupIndex < BUSINESS_GROUPS.length - 1 ? "5rem" : 0, scrollMarginTop: "6rem" }}
+                >
                   {/* Group heading */}
                   <div
                     style={{
@@ -392,7 +689,7 @@ export default function BusinessesPage() {
                   >
                     <h3
                       style={{
-                        fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
+                        fontSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
                         fontWeight: 700,
                         letterSpacing: "-.01em",
                         color: "#2E2822",
@@ -400,29 +697,33 @@ export default function BusinessesPage() {
                     >
                       {group.name}
                     </h3>
-                    <p style={{ fontSize: "1rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
+                    <p style={{ fontSize: "1.3125rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
                   </div>
 
-                  {group.name === "Getmeds Ecosystem" ? (
-                    /* Case-study card grid — every business in the group
-                       shown at once as its own card, instead of one
-                       featured item swapped via tabs. */
+                  {group.name === "Getmeds Ecosystem" || group.name === "Foundations & Digital" ? (
+                    <>
+                    {/* Case-study card grid — every business in the group
+                        shown at once as its own card, instead of one
+                        featured item swapped via tabs. Items flagged
+                        layout: "featured" skip this grid and get their own
+                        full-width panel below instead. */}
                     <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "2rem" }}>
-                      {groupItems.map((groupItem) => (
-                        <div
-                          key={groupItem.title}
-                          style={{
-                            background: "#ffffff",
-                            borderRadius: "1.5rem",
-                            border: "1px solid #E6DECB",
-                            overflow: "hidden",
-                            boxShadow: "0 10px 30px -14px rgba(28,24,21,0.18)",
-                            transition: "transform .25s ease, box-shadow .25s ease",
-                          }}
-                          className="hover-scale-1012"
-                        >
-                          {/* Cover image */}
-                          <div style={{ position: "relative", aspectRatio: "16 / 11", overflow: "hidden" }}>
+                      {groupItems
+                        .filter((gi) => gi.layout !== "featured")
+                        .map((groupItem) => (
+                        <div key={groupItem.title} className="hover-scale-1012 eco-card">
+                          {/* Image — just the category pill and the hover
+                              reveal live on the photo; everything else sits
+                              plain below it, no card/box around the text. */}
+                          <div
+                            style={{
+                              position: "relative",
+                              aspectRatio: "16 / 9",
+                              borderRadius: "1.5rem",
+                              overflow: "hidden",
+                              boxShadow: "0 10px 30px -14px rgba(28,24,21,0.18)",
+                            }}
+                          >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={groupItem.image}
@@ -433,7 +734,7 @@ export default function BusinessesPage() {
                               style={{
                                 position: "absolute",
                                 inset: 0,
-                                background: "linear-gradient(160deg, rgba(28,24,21,0.1) 0%, rgba(28,24,21,0.6) 100%)",
+                                background: "linear-gradient(180deg, rgba(20,16,13,0.32) 0%, rgba(20,16,13,0) 30%)",
                               }}
                             />
                             {/* Category badge */}
@@ -441,86 +742,196 @@ export default function BusinessesPage() {
                               style={{
                                 position: "absolute",
                                 top: ".9rem",
-                                right: ".9rem",
-                                fontSize: ".6875rem",
+                                left: ".9rem",
+                                fontSize: ".75rem",
                                 fontWeight: 600,
-                                letterSpacing: ".04em",
-                                textTransform: "uppercase",
+                                letterSpacing: ".02em",
+                                textTransform: "capitalize",
                                 color: "#ffffff",
-                                background: "rgba(20,16,13,0.55)",
-                                padding: ".3rem .65rem",
+                                background: "var(--brand-orange)",
+                                padding: ".3rem .75rem",
                                 borderRadius: "9999px",
-                                backdropFilter: "blur(4px)",
                               }}
                             >
                               {groupItem.category.split("•")[1]?.trim() ?? groupItem.category}
                             </span>
-                            {/* Centered mark + wordmark */}
-                            <div
-                              style={{
-                                position: "absolute",
-                                inset: 0,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: ".6rem",
-                              }}
-                            >
-                              <span
+
+                            {(groupItem.logo || groupItem.logoInitial) && (
+                              /* Hover overlay — orange background, white logo
+                                 centered, company name underneath */
+                              <div
+                                className="eco-card-hover-overlay"
                                 style={{
-                                  width: "2.25rem",
-                                  height: "2.25rem",
-                                  borderRadius: "9999px",
-                                  background: "rgba(243,107,33,0.9)",
-                                  display: "grid",
-                                  placeItems: "center",
-                                  color: "#ffffff",
-                                  fontSize: "1.125rem",
+                                  position: "absolute",
+                                  inset: 0,
+                                  background: "var(--accent-strong, var(--brand-orange))",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  alignItems: "center",
+                                  justifyContent: "center",
                                 }}
                               >
-                                ✦
-                              </span>
+                                {/* Bounding box so every logo — regardless of
+                                    its native aspect ratio — reads at a
+                                    consistent size on the hover overlay.
+                                    Sized (not scaled) per item so it never
+                                    overlaps the text below it. */}
+                                <div
+                                  className="eco-card-hover-logo"
+                                  style={{
+                                    width: groupItem.logoWhiteWidth ?? "13rem",
+                                    height: groupItem.logoWhiteHeight ?? "8rem",
+                                    maxWidth: "78%",
+                                    marginBottom: groupItem.logoWhiteGap ?? "1rem",
+                                    display: groupItem.logoWhite ? undefined : "flex",
+                                    alignItems: groupItem.logoWhite ? undefined : "center",
+                                    justifyContent: groupItem.logoWhite ? undefined : "center",
+                                  }}
+                                >
+                                  {groupItem.logoWhite ? (
+                                    /* eslint-disable-next-line @next/next/no-img-element */
+                                    <img
+                                      src={groupItem.logoWhite}
+                                      alt={`${groupItem.title} logo`}
+                                      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                                    />
+                                  ) : (
+                                    <span style={{ fontSize: "5.5rem", fontWeight: 800, color: "#ffffff", lineHeight: 1 }}>
+                                      {groupItem.logoInitial}
+                                    </span>
+                                  )}
+                                </div>
+                                <span
+                                  className="eco-card-hover-title"
+                                  style={{
+                                    fontSize: "1.125rem",
+                                    fontWeight: 700,
+                                    color: "#ffffff",
+                                    letterSpacing: "-.01em",
+                                    textAlign: "center",
+                                    marginBottom: "1rem",
+                                  }}
+                                >
+                                  {groupItem.title}
+                                </span>
+                                <a
+                                  href={groupItem.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="eco-card-hover-btn"
+                                  style={{
+                                    pointerEvents: "auto",
+                                    display: "inline-block",
+                                    fontSize: ".875rem",
+                                    fontWeight: 600,
+                                    color: "var(--brand-orange)",
+                                    background: "#ffffff",
+                                    border: "1.5px solid #ffffff",
+                                    borderRadius: "9999px",
+                                    padding: ".55rem 1.5rem",
+                                    textDecoration: "none",
+                                    boxShadow: "0 6px 16px -6px rgba(0,0,0,0.35)",
+                                  }}
+                                >
+                                  View Website
+                                </a>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Details — plain, no card/box around them. Large
+                              logo anchors the left; title, description, and
+                              link are compressed into the column on the right. */}
+                          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", padding: "1.25rem 0 0" }}>
+                            {groupItem.logo ? (
+                              /* Sized by height, not a fixed square box — wordmark
+                                 logos (wide) and icon marks (square) end up the
+                                 same visual size instead of the wide ones
+                                 shrinking to fit a box built for square ones. */
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img
+                                src={groupItem.logo}
+                                alt={`${groupItem.title} logo`}
+                                style={{
+                                  height: groupItem.logoHeight ?? "4.5rem",
+                                  width: "auto",
+                                  maxWidth: "14rem",
+                                  flexShrink: 0,
+                                  objectFit: "contain",
+                                  marginTop: groupItem.logoOffsetY ?? 0,
+                                }}
+                              />
+                            ) : groupItem.logoInitial ? (
                               <span
                                 style={{
-                                  fontSize: "1.375rem",
+                                  flexShrink: 0,
+                                  lineHeight: 1,
+                                  color: "var(--brand-orange)",
+                                  fontWeight: 800,
+                                  fontSize: groupItem.logoHeight ?? "4.5rem",
+                                  marginTop: groupItem.logoOffsetY ?? 0,
+                                }}
+                              >
+                                {groupItem.logoInitial}
+                              </span>
+                            ) : null}
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <h4
+                                style={{
+                                  fontSize: "1.25rem",
                                   fontWeight: 700,
-                                  color: "#ffffff",
+                                  color: "#2E2822",
                                   letterSpacing: "-.01em",
-                                  textShadow: "0 2px 10px rgba(0,0,0,.35)",
+                                  lineHeight: 1.25,
+                                  marginBottom: ".5rem",
                                 }}
                               >
                                 {groupItem.title}
-                              </span>
+                              </h4>
+                              <p
+                                style={{
+                                  fontSize: "1.0625rem",
+                                  lineHeight: 1.6,
+                                  color: "var(--ink-soft)",
+                                  marginBottom: "1rem",
+                                }}
+                              >
+                                {groupItem.description}
+                              </p>
+                              <a
+                                href={groupItem.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: ".5rem",
+                                  fontSize: ".9375rem",
+                                  fontWeight: 600,
+                                  color: "#2E2822",
+                                  textDecoration: "none",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                Visit Website
+                                <span style={{ color: "var(--brand-orange)" }}>→</span>
+                              </a>
                             </div>
-                          </div>
-
-                          {/* Details */}
-                          <div style={{ padding: "1.5rem 1.5rem 1.35rem" }}>
-                            <p style={{ fontSize: ".9375rem", lineHeight: 1.6, color: "var(--ink-soft)", marginBottom: "1.25rem" }}>
-                              {groupItem.description}
-                            </p>
-                            <a
-                              href={groupItem.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                fontSize: ".875rem",
-                                fontWeight: 600,
-                                color: "#2E2822",
-                                textDecoration: "none",
-                              }}
-                            >
-                              Read full case study
-                              <span style={{ color: "var(--brand-orange)" }}>→</span>
-                            </a>
                           </div>
                         </div>
                       ))}
                     </div>
+
+                    {groupItems
+                      .filter((gi) => gi.layout === "featured")
+                      .map((gi) => (
+                        <div key={gi.title} style={{ marginTop: "2rem" }}>
+                          <FeaturedPanel item={gi} />
+                        </div>
+                      ))}
+                    </>
+                  ) : group.name === "Bishnoi Omniverse" ? (
+                    <FeaturedPanel item={item} />
                   ) : (
                   <div
                     className={groupItems.length > 1 ? "grid grid-cols-1 lg:grid-cols-[1fr_240px]" : ""}
