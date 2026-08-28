@@ -3,27 +3,30 @@
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 
-import Loader from "@/components/Loader";
 import Header from "@/components/Header";
 import NavOverlay from "@/components/NavOverlay";
-import Hero from "@/components/Hero";
-import Portfolio from "@/components/Portfolio";
-import OurVision from "@/components/OurVision";
-import BehindBishnoi from "@/components/BehindBishnoi";
-import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Founder from "@/components/Founder";
+import Mukam from "@/components/Mukam";
+import Principles from "@/components/Principles";
+import Services from "@/components/Services";
 
-export default function Home() {
-  const [showLoader, setShowLoader] = useState(false);
-  const [introReady, setIntroReady] = useState(true);
+export default function HeritagePage() {
   const [navOpen, setNavOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [lenisRef, setLenisRef] = useState<Lenis | null>(null);
 
-  // Initialize Lenis smooth scroll
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // A link in from elsewhere (e.g. the home page's "Who We Are" nav item)
+    // may arrive as /heritage#<id> — jump there instead of forcing
+    // scroll-to-top, which would otherwise stomp the browser's native
+    // hash-jump before Lenis ever takes over scrolling.
+    const targetId = window.location.hash ? window.location.hash.slice(1) : null;
+    if (!targetId) window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       smoothWheel: true,
     });
@@ -36,7 +39,15 @@ export default function Home() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // Touch vs no-touch class
+    if (targetId) {
+      const target = document.getElementById(targetId);
+      if (target) {
+        requestAnimationFrame(() => {
+          lenis.scrollTo(target, { offset: 0 });
+        });
+      }
+    }
+
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
       document.documentElement.classList.add("touch");
     } else {
@@ -49,47 +60,48 @@ export default function Home() {
     };
   }, []);
 
-  // Lock scroll when loader, nav or modal is open
   useEffect(() => {
     if (!lenisRef) return;
-    if (showLoader || navOpen || modalOpen) {
+    if (navOpen || modalOpen) {
       lenisRef.stop();
       document.documentElement.classList.add("scroll-lock");
     } else {
       lenisRef.start();
       document.documentElement.classList.remove("scroll-lock");
     }
-  }, [showLoader, navOpen, modalOpen, lenisRef]);
-
-  const handleLoaderComplete = () => {
-    setShowLoader(false);
-    setIntroReady(true);
-  };
+  }, [navOpen, modalOpen, lenisRef]);
 
   const handleScrollTo = (id: string) => {
-    if (!lenisRef) return;
+    // "works", "vision" and "behind-bishnoi" live on the home page, not
+    // here — send those through to it instead of scrolling nowhere.
+    if (id === "works" || id === "vision" || id === "behind-bishnoi") {
+      window.location.href = `/#${id}`;
+      return;
+    }
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const el = document.getElementById(id);
-    if (!el) return;
-    const top = el.getBoundingClientRect().top + window.pageYOffset;
-    lenisRef.scrollTo(top, { offset: 0, duration: 0.8 });
+    if (el && lenisRef) {
+      lenisRef.scrollTo(el, { offset: 0, duration: 0.8 });
+    }
   };
 
   return (
     <>
       <a
-        href="#main"
+        href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-60 focus:rounded-control focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-white"
       >
         Skip to content
       </a>
 
-      {showLoader && <Loader onComplete={handleLoaderComplete} />}
-
       <Header
         onOpenNav={() => setNavOpen(true)}
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
-        introReady={introReady}
+        introReady={true}
       />
 
       <NavOverlay
@@ -101,19 +113,23 @@ export default function Home() {
 
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
-      <main id="main">
+      <main id="main-content">
         <Hero
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
-          introReady={introReady}
+          introReady={true}
+          variant="heritage"
         />
-        <Portfolio introReady={introReady} lenis={lenisRef} />
-        <OurVision />
-        <BehindBishnoi />
-        <Stats introReady={introReady} />
+        <About onScrollTo={handleScrollTo} introReady={true} />
+        <Founder introReady={true} />
+        <Mukam introReady={true} />
+        <Principles introReady={true} />
+        {/* Temporarily hidden — <Bands introReady={true} /> */}
+        <Services introReady={true} lenis={lenisRef} />
+        {/* <VibeGallery introReady={true} /> */}
       </main>
 
-      <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />
+      <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={true} />
     </>
   );
 }

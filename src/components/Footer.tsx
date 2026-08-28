@@ -62,7 +62,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Organization</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li>
-                <a className="animated-link legal" href="#about">
+                <a className="animated-link legal" href="/heritage">
                   <span>Who We Are</span>
                 </a>
               </li>
@@ -72,7 +72,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
                 </a>
               </li>
               <li>
-                <a className="animated-link legal" href="#stats-panel">
+                <a className="animated-link legal" href="/#stats-panel">
                   <span>Vision & Mission</span>
                 </a>
               </li>

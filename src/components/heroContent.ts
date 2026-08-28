@@ -18,7 +18,7 @@ export interface HeroContent {
   backgroundImage?: string;
 }
 
-export type HeroVariant = "default" | "founder" | "intro";
+export type HeroVariant = "default" | "founder" | "intro" | "heritage";
 
 export const HERO_CAROUSEL: HeroCarouselSlide[] = [
   { image: "/hero_pharma.jpg", caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
@@ -29,7 +29,9 @@ export const HERO_CAROUSEL: HeroCarouselSlide[] = [
 
 export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
   default: {
-    headline: "Rooted in five hundred years. Building for what comes next.",
+    headline: "One Identity. Multiple Ventures. One Purpose.",
+    subtitle:
+      "Bishnoi is a global business ecosystem building and operating ventures across healthcare, pharmaceutical access, medical supply, technology and social impact.",
     pills: [
       { label: "Getmeds Phils", href: "https://getmeds.ph" },
       { label: "Getmeds India", href: "https://getmedshealthcare.com" },
@@ -64,5 +66,12 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     subtitle: "Advancing healthcare, infrastructure, technology, and social impact across borders.",
     pills: [],
     backgroundImage: "/hero_orange.png",
+  },
+  heritage: {
+    headline: "Five Hundred Years of Heritage",
+    subtitle:
+      "The story of the Bishnoi community — a 1485 faith, 29 guiding principles, and 363 lives given at Khejarli — and how those principles still shape the businesses built in its name.",
+    pills: [],
+    backgroundImage: "/hero_wildlife.jpg",
   },
 };

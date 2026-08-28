@@ -8,7 +8,7 @@ const onest = Onest({
   weight: ["400", "500", "600", "700"],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bishnoi-omniverse.com";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bishnoi.ai";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),

@@ -12,8 +12,8 @@ interface HeaderProps {
 }
 
 const NAV_ITEMS = [
-  { label: "Who We Are", id: "about", href: "/#about" },
-  { label: "Legacy", id: "services", href: "/#services" },
+  { label: "Who We Are", id: "about", href: "/heritage" },
+  { label: "Legacy", id: "services", href: "/heritage#services" },
   { label: "Vision", id: "vision", href: "/#vision" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];
@@ -124,10 +124,10 @@ function NavItems({ textColor, fontSize, fontWeight = 400, onScrollTo, dropdown,
               transition: "color .35s ease",
             }}
             onClick={(e) => {
-              if (item.id === "works" || item.href === "/businesses") {
-                return; // Direct browser navigation to /businesses
-              }
-              if (typeof window !== "undefined" && window.location.pathname === "/") {
+              // Only same-page hash links get an intercepted smooth scroll;
+              // anything else (a different route, or a cross-page "/path#id"
+              // link) navigates normally.
+              if (item.href.startsWith("/#") && typeof window !== "undefined" && window.location.pathname === "/") {
                 e.preventDefault();
                 onScrollTo(item.id);
               }

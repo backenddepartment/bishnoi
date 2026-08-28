@@ -37,9 +37,9 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   }, [isOpen, onClose]);
 
   const navItems = [
-    { num: "01", label: "Who We Are", href: "/#about" },
+    { num: "01", label: "Who We Are", href: "/heritage" },
     { num: "02", label: "Businesses", href: "/businesses" },
-    { num: "03", label: "Legacy", href: "/#services" },
+    { num: "03", label: "Legacy", href: "/heritage#services" },
     { num: "04", label: "Vision", href: "/#vision" },
     { num: "05", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];

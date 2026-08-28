@@ -13,9 +13,9 @@ interface HeroProps {
 
 const CAROUSEL_INTERVAL_MS = 5000;
 
-export default function Hero({ onScrollTo, introReady, variant = "default" }: HeroProps) {
+export default function Hero({ onScrollTo, onOpenRequestModal, introReady, variant = "default" }: HeroProps) {
   const content = HERO_CONTENT[variant];
-  const isIntro = variant === "intro";
+  const isIntro = variant === "intro" || variant === "heritage";
 
   const [imageIdx, setImageIdx] = useState(0);
 
@@ -191,17 +191,17 @@ export default function Hero({ onScrollTo, introReady, variant = "default" }: He
                 transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
               }}
             >
-              <button className="pill-btn" onClick={() => onScrollTo("about")}>
+              <button className="pill-btn" onClick={() => onScrollTo("works")}>
                 <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)", whiteSpace: "nowrap" }}>
-                  Who we are <span className="pill-badge">→</span>
+                  Explore Our Businesses <span className="pill-badge">→</span>
                 </span>
               </button>
-              <button className="pill-btn" onClick={() => onScrollTo("works")}>
+              <button className="pill-btn" onClick={onOpenRequestModal}>
                 <span
                   className="pill-inner pill-outline pill-with-arrow"
                   style={{ color: "#ffffff", borderColor: "rgba(243,107,33,0.55)", background: "rgba(26,22,19,0.52)", backdropFilter: "blur(8px)", whiteSpace: "nowrap" }}
                 >
-                  Our Businesses <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
+                  Partner With Us <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
                 </span>
               </button>
             </div>
@@ -229,7 +229,7 @@ export default function Hero({ onScrollTo, introReady, variant = "default" }: He
               transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
             }}
           >
-            <span>500 Years of Heritage</span>
+            <span>Built on heritage. Driven by purpose. Expanding globally.</span>
             <span style={{ display: "inline-flex", gap: ".5rem" }}>
               Scroll to explore <span style={{ display: "inline-block" }}>↓</span>
             </span>
