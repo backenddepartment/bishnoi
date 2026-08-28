@@ -36,11 +36,13 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Only dedicated pages belong here — no in-page anchors ("Legacy" at
+  // /heritage#services, "Vision" at /#vision are sections, not their own page).
   const navItems = [
-    { num: "01", label: "Who We Are", href: "/heritage" },
-    { num: "02", label: "Businesses", href: "/businesses" },
-    { num: "03", label: "Legacy", href: "/heritage#services" },
-    { num: "04", label: "Vision", href: "/#vision" },
+    { num: "01", label: "Home", href: "/" },
+    { num: "02", label: "Who We Are", href: "/heritage" },
+    { num: "03", label: "Businesses", href: "/businesses" },
+    { num: "04", label: "What We Do", href: "/what-we-do" },
     { num: "05", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 

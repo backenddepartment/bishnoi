@@ -18,11 +18,19 @@ export interface HeroContent {
   backgroundImage?: string;
 }
 
-export type HeroVariant = "default" | "founder" | "intro" | "heritage";
+export type HeroVariant =
+  | "default"
+  | "founder"
+  | "intro"
+  | "heritage"
+  | "getmeds"
+  | "bishnoi-omniverse"
+  | "foundation"
+  | "what-we-do";
 
 export const HERO_CAROUSEL: HeroCarouselSlide[] = [
   { image: "/hero_pharma.jpg", caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
-  { image: "/hero_hydroponics.JPG", caption: "Bishnoi Group", title: "Sustainable agritech & enterprise." },
+  { image: "/hero_hydroponics.JPG", caption: "Bishnoi Omniverse", title: "Sustainable agritech & enterprise." },
   { image: "/hero_orange.png", caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
   { image: "/hero_wildlife.jpg", caption: "Heritage Foundation", title: "29 Principles & conservation impact." },
 ];
@@ -73,5 +81,33 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
       "The story of the Bishnoi community — a 1485 faith, 29 guiding principles, and 363 lives given at Khejarli — and how those principles still shape the businesses built in its name.",
     pills: [],
     backgroundImage: "/hero_wildlife.jpg",
+  },
+  getmeds: {
+    headline: "Getmeds Healthcare Network",
+    subtitle:
+      "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across five international hubs — spanning the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
+    pills: [],
+    backgroundImage: "/hero_pharma.jpg",
+  },
+  "bishnoi-omniverse": {
+    headline: "Bishnoi Omniverse",
+    subtitle:
+      "Building a healthcare supply powerhouse designed to serve hospitals across the full spectrum of their needs — from essential medical supplies and medicines to specialized products and large-scale hospital requirements.",
+    pills: [],
+    backgroundImage: "/bishnoiimage.jpeg",
+  },
+  foundation: {
+    headline: "Naresh Bishnoi Foundation",
+    subtitle:
+      "Dedicated to wildlife preservation, mass afforestation, and the living stewardship of Guru Jambheshwar's 29 Principles — funding desert eco-restoration projects and community conservation programs that carry a five-hundred-year ecological ethic forward.",
+    pills: [],
+    backgroundImage: "/hero_wildlife.jpg",
+  },
+  "what-we-do": {
+    headline: "What We Do",
+    subtitle:
+      "Healthcare, pharmaceutical distribution, medical supply, and social impact — the capabilities behind every business in the Bishnoi ecosystem.",
+    pills: [],
+    backgroundImage: "/hero_dairy.jpg",
   },
 };

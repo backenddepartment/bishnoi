@@ -13,6 +13,7 @@ import Founder from "@/components/Founder";
 import Mukam from "@/components/Mukam";
 import Principles from "@/components/Principles";
 import Services from "@/components/Services";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function HeritagePage() {
   const [navOpen, setNavOpen] = useState(false);
@@ -120,6 +121,7 @@ export default function HeritagePage() {
           introReady={true}
           variant="heritage"
         />
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Heritage" }]} />
         <About onScrollTo={handleScrollTo} introReady={true} />
         <Founder introReady={true} />
         <Mukam introReady={true} />

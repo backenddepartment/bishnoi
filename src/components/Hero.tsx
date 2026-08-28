@@ -15,7 +15,13 @@ const CAROUSEL_INTERVAL_MS = 5000;
 
 export default function Hero({ onScrollTo, onOpenRequestModal, introReady, variant = "default" }: HeroProps) {
   const content = HERO_CONTENT[variant];
-  const isIntro = variant === "intro" || variant === "heritage";
+  const isIntro =
+    variant === "intro" ||
+    variant === "heritage" ||
+    variant === "getmeds" ||
+    variant === "bishnoi-omniverse" ||
+    variant === "foundation" ||
+    variant === "what-we-do";
 
   const [imageIdx, setImageIdx] = useState(0);
 

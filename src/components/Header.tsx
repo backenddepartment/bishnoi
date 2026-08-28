@@ -11,11 +11,13 @@ interface HeaderProps {
   introReady: boolean;
 }
 
+// Only dedicated pages belong here — no in-page anchors ("Legacy" at
+// /heritage#services, "Vision" at /#vision are sections, not their own page).
 const NAV_ITEMS = [
+  { label: "Home", id: "home", href: "/" },
   { label: "Who We Are", id: "about", href: "/heritage" },
-  { label: "Legacy", id: "services", href: "/heritage#services" },
-  { label: "Vision", id: "vision", href: "/#vision" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
+  { label: "What We Do", id: "what-we-do", href: "/what-we-do" },
 ];
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
@@ -238,6 +240,13 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
         {/* Column 1: Healthcare */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <a
+            href="/businesses/getmeds"
+            className="hover-underline-slide"
+            style={{ ...getLinkStyle(0, -1), fontSize: "1rem", fontWeight: 700, color: "var(--brand-orange)", marginBottom: ".25rem" }}
+          >
+            Getmeds Ecosystem →
+          </a>
+          <a
             href="https://getmeds.ph"
             target="_blank"
             rel="noreferrer"
@@ -296,6 +305,13 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
         {/* Column 2: Omniverse */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <a
+            href="/businesses/bishnoi-omniverse"
+            className="hover-underline-slide"
+            style={{ ...getLinkStyle(1, -1), fontSize: "1rem", fontWeight: 700, color: "var(--brand-orange)", marginBottom: ".25rem" }}
+          >
+            Bishnoi Omniverse →
+          </a>
+          <a
             href="https://bishnoi-omniverse.in"
             target="_blank"
             rel="noreferrer"
@@ -317,6 +333,13 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
 
         {/* Column 3: Foundations & Offices */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <a
+            href="/businesses/foundation"
+            className="hover-underline-slide"
+            style={{ ...getLinkStyle(2, -1), fontSize: "1rem", fontWeight: 700, color: "var(--brand-orange)", marginBottom: ".25rem" }}
+          >
+            Foundation →
+          </a>
           <a
             href="https://nbf.com"
             target="_blank"

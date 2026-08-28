@@ -8,6 +8,7 @@ import NavOverlay from "@/components/NavOverlay";
 import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 interface BusinessItem {
   group: "Getmeds Ecosystem" | "Bishnoi Omniverse" | "Foundations & Digital";
@@ -198,21 +199,24 @@ const BUSINESSES: BusinessItem[] = [
 
 // The showcase below renders one subsection per group, in this order, each
 // with its own featured panel + tabs instead of one flat list of eight.
-const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string; id: string }[] = [
+const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string; id: string; profileHref?: string }[] = [
   {
     name: "Getmeds Ecosystem",
     blurb: "Healthcare and pharmaceutical access spanning Asia, Latin America, and Oceania.",
     id: "getmeds-ecosystem",
+    profileHref: "/businesses/getmeds",
   },
   {
     name: "Bishnoi Omniverse",
     blurb: "The infrastructure powering healthcare supply at scale.",
     id: "bishnoi-omniverse",
+    profileHref: "/businesses/bishnoi-omniverse",
   },
   {
     name: "Foundations & Digital",
     blurb: "Philanthropy, culture, and the digital presence behind the name.",
     id: "foundations-digital",
+    profileHref: "/businesses/foundation",
   },
 ];
 
@@ -517,6 +521,8 @@ export default function BusinessesPage() {
           variant="intro"
         />
 
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Businesses" }]} />
+
         {/* Businesses Showcase — one featured panel + a row of tabs below it,
             instead of all eight businesses stacked full-height one after
             another. Clicking a tab swaps the featured panel's content, so
@@ -557,6 +563,14 @@ export default function BusinessesPage() {
                       {group.name}
                     </h3>
                     <p style={{ fontSize: "1.3125rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
+                    {group.profileHref && (
+                      <a
+                        href={group.profileHref}
+                        style={{ flexShrink: 0, fontSize: ".9375rem", fontWeight: 700, color: "#2E2822", textDecoration: "none" }}
+                      >
+                        Full Profile <span style={{ color: "var(--brand-orange)" }}>→</span>
+                      </a>
+                    )}
                   </div>
 
                   {group.name === "Getmeds Ecosystem" || group.name === "Foundations & Digital" ? (

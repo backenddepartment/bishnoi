@@ -140,6 +140,47 @@ const jsonLd = {
         "@type": "Organization",
         name: "United Nations Global Compact",
       },
+      subOrganization: [
+        { "@id": `${baseUrl}/businesses/getmeds#organization` },
+        { "@id": `${baseUrl}/businesses/bishnoi-omniverse#organization` },
+        { "@id": `${baseUrl}/businesses/foundation#organization` },
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}/businesses/getmeds#organization`,
+      name: "Getmeds",
+      url: `${baseUrl}/businesses/getmeds`,
+      parentOrganization: { "@id": `${baseUrl}/#organization` },
+      description:
+        "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
+      sameAs: [
+        "https://getmeds.ph",
+        "https://getmedshealthcare.com",
+        "https://getmedsvanuatu.com",
+        "https://getmedslatam.com",
+        "https://2mginc.com/",
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}/businesses/bishnoi-omniverse#organization`,
+      name: "Bishnoi Omniverse",
+      url: `${baseUrl}/businesses/bishnoi-omniverse`,
+      parentOrganization: { "@id": `${baseUrl}/#organization` },
+      description:
+        "A healthcare supply powerhouse serving hospitals across India and the Philippines with medical supplies, equipment, and infrastructure.",
+      sameAs: ["https://bishnoi-omniverse.in", "https://bishnoi-omniverse.ph"],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}/businesses/foundation#organization`,
+      name: "Naresh Bishnoi Foundation",
+      url: `${baseUrl}/businesses/foundation`,
+      parentOrganization: { "@id": `${baseUrl}/#organization` },
+      description:
+        "A lifelong commitment to education, empowerment, cultural growth, and environmental stewardship, including wildlife preservation and desert eco-restoration.",
+      sameAs: ["https://nbf.com"],
     },
     {
       "@type": "WebSite",
