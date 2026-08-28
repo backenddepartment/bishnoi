@@ -14,9 +14,11 @@ export interface HeroContent {
   subtitle?: string;
   bio?: string[];
   pills: HeroPill[];
+  /** Fixed single background image — overrides the rotating carousel. */
+  backgroundImage?: string;
 }
 
-export type HeroVariant = "default" | "founder";
+export type HeroVariant = "default" | "founder" | "intro";
 
 export const HERO_CAROUSEL: HeroCarouselSlide[] = [
   { image: "/hero_pharma.jpg", caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
@@ -56,5 +58,11 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
       { label: "European Society for Medical Oncology Member" },
       { label: "UN Global Compact Member" },
     ],
+  },
+  intro: {
+    headline: "Global Enterprises & Initiatives",
+    subtitle: "Advancing healthcare, infrastructure, technology, and social impact across borders.",
+    pills: [],
+    backgroundImage: "/hero_orange.png",
   },
 };

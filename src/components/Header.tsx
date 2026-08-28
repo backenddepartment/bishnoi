@@ -12,7 +12,6 @@ interface HeaderProps {
 }
 
 const NAV_ITEMS = [
-  { label: "Home", id: "home", href: "/" },
   { label: "Who We Are", id: "about", href: "/#about" },
   { label: "Legacy", id: "services", href: "/#services" },
   { label: "Vision", id: "vision", href: "/#vision" },

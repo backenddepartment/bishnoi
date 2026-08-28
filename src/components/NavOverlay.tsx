@@ -37,12 +37,11 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   }, [isOpen, onClose]);
 
   const navItems = [
-    { num: "01", label: "Home", href: "/" },
-    { num: "02", label: "Who We Are", href: "/#about" },
-    { num: "03", label: "Businesses", href: "/businesses" },
-    { num: "04", label: "Legacy", href: "/#services" },
-    { num: "05", label: "Vision", href: "/#vision" },
-    { num: "06", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
+    { num: "01", label: "Who We Are", href: "/#about" },
+    { num: "02", label: "Businesses", href: "/businesses" },
+    { num: "03", label: "Legacy", href: "/#services" },
+    { num: "04", label: "Vision", href: "/#vision" },
+    { num: "05", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 
   return (

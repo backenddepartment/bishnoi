@@ -216,15 +216,6 @@ const BUSINESS_GROUPS: { name: BusinessItem["group"]; blurb: string; id: string 
   },
 ];
 
-const BADGES = [
-  "Founder of Getmeds & 2MG Inc",
-  "Oncology Medicine Supply Specialist",
-  "Rare Medicines",
-  "Medicine Donations & Global Healthcare",
-  "European Society for Medical Oncology Member",
-  "UN Global Compact Member",
-];
-
 // Left image / right details, side by side — image is plain (no overlaid
 // badges/gradient), details column leads with a dot + eyebrow label above
 // the title. Used for Bishnoi Omniverse (its only item) and for any other
@@ -523,117 +514,8 @@ export default function BusinessesPage() {
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={true}
+          variant="intro"
         />
-
-        {/* Founder Spotlight Hero */}
-        <section
-          id="founder-spotlight"
-          style={{
-            position: "relative",
-            paddingTop: "6rem",
-            paddingBottom: "4.5rem",
-            background: "#ffffff",
-            color: "#2E2822",
-          }}
-        >
-          <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: ".5rem", marginBottom: "1rem" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  backgroundColor: "var(--brand-orange)",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: ".875rem",
-                  fontWeight: 600,
-                  letterSpacing: ".08em",
-                  textTransform: "uppercase",
-                  color: "var(--brand-orange)",
-                }}
-              >
-                Businesses & Impact
-              </span>
-            </div>
-
-            <h1
-              style={{
-                fontSize: "clamp(2.5rem, 5vw, 4.25rem)",
-                fontWeight: 700,
-                letterSpacing: "-.02em",
-                lineHeight: 1.1,
-                marginBottom: ".5rem",
-                color: "#2E2822",
-              }}
-            >
-              Naresh Kumar Bishnoi
-            </h1>
-            <p
-              style={{
-                fontSize: "clamp(1.25rem, 2.5vw, 1.875rem)",
-                fontWeight: 400,
-                color: "rgba(46,40,34,0.75)",
-                marginBottom: "2rem",
-              }}
-            >
-              From Vision to the World.
-            </p>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "2.5rem",
-                alignItems: "start",
-              }}
-            >
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(46,40,34,0.85)" }}>
-                <p style={{ marginBottom: "1.25rem" }}>
-                  From a small village in Haryana, India, to building businesses serving healthcare markets and
-                  communities around the world, Naresh Bishnoi’s journey has been shaped by challenges, lessons,
-                  failures, and remarkable opportunities.
-                </p>
-                <p>
-                  Driven by a commitment to making healthcare more accessible, Naresh has built his work around
-                  strengthening the movement of medicines across borders, overcoming geographical barriers, and creating
-                  pathways for patients and healthcare institutions to access what they need.
-                </p>
-              </div>
-
-              <div style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "rgba(46,40,34,0.85)" }}>
-                <p style={{ marginBottom: "1.75rem" }}>
-                  What began with a vision in healthcare has grown into an expanding ecosystem spanning pharmaceutical
-                  distribution, healthcare supply, technology, and social initiatives—building businesses with the
-                  ambition to create lasting impact across markets and generations.
-                </p>
-
-                {/* Badges / Memberships */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: ".625rem" }}>
-                  {BADGES.map((badge) => (
-                    <span
-                      key={badge}
-                      style={{
-                        padding: ".4rem .85rem",
-                        borderRadius: "9999px",
-                        background: "var(--brand-orange)",
-                        border: "1px solid var(--brand-orange)",
-                        fontSize: ".8125rem",
-                        fontWeight: 500,
-                        color: "#ffffff",
-                      }}
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Businesses Showcase — one featured panel + a row of tabs below it,
             instead of all eight businesses stacked full-height one after
@@ -641,29 +523,6 @@ export default function BusinessesPage() {
             reaching any business takes one click rather than a long scroll. */}
         <section id="businesses-showcase" style={{ padding: "5rem 0 6rem 0", background: "#ffffff" }}>
           <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
-              <h2
-                style={{
-                  fontSize: "clamp(2rem, 3.5vw, 3rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-.02em",
-                  color: "#2E2822",
-                }}
-              >
-                Global Enterprises & Initiatives
-              </h2>
-              <p
-                style={{
-                  fontSize: "1.125rem",
-                  color: "var(--ink-soft)",
-                  marginTop: ".5rem",
-                  maxWidth: "36ch",
-                  marginInline: "auto",
-                }}
-              >
-                Advancing healthcare, infrastructure, technology, and social impact across borders.
-              </p>
-            </div>
 
             {BUSINESS_GROUPS.map((group, groupIndex) => {
               const groupItems = BUSINESSES.filter((b) => b.group === group.name);
