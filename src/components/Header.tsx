@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { label: "Who We Are", id: "about", href: "/heritage" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
   { label: "What We Do", id: "what-we-do", href: "/what-we-do" },
+  { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
 ];
 
 const EASE = "cubic-bezier(.22,1,.36,1)";
@@ -274,7 +275,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Getmeds Vanuatu
           </a>
           <a
-            href="https://getmedslatom.com"
+            href="https://getmedslatam.com"
             target="_blank"
             rel="noreferrer"
             className="hover-underline-slide"

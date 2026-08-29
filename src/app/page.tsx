@@ -13,6 +13,7 @@ import BehindBishnoi from "@/components/BehindBishnoi";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
+import EcosystemStructure from "@/components/EcosystemStructure";
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(false);
@@ -109,6 +110,7 @@ export default function Home() {
         />
         <Portfolio introReady={introReady} lenis={lenisRef} />
         <OurVision />
+        <EcosystemStructure />
         <BehindBishnoi />
         <Stats introReady={introReady} />
       </main>

@@ -155,7 +155,7 @@ export default function BehindBishnoi() {
               </p>
               <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "var(--ink-soft)" }}>
                 What began with a vision in healthcare has grown into an expanding ecosystem spanning pharmaceutical
-                distribution, healthcare supply, technology, and social initiatives — building businesses with the
+                distribution, healthcare supply, and social initiatives — building businesses with the
                 ambition to create lasting impact across markets and generations.
               </p>
 

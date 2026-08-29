@@ -30,7 +30,7 @@ export type HeroVariant =
 
 export const HERO_CAROUSEL: HeroCarouselSlide[] = [
   { image: "/hero_pharma.jpg", caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
-  { image: "/hero_hydroponics.JPG", caption: "Bishnoi Omniverse", title: "Sustainable agritech & enterprise." },
+  { image: "/bishnoiimage.jpeg", caption: "Bishnoi Omniverse", title: "Medical supply & hospital infrastructure." },
   { image: "/hero_orange.png", caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
   { image: "/hero_wildlife.jpg", caption: "Heritage Foundation", title: "29 Principles & conservation impact." },
 ];
@@ -39,12 +39,12 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
   default: {
     headline: "One Identity. Multiple Ventures. One Purpose.",
     subtitle:
-      "Bishnoi is a global business ecosystem building and operating ventures across healthcare, pharmaceutical access, medical supply, technology and social impact.",
+      "Bishnoi is a global business ecosystem building and operating ventures across healthcare, pharmaceutical access, medical supply, and social impact.",
     pills: [
       { label: "Getmeds Phils", href: "https://getmeds.ph" },
       { label: "Getmeds India", href: "https://getmedshealthcare.com" },
       { label: "Getmeds Vanuatu", href: "https://getmedsvanuatu.com" },
-      { label: "Getmeds Latam", href: "https://getmedslatom.com" },
+      { label: "Getmeds Latam", href: "https://getmedslatam.com" },
       { label: "Getmeds SEA", href: "https://getmedssea.com" },
       { label: "2MG Incorporated", href: "https://2mginc.com/" },
       { label: "Bishnoi India", href: "https://bishnoi-omniverse.in" },
@@ -71,7 +71,7 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
   },
   intro: {
     headline: "Global Enterprises & Initiatives",
-    subtitle: "Advancing healthcare, infrastructure, technology, and social impact across borders.",
+    subtitle: "Advancing healthcare, medical supply, and social impact across borders.",
     pills: [],
     backgroundImage: "/hero_orange.png",
   },
@@ -108,6 +108,6 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     subtitle:
       "Healthcare, pharmaceutical distribution, medical supply, and social impact — the capabilities behind every business in the Bishnoi ecosystem.",
     pills: [],
-    backgroundImage: "/hero_dairy.jpg",
+    backgroundImage: "/hero_pharma.jpg",
   },
 };

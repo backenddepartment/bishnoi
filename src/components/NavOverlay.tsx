@@ -43,7 +43,8 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     { num: "02", label: "Who We Are", href: "/heritage" },
     { num: "03", label: "Businesses", href: "/businesses" },
     { num: "04", label: "What We Do", href: "/what-we-do" },
-    { num: "05", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
+    { num: "05", label: "Leadership", href: "/leadership/naresh-bishnoi" },
+    { num: "06", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 
   return (

@@ -54,7 +54,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
               <img src="/logowhite.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
             </span>
             <p style={{ maxWidth: "20rem", fontSize: ".9375rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
-              A diversified group spanning pharmaceuticals, hydroponics, dairy and social impact — guided by a conservation philosophy older than most nations.
+              A diversified ecosystem spanning healthcare, pharmaceutical access, medical supply, and social impact — guided by a conservation philosophy older than most nations.
             </p>
           </div>
 
@@ -72,8 +72,13 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
                 </a>
               </li>
               <li>
-                <a className="animated-link legal" href="/#stats-panel">
-                  <span>Vision & Mission</span>
+                <a className="animated-link legal" href="/what-we-do">
+                  <span>What We Do</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/leadership/naresh-bishnoi">
+                  <span>Leadership</span>
                 </a>
               </li>
               <li>

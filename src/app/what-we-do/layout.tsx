@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/hero_dairy.jpg",
+        url: "/hero_pharma.jpg",
         width: 1200,
         height: 630,
         alt: "What Bishnoi Does",

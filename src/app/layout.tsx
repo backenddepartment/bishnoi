@@ -127,7 +127,7 @@ const jsonLd = {
         "@id": `${baseUrl}/#person`,
       },
       description:
-        "A global conglomerate and healthcare supply powerhouse advancing pharmaceutical distribution, agritech, and philanthropic initiatives across India, Philippines, Vanuatu, and Latin America.",
+        "A global business ecosystem and healthcare supply powerhouse advancing pharmaceutical distribution, medical supply, and philanthropic initiatives across India, Philippines, Vanuatu, and Latin America.",
     },
     // Getmeds, Bishnoi Omniverse, and the Foundation are each described here
     // as their own Organization — matching what their own profile pages say —
