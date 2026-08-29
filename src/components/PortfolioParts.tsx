@@ -14,7 +14,7 @@ export function SectionHeading({ light, compact }: { light?: boolean; compact?: 
           className={`eyebrow ${light ? "eyebrow-light" : "eyebrow-dark"}`}
           style={{ color: light ? "rgba(247,243,232,.85)" : "#241F1A", fontWeight: 600, fontSize: compact ? ".9375rem" : "1.25rem" }}
         >
-          <span className="dot" style={light ? { background: "var(--brand-forest)" } : undefined}></span> Centralized Conglomerate Holdings
+          <span className="dot" style={light ? { background: "var(--brand-forest)" } : undefined}></span> Global Business Ecosystem
         </div>
         <h2
           style={{

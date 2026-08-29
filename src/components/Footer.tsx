@@ -51,10 +51,10 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           <div>
             <span style={{ display: "flex", alignItems: "center" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logowhite.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
+              <img src="/logowhite.png" alt="Bishnoi" style={{ height: "3.5rem", width: "auto" }} />
             </span>
-            <p style={{ maxWidth: "20rem", fontSize: ".9375rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
-              A diversified ecosystem spanning healthcare, pharmaceutical access, medical supply, and social impact — guided by a conservation philosophy older than most nations.
+            <p style={{ fontSize: "1.0625rem", fontWeight: 600, color: "var(--brand-orange)", marginTop: ".75rem", lineHeight: 1.4 }}>
+              One Identity. Multiple Ventures. One Purpose.
             </p>
           </div>
 
