@@ -15,10 +15,11 @@ interface HeaderProps {
 // /heritage#services, "Vision" at /#vision are sections, not their own page).
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
-  { label: "Who We Are", id: "about", href: "/heritage" },
+  { label: "About", id: "about", href: "/about" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
   { label: "What We Do", id: "what-we-do", href: "/what-we-do" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
+  { label: "Heritage", id: "heritage", href: "/heritage" },
 ];
 
 const EASE = "cubic-bezier(.22,1,.36,1)";

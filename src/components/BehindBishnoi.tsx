@@ -177,6 +177,14 @@ export default function BehindBishnoi() {
                   </span>
                 ))}
               </div>
+
+              <div style={{ marginTop: "1rem" }}>
+                <a href="/leadership/naresh-bishnoi" className="pill-btn">
+                  <span className="pill-inner pill-accent pill-with-arrow">
+                    Full Leadership Profile <span className="pill-badge up-right">↗</span>
+                  </span>
+                </a>
+              </div>
             </div>
             </div>
           </div>

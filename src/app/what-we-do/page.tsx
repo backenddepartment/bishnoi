@@ -19,27 +19,27 @@ interface Capability {
 const CAPABILITIES: Capability[] = [
   {
     eyebrow: "Healthcare & Pharmaceutical Access",
-    title: "Pharmaceutical Distribution",
+    title: "Pharmaceutical Distribution & Patient Logistics",
     description:
-      "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across five international hubs — spanning the Philippines, India, Vanuatu, Latin America, and Southeast Asia. Includes oncology medicine supply, rare medicines, and compassionate medicine access.",
+      "Cross-border movement of essential medications, specialty oncology therapies, rare medicines sourcing, and compassionate medicine access across international healthcare markets.",
     href: "/businesses/getmeds",
-    linkLabel: "Explore Getmeds →",
+    linkLabel: "Explore how Getmeds delivers this capability →",
   },
   {
     eyebrow: "Hospital Infrastructure",
     title: "Hospital Supply & Medical Devices",
     description:
-      "A healthcare supply powerhouse designed to serve hospitals across the full spectrum of their needs — from essential medical supplies and medicines to specialized products, equipment, and large-scale hospital requirements.",
+      "Integrated procurement, medical consumables supply, hospital furniture, specialized equipment, and healthcare infrastructure solutions supporting institutional care.",
     href: "/businesses/bishnoi-omniverse",
-    linkLabel: "Explore Bishnoi Omniverse →",
+    linkLabel: "Explore how Bishnoi Omniverse delivers this capability →",
   },
   {
     eyebrow: "Philanthropy & Environmental Ethics",
     title: "Social Impact & Conservation",
     description:
-      "Wildlife preservation, mass afforestation, and the living stewardship of Guru Jambheshwar's 29 Principles — funding desert eco-restoration projects and community conservation programs that carry a five-hundred-year ecological ethic forward.",
+      "Wildlife preservation, desert eco-restoration, afforestation initiatives, community welfare, and long-horizon environmental stewardship.",
     href: "/businesses/foundation",
-    linkLabel: "Explore the Foundation →",
+    linkLabel: "Explore how the Foundation delivers this capability →",
   },
 ];
 

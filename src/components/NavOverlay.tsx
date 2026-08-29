@@ -40,11 +40,12 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   // /heritage#services, "Vision" at /#vision are sections, not their own page).
   const navItems = [
     { num: "01", label: "Home", href: "/" },
-    { num: "02", label: "Who We Are", href: "/heritage" },
+    { num: "02", label: "About", href: "/about" },
     { num: "03", label: "Businesses", href: "/businesses" },
     { num: "04", label: "What We Do", href: "/what-we-do" },
     { num: "05", label: "Leadership", href: "/leadership/naresh-bishnoi" },
-    { num: "06", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
+    { num: "06", label: "Heritage", href: "/heritage" },
+    { num: "07", label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 
   return (

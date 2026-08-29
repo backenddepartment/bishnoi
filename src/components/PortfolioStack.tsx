@@ -197,6 +197,16 @@ export default function PortfolioStack({ businesses, activeFloat, activeIndex, c
                         <span aria-hidden="true" style={{ flexShrink: 0 }}>✳</span>
                         <span>{biz.description}</span>
                       </p>
+
+                      {biz.href && (
+                        <div style={{ marginTop: compact ? ".75rem" : "1.25rem" }}>
+                          <a href={biz.href} className="pill-btn">
+                            <span className="pill-inner pill-accent pill-with-arrow" style={{ fontSize: compact ? ".8125rem" : ".9375rem" }}>
+                              {biz.linkLabel || "Explore Profile →"}
+                            </span>
+                          </a>
+                        </div>
+                      )}
                     </div>
 
                     {/* Layered, low-opacity circles scattered in the
