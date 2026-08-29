@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Getmeds Healthcare Network | Naresh Kumar Bishnoi",
+  title: "Getmeds Healthcare Network | Bishnoi",
   description:
     "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
   keywords: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Rare Medicines",
   ],
   openGraph: {
-    title: "Getmeds Healthcare Network | Naresh Kumar Bishnoi",
+    title: "Getmeds Healthcare Network | Bishnoi",
     description:
       "Pharmaceutical distribution, digital health services, and patient-first logistics across the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
     url: "/businesses/getmeds",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bishnoi Omniverse | Naresh Kumar Bishnoi",
+  title: "Bishnoi Omniverse | Bishnoi",
   description:
     "Bishnoi Omniverse is building a healthcare supply powerhouse serving hospitals across India and the Philippines — medical supplies, equipment, systems, and large-scale hospital requirements.",
   keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Hospital Equipment Philippines",
   ],
   openGraph: {
-    title: "Bishnoi Omniverse | Naresh Kumar Bishnoi",
+    title: "Bishnoi Omniverse | Bishnoi",
     description:
       "Building a healthcare supply powerhouse serving hospitals across India and the Philippines.",
     url: "/businesses/bishnoi-omniverse",

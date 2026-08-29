@@ -110,7 +110,7 @@ export default function BehindBishnoi() {
                   color: "#2E2822",
                 }}
               >
-                Naresh Bishnoi
+                Naresh Kumar Bishnoi
               </h2>
               <p
                 style={{
@@ -136,7 +136,7 @@ export default function BehindBishnoi() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/businesses/nkb.jpg"
-                  alt="Naresh Bishnoi"
+                  alt="Naresh Kumar Bishnoi"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 />
               </div>

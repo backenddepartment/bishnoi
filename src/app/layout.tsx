@@ -13,8 +13,8 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bishnoi.ai";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Naresh Kumar Bishnoi | Bishnoi Ecosystem & Global Healthcare",
-    template: "%s | Naresh Kumar Bishnoi",
+    default: "Bishnoi | Global Business Ecosystem & Healthcare",
+    template: "%s | Bishnoi",
   },
   description:
     "Naresh Kumar Bishnoi — Founder of Getmeds & 2MG Inc, Oncology Medicine Supply Specialist, and leader behind Getmeds Ecosystem, Bishnoi Omniverse, Naresh Bishnoi Foundation, and global healthcare initiatives.",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Naresh Kumar Bishnoi | Bishnoi Ecosystem & Global Healthcare",
+    title: "Bishnoi | Global Business Ecosystem & Healthcare",
     description:
       "From a small village in Haryana, India, to building businesses serving healthcare markets and communities around the world.",
     url: baseUrl,
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Naresh Kumar Bishnoi | Bishnoi Ecosystem & Global Healthcare",
+    title: "Bishnoi | Global Business Ecosystem & Healthcare",
     description:
       "Advancing healthcare across borders through Getmeds Ecosystem, Bishnoi Omniverse, and global initiatives.",
     images: ["/hero_pharma.jpg"],
@@ -176,7 +176,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${baseUrl}/#website`,
       url: baseUrl,
-      name: "Naresh Kumar Bishnoi | Bishnoi Omniverse",
+      name: "Bishnoi",
       publisher: {
         "@id": `${baseUrl}/#organization`,
       },
