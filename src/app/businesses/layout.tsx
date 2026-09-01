@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Businesses & Global Ecosystem | Naresh Kumar Bishnoi",
+  title: "Businesses & Global Ecosystem",
   description:
     "Explore the global enterprises, healthcare supply infrastructure, and social initiatives founded by Naresh Kumar Bishnoi: Getmeds Ecosystem, Bishnoi Omniverse, Naresh Bishnoi Foundation, and UN Global Compact commitment.",
   keywords: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "UN Global Compact",
   ],
   openGraph: {
-    title: "Businesses & Global Ecosystem | Naresh Kumar Bishnoi",
+    title: "Businesses & Global Ecosystem",
     description:
       "Explore Getmeds Ecosystem, Bishnoi Omniverse, Naresh Bishnoi Foundation, and UN Global Compact commitment.",
     url: "/businesses",

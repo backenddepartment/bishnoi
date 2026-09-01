@@ -38,6 +38,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://bishnoi.ai
 
       - name: Ensure .nojekyll file
         run: touch out/.nojekyll

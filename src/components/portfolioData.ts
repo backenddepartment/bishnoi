@@ -13,6 +13,8 @@ export interface Division {
   category: string;
   title: string;
   description: string;
+  href: string;
+  linkLabel: string;
   entities: Entity[];
 }
 
@@ -22,25 +24,29 @@ export const businesses: Division[] = [
     category: "Division 01 • Healthcare & E-Pharmacy Ecosystem",
     title: "Getmeds Healthcare Network",
     image: "/hero_pharma.jpg",
-    description: "A centralized global healthcare platform delivering pharmaceutical distribution, digital health services, and patient-first logistics across five international hubs — spanning the Philippines, India, Vanuatu, Latin America, and Southeast Asia.",
+    description: "Global pharmaceutical distribution, e-pharmacy access, and specialty oncology medicine supply across five international hubs.",
+    href: "/businesses/getmeds",
+    linkLabel: "Explore Getmeds Profile →",
     entities: [
       { name: "Getmeds Philippines", domain: "getmeds.ph", url: "https://getmeds.ph" },
       { name: "Getmeds India", domain: "getmedshealthcare.com", url: "https://getmedshealthcare.com" },
       { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com", url: "https://getmedsvanuatu.com" },
-      { name: "Getmeds Latam", domain: "getmedslatom.com", url: "https://getmedslatam.com" },
+      { name: "Getmeds Latam", domain: "getmedslatam.com", url: "https://getmedslatam.com" },
       { name: "Getmeds SEA", domain: "getmedssea.com", url: "https://getmedssea.com" },
       { name: "2MG Incorporated", domain: "2mginc.com", url: "https://2mginc.com/" },
     ],
   },
   {
     numeral: "02",
-    category: "Division 02 • Global Enterprise & Industrial Hubs",
-    title: "Bishnoi Corporate Hubs",
-    image: "/hero_hydroponics.jpg",
-    description: "Regional centers of gravity for agritech, sustainable manufacturing, and cross-border industrial trade — anchoring the group's Asia-Pacific commercial footprint from India and the Philippines with long-horizon infrastructure investment.",
+    category: "Division 02 • Medical Supply & Healthcare Infrastructure",
+    title: "Bishnoi Omniverse",
+    image: "/bishnoiimage.jpeg",
+    description: "Hospital supply chain, medical consumables, equipment, and healthcare infrastructure solutions anchoring presence in India and the Philippines.",
+    href: "/businesses/bishnoi-omniverse",
+    linkLabel: "Explore Omniverse Profile →",
     entities: [
-      { name: "Bishnoi India", domain: "bishnoi-omniverse.in", url: "https://bishnoi-omniverse.in" },
-      { name: "Bishnoi Philippines", domain: "bishnoi-omniverse.ph", url: "https://bishnoi-omniverse.ph" },
+      { name: "Bishnoi Omniverse India", domain: "bishnoi-omniverse.in", url: "https://bishnoi-omniverse.in" },
+      { name: "Bishnoi Omniverse Philippines", domain: "bishnoi-omniverse.ph", url: "https://bishnoi-omniverse.ph" },
     ],
   },
   {
@@ -48,15 +54,19 @@ export const businesses: Division[] = [
     category: "Division 03 • Philanthropy & Environmental Ethics",
     title: "Naresh Bishnoi Foundation",
     image: "/hero_wildlife.jpg",
-    description: "Dedicated to wildlife preservation, mass afforestation, and the living stewardship of Guru Jambheshwar's 29 Principles — funding desert eco-restoration projects and community conservation programs that carry a five-hundred-year ecological ethic forward.",
+    description: "Desert eco-restoration, mass afforestation, wildlife protection, and United Nations Global Compact environmental commitments.",
+    href: "/businesses/foundation",
+    linkLabel: "Explore Foundation Profile →",
     entities: [{ name: "Naresh Bishnoi Foundation", domain: "nbf.com", url: "https://nbf.com" }],
   },
   {
     numeral: "04",
     category: "Division 04 • Strategic Holdings & Family Office",
     title: "Naresh Kumar Bishnoi Office",
-    image: "/hero_dairy.jpg",
-    description: "The group's central intelligence — managing strategic investment portfolios, non-banking financial services, and global venture holdings that bind each division under one disciplined, long-term capital framework aligned with the family's founding values.",
+    image: "/hero_orange.png",
+    description: "Group central intelligence, managing strategic capital frameworks and global venture holdings aligned with founding values.",
+    href: "/leadership/naresh-bishnoi",
+    linkLabel: "Full Leadership Profile ↗",
     entities: [{ name: "Naresh Kumar Bishnoi", domain: "nkb.com", url: "https://nkb.com" }],
   },
 ];

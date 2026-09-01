@@ -29,8 +29,8 @@ export default function VibeGallery({}: VibeGalleryProps) {
     { src: "/legacy/lineage.jpg", alt: "A Legacy Still Being Written", title: "Modern Stewardship" },
     { src: "/legacy/traditions.jpg", alt: "Festivals & Living Traditions", title: "Living Traditions" },
     { src: "/hero_wildlife.jpg", alt: "Thar Desert Wildlife Sanctuary", title: "Wildlife Sanctuary" },
-    { src: "/hero_hydroponics.jpg", alt: "Sustainable Eco-Agriculture", title: "Sustainable Agriculture" },
-    { src: "/hero_dairy.jpg", alt: "Organic Farming & Cattle Welfare", title: "Organic Farming" },
+    { src: "/hero_pharma.jpg", alt: "Global Pharmaceutical Access", title: "Pharmaceutical Access" },
+    { src: "/bishnoiimage.jpeg", alt: "Medical Supply & Hospital Infrastructure", title: "Medical Infrastructure" },
     { src: "/hero_pharma.jpg", alt: "Natural Pharma & Healthcare", title: "Healthcare & Wellness" },
   ];
 

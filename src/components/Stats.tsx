@@ -123,7 +123,7 @@ export default function Stats({ introReady }: StatsProps) {
                 <span style={{ fontSize: "1.25rem", marginLeft: ".5rem", color: "#F36B21" }}>Mission</span>
               </div>
               <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
-                To build durable businesses in medicine, agriculture and dairy that operate with the same restraint and long-term care the Bishnoi community has shown the land for centuries.
+                To build durable businesses in healthcare, pharmaceutical access, medical supply, and social initiatives that operate with the same restraint and long-term care the Bishnoi community has shown the land for centuries.
               </div>
             </li>
 

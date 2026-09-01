@@ -36,12 +36,16 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Mirrors the navbar's own item set — only dedicated pages belong here,
+  // no in-page anchors ("Legacy" at /heritage#services, "Vision" at
+  // /#vision are sections within a page, not their own page).
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Who We Are", href: "/#about" },
+    { label: "About", href: "/about" },
     { label: "Businesses", href: "/businesses" },
-    { label: "Legacy", href: "/#services" },
-    { label: "Vision", href: "/#vision" },
+    { label: "What We Do", href: "/what-we-do" },
+    { label: "Leadership", href: "/leadership/naresh-bishnoi" },
+    { label: "Heritage", href: "/heritage" },
     { label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 

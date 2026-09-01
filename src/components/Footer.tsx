@@ -51,37 +51,39 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           <div>
             <span style={{ display: "flex", alignItems: "center" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logowhite.png" alt="Bishnoi Omniverse" style={{ height: "3.5rem", width: "auto" }} />
+              <img src="/logowhite.png" alt="Bishnoi" style={{ height: "3.5rem", width: "auto" }} />
             </span>
-            <p style={{ maxWidth: "20rem", fontSize: ".9375rem", color: "rgba(247,243,232,.55)", marginTop: ".5rem", lineHeight: 1.5 }}>
-              A diversified group spanning pharmaceuticals, hydroponics, dairy and social impact — guided by a conservation philosophy older than most nations.
+            <p style={{ fontSize: "1.0625rem", fontWeight: 600, color: "var(--brand-orange)", marginTop: ".75rem", lineHeight: 1.4 }}>
+              One Identity. Multiple Ventures. One Purpose.
             </p>
           </div>
 
           <div>
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Organization</div>
-            {/* Mirrors the navbar's own link set (label + href), starting
-                from "Who We Are" — Home isn't repeated here since the logo
-                above already links there. */}
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li>
-                <a className="animated-link legal" href="/#about">
-                  <span>Who We Are</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="/#services">
-                  <span>Legacy</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="/#vision">
-                  <span>Vision</span>
+                <a className="animated-link legal" href="/about">
+                  <span>About Us</span>
                 </a>
               </li>
               <li>
                 <a className="animated-link legal" href="/businesses">
                   <span>Businesses</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/what-we-do">
+                  <span>What We Do</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/leadership/naresh-bishnoi">
+                  <span>Leadership</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/heritage">
+                  <span>Heritage</span>
                 </a>
               </li>
               <li>

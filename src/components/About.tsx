@@ -96,12 +96,12 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
 
             {/* Hero CTAs */}
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem", paddingTop: ".5rem" }}>
-              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("principles") : (window.location.href = "/#principles")}>
+              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("principles") : (window.location.href = "/heritage#principles")}>
                 <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "none", color: "#ffffff" }}>
                   Explore the 29 Principles <span className="pill-badge">→</span>
                 </span>
               </button>
-              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("services") : (window.location.href = "/#services")}>
+              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("services") : (window.location.href = "/heritage#services")}>
                 <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
                   The Story of Khejarli <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
                 </span>

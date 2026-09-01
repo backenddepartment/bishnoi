@@ -183,6 +183,15 @@ export default function Portfolio({ lenis }: PortfolioProps) {
                     </div>
                     <h3 style={{ fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-.01em", marginTop: "1rem", color: "#35302A" }}>{biz.title}</h3>
                     <p style={{ marginTop: ".5rem", fontSize: ".875rem", color: "rgba(74,68,60,.75)", lineHeight: 1.5 }}>{biz.description}</p>
+                    {biz.href && (
+                      <div style={{ marginTop: "1rem" }}>
+                        <a href={biz.href} className="pill-btn">
+                          <span className="pill-inner pill-accent pill-with-arrow" style={{ fontSize: ".8125rem" }}>
+                            {biz.linkLabel || "Explore Profile →"}
+                          </span>
+                        </a>
+                      </div>
+                    )}
                   </div>
                   <EntityChips entities={biz.entities} />
                 </article>
