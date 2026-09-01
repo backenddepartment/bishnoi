@@ -67,7 +67,7 @@ export default function Hero({ onScrollTo, introReady, variant = "default", hide
         position: "relative",
         isolation: "isolate",
         overflow: "hidden",
-        minHeight: isIntro ? "60vh" : "100vh",
+        minHeight: isIntro ? "60vh" : "115vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

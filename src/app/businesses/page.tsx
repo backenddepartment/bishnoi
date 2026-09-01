@@ -502,7 +502,6 @@ export default function BusinessesPage() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={true}
-        lightNav
       />
 
       <NavOverlay

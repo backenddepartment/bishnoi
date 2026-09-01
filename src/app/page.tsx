@@ -109,30 +109,30 @@ export default function Home() {
         <Portfolio introReady={introReady} lenis={lenisRef} />
 
         {/* Corporate Ethos & Governance Gateway */}
-        <section style={{ background: "#1C1815", color: "#F7F3E8", padding: "5rem 0", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <section style={{ background: "#ffffff", color: "var(--ink)", padding: "5rem 0", borderTop: "1px solid #E6DECB" }}>
           <div className="shell">
             <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "2.5rem", alignItems: "center" }}>
               <div className="lg:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                <div className="eyebrow eyebrow-light" style={{ fontSize: "1.125rem", color: "var(--brand-orange)" }}>
+                <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem", color: "var(--brand-orange)" }}>
                   <span className="dot dot-blink"></span> Corporate Ethos &amp; Governance
                 </div>
-                <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-.02em", color: "#ffffff" }}>
+                <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-.02em", color: "#2E2822" }}>
                   Rooted in principles that endure. Guided by long-horizon stewardship.
                 </h2>
-                <p style={{ fontSize: "1.125rem", lineHeight: 1.65, color: "rgba(247,243,232,0.8)", margin: 0 }}>
+                <p style={{ fontSize: "1.125rem", lineHeight: 1.65, color: "var(--ink-soft)", margin: 0 }}>
                   Explore how the Bishnoi ecosystem combines ethical enterprise, multi-venture operations, and centuries of conservation philosophy into one connected corporate identity.
                 </p>
               </div>
 
               <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1rem", justifyContent: "center" }}>
                 <a href="/about" className="pill-btn" style={{ width: "100%" }}>
-                  <span className="pill-inner pill-accent pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem" }}>
+                  <span className="pill-inner pill-accent pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem", color: "#ffffff" }}>
                     Explore About &amp; Operating Ethos <span className="pill-badge up-right">→</span>
                   </span>
                 </a>
 
                 <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ width: "100%" }}>
-                  <span className="pill-inner pill-dark pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", color: "#ffffff" }}>
+                  <span className="pill-inner pill-outline pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem" }}>
                     Leadership Profile (Naresh Bishnoi) <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>

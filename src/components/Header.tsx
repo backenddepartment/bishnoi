@@ -10,10 +10,9 @@ interface HeaderProps {
   onScrollTo: (id: string) => void;
   introReady: boolean;
   // Forces the hero header into its "solid" look (colored logo, dark ink
-  // nav text, no drop shadow, nav left-aligned next to the logo) at all
-  // times instead of only once the Businesses dropdown opens. Used on the
-  // Businesses page, whose hero background isn't the moody photo the
-  // white-text-with-shadow treatment was designed for.
+  // nav text, no drop shadow) at all times instead of only once the
+  // Businesses dropdown opens. Nav stays centered either way — this only
+  // affects color/logo, not layout.
   lightNav?: boolean;
 }
 
@@ -412,7 +411,9 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
           alignItems: "center",
           justifyContent: "space-between",
           gap: "1.5rem",
-          padding: "2rem 3.25rem",
+          paddingTop: "1.25rem",
+          paddingInline: "3.25rem",
+          paddingBottom: "2rem",
           opacity: introReady ? 1 : 0,
           transform: introReady ? "translateY(0)" : "translateY(-14px)",
           // White bg + orange links only kick in once the Businesses dropdown
@@ -455,7 +456,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
           />
         </a>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: lightNav ? "flex-start" : "center", gap: "1.5rem", flex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flex: 1 }}>
           <nav className="hidden lg:flex">
             <NavItems
               textColor={lightNav ? "#000000" : heroDropdown.open ? "var(--brand-orange)" : "#ffffff"}

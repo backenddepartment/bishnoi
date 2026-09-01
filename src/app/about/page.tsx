@@ -41,7 +41,7 @@ export default function AboutPage() {
 
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
-      <main id="main-content" style={{ background: "#FBF8F1", minHeight: "100vh", color: "var(--ink)" }}>
+      <main id="main-content" style={{ background: "#ffffff", minHeight: "100vh", color: "var(--ink)" }}>
         <Hero
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
@@ -73,7 +73,7 @@ export default function AboutPage() {
                 </p>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", paddingTop: "0.5rem" }}>
                   <a href="/businesses" className="pill-btn">
-                    <span className="pill-inner pill-accent pill-with-arrow">
+                    <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
                       Explore Our Businesses <span className="pill-badge up-right">↗</span>
                     </span>
                   </a>
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "2rem" }}>
               <div
                 style={{
-                  background: "#FBF8F1",
+                  background: "#ffffff",
                   borderRadius: "1.5rem",
                   padding: "2.5rem",
                   border: "1px solid rgba(74,68,60,0.1)",
@@ -121,7 +121,7 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ alignSelf: "flex-start" }}>
-                  <span className="pill-inner pill-accent pill-with-arrow">
+                  <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
                     Leadership Profile <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
               <div
                 style={{
-                  background: "#FBF8F1",
+                  background: "#ffffff",
                   borderRadius: "1.5rem",
                   padding: "2.5rem",
                   border: "1px solid rgba(74,68,60,0.1)",

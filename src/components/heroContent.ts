@@ -55,7 +55,7 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     // Pins a single static image (no carousel) for the Home/Businesses
     // hero, per request — same mechanism the new intro-style variants below
     // use to fix their own background.
-    backgroundImage: "/finalhero.png",
+    backgroundImage: "/finalnatalaga.png",
     pills: [
       { label: "Getmeds Phils", href: "https://getmeds.ph" },
       { label: "Getmeds India", href: "https://getmedshealthcare.com" },

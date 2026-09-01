@@ -6,7 +6,7 @@ export default function EcosystemStructure() {
   return (
     <section
       style={{
-        background: "linear-gradient(180deg, #FBF8F1 0%, #F5EFE0 100%)",
+        background: "#ffffff",
         padding: "5rem 1.25rem",
         borderTop: "1px solid rgba(74, 68, 60, 0.08)",
         borderBottom: "1px solid rgba(74, 68, 60, 0.08)",
@@ -47,7 +47,6 @@ export default function EcosystemStructure() {
             background: "#FFFFFF",
             borderRadius: "1.75rem",
             padding: "3rem 2rem",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.04)",
             border: "1px solid rgba(74, 68, 60, 0.1)",
           }}
         >
@@ -60,11 +59,10 @@ export default function EcosystemStructure() {
                 padding: "1rem 2.5rem",
                 borderRadius: "9999px",
                 textAlign: "center",
-                boxShadow: "0 8px 24px rgba(46, 40, 34, 0.2)",
               }}
             >
               <div style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "0.05em" }}>BISHNOI</div>
-              <div style={{ fontSize: "0.75rem", textTransform: "uppercase", opacity: 0.8, letterSpacing: "0.08em" }}>
+              <div style={{ fontSize: "0.75rem", opacity: 0.8, letterSpacing: "0.08em" }}>
                 Global Business Ecosystem
               </div>
             </div>
@@ -85,7 +83,7 @@ export default function EcosystemStructure() {
             {/* Branch 1: Operational Businesses */}
             <div
               style={{
-                background: "#FBF8F1",
+                background: "#FFFFFF",
                 borderRadius: "1.25rem",
                 padding: "1.75rem 1.5rem",
                 border: "1px solid rgba(74, 68, 60, 0.08)",
@@ -107,48 +105,36 @@ export default function EcosystemStructure() {
               >
                 Operational Pillar
               </div>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#2E2822", marginBottom: "1rem" }}>
+              <h3 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#2E2822", marginBottom: "1rem" }}>
                 Businesses
               </h3>
               <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                <a
-                  href="/businesses/getmeds"
-                  className="hover-lift"
-                  style={{
-                    background: "#FFFFFF",
-                    padding: "0.875rem 1rem",
-                    borderRadius: "0.75rem",
-                    border: "1px solid rgba(74,68,60,0.12)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    display: "block",
-                    textDecoration: "none",
-                  }}
-                >
-                  Getmeds Ecosystem
-                  <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, color: "var(--ink-soft)" }}>
-                    Healthcare & Pharma Access
+                <a href="/businesses/getmeds" className="pill-btn" style={{ width: "100%" }}>
+                  <span
+                    className="pill-inner pill-accent pill-with-arrow"
+                    style={{ width: "100%", justifyContent: "space-between", padding: "0.875rem 0.875rem 0.875rem 1.25rem", color: "#ffffff" }}
+                  >
+                    <span style={{ textAlign: "left" }}>
+                      <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Getmeds Ecosystem</span>
+                      <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, opacity: 0.85, marginTop: "0.125rem" }}>
+                        Healthcare & Pharma Access
+                      </span>
+                    </span>
+                    <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>
-                <a
-                  href="/businesses/bishnoi-omniverse"
-                  className="hover-lift"
-                  style={{
-                    background: "#FFFFFF",
-                    padding: "0.875rem 1rem",
-                    borderRadius: "0.75rem",
-                    border: "1px solid rgba(74,68,60,0.12)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    display: "block",
-                    textDecoration: "none",
-                  }}
-                >
-                  Bishnoi Omniverse
-                  <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, color: "var(--ink-soft)" }}>
-                    Hospital Supply & Devices
+                <a href="/businesses/bishnoi-omniverse" className="pill-btn" style={{ width: "100%" }}>
+                  <span
+                    className="pill-inner pill-accent pill-with-arrow"
+                    style={{ width: "100%", justifyContent: "space-between", padding: "0.875rem 0.875rem 0.875rem 1.25rem", color: "#ffffff" }}
+                  >
+                    <span style={{ textAlign: "left" }}>
+                      <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Bishnoi Omniverse</span>
+                      <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, opacity: 0.85, marginTop: "0.125rem" }}>
+                        Hospital Supply & Devices
+                      </span>
+                    </span>
+                    <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>
               </div>
@@ -157,7 +143,7 @@ export default function EcosystemStructure() {
             {/* Branch 2: Strategic Leadership */}
             <div
               style={{
-                background: "#FBF8F1",
+                background: "#FFFFFF",
                 borderRadius: "1.25rem",
                 padding: "1.75rem 1.5rem",
                 border: "1px solid rgba(74, 68, 60, 0.08)",
@@ -179,28 +165,22 @@ export default function EcosystemStructure() {
               >
                 Strategic Pillar
               </div>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#2E2822", marginBottom: "1rem" }}>
+              <h3 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#2E2822", marginBottom: "1rem" }}>
                 Strategic Organization
               </h3>
               <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                <a
-                  href="/leadership/naresh-bishnoi"
-                  className="hover-lift"
-                  style={{
-                    background: "#FFFFFF",
-                    padding: "0.875rem 1rem",
-                    borderRadius: "0.75rem",
-                    border: "1px solid rgba(74,68,60,0.12)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    display: "block",
-                    textDecoration: "none",
-                  }}
-                >
-                  Naresh Bishnoi Office
-                  <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, color: "var(--ink-soft)" }}>
-                    Vision & Strategic Capital
+                <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ width: "100%" }}>
+                  <span
+                    className="pill-inner pill-accent pill-with-arrow"
+                    style={{ width: "100%", justifyContent: "space-between", padding: "0.875rem 0.875rem 0.875rem 1.25rem", color: "#ffffff" }}
+                  >
+                    <span style={{ textAlign: "left" }}>
+                      <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Naresh Bishnoi Office</span>
+                      <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, opacity: 0.85, marginTop: "0.125rem" }}>
+                        Vision & Strategic Capital
+                      </span>
+                    </span>
+                    <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>
               </div>
@@ -209,7 +189,7 @@ export default function EcosystemStructure() {
             {/* Branch 3: Social Impact */}
             <div
               style={{
-                background: "#FBF8F1",
+                background: "#FFFFFF",
                 borderRadius: "1.25rem",
                 padding: "1.75rem 1.5rem",
                 border: "1px solid rgba(74, 68, 60, 0.08)",
@@ -231,28 +211,22 @@ export default function EcosystemStructure() {
               >
                 Impact Pillar
               </div>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#2E2822", marginBottom: "1rem" }}>
+              <h3 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#2E2822", marginBottom: "1rem" }}>
                 Social Impact
               </h3>
               <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                <a
-                  href="/businesses/foundation"
-                  className="hover-lift"
-                  style={{
-                    background: "#FFFFFF",
-                    padding: "0.875rem 1rem",
-                    borderRadius: "0.75rem",
-                    border: "1px solid rgba(74,68,60,0.12)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--ink)",
-                    display: "block",
-                    textDecoration: "none",
-                  }}
-                >
-                  Naresh Bishnoi Foundation
-                  <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, color: "var(--ink-soft)" }}>
-                    Conservation & Community Impact
+                <a href="/businesses/foundation" className="pill-btn" style={{ width: "100%" }}>
+                  <span
+                    className="pill-inner pill-accent pill-with-arrow"
+                    style={{ width: "100%", justifyContent: "space-between", padding: "0.875rem 0.875rem 0.875rem 1.25rem", color: "#ffffff" }}
+                  >
+                    <span style={{ textAlign: "left" }}>
+                      <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Naresh Bishnoi Foundation</span>
+                      <span style={{ display: "block", fontSize: "0.75rem", fontWeight: 400, opacity: 0.85, marginTop: "0.125rem" }}>
+                        Conservation & Community Impact
+                      </span>
+                    </span>
+                    <span className="pill-badge up-right">↗</span>
                   </span>
                 </a>
               </div>
