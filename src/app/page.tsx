@@ -96,6 +96,7 @@ export default function Home() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={introReady}
+        lightNav
       />
 
       <NavOverlay
@@ -112,6 +113,7 @@ export default function Home() {
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={introReady}
+          hideOverlay
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Founder introReady={introReady} />

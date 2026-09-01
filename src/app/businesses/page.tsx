@@ -189,7 +189,7 @@ const BUSINESSES: BusinessItem[] = [
     description:
       "Member of the United Nations Global Compact, committed to responsible business and advancing sustainable development. The commitment reflects a broader vision of building businesses that create lasting value while supporting principles of responsible business, sustainability, and positive social impact.",
     linkText: "Learn More →",
-    url: "https://unglobalcompact.org",
+    url: "https://www.getmeds.ph/ungc",
     image: "/businesses/ungc.jpg",
     logoInitial: "UN",
     layout: "featured",
@@ -234,7 +234,7 @@ function FeaturedPanel({ item }: { item: BusinessItem }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 eco-card" style={{ gap: "3rem", alignItems: "center" }}>
       <div
-        className="hover-scale-1012"
+        className="hover-scale-1012 eco-card-image"
         style={{
           position: "relative",
           aspectRatio: "16 / 9",
@@ -507,6 +507,7 @@ export default function BusinessesPage() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={true}
+        lightNav
       />
 
       <NavOverlay
@@ -523,6 +524,7 @@ export default function BusinessesPage() {
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={true}
+          hideOverlay
         />
 
         {/* Founder Spotlight Hero */}
@@ -716,6 +718,7 @@ export default function BusinessesPage() {
                               reveal live on the photo; everything else sits
                               plain below it, no card/box around the text. */}
                           <div
+                            className="eco-card-image"
                             style={{
                               position: "relative",
                               aspectRatio: "16 / 9",
@@ -839,10 +842,15 @@ export default function BusinessesPage() {
                             )}
                           </div>
 
-                          {/* Details — plain, no card/box around them. Large
-                              logo anchors the left; title, description, and
-                              link are compressed into the column on the right. */}
-                          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", padding: "1.25rem 0 0" }}>
+                          {/* Details — plain, no card/box around them. Logo
+                              sits above the text on mobile (row squeezes the
+                              description into an unreadably narrow column
+                              otherwise); from sm: up it's back to logo-left,
+                              text-right like desktop. */}
+                          <div
+                            className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5"
+                            style={{ padding: "1.25rem 0 0" }}
+                          >
                             {groupItem.logo ? (
                               /* Sized by height, not a fixed square box — wordmark
                                  logos (wide) and icon marks (square) end up the
@@ -875,7 +883,7 @@ export default function BusinessesPage() {
                                 {groupItem.logoInitial}
                               </span>
                             ) : null}
-                            <div style={{ flex: 1, minWidth: 0 }}>
+                            <div className="w-full" style={{ flex: 1, minWidth: 0 }}>
                               <h4
                                 style={{
                                   fontSize: "1.25rem",
@@ -1116,8 +1124,12 @@ export default function BusinessesPage() {
           </div>
         </section>
 
-        {/* Legacy Banner */}
+        {/* Legacy Banner — on mobile this loses its dark card treatment
+            entirely (transparent, sits right under the showcase above) and
+            switches its text to the page's normal dark ink so it still
+            reads against the light page background; desktop is untouched. */}
         <section
+          className="legacy-banner"
           style={{
             padding: "5rem 0",
             background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)",
@@ -1127,6 +1139,7 @@ export default function BusinessesPage() {
         >
           <div className="shell" style={{ maxWidth: "800px", margin: "0 auto" }}>
             <h2
+              className="legacy-banner-heading"
               style={{
                 fontSize: "clamp(2rem, 4vw, 3.25rem)",
                 fontWeight: 700,
@@ -1138,6 +1151,7 @@ export default function BusinessesPage() {
               A Legacy Still in the Making.
             </h2>
             <p
+              className="legacy-banner-text"
               style={{
                 fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
                 color: "rgba(247,243,232,0.75)",

@@ -9,6 +9,12 @@ interface HeaderProps {
   onOpenRequestModal: () => void;
   onScrollTo: (id: string) => void;
   introReady: boolean;
+  // Forces the hero header into its "solid" look (colored logo, dark ink
+  // nav text, no drop shadow, nav left-aligned next to the logo) at all
+  // times instead of only once the Businesses dropdown opens. Used on the
+  // Businesses page, whose hero background isn't the moody photo the
+  // white-text-with-shadow treatment was designed for.
+  lightNav?: boolean;
 }
 
 const NAV_ITEMS = [
@@ -342,7 +348,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
   );
 }
 
-export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, introReady }: HeaderProps) {
+export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, introReady, lightNav }: HeaderProps) {
   // A second, fixed navbar that slides in with the colored logo once the
   // hero (with its own white/absolute header) has scrolled out of view —
   // and stays pinned regardless of scroll direction, so the two never
@@ -388,10 +394,11 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
           // White bg + orange links only kick in once the Businesses dropdown
           // is open (hover or click on that one nav item) — not on hovering
           // the navbar generally — so the bar visually matches the white
-          // mega-menu it's about to open beneath it.
+          // mega-menu it's about to open beneath it. lightNav forces this
+          // same look on at all times (see HeaderProps).
           background: heroDropdown.open ? "#ffffff" : "transparent",
-          color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
-          textShadow: heroDropdown.open ? "none" : "0 2px 6px rgba(0,0,0,.8)",
+          color: lightNav ? "#000000" : heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+          textShadow: lightNav || heroDropdown.open ? "none" : "0 2px 6px rgba(0,0,0,.8)",
           transition:
             "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease",
         }}
@@ -415,20 +422,21 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             style={{
               height: "3.5rem",
               width: "auto",
-              filter: heroDropdown.open
-                ? "none"
-                : "brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.8))",
+              filter:
+                lightNav || heroDropdown.open
+                  ? "none"
+                  : "brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.8))",
               transition: "filter .35s ease",
             }}
           />
         </a>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flex: 1 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: lightNav ? "flex-start" : "center", gap: "1.5rem", flex: 1 }}>
           <nav className="hidden lg:flex">
             <NavItems
-              textColor={heroDropdown.open ? "var(--brand-orange)" : "#ffffff"}
+              textColor={lightNav ? "#000000" : heroDropdown.open ? "var(--brand-orange)" : "#ffffff"}
               fontSize="1rem"
-              fontWeight={heroDropdown.open ? 600 : 400}
+              fontWeight={lightNav || heroDropdown.open ? 600 : 400}
               onScrollTo={onScrollTo}
               dropdown={heroDropdown}
               trailing={
@@ -436,8 +444,8 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
                   <button
                     className="hover-lift"
                     style={{
-                      color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
-                      fontWeight: heroDropdown.open ? 600 : 400,
+                      color: lightNav ? "#000000" : heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+                      fontWeight: lightNav || heroDropdown.open ? 600 : 400,
                       transition: "color .35s ease",
                     }}
                     onClick={onOpenRequestModal}

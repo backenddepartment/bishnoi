@@ -60,8 +60,11 @@ export default function Founder({}: FounderProps) {
                 color: "#2E2822",
               }}
             >
-              <span style={{ display: "block", whiteSpace: "nowrap" }}>The Man Who Answered a</span>
-              <span style={{ display: "block", whiteSpace: "nowrap" }}>Drought With 29 Rules</span>
+              {/* Nowrap only from lg: up — the exact two-line break is a
+                  desktop design choice; on mobile each line just wraps
+                  normally so it can't overflow a narrow viewport. */}
+              <span className="block lg:whitespace-nowrap">The Man Who Answered a</span>
+              <span className="block lg:whitespace-nowrap">Drought With 29 Rules</span>
             </h2>
           </div>
 
@@ -70,6 +73,7 @@ export default function Founder({}: FounderProps) {
             style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", paddingLeft: "2rem" }}
           >
             <p
+              className="founder-quote"
               style={{
                 fontSize: "1.25rem",
                 fontStyle: "italic",
@@ -91,7 +95,7 @@ export default function Founder({}: FounderProps) {
         {/* Biography inside green container */}
         <div
           ref={cardRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 founder-green-box"
           style={{
             position: "relative",
             overflow: "hidden",

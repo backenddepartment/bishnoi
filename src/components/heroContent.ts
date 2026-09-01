@@ -21,8 +21,19 @@ export type HeroVariant = "default" | "founder";
 export const HERO_CAROUSEL: HeroCarouselSlide[] = [
   { image: "/hero_pharma.jpg", caption: "Getmeds Ecosystem", title: "Global healthcare & pharmaceuticals." },
   { image: "/hero_hydroponics.JPG", caption: "Bishnoi Group", title: "Sustainable agritech & enterprise." },
-  { image: "/hero_orange.png", caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
+  { image: "/bishnoicompany.png", caption: "Strategic Holdings", title: "NBF financial & NKB capital." },
   { image: "/hero_wildlife.jpg", caption: "Heritage Foundation", title: "29 Principles & conservation impact." },
+];
+
+// Businesses page's own hero carousel — deliberately separate from
+// HERO_CAROUSEL above so it never picks up hero_hydroponics (removed from
+// this page on request) and stays scoped to business-specific imagery.
+export const BUSINESS_HERO_CAROUSEL: HeroCarouselSlide[] = [
+  { image: "/getmedsecosystem.png", caption: "Getmeds Ecosystem", title: "Healthcare & pharmaceutical access." },
+  { image: "/bishnoicompany.png", caption: "Bishnoi Omniverse", title: "Infrastructure powering healthcare supply." },
+  { image: "/bishnoiimage.jpeg", caption: "Bishnoi Omniverse", title: "Building the healthcare supply powerhouse." },
+  { image: "/2mgincorp.jpg", caption: "2MG Incorporated", title: "The holding company behind Getmeds." },
+  { image: "/getmedsph.jpeg", caption: "Getmeds Philippines", title: "Expanding access to essential medicines." },
 ];
 
 export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {

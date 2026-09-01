@@ -184,6 +184,56 @@ img {
   }
 }
 
+/* Mobile only — bleeds a card's cover photo past the shell's side padding
+   so it runs edge-to-edge on a phone screen. Untouched at sm: (640px) and
+   up, where the card grid itself switches to two columns and the photo
+   should stay inset like the rest of the card. */
+@media (max-width: 639px) {
+  .eco-card-image {
+    margin-inline: -1.5rem;
+    width: calc(100% + 3rem);
+    /* Flush with the screen edge now, so rounded corners (set inline,
+       hence !important to win) would just look like a cut-off curve at
+       the very edge of the device instead of a deliberate card shape. */
+    border-radius: 0 !important;
+  }
+}
+
+/* Mobile only — the Legacy Banner drops its dark card treatment and sits
+   flush against the section above it instead of floating as a separate
+   block; text switches to the page's normal dark ink so it still reads
+   against the (now visible) light page background. Desktop untouched. */
+@media (max-width: 639px) {
+  .legacy-banner {
+    /* Explicit white, not transparent — transparent just reveals the page's
+       ivory <main> background (#FBF8F1) behind it, not true white. */
+    background: #ffffff !important;
+    padding-top: 1rem !important;
+  }
+  .legacy-banner-heading {
+    color: #2e2822 !important;
+  }
+  .legacy-banner-text {
+    color: var(--ink-soft) !important;
+  }
+}
+
+/* Mobile only — the Founder section's green biography box bleeds past the
+   shell's side padding to run edge-to-edge, and its corners go square since
+   it's now flush with the screen edge (same treatment as .eco-card-image on
+   the Businesses page). The pull-quote next to the headline also reads a
+   little bigger. Desktop untouched. */
+@media (max-width: 639px) {
+  .founder-green-box {
+    margin-inline: -1.5rem !important;
+    width: calc(100% + 3rem) !important;
+    border-radius: 0 !important;
+  }
+  .founder-quote {
+    font-size: 1.375rem !important;
+  }
+}
+
 .pill-btn {
   display: inline-block;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -591,6 +641,19 @@ img {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
+}
+/* Shrink the hover overlay's contents on narrow (mobile) cards — same 640px
+   cutoff the card grid itself switches at. The logo box and per-item size
+   overrides are set inline from BusinessItem data, so !important is needed
+   here to win over those; desktop (>=640px) is completely untouched. */
+@media (max-width: 639px) {
+  /* The orange hover reveal only makes sense with a real mouse — on phones
+     a tap can leave it "stuck" showing (many mobile browsers treat a tap as
+     triggering :hover). Killing it outright below 640px is more reliable
+     than relying on the .no-touch/touch-detection JS class alone. */
+  .eco-card-hover-overlay {
+    display: none !important;
+  }
 }
 .no-touch .hover-translate-8 {
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);

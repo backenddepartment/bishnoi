@@ -97,7 +97,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
             {/* Hero CTAs */}
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem", paddingTop: ".5rem" }}>
               <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("principles") : (window.location.href = "/#principles")}>
-                <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "0 8px 24px rgba(243,107,33,0.35)" }}>
+                <span className="pill-inner pill-accent pill-with-arrow" style={{ boxShadow: "none", color: "#ffffff" }}>
                   Explore the 29 Principles <span className="pill-badge">→</span>
                 </span>
               </button>

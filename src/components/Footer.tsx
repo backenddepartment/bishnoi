@@ -60,20 +60,28 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
 
           <div>
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Organization</div>
+            {/* Mirrors the navbar's own link set (label + href), starting
+                from "Who We Are" — Home isn't repeated here since the logo
+                above already links there. */}
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li>
-                <a className="animated-link legal" href="#about">
+                <a className="animated-link legal" href="/#about">
                   <span>Who We Are</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/#services">
+                  <span>Legacy</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/#vision">
+                  <span>Vision</span>
                 </a>
               </li>
               <li>
                 <a className="animated-link legal" href="/businesses">
                   <span>Businesses</span>
-                </a>
-              </li>
-              <li>
-                <a className="animated-link legal" href="#stats-panel">
-                  <span>Vision & Mission</span>
                 </a>
               </li>
               <li>
@@ -92,6 +100,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
               <li><a className="animated-link legal" href="https://getmedsvanuatu.com" target="_blank" rel="noreferrer"><span>Getmeds Vanuatu</span></a></li>
               <li><a className="animated-link legal" href="https://getmedslatam.com" target="_blank" rel="noreferrer"><span>Getmeds Latam</span></a></li>
               <li><a className="animated-link legal" href="https://getmedssea.com" target="_blank" rel="noreferrer"><span>Getmeds SEA</span></a></li>
+              <li><a className="animated-link legal" href="https://2mginc.com/" target="_blank" rel="noreferrer"><span>2MG Incorporated</span></a></li>
             </ul>
           </div>
 
