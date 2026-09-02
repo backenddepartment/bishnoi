@@ -502,6 +502,7 @@ export default function BusinessesPage() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={true}
+        lightNav
       />
 
       <NavOverlay
@@ -521,6 +522,7 @@ export default function BusinessesPage() {
           onScrollTo={handleScrollTo}
           introReady={true}
           hideOverlay
+          statusLabel="Scroll to Explore"
           hideScrollCue
         />
 
@@ -549,36 +551,41 @@ export default function BusinessesPage() {
                   id={group.id}
                   style={{ marginBottom: groupIndex < BUSINESS_GROUPS.length - 1 ? "5rem" : 0, scrollMarginTop: "6rem" }}
                 >
-                  {/* Group heading */}
+                  {/* Group heading — title stacked over its "Full Profile"
+                      link on the left, blurb held to the right. Aligned to
+                      flex-start (not baseline) now that the left side is a
+                      two-line column rather than a lone heading. */}
                   <div
                     style={{
                       display: "flex",
                       flexWrap: "wrap",
-                      alignItems: "baseline",
+                      alignItems: "flex-start",
                       justifyContent: "space-between",
                       gap: "1rem",
                       marginBottom: "2rem",
                     }}
                   >
-                    <h3
-                      style={{
-                        fontSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
-                        fontWeight: 700,
-                        letterSpacing: "-.01em",
-                        color: "#2E2822",
-                      }}
-                    >
-                      {group.name}
-                    </h3>
-                    <p style={{ fontSize: "1.3125rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
-                    {group.profileHref && (
-                      <a
-                        href={group.profileHref}
-                        style={{ flexShrink: 0, fontSize: ".9375rem", fontWeight: 700, color: "#2E2822", textDecoration: "none" }}
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: ".5rem" }}>
+                      <h3
+                        style={{
+                          fontSize: "clamp(1.75rem, 2.8vw, 2.25rem)",
+                          fontWeight: 700,
+                          letterSpacing: "-.01em",
+                          color: "#2E2822",
+                        }}
                       >
-                        Full Profile <span style={{ color: "var(--brand-orange)" }}>→</span>
-                      </a>
-                    )}
+                        {group.name}
+                      </h3>
+                      {group.profileHref && (
+                        <a
+                          href={group.profileHref}
+                          style={{ fontSize: ".9375rem", fontWeight: 700, color: "#2E2822", textDecoration: "none" }}
+                        >
+                          Full Profile <span style={{ color: "var(--brand-orange)" }}>→</span>
+                        </a>
+                      )}
+                    </div>
+                    <p style={{ fontSize: "1.3125rem", color: "var(--ink-soft)", maxWidth: "40ch" }}>{group.blurb}</p>
                   </div>
 
                   {group.name === "Getmeds Ecosystem" || group.name === "Foundations & Digital" ? (
