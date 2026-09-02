@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 import Hero from "@/components/Hero";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Capabilities from "@/components/Capabilities";
 
 interface BusinessItem {
   group: "Getmeds Ecosystem" | "Bishnoi Omniverse" | "Foundations & Digital";
@@ -536,6 +537,51 @@ export default function BusinessesPage() {
         <div style={{ background: "#ffffff", paddingBottom: "1.5rem" }}>
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Businesses" }]} />
         </div>
+
+        {/* Corporate Identity — mirrors the opening section on the About
+            page. Its heading is an h2 here (h1 on About), since the hero
+            above already owns this page's h1. */}
+        <section style={{ padding: "4rem 0 5rem", background: "#ffffff" }}>
+          <div className="shell" style={{ maxWidth: "1280px", margin: "0 auto" }}>
+            <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "3rem" }}>
+              <div className="lg:col-span-5">
+                <div className="eyebrow eyebrow-dark" style={{ marginBottom: "1rem" }}>
+                  <span className="dot dot-blink"></span> Corporate Identity
+                </div>
+                <h2 style={{ fontSize: "clamp(2.25rem, 4vw, 3.25rem)", fontWeight: 700, color: "#2E2822", letterSpacing: "-.02em", lineHeight: 1.15 }}>
+                  One Identity.<br />Multiple Ventures.<br />One Purpose.
+                </h2>
+              </div>
+
+              <div className="lg:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "1.5rem", justifyContent: "center" }}>
+                <p style={{ fontSize: "1.1875rem", lineHeight: 1.65, color: "var(--ink-soft)" }}>
+                  Bishnoi is a global business ecosystem building and operating entities across healthcare, pharmaceutical access, medical supply, and social impact.
+                </p>
+                <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--ink-soft)" }}>
+                  Rather than functioning as a traditional single-product company, Bishnoi operates as a connected umbrella. Every business under this identity maintains operational focus while sharing a common commitment to long-term stewardship, ethical enterprise, and positive human impact.
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", paddingTop: "0.5rem" }}>
+                  {/* On About this points at /businesses; here that would be a
+                      self-link, so it jumps to the showcase further down. */}
+                  <a href="#businesses-showcase" className="pill-btn">
+                    <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
+                      Explore Our Businesses <span className="pill-badge">↓</span>
+                    </span>
+                  </a>
+                  <a href="/#about" className="pill-btn">
+                    <span className="pill-inner pill-outline pill-no-arrow" style={{ borderColor: "rgba(74,68,60,.25)", background: "rgba(74,68,60,.04)", color: "var(--ink)" }}>
+                      Discover Our Heritage →
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Capabilities — same component the What We Do page renders, with an
+            eyebrow here since this page's hero doesn't name the section. */}
+        <Capabilities title="What We Do" centered />
 
         {/* Businesses Showcase — one featured panel + a row of tabs below it,
             instead of all eight businesses stacked full-height one after

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 
+import { HEADER_OFFSET_PX } from "@/hooks/useLenisPage";
+
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
 import NavOverlay from "@/components/NavOverlay";
@@ -12,6 +14,9 @@ import Founder from "@/components/Founder";
 import Mukam from "@/components/Mukam";
 import Principles from "@/components/Principles";
 import Services from "@/components/Services";
+import OurVision from "@/components/OurVision";
+import Stats from "@/components/Stats";
+import EthosGateway from "@/components/EthosGateway";
 import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 
@@ -72,7 +77,7 @@ export default function Home() {
     const el = document.getElementById(id);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.pageYOffset;
-    lenisRef.scrollTo(top, { offset: 0, duration: 0.8 });
+    lenisRef.scrollTo(top, { offset: -HEADER_OFFSET_PX, duration: 0.8 });
   };
 
   return (
@@ -117,6 +122,9 @@ export default function Home() {
         <Mukam introReady={introReady} />
         <Principles introReady={introReady} />
         <Services introReady={introReady} lenis={lenisRef} />
+        <OurVision />
+        <Stats introReady={introReady} />
+        <EthosGateway primaryLabel="What We Do - View Capabilities" primaryHref="/businesses#what-we-do" />
       </main>
 
       <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />

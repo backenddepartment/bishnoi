@@ -82,7 +82,9 @@ export default function LeadershipPage() {
 
                   <hr style={{ border: 0, borderTop: "1px solid rgba(74,68,60,0.1)", margin: "1.5rem 0" }} />
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem", fontSize: "0.875rem" }}>
+                  {/* One size on the wrapper — the labels and values both
+                      inherit it, so the whole detail list scales together. */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem", fontSize: "1.0625rem", lineHeight: 1.5 }}>
                     <div>
                       <span style={{ color: "var(--ink-soft)", display: "block" }}>Key Role</span>
                       <strong style={{ color: "var(--ink)" }}>Founder, Getmeds & 2MG Inc</strong>
@@ -171,27 +173,27 @@ export default function LeadershipPage() {
                     Associated Organizations & Initiatives
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1rem" }}>
-                    <div style={{ padding: "1rem", background: "#FBF8F1", borderRadius: "0.75rem" }}>
-                      <strong style={{ display: "block", color: "#2E2822" }}>Getmeds Ecosystem</strong>
-                      <span style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}>
+                    <div style={{ padding: "1rem", background: "var(--brand-orange)", borderRadius: "0.75rem" }}>
+                      <strong style={{ display: "block", fontWeight: 600, color: "#ffffff" }}>Getmeds Ecosystem</strong>
+                      <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "#ffffff" }}>
                         Pharmaceutical distribution & e-pharmacy platforms (PH, IN, VU, LATAM, SEA)
                       </span>
                     </div>
-                    <div style={{ padding: "1rem", background: "#FBF8F1", borderRadius: "0.75rem" }}>
-                      <strong style={{ display: "block", color: "#2E2822" }}>Bishnoi Omniverse</strong>
-                      <span style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}>
+                    <div style={{ padding: "1rem", background: "var(--brand-orange)", borderRadius: "0.75rem" }}>
+                      <strong style={{ display: "block", fontWeight: 600, color: "#ffffff" }}>Bishnoi Omniverse</strong>
+                      <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "#ffffff" }}>
                         Hospital supply & medical device infrastructure (IN, PH)
                       </span>
                     </div>
-                    <div style={{ padding: "1rem", background: "#FBF8F1", borderRadius: "0.75rem" }}>
-                      <strong style={{ display: "block", color: "#2E2822" }}>Naresh Bishnoi Foundation</strong>
-                      <span style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}>
+                    <div style={{ padding: "1rem", background: "var(--brand-orange)", borderRadius: "0.75rem" }}>
+                      <strong style={{ display: "block", fontWeight: 600, color: "#ffffff" }}>Naresh Bishnoi Foundation</strong>
+                      <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "#ffffff" }}>
                         Conservation, tree planting, & community welfare initiatives
                       </span>
                     </div>
-                    <div style={{ padding: "1rem", background: "#FBF8F1", borderRadius: "0.75rem" }}>
-                      <strong style={{ display: "block", color: "#2E2822" }}>UN Global Compact</strong>
-                      <span style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}>
+                    <div style={{ padding: "1rem", background: "var(--brand-orange)", borderRadius: "0.75rem" }}>
+                      <strong style={{ display: "block", fontWeight: 600, color: "#ffffff" }}>UN Global Compact</strong>
+                      <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "#ffffff" }}>
                         Member commitment to sustainable development goals
                       </span>
                     </div>

@@ -692,6 +692,13 @@ img {
   transform: scaleX(1);
 }
 
+/* The fixed header overlaps whatever an anchor scrolls to, clipping the top
+   of the section. Hold every id'd section clear of it. Mirrors
+   HEADER_OFFSET_PX in useLenisPage.ts, which does the same for Lenis. */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 .scroll-lock {
   position: relative;
   overflow: hidden;

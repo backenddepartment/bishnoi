@@ -65,6 +65,12 @@ export function useLenisPage() {
   return { navOpen, setNavOpen, modalOpen, setModalOpen, lenisRef };
 }
 
+// The fixed #sticky-nav sits over the top of the page, so an anchor scrolled
+// flush to y=0 lands underneath it. Lenis scrolls pass this as a negative
+// offset; native hash jumps are handled by the matching `scroll-margin-top`
+// rule in globals.css. Keep the two in sync.
+export const HEADER_OFFSET_PX = 96;
+
 // Every section id that lives on the home page. The heritage sections
 // (about/founder/mukam/principles/services) joined this set when the
 // standalone /heritage route was removed and its content moved to home.
@@ -93,6 +99,6 @@ export function scrollToOrNavigate(id: string, lenisRef: Lenis | null) {
   }
   const el = document.getElementById(id);
   if (el && lenisRef) {
-    lenisRef.scrollTo(el, { offset: 0, duration: 0.8 });
+    lenisRef.scrollTo(el, { offset: -HEADER_OFFSET_PX, duration: 0.8 });
   }
 }

@@ -16,13 +16,14 @@ interface HeaderProps {
   lightNav?: boolean;
 }
 
-// Only dedicated pages belong here — no in-page anchors. The heritage
-// sections live on the home page since /heritage was removed, reachable by
-// scrolling from Home rather than by their own nav item.
+// "History" and "Legacy" are home-page sections, not routes — /about and
+// /what-we-do were removed and their content now lives on Home. NavItems
+// smooth-scrolls a "/#" href when already on /, and navigates otherwise;
+// `id` must match the target section id for that scroll to find it.
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
-  { label: "About", id: "about", href: "/about" },
-  { label: "What We Do", id: "what-we-do", href: "/what-we-do" },
+  { label: "History", id: "founder", href: "/#founder" },
+  { label: "Legacy", id: "services", href: "/#services" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];
