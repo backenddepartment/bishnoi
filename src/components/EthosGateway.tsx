@@ -1,16 +1,8 @@
-interface EthosGatewayProps {
-  /** Label and target for the primary (solid orange) CTA. */
-  primaryLabel?: string;
-  primaryHref?: string;
-}
-
 /* Closing "where to go next" panel — narrative on the left, two stacked CTAs
-   on the right. Rendered on more than one page, so the copy lives here; only
-   the primary CTA varies, since a page shouldn't link to itself. */
-export default function EthosGateway({
-  primaryLabel = "What We Do - View Capabilities",
-  primaryHref = "/businesses#what-we-do",
-}: EthosGatewayProps) {
+   on the right. Leadership leads as the solid orange primary; What We Do sits
+   below it as the outline secondary, pointing at the capabilities section on
+   the Businesses page. */
+export default function EthosGateway() {
   return (
     <section style={{ background: "#ffffff", color: "var(--ink)", padding: "5rem 0", borderTop: "1px solid #E6DECB" }}>
       <div className="shell">
@@ -28,15 +20,15 @@ export default function EthosGateway({
           </div>
 
           <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1rem", justifyContent: "center" }}>
-            <a href={primaryHref} className="pill-btn" style={{ width: "100%" }}>
+            <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ width: "100%" }}>
               <span className="pill-inner pill-accent pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem", color: "#ffffff" }}>
-                {primaryLabel} <span className="pill-badge up-right">→</span>
+                Leadership Profile (Naresh Bishnoi) <span className="pill-badge up-right">↗</span>
               </span>
             </a>
 
-            <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ width: "100%" }}>
+            <a href="/businesses#what-we-do" className="pill-btn" style={{ width: "100%" }}>
               <span className="pill-inner pill-outline pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem" }}>
-                Leadership Profile (Naresh Bishnoi) <span className="pill-badge up-right">↗</span>
+                What We Do - View Capabilities <span className="pill-badge up-right">→</span>
               </span>
             </a>
           </div>

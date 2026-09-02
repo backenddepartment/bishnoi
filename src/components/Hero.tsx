@@ -34,6 +34,25 @@ interface HeroProps {
   // photographic background, so only turn it off where the headline reads
   // cleanly without it.
   hideHeadlineShadow?: boolean;
+  // Colors for the copy beneath the headline. Both default to the translucent
+  // white every hero over a dark photo uses.
+  subtitleColor?: string;
+  bioColor?: string;
+  // Drops the drop shadow from that same copy — pair it with dark colors over
+  // a light background, where the shadow only muddies the text.
+  hideCopyShadow?: boolean;
+  // Line length of the bio paragraphs. Narrow it where the copy would
+  // otherwise run under artwork on the right of the background image.
+  bioMaxWidth?: string;
+  // Pulls the copy block to the top of the hero instead of centering it in a
+  // 13rem-inset band. The status bar still sits at the bottom.
+  alignTop?: boolean;
+  // Nudges the h1 down within the copy block, closing the gap to the subtitle
+  // beneath it. A transform rather than a margin on purpose: margins add real
+  // height to the copy block, which grows the hero section and pushes the
+  // background image and everything below it down. This moves the glyphs only
+  // and leaves layout untouched.
+  headlineOffsetY?: string;
   // Shows the ecosystem pill list in the hero's right-hand column. Opt-in so
   // that variants which carry pill data don't all sprout one.
   showPills?: boolean;
@@ -66,6 +85,12 @@ export default function Hero({
   hideScrollCue,
   headlineColor = "#ffffff",
   hideHeadlineShadow,
+  subtitleColor = "rgba(255,255,255,0.85)",
+  bioColor = "rgba(255,255,255,0.85)",
+  hideCopyShadow,
+  bioMaxWidth = "58ch",
+  alignTop,
+  headlineOffsetY,
   showPills,
   minHeight,
 }: HeroProps) {
@@ -415,9 +440,9 @@ export default function Hero({
           width: "100%",
           maxWidth: "100%",
           gap: "2.5rem",
-          paddingBlock: isIntro ? "8rem" : "13rem 3rem",
+          paddingBlock: isIntro ? "8rem" : alignTop ? "9rem 3rem" : "13rem 3rem",
           color: "#ffffff",
-          alignItems: "center",
+          alignItems: alignTop ? "flex-start" : "center",
           alignContent: isIntro ? "center" : "space-between",
         }}
       >
@@ -447,6 +472,7 @@ export default function Hero({
               // that has to break at a specific word can say so in the data
               // instead of relying on where the width cap happens to wrap it.
               whiteSpace: "pre-line",
+              ...(headlineOffsetY ? { transform: `translateY(${headlineOffsetY})` } : {}),
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-.02em",
@@ -475,8 +501,8 @@ export default function Hero({
                   style={{
                     fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
                     fontWeight: 500,
-                    color: "rgba(255,255,255,0.85)",
-                    textShadow: "0 2px 10px rgba(0,0,0,.7)",
+                    color: subtitleColor,
+                    textShadow: hideCopyShadow ? "none" : "0 2px 10px rgba(0,0,0,.7)",
                   }}
                 >
                   {content.subtitle}
@@ -486,11 +512,11 @@ export default function Hero({
                 <p
                   key={paragraph}
                   style={{
-                    maxWidth: "58ch",
+                    maxWidth: bioMaxWidth,
                     fontSize: "1.0625rem",
                     lineHeight: 1.7,
-                    color: "rgba(255,255,255,0.85)",
-                    textShadow: "0 2px 10px rgba(0,0,0,.7)",
+                    color: bioColor,
+                    textShadow: hideCopyShadow ? "none" : "0 2px 10px rgba(0,0,0,.7)",
                   }}
                 >
                   {paragraph}

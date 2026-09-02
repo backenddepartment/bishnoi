@@ -27,6 +27,7 @@ export default function LeadershipPage() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={true}
+        lightNav
       />
 
       <NavOverlay
@@ -44,6 +45,16 @@ export default function LeadershipPage() {
           onScrollTo={handleScrollTo}
           introReady={true}
           variant="founder"
+          hideOverlay
+          headlineColor="var(--brand-orange)"
+          hideHeadlineShadow
+          subtitleColor="var(--brand-orange)"
+          bioColor="#2E2822"
+          hideCopyShadow
+          bioMaxWidth="44ch"
+          alignTop
+          headlineOffsetY="1.25rem"
+          statusLabelColor="#ffffff"
         />
 
         <Breadcrumbs

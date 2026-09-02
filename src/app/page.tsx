@@ -124,7 +124,7 @@ export default function Home() {
         <Services introReady={introReady} lenis={lenisRef} />
         <OurVision />
         <Stats introReady={introReady} />
-        <EthosGateway primaryLabel="What We Do - View Capabilities" primaryHref="/businesses#what-we-do" />
+        <EthosGateway />
       </main>
 
       <Footer onOpenRequestModal={() => setModalOpen(true)} introReady={introReady} />

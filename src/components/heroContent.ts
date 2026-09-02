@@ -84,7 +84,7 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
   },
   businesses: {
     headline: "One Identity. Multiple Ventures. One Purpose.",
-    backgroundImage: "/finalnatalaga.png",
+    backgroundImage: "/herosectionbusiness.png",
     pills: ECOSYSTEM_PILLS,
   },
   founder: {
@@ -102,6 +102,9 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
       { label: "European Society for Medical Oncology Member" },
       { label: "UN Global Compact Member" },
     ],
+    // Pinned still. Without this the variant falls through to HERO_CAROUSEL
+    // and the Leadership hero rotates the Home page's slides.
+    backgroundImage: "/leadersection.png",
   },
   intro: {
     headline: "Global Enterprises & Initiatives",
