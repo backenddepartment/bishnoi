@@ -82,7 +82,7 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
                 </a>
               </li>
               <li>
-                <a className="animated-link legal" href="/heritage">
+                <a className="animated-link legal" href="/#about">
                   <span>Heritage</span>
                 </a>
               </li>

@@ -91,7 +91,6 @@ export default function Home() {
         onOpenRequestModal={() => setModalOpen(true)}
         onScrollTo={handleScrollTo}
         introReady={introReady}
-        lightNav
       />
 
       <NavOverlay
@@ -109,7 +108,9 @@ export default function Home() {
           onScrollTo={handleScrollTo}
           introReady={introReady}
           hideOverlay
-          eraserImage="/finalhero.png"
+          liquidReveal
+          minHeight="100vh"
+          statusLabelColor="#ffffff"
         />
         <About onScrollTo={handleScrollTo} introReady={introReady} />
         <Founder introReady={introReady} />

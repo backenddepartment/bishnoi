@@ -515,13 +515,17 @@ export default function BusinessesPage() {
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
       <main id="main-content" style={{ background: "#FBF8F1", minHeight: "100vh", color: "var(--ink)" }}>
-        {/* No `variant` — falls through to HERO_CONTENT.default, the same
-            content and layout the Home page's hero renders. */}
+        {/* Same layout and background as the Home hero, but its own copy —
+            `businesses` is not in Hero's isIntro list, so it keeps the
+            full-height treatment rather than the short intro one. */}
         <Hero
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={true}
           hideOverlay
+          variant="businesses"
+          headlineColor="var(--brand-orange)"
+          hideHeadlineShadow
           statusLabel="Scroll to Explore"
           hideScrollCue
         />

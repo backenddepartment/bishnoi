@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { HERO_CAROUSEL, HERO_CONTENT, type HeroVariant } from "./heroContent";
-// Hero pills hidden for now — see the commented-out usage below.
-// import HeroPillList from "./HeroPillList";
+import HeroPillList from "./HeroPillList";
 
 interface HeroProps {
   onOpenRequestModal: () => void;
@@ -15,31 +14,60 @@ interface HeroProps {
   // Businesses page, whose background doesn't need the extra darkening for
   // text contrast the way the Home page's photo did.
   hideOverlay?: boolean;
-  // Opt-in "eraser" reveal: paints this image over the background and masks
-  // it to a soft circle tracking the cursor, so moving across the hero rubs
-  // through to it. Opt-in rather than variant-driven because the Home and
-  // Businesses pages share HERO_CONTENT.default but only Home takes this.
-  eraserImage?: string;
+  // Opt-in canvas "liquid" reveal: dragging across the hero rubs through to
+  // the *next* carousel slide, leaving a soft brush trail that slowly fades
+  // back. Needs a carousel to have a next slide, so it's Home-only.
+  liquidReveal?: boolean;
   // Left-hand label in the #hero-status bar. Home and Businesses share
   // HERO_CONTENT.default, so this is a prop rather than variant content.
   statusLabel?: string;
+  // Color for that label. The bar defaults to black ink; pass white where the
+  // label sits over a dark part of the hero photo, and it picks up the same
+  // drop shadow the "Scroll to explore" cue uses for legibility.
+  statusLabelColor?: string;
   // Drops the "Scroll to explore" cue on the right of that same bar.
   hideScrollCue?: boolean;
+  // Overrides the h1 color. Defaults to white, which every hero over a photo
+  // wants; the Businesses page takes brand orange instead.
+  headlineColor?: string;
+  // Drops the h1's drop shadow. That shadow exists to hold light text off a
+  // photographic background, so only turn it off where the headline reads
+  // cleanly without it.
+  hideHeadlineShadow?: boolean;
+  // Shows the ecosystem pill list in the hero's right-hand column. Opt-in so
+  // that variants which carry pill data don't all sprout one.
+  showPills?: boolean;
+  // Overrides the section's minHeight. Defaults to 115vh (60vh for the short
+  // intro-style variants).
+  minHeight?: string;
 }
 
 const CAROUSEL_INTERVAL_MS = 5000;
-// Radius of the reveal circle. The mask ramps to transparent over the outer
-// 45% of it, so the edge feathers instead of cutting a hard disc.
-const ERASER_RADIUS_PX = 200;
+// Liquid-reveal brush. RADIUS is the stamp size in CSS px; DECAY is how much
+// alpha each frame subtracts while you're drawing (higher = trail dies
+// sooner); IDLE_FRAMES_TO_CLEAR is how long the trail lingers untouched
+// before it's wiped. Interaction also pauses the carousel for PAUSE_MS so a
+// slide never swaps out from under the stroke you're painting — kept short,
+// since every pointer move over the hero re-arms it and a long pause stalls
+// the carousel for as long as the cursor is anywhere over the section.
+const BRUSH_RADIUS_PX = 143;
+const BRUSH_DECAY = 0.016;
+const IDLE_FRAMES_TO_CLEAR = 120;
+const PAUSE_MS = 2000;
 
 export default function Hero({
   onScrollTo,
   introReady,
   variant = "default",
   hideOverlay,
-  eraserImage,
+  liquidReveal,
   statusLabel = "500 Years of Heritage",
+  statusLabelColor,
   hideScrollCue,
+  headlineColor = "#ffffff",
+  hideHeadlineShadow,
+  showPills,
+  minHeight,
 }: HeroProps) {
   const content = HERO_CONTENT[variant];
   const isIntro =
@@ -51,22 +79,32 @@ export default function Hero({
     variant === "what-we-do";
 
   const [imageIdx, setImageIdx] = useState(0);
+  // Held while the pointer is actively rubbing, so the base image underneath
+  // the brush stroke stays put.
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimeoutRef = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(pauseTimeoutRef.current), []);
 
   // Auto-advance the background image every few seconds — skipped when the
   // variant pins a single fixed background image (every variant currently
   // in use sets one, so this carousel is effectively dormant unless a
   // future variant is added without a backgroundImage).
   useEffect(() => {
-    if (content.backgroundImage) return;
+    if (content.backgroundImage || isPaused) return;
 
     const interval = setInterval(() => {
       setImageIdx((prev) => (prev + 1) % HERO_CAROUSEL.length);
     }, CAROUSEL_INTERVAL_MS);
 
     return () => clearInterval(interval);
-  }, [content.backgroundImage]);
+  }, [content.backgroundImage, isPaused]);
 
-  const backgroundSrc = content.backgroundImage ?? HERO_CAROUSEL[imageIdx].image;
+  // One entry when the variant pins a background, the whole carousel
+  // otherwise — rendered as a stack either way so both paths share markup.
+  const slides = content.backgroundImage
+    ? [{ image: content.backgroundImage, alt: "Hero background" }]
+    : HERO_CAROUSEL.map((slide) => ({ image: slide.image, alt: slide.title }));
+  const activeSlide = slides.length > 1 ? imageIdx % slides.length : 0;
 
   // Self-contained entrance trigger for the background image slide and the
   // title/CTA slide below — independent of the `introReady` prop, which
@@ -81,103 +119,248 @@ export default function Hero({
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // Eraser reveal. The pointer position is written straight to CSS custom
-  // properties on the masked layer rather than held in state — a mousemove
-  // fires dozens of times a second, and re-rendering the whole hero on each
-  // one would stutter. Only the enter/leave fade is stateful.
-  const eraserRef = useRef<HTMLDivElement>(null);
-  const [eraserOn, setEraserOn] = useState(false);
+  // Liquid reveal. A canvas sits over the base image holding the *next*
+  // slide, initially fully erased; each pointer sample stamps a soft radial
+  // brush of that image onto it, and every frame subtracts a little alpha
+  // from the whole canvas so the trail bleeds away behind the cursor.
+  // Everything lives inside the effect — none of it belongs in React state,
+  // since it repaints per animation frame.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const revealSrc = slides.length > 1 ? slides[(activeSlide + 1) % slides.length].image : null;
 
-  const moveEraser = (e: React.MouseEvent<HTMLElement>) => {
-    const layer = eraserRef.current;
-    if (!layer) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    layer.style.setProperty("--ex", `${e.clientX - rect.left}px`);
-    layer.style.setProperty("--ey", `${e.clientY - rect.top}px`);
-  };
+  // Stable identity, so listing it in the effect's deps below doesn't tear
+  // down and rebuild the canvas on every render.
+  const pauseInteraction = useCallback(() => {
+    setIsPaused(true);
+    window.clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = window.setTimeout(() => setIsPaused(false), PAUSE_MS);
+  }, []);
 
-  const eraserMask = `radial-gradient(circle ${ERASER_RADIUS_PX}px at var(--ex) var(--ey), #000 0%, #000 55%, rgba(0,0,0,0) 100%)`;
+  useEffect(() => {
+    if (!liquidReveal || !revealSrc) return;
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Offscreen buffers: `cover` holds the reveal image drawn at cover-fit
+    // size, `brush` composites one soft stamp of it before it's blitted.
+    const cover = document.createElement("canvas");
+    const coverCtx = cover.getContext("2d");
+    const brush = document.createElement("canvas");
+    const brushCtx = brush.getContext("2d");
+    if (!coverCtx || !brushCtx) return;
+
+    const img = new Image();
+    img.src = revealSrc;
+
+    let W = 0;
+    let H = 0;
+    let dpr = 1;
+    let points: { x: number; y: number }[] = [];
+    let idle = 0;
+    let drawing = false;
+
+    function drawCover() {
+      if (!coverCtx || !W || !H) return;
+      const iw = img.naturalWidth || W;
+      const ih = img.naturalHeight || H;
+      const scale = Math.max(W / iw, H / ih);
+      const sw = iw * scale;
+      const sh = ih * scale;
+      coverCtx.clearRect(0, 0, W, H);
+      coverCtx.drawImage(img, (W - sw) / 2, (H - sh) / 2, sw, sh);
+    }
+
+    function resize() {
+      if (!container || !canvas) return;
+      const rect = container.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width * dpr;
+      H = rect.height * dpr;
+      canvas.width = W;
+      canvas.height = H;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      cover.width = W;
+      cover.height = H;
+      brush.width = Math.ceil(BRUSH_RADIUS_PX * 2 * dpr);
+      brush.height = Math.ceil(BRUSH_RADIUS_PX * 2 * dpr);
+      if (img.complete && img.naturalWidth) drawCover();
+    }
+
+    img.onload = () => {
+      if (W && H) drawCover();
+    };
+
+    // One stamp: a radial alpha gradient masked down to the reveal image
+    // (source-in), so the brush carries picture rather than flat color.
+    function stamp(x: number, y: number) {
+      if (!brushCtx || !ctx) return;
+      const r = BRUSH_RADIUS_PX * dpr;
+      const diam = Math.ceil(r * 2);
+      brushCtx.clearRect(0, 0, diam, diam);
+      const grad = brushCtx.createRadialGradient(r, r, 0, r, r, r);
+      grad.addColorStop(0, "rgba(255,255,255,1)");
+      grad.addColorStop(0.55, "rgba(255,255,255,.82)");
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      brushCtx.fillStyle = grad;
+      brushCtx.fillRect(0, 0, diam, diam);
+      brushCtx.globalCompositeOperation = "source-in";
+      const sx = Math.round(x - r);
+      const sy = Math.round(y - r);
+      brushCtx.drawImage(cover, sx, sy, diam, diam, 0, 0, diam, diam);
+      brushCtx.globalCompositeOperation = "source-over";
+      ctx.drawImage(brush, sx, sy);
+    }
+
+    let animId = 0;
+    function tick() {
+      if (!ctx || !W || !H) {
+        animId = requestAnimationFrame(tick);
+        return;
+      }
+      if (points.length > 0) {
+        idle = 0;
+        drawing = true;
+      } else {
+        idle++;
+      }
+
+      // Fade accelerates the longer the pointer sits still, so an abandoned
+      // trail clears out instead of hanging on the image.
+      const fade = drawing ? BRUSH_DECAY : Math.min(BRUSH_DECAY + idle * 0.004, 0.5);
+      if (idle > IDLE_FRAMES_TO_CLEAR) {
+        ctx.clearRect(0, 0, W, H);
+        drawing = false;
+        idle = 0;
+        animId = requestAnimationFrame(tick);
+        return;
+      }
+
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = `rgba(0,0,0,${fade})`;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "source-over";
+
+      if (drawing) {
+        for (const p of points) stamp(p.x, p.y);
+        points = [];
+      }
+      animId = requestAnimationFrame(tick);
+    }
+
+    let last: { x: number; y: number } | null = null;
+    function handlePointerMove(e: PointerEvent) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * dpr;
+      const y = (e.clientY - rect.top) * dpr;
+      const r = BRUSH_RADIUS_PX * dpr;
+      if (x < -r || x > W + r || y < -r || y > H + r) {
+        last = null;
+        return;
+      }
+      pauseInteraction();
+      // Interpolate along the path — a fast flick would otherwise leave a
+      // dotted line of stamps instead of one continuous stroke.
+      if (last) {
+        const dx = x - last.x;
+        const dy = y - last.y;
+        const step = Math.max(r * 0.3, 1);
+        const n = Math.min(Math.ceil(Math.hypot(dx, dy) / step), 60);
+        for (let i = 1; i <= n; i++) {
+          points.push({ x: last.x + (dx * i) / n, y: last.y + (dy * i) / n });
+        }
+      } else {
+        points.push({ x, y });
+      }
+      last = { x, y };
+    }
+    const handlePointerLeave = () => {
+      last = null;
+    };
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(container);
+    resize();
+    animId = requestAnimationFrame(tick);
+    window.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerleave", handlePointerLeave);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      ro.disconnect();
+      window.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerleave", handlePointerLeave);
+    };
+  }, [liquidReveal, revealSrc, pauseInteraction]);
 
   return (
     <section
       id="home"
-      {...(eraserImage
-        ? {
-            onMouseMove: moveEraser,
-            onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-              // Seed the position on entry so the circle appears under the
-              // cursor rather than fading in at its last spot.
-              moveEraser(e);
-              setEraserOn(true);
-            },
-            onMouseLeave: () => setEraserOn(false),
-          }
-        : {})}
       style={{
         position: "relative",
         isolation: "isolate",
         overflow: "hidden",
-        minHeight: isIntro ? "60vh" : "115vh",
+        minHeight: minHeight ?? (isIntro ? "60vh" : "115vh"),
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         background: "#ffffff",
       }}
     >
-      <div id="liquid-container" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+      <div id="liquid-container" ref={containerRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         {/* Fades in while sliding right-to-left into place. A slight scale
             on the initial state keeps the edges covered while it's offset,
             so no gap flashes at the side during the slide (a plain
             translateX on an inset:0 image would otherwise reveal the
             section's white background along that edge). */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <div
           id="liquid-before"
-          src={backgroundSrc}
-          alt="Hero background"
           style={{
             position: "absolute",
             inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
             opacity: slideIn ? 1 : 0,
             transform: slideIn ? "translateX(0) scale(1)" : "translateX(4%) scale(1.06)",
             transition: "opacity 2.2s cubic-bezier(.16,1,.3,1), transform 2.6s cubic-bezier(.16,1,.3,1)",
           }}
-        />
-
-        {/* The reveal layer, clipped to the cursor circle. Sits directly on
-            the background image inside #liquid-container, so it stays under
-            the scrim, watermark and copy — the eraser rubs through the photo,
-            not through the headline. */}
-        {eraserImage && (
-          <div
-            ref={eraserRef}
-            aria-hidden="true"
-            style={
-              {
+        >
+          {/* Every slide stays mounted and crossfades by opacity — swapping a
+              single <img>'s src would blank the hero while the next file
+              downloads. A pinned backgroundImage collapses this to one. */}
+          {slides.map((slide, i) => (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              key={slide.image}
+              src={slide.image}
+              alt={slide.alt}
+              style={{
                 position: "absolute",
                 inset: 0,
-                opacity: eraserOn ? 1 : 0,
-                transition: "opacity .5s ease",
-                pointerEvents: "none",
-                WebkitMaskImage: eraserMask,
-                maskImage: eraserMask,
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                "--ex": "50%",
-                "--ey": "50%",
-              } as React.CSSProperties
-            }
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={eraserImage}
-              alt=""
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: i === activeSlide ? 1 : 0,
+                transition: "opacity 1.6s cubic-bezier(.16,1,.3,1)",
+              }}
             />
-          </div>
+          ))}
+        </div>
+
+        {/* Brush trail is painted here, above the base slide but still inside
+            #liquid-container — so it stays under the scrim, watermark and
+            copy. pointerEvents:none because the effect listens on window. */}
+        {liquidReveal && revealSrc && (
+          <canvas
+            id="liquid-canvas"
+            ref={canvasRef}
+            aria-hidden="true"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+          />
         )}
       </div>
 
@@ -260,11 +443,15 @@ export default function Hero({
             className="text-[1.65rem] sm:text-[2.25rem] md:text-[3.5rem]"
             style={{
               maxWidth: isIntro ? "20ch" : "26ch",
+              // Honors newlines written into a variant's `headline`, so copy
+              // that has to break at a specific word can say so in the data
+              // instead of relying on where the width cap happens to wrap it.
+              whiteSpace: "pre-line",
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-.02em",
-              color: "#ffffff",
-              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
+              color: headlineColor,
+              textShadow: hideHeadlineShadow ? "none" : "0 2px 8px rgba(0,0,0,0.5)",
             }}
           >
             <span className={`reveal-line ${introReady ? "visible" : ""}`}>
@@ -343,22 +530,24 @@ export default function Hero({
 
         {!isIntro && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }} className="gap-3 sm:gap-6 lg:col-span-5">
-            {/* Hero pills (Getmeds Phils, Bishnoi India, etc.) hidden for now —
-                re-enable by uncommenting this block. Data in heroContent.ts is
-                untouched. */}
-            {/* <div
-              id="hero-partners"
-              data-lenis-prevent
-              style={{
-                width: "100%",
-                maxWidth: "28rem",
-                opacity: introReady ? 1 : 0,
-                transform: introReady ? "translateY(0)" : "translateY(14px)",
-                transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
-              }}
-            >
-              <HeroPillList pills={content.pills} />
-            </div> */}
+            {/* Ecosystem pills (Getmeds Phils, Bishnoi India, etc.).
+                #hero-partners already has mobile rules in globals.css that
+                turn this into a horizontal scroller below the lg breakpoint. */}
+            {showPills && content.pills.length > 0 && (
+              <div
+                id="hero-partners"
+                data-lenis-prevent
+                style={{
+                  width: "100%",
+                  maxWidth: "28rem",
+                  opacity: introReady ? 1 : 0,
+                  transform: introReady ? "translateY(0)" : "translateY(14px)",
+                  transition: "opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1)",
+                }}
+              >
+                <HeroPillList pills={content.pills} />
+              </div>
+            )}
           </div>
         )}
 
@@ -383,7 +572,15 @@ export default function Hero({
               transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
             }}
           >
-            <span>{statusLabel}</span>
+            <span
+              style={
+                statusLabelColor
+                  ? { color: statusLabelColor, textShadow: "0 2px 8px rgba(0,0,0,0.6)" }
+                  : undefined
+              }
+            >
+              {statusLabel}
+            </span>
             {!hideScrollCue && (
               <span style={{ display: "inline-flex", gap: ".5rem", color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}>
                 Scroll to explore <span style={{ display: "inline-block" }}>↓</span>

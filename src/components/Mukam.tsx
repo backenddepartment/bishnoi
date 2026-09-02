@@ -126,7 +126,9 @@ export default function Mukam({}: MukamProps) {
       ref={sectionRef}
       style={{ background: "#fff" }}
     >
-      <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      {/* Reduced bottom padding — Principles follows directly below on the
+          same white background, and the combined 7rem gap read as a break. */}
+      <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "2rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
         {/* Eyebrow + headline (left) / intro paragraph (right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>

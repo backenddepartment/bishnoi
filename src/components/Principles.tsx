@@ -121,7 +121,9 @@ export default function Principles({}: PrinciplesProps) {
       ref={sectionRef}
       style={{ background: "#FFFFFF" }}
     >
-      <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem" }}>
+      {/* No top padding — Mukam's own bottom padding above supplies the
+          whole gap between the two sections. */}
+      <div className="shell" style={{ paddingTop: 0, paddingBottom: "5rem" }}>
         <div
           style={{
             display: "flex",

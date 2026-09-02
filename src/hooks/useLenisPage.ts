@@ -65,12 +65,23 @@ export function useLenisPage() {
   return { navOpen, setNavOpen, modalOpen, setModalOpen, lenisRef };
 }
 
-const HOME_SECTION_IDS = new Set(["works", "vision", "behind-bishnoi"]);
-const HERITAGE_SECTION_IDS = new Set(["about", "founder", "mukam", "principles", "services"]);
+// Every section id that lives on the home page. The heritage sections
+// (about/founder/mukam/principles/services) joined this set when the
+// standalone /heritage route was removed and its content moved to home.
+const HOME_SECTION_IDS = new Set([
+  "works",
+  "vision",
+  "behind-bishnoi",
+  "about",
+  "founder",
+  "mukam",
+  "principles",
+  "services",
+]);
 
 // Shared nav-target resolution for any secondary page: ids that live on the
-// home page or the heritage page redirect there, everything else is assumed
-// to be a section on the current page and gets a local Lenis scroll.
+// home page redirect there, everything else is assumed to be a section on
+// the current page and gets a local Lenis scroll.
 export function scrollToOrNavigate(id: string, lenisRef: Lenis | null) {
   if (id === "home") {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -78,10 +89,6 @@ export function scrollToOrNavigate(id: string, lenisRef: Lenis | null) {
   }
   if (HOME_SECTION_IDS.has(id)) {
     window.location.href = `/#${id}`;
-    return;
-  }
-  if (HERITAGE_SECTION_IDS.has(id)) {
-    window.location.href = `/heritage#${id}`;
     return;
   }
   const el = document.getElementById(id);

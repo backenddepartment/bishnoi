@@ -77,7 +77,7 @@ export default function AboutPage() {
                       Explore Our Businesses <span className="pill-badge up-right">↗</span>
                     </span>
                   </a>
-                  <a href="/heritage" className="pill-btn">
+                  <a href="/#about" className="pill-btn">
                     <span className="pill-inner pill-outline pill-no-arrow" style={{ borderColor: "rgba(74,68,60,.25)", background: "rgba(74,68,60,.04)", color: "var(--ink)" }}>
                       Discover Our Heritage →
                     </span>

@@ -72,7 +72,7 @@ export default function GetmedsPage() {
 
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
-      <main id="main-content" style={{ background: "#FBF8F1", minHeight: "100vh", color: "var(--ink)" }}>
+      <main id="main-content" style={{ background: "#ffffff", minHeight: "100vh", color: "var(--ink)" }}>
         <Hero
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}

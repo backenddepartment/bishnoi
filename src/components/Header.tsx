@@ -16,14 +16,14 @@ interface HeaderProps {
   lightNav?: boolean;
 }
 
-// Only dedicated pages belong here — no in-page anchors ("Legacy" at
-// /heritage#services, "Vision" at /#vision are sections, not their own page).
+// Only dedicated pages belong here — no in-page anchors. The heritage
+// sections live on the home page since /heritage was removed, reachable by
+// scrolling from Home rather than by their own nav item.
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
   { label: "About", id: "about", href: "/about" },
   { label: "What We Do", id: "what-we-do", href: "/what-we-do" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
-  { label: "Heritage", id: "heritage", href: "/heritage" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];
 
@@ -120,7 +120,7 @@ function NavItems({ textColor, fontSize, fontWeight = 400, onScrollTo, dropdown,
   return (
     <ul style={{ display: "flex", gap: "2rem", fontSize, fontWeight, color: textColor, transition: "color .35s ease" }}>
       {NAV_ITEMS.map((item) => (
-        <li key={item.id} {...(item.hasDropdown ? dropdown.hoverProps : {})}>
+        <li key={item.label} {...(item.hasDropdown ? dropdown.hoverProps : {})}>
           <a
             href={item.href}
             className="hover-lift"
@@ -428,17 +428,17 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             "opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease",
         }}
       >
-        {/* Plain white + drop-shadow instead of mix-blend-mode: difference —
-            difference shifts hue against colored (e.g. sunset-toned) hero
-            photos instead of staying white, which read as a gray cast. A drop
-            shadow keeps it legible without touching its actual color. Always
-            the same colored logo.png — the white-in-hero look comes from a
-            filter (brightness(0) invert(1) crushes any color to solid white
-            while preserving transparency) instead of a separate pre-made
-            white asset, so there's one source image to keep in sync. When
-            the Businesses dropdown opens, the bar goes white, so the logo
-            drops the filter (and the shadow it no longer needs) to show its
-            real colors instead. */}
+        {/* Plain white instead of mix-blend-mode: difference — difference
+            shifts hue against colored (e.g. sunset-toned) hero photos instead
+            of staying white, which read as a gray cast. Always the same
+            colored logo.png — the white-in-hero look comes from a filter
+            (brightness(0) invert(1) crushes any color to solid white while
+            preserving transparency) instead of a separate pre-made white
+            asset, so there's one source image to keep in sync. The nav text
+            beside it still carries a drop shadow; the mark itself reads
+            cleanly without one. When the Businesses dropdown opens, the bar
+            goes white, so the logo drops the filter entirely to show its real
+            colors instead. */}
         <a href="/" className="hover-spring-sm" style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -450,7 +450,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
               filter:
                 lightNav || heroDropdown.open
                   ? "none"
-                  : "brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.8))",
+                  : "brightness(0) invert(1)",
               transition: "filter .35s ease",
             }}
           />

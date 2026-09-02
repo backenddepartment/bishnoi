@@ -31,8 +31,12 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         {items.map((item, i) => (
           <li key={item.label} style={{ display: "flex", alignItems: "center", gap: ".4rem" }}>
             {i > 0 && <span aria-hidden="true" style={{ color: "rgba(74,68,60,.35)" }}>/</span>}
+            {/* Deliberately no hover-underline-slide: that class's ::after is
+                absolutely positioned, and these links set no positioning
+                context, so the underline anchored to a distant ancestor and
+                drew clear across the page instead of under the word. */}
             {item.href ? (
-              <a href={item.href} style={{ color: "var(--ink-soft)", textDecoration: "none" }} className="hover-underline-slide">
+              <a href={item.href} style={{ color: "var(--ink-soft)", textDecoration: "none" }}>
                 {item.label}
               </a>
             ) : (
