@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { HERO_CAROUSEL, HERO_CONTENT, type HeroVariant } from "./heroContent";
 // Hero pills hidden for now — see the commented-out usage below.
@@ -15,11 +15,32 @@ interface HeroProps {
   // Businesses page, whose background doesn't need the extra darkening for
   // text contrast the way the Home page's photo did.
   hideOverlay?: boolean;
+  // Opt-in "eraser" reveal: paints this image over the background and masks
+  // it to a soft circle tracking the cursor, so moving across the hero rubs
+  // through to it. Opt-in rather than variant-driven because the Home and
+  // Businesses pages share HERO_CONTENT.default but only Home takes this.
+  eraserImage?: string;
+  // Left-hand label in the #hero-status bar. Home and Businesses share
+  // HERO_CONTENT.default, so this is a prop rather than variant content.
+  statusLabel?: string;
+  // Drops the "Scroll to explore" cue on the right of that same bar.
+  hideScrollCue?: boolean;
 }
 
 const CAROUSEL_INTERVAL_MS = 5000;
+// Radius of the reveal circle. The mask ramps to transparent over the outer
+// 45% of it, so the edge feathers instead of cutting a hard disc.
+const ERASER_RADIUS_PX = 200;
 
-export default function Hero({ onScrollTo, introReady, variant = "default", hideOverlay }: HeroProps) {
+export default function Hero({
+  onScrollTo,
+  introReady,
+  variant = "default",
+  hideOverlay,
+  eraserImage,
+  statusLabel = "500 Years of Heritage",
+  hideScrollCue,
+}: HeroProps) {
   const content = HERO_CONTENT[variant];
   const isIntro =
     variant === "intro" ||
@@ -60,9 +81,38 @@ export default function Hero({ onScrollTo, introReady, variant = "default", hide
     return () => cancelAnimationFrame(id);
   }, []);
 
+  // Eraser reveal. The pointer position is written straight to CSS custom
+  // properties on the masked layer rather than held in state — a mousemove
+  // fires dozens of times a second, and re-rendering the whole hero on each
+  // one would stutter. Only the enter/leave fade is stateful.
+  const eraserRef = useRef<HTMLDivElement>(null);
+  const [eraserOn, setEraserOn] = useState(false);
+
+  const moveEraser = (e: React.MouseEvent<HTMLElement>) => {
+    const layer = eraserRef.current;
+    if (!layer) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    layer.style.setProperty("--ex", `${e.clientX - rect.left}px`);
+    layer.style.setProperty("--ey", `${e.clientY - rect.top}px`);
+  };
+
+  const eraserMask = `radial-gradient(circle ${ERASER_RADIUS_PX}px at var(--ex) var(--ey), #000 0%, #000 55%, rgba(0,0,0,0) 100%)`;
+
   return (
     <section
       id="home"
+      {...(eraserImage
+        ? {
+            onMouseMove: moveEraser,
+            onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+              // Seed the position on entry so the circle appears under the
+              // cursor rather than fading in at its last spot.
+              moveEraser(e);
+              setEraserOn(true);
+            },
+            onMouseLeave: () => setEraserOn(false),
+          }
+        : {})}
       style={{
         position: "relative",
         isolation: "isolate",
@@ -96,6 +146,39 @@ export default function Hero({ onScrollTo, introReady, variant = "default", hide
             transition: "opacity 2.2s cubic-bezier(.16,1,.3,1), transform 2.6s cubic-bezier(.16,1,.3,1)",
           }}
         />
+
+        {/* The reveal layer, clipped to the cursor circle. Sits directly on
+            the background image inside #liquid-container, so it stays under
+            the scrim, watermark and copy — the eraser rubs through the photo,
+            not through the headline. */}
+        {eraserImage && (
+          <div
+            ref={eraserRef}
+            aria-hidden="true"
+            style={
+              {
+                position: "absolute",
+                inset: 0,
+                opacity: eraserOn ? 1 : 0,
+                transition: "opacity .5s ease",
+                pointerEvents: "none",
+                WebkitMaskImage: eraserMask,
+                maskImage: eraserMask,
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                "--ex": "50%",
+                "--ey": "50%",
+              } as React.CSSProperties
+            }
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={eraserImage}
+              alt=""
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+        )}
       </div>
 
       {/* High-Contrast Gradient Backdrop Overlay */}
@@ -300,10 +383,12 @@ export default function Hero({ onScrollTo, introReady, variant = "default", hide
               transition: "opacity 0.6s cubic-bezier(.22,1,.36,1)",
             }}
           >
-            <span>500 Years of Heritage</span>
-            <span style={{ display: "inline-flex", gap: ".5rem", color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}>
-              Scroll to explore <span style={{ display: "inline-block" }}>↓</span>
-            </span>
+            <span>{statusLabel}</span>
+            {!hideScrollCue && (
+              <span style={{ display: "inline-flex", gap: ".5rem", color: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}>
+                Scroll to explore <span style={{ display: "inline-block" }}>↓</span>
+              </span>
+            )}
           </div>
         )}
       </div>

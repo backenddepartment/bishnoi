@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 import Hero from "@/components/Hero";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Portfolio from "@/components/Portfolio";
 import { useLenisPage, scrollToOrNavigate } from "@/hooks/useLenisPage";
 
 interface Capability {
@@ -91,11 +92,18 @@ export default function WhatWeDoPage() {
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-              {CAPABILITIES.map((cap) => (
+              {CAPABILITIES.map((cap, i) => (
                 <div
                   key={cap.title}
                   className="grid grid-cols-1 lg:grid-cols-12"
-                  style={{ gap: "2rem", paddingBottom: "3rem", borderBottom: "1px solid rgba(74,68,60,.12)" }}
+                  style={{
+                    gap: "2rem",
+                    // Rules separate the capabilities from each other — the last
+                    // one needs none, since the Portfolio section below already
+                    // opens with its own divider.
+                    paddingBottom: i === CAPABILITIES.length - 1 ? 0 : "3rem",
+                    borderBottom: i === CAPABILITIES.length - 1 ? "none" : "1px solid rgba(74,68,60,.12)",
+                  }}
                 >
                   <div className="lg:col-span-4">
                     <div className="eyebrow eyebrow-dark" style={{ fontSize: "1rem" }}>
@@ -115,6 +123,48 @@ export default function WhatWeDoPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Global Business Ecosystem — renders the home page's own Portfolio
+            section verbatim so the tile grid stays pixel-identical across both
+            pages. Wrapped only to carry the divider rule; the component itself
+            paints its own white background and padding. */}
+        <div style={{ borderTop: "1px solid #E6DECB" }}>
+          <Portfolio />
+        </div>
+
+        {/* Corporate Ethos & Governance Gateway — mirrors the closing section
+            on the home page. */}
+        <section style={{ background: "#ffffff", color: "var(--ink)", padding: "5rem 0", borderTop: "1px solid #E6DECB" }}>
+          <div className="shell">
+            <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "2.5rem", alignItems: "center" }}>
+              <div className="lg:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem", color: "var(--brand-orange)" }}>
+                  <span className="dot dot-blink"></span> Corporate Ethos &amp; Governance
+                </div>
+                <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-.02em", color: "#2E2822" }}>
+                  Rooted in principles that endure. Guided by long-horizon stewardship.
+                </h2>
+                <p style={{ fontSize: "1.125rem", lineHeight: 1.65, color: "var(--ink-soft)", margin: 0 }}>
+                  Explore how the Bishnoi ecosystem combines ethical enterprise, multi-venture operations, and centuries of conservation philosophy into one connected corporate identity.
+                </p>
+              </div>
+
+              <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1rem", justifyContent: "center" }}>
+                <a href="/about" className="pill-btn" style={{ width: "100%" }}>
+                  <span className="pill-inner pill-accent pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem", color: "#ffffff" }}>
+                    Explore About &amp; Operating Ethos <span className="pill-badge up-right">→</span>
+                  </span>
+                </a>
+
+                <a href="/leadership/naresh-bishnoi" className="pill-btn" style={{ width: "100%" }}>
+                  <span className="pill-inner pill-outline pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem" }}>
+                    Leadership Profile (Naresh Bishnoi) <span className="pill-badge up-right">↗</span>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </section>

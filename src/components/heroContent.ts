@@ -51,7 +51,7 @@ export const BUSINESS_HERO_CAROUSEL: HeroCarouselSlide[] = [
 
 export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
   default: {
-    headline: "Rooted in five hundred years. Building for what comes next.",
+    headline: "One Identity. Multiple Ventures. One Purpose.",
     // Pins a single static image (no carousel) for the Home/Businesses
     // hero, per request — same mechanism the new intro-style variants below
     // use to fix their own background.

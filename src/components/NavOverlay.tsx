@@ -42,10 +42,10 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   const navItems = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Businesses", href: "/businesses" },
     { label: "What We Do", href: "/what-we-do" },
     { label: "Leadership", href: "/leadership/naresh-bishnoi" },
     { label: "Heritage", href: "/heritage" },
+    { label: "Businesses", href: "/businesses" },
     { label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },
   ];
 

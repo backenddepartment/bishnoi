@@ -514,15 +514,22 @@ export default function BusinessesPage() {
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
       <main id="main-content" style={{ background: "#FBF8F1", minHeight: "100vh", color: "var(--ink)" }}>
+        {/* No `variant` — falls through to HERO_CONTENT.default, the same
+            content and layout the Home page's hero renders. */}
         <Hero
           onOpenRequestModal={() => setModalOpen(true)}
           onScrollTo={handleScrollTo}
           introReady={true}
           hideOverlay
-          variant="intro"
+          hideScrollCue
         />
 
-        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Businesses" }]} />
+        {/* Breadcrumbs paints no background of its own, so it would otherwise
+            show the cream <main>. The white band runs it flush into the
+            showcase section below. */}
+        <div style={{ background: "#ffffff", paddingBottom: "1.5rem" }}>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Businesses" }]} />
+        </div>
 
         {/* Businesses Showcase — one featured panel + a row of tabs below it,
             instead of all eight businesses stacked full-height one after
