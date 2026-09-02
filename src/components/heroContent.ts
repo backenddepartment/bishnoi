@@ -83,7 +83,10 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     pills: ECOSYSTEM_PILLS,
   },
   businesses: {
-    headline: "One Identity. Multiple Ventures. One Purpose.",
+    // Explicit breaks — Hero's h1 renders with white-space: pre-line, so the
+    // headline sets its own three lines rather than wrapping wherever the
+    // width cap happens to fall.
+    headline: "One Identity.\nMultiple Ventures.\nOne Purpose.",
     backgroundImage: "/herosectionbusiness.png",
     pills: ECOSYSTEM_PILLS,
   },
