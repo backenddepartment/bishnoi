@@ -1835,8 +1835,9 @@ section[id] {
   display: grid;
   /* Wide enough for the longest label ("September 1730") to clear the marker
      at the date size below — the spine and dot are pinned to this same value,
-     so the three move together if it ever changes. */
-  grid-template-columns: 10.5rem minmax(0, 1fr);
+     so the three move together if it ever changes. Widened again when the
+     date size went up; the two have to move together. */
+  grid-template-columns: 11.75rem minmax(0, 1fr);
   gap: 1.25rem;
   padding: 0 0 1.5rem 0;
   position: relative;
@@ -1845,7 +1846,7 @@ section[id] {
 .timeline li::before {
   content: "";
   position: absolute;
-  left: 10.5rem;
+  left: 11.75rem;
   top: 0.55rem;
   bottom: -0.35rem;
   width: 1px;
@@ -1860,7 +1861,7 @@ section[id] {
 .timeline li::after {
   content: "";
   position: absolute;
-  left: 10.5rem;
+  left: 11.75rem;
   top: 0.5rem;
   width: 0.4375rem;
   height: 0.4375rem;
@@ -1884,7 +1885,7 @@ section[id] {
 }
 
 .timeline-when {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--ink-deep);
@@ -1900,7 +1901,7 @@ section[id] {
 }
 
 .timeline-body strong {
-  font-size: 1.0625rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--ink-deep);
   letter-spacing: -0.01em;
