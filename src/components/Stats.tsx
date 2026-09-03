@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import ActMark from "./ActMark";
+
 interface StatsProps {
   introReady: boolean;
 }
@@ -72,9 +74,7 @@ export default function Stats({ introReady }: StatsProps) {
             transition: "transform 0.7s cubic-bezier(.16,1,.3,1), opacity 0.7s cubic-bezier(.16,1,.3,1)",
           }}
         >
-          <div className="eyebrow eyebrow-light">
-            <span className="dot"></span>Vision, Mission & Values
-          </div>
+          <ActMark numeral="IV" era="Next" label="Vision, mission and values" tone="light" />
           <h2 style={{ marginTop: "1rem", maxWidth: "24ch", fontSize: "1.875rem", fontWeight: 500, letterSpacing: "-.01em" }}>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
               <span className="line-inner">What we hold ourselves to, and what we intend to leave behind.</span>

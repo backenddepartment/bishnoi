@@ -1,7 +1,14 @@
-/* Closing "where to go next" panel — narrative on the left, two stacked CTAs
-   on the right. Leadership leads as the solid orange primary; What We Do sits
-   below it as the outline secondary, pointing at the capabilities section on
-   the Businesses page. */
+/* The page's last word.
+
+   This panel used to close on "Corporate Ethos & Governance" and two links,
+   which ended the story on an org chart — the visitor was told what the
+   businesses are and then shown the door. It now closes on what is still
+   unfinished, which is the only ending a legacy narrative can have.
+
+   "One Identity. Multiple Ventures. One Purpose." moves down to a caption:
+   it is the summary of the story, not the story, and reading as a headline
+   was what made it sound like any other holding company. Layout, CTA
+   treatment and spacing are unchanged. */
 export default function EthosGateway() {
   return (
     <section style={{ background: "#ffffff", color: "var(--ink)", padding: "5rem 0", borderTop: "1px solid #E6DECB" }}>
@@ -9,13 +16,27 @@ export default function EthosGateway() {
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "2.5rem", alignItems: "center" }}>
           <div className="lg:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
             <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem", color: "var(--brand-orange)" }}>
-              <span className="dot dot-blink"></span> Corporate Ethos &amp; Governance
+              <span className="dot dot-blink"></span> The Next Chapter
             </div>
             <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-.02em", color: "#2E2822" }}>
-              Rooted in principles that endure. Guided by long-horizon stewardship.
+              We are building institutions designed to outlast us.
             </h2>
             <p style={{ fontSize: "1.125rem", lineHeight: 1.65, color: "var(--ink-soft)", margin: 0 }}>
-              Explore how the Bishnoi ecosystem combines ethical enterprise, multi-venture operations, and centuries of conservation philosophy into one connected corporate identity.
+              What began as a way to survive a desert is now being read into healthcare, medical infrastructure, conservation and enterprise.
+              The next five hundred years are unwritten. This is the part of them we are answerable for &mdash; and the question the next
+              generation inherits is not which companies they are handed, but whether the philosophy expressed through them still holds.
+            </p>
+            <p
+              style={{
+                margin: ".5rem 0 0",
+                fontSize: ".8125rem",
+                fontWeight: 700,
+                letterSpacing: ".14em",
+                textTransform: "uppercase",
+                color: "var(--brand-orange)",
+              }}
+            >
+              One Identity. Multiple Ventures. One Purpose.
             </p>
           </div>
 
