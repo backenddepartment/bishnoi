@@ -14,7 +14,7 @@ import Founder from "@/components/Founder";
 import Mukam from "@/components/Mukam";
 import Principles from "@/components/Principles";
 import Services from "@/components/Services";
-import OurVision from "@/components/OurVision";
+import PrinciplesToEnterprise from "@/components/PrinciplesToEnterprise";
 import Stats from "@/components/Stats";
 import EthosGateway from "@/components/EthosGateway";
 import Footer from "@/components/Footer";
@@ -122,7 +122,7 @@ export default function Home() {
         <Mukam introReady={introReady} />
         <Principles introReady={introReady} />
         <Services introReady={introReady} lenis={lenisRef} />
-        <OurVision />
+        <PrinciplesToEnterprise />
         <Stats introReady={introReady} />
         <EthosGateway />
       </main>
