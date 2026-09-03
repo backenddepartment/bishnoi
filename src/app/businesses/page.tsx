@@ -18,8 +18,11 @@ interface BusinessItem {
   subtitle?: string;
   description: string;
   footprint?: string;
-  linkText: string;
-  url: string;
+  /* Both omitted for units that have no live website of their own. Every
+     CTA below is guarded on `url`, so those cards render their description
+     without a dead "Visit ..." button. Restore both when a site ships. */
+  linkText?: string;
+  url?: string;
   image: string;
   // Colored + white logo marks, shown only on Getmeds Ecosystem cards —
   // colored badge bottom-right by default, white mark on the orange
@@ -81,8 +84,6 @@ const BUSINESSES: BusinessItem[] = [
     title: "Getmeds Vanuatu",
     description:
       "The first specialty pharmacy in the Pacific, serving communities in Vanuatu with local access to life-saving cancer medicines.",
-    linkText: "Visit Getmeds Vanuatu →",
-    url: "https://getmedsvanuatu.com",
     image: "/businesses/getmeds_vauatu.jpg",
     logo: "/logos/getmeds-vanuatu-logo.png",
     logoWhite: "/logos/getmeds-vanuatu-logo-white.png",
@@ -96,8 +97,6 @@ const BUSINESSES: BusinessItem[] = [
     title: "Getmeds Latin America",
     description:
       "Expanding Getmeds’ footprint across Latin America, forging new partnerships and establishing a stronger presence across the region.",
-    linkText: "Visit Getmeds Latin America →",
-    url: "https://getmedslatam.com",
     image: "/getmedslatinamerica.jpg",
     logo: "/logos/getmeds-latam-logo.png",
     logoWhite: "/logos/getmeds-latam-logo-white.png",
@@ -154,8 +153,6 @@ const BUSINESSES: BusinessItem[] = [
     description:
       "Bishnoi Omniverse is building a healthcare supply powerhouse designed to serve hospitals across the full spectrum of their needs—from essential medical supplies and medicines to specialized products and large-scale hospital requirements.",
     footprint: "India · Philippines",
-    linkText: "Visit Bishnoi Omniverse →",
-    url: "https://bishnoi-omniverse.in",
     image: "/bishnoiimage.jpeg",
     logo: "/logo.png",
     logoWhite: "/logowhite.png",
@@ -166,8 +163,6 @@ const BUSINESSES: BusinessItem[] = [
     title: "Naresh Bishnoi Foundation",
     description:
       "A lifelong commitment to education, empowerment, innovation, and cultural growth. The Foundation works to create opportunities through education, emerging fields, agricultural development, and the advancement of Indian culture—empowering communities and creating lasting impact for generations.",
-    linkText: "Visit Naresh Bishnoi Foundation →",
-    url: "https://nbf.com",
     image: "/businesses/naresh_foundation.jpg",
     logo: "/logos/naresh-bishnoi-foundation-logo.png",
     logoWhite: "/logos/naresh-bishnoi-foundation-logo-white.png",
@@ -179,8 +174,6 @@ const BUSINESSES: BusinessItem[] = [
     title: "NKB.COM",
     description:
       "A digital platform representing the broader world of Naresh Bishnoi—his ideas, ventures, initiatives, and ongoing work.",
-    linkText: "Visit NKB.COM →",
-    url: "https://nkb.com",
     image: "/businesses/nkb.jpg",
     logoInitial: "N",
   },
@@ -300,27 +293,29 @@ function FeaturedPanel({ item }: { item: BusinessItem }) {
           >
             {item.title}
           </span>
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noreferrer"
-            className="eco-card-hover-btn"
-            style={{
-              pointerEvents: "auto",
-              display: "inline-block",
-              fontSize: ".875rem",
-              fontWeight: 600,
-              color: "var(--brand-orange)",
-              background: "#ffffff",
-              border: "1.5px solid #ffffff",
-              borderRadius: "9999px",
-              padding: ".55rem 1.5rem",
-              textDecoration: "none",
-              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.35)",
-            }}
-          >
-            View Website
-          </a>
+          {item.url && (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              className="eco-card-hover-btn"
+              style={{
+                pointerEvents: "auto",
+                display: "inline-block",
+                fontSize: ".875rem",
+                fontWeight: 600,
+                color: "var(--brand-orange)",
+                background: "#ffffff",
+                border: "1.5px solid #ffffff",
+                borderRadius: "9999px",
+                padding: ".55rem 1.5rem",
+                textDecoration: "none",
+                boxShadow: "0 6px 16px -6px rgba(0,0,0,0.35)",
+              }}
+            >
+              View Website
+            </a>
+          )}
         </div>
       </div>
 
@@ -384,21 +379,23 @@ function FeaturedPanel({ item }: { item: BusinessItem }) {
           </div>
         )}
 
-        <div style={{ paddingTop: ".5rem" }}>
-          <a href={item.url} target="_blank" rel="noreferrer" className="pill-btn">
-            <span
-              className="pill-inner pill-accent pill-with-arrow"
-              style={{
-                fontSize: ".9375rem",
-                padding: ".625rem 1.5rem",
-                color: "#ffffff",
-                boxShadow: "none",
-              }}
-            >
-              {item.linkText}
-            </span>
-          </a>
-        </div>
+        {item.url && (
+          <div style={{ paddingTop: ".5rem" }}>
+            <a href={item.url} target="_blank" rel="noreferrer" className="pill-btn">
+              <span
+                className="pill-inner pill-accent pill-with-arrow"
+                style={{
+                  fontSize: ".9375rem",
+                  padding: ".625rem 1.5rem",
+                  color: "#ffffff",
+                  boxShadow: "none",
+                }}
+              >
+                {item.linkText}
+              </span>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -753,6 +750,7 @@ export default function BusinessesPage() {
                                 >
                                   {groupItem.title}
                                 </span>
+                                {groupItem.url && (
                                 <a
                                   href={groupItem.url}
                                   target="_blank"
@@ -774,6 +772,7 @@ export default function BusinessesPage() {
                                 >
                                   View Website
                                 </a>
+                                )}
                               </div>
                             )}
                           </div>
@@ -842,6 +841,7 @@ export default function BusinessesPage() {
                               >
                                 {groupItem.description}
                               </p>
+                              {groupItem.url && (
                               <a
                                 href={groupItem.url}
                                 target="_blank"
@@ -860,6 +860,7 @@ export default function BusinessesPage() {
                                 Visit Website
                                 <span style={{ color: "var(--brand-orange)" }}>→</span>
                               </a>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -1005,6 +1006,7 @@ export default function BusinessesPage() {
                           {item.description}
                         </p>
 
+                        {item.url && (
                         <div style={{ paddingTop: ".5rem" }}>
                           <a href={item.url} target="_blank" rel="noreferrer" className="pill-btn">
                             <span
@@ -1019,6 +1021,7 @@ export default function BusinessesPage() {
                             </span>
                           </a>
                         </div>
+                        )}
                       </div>
                     </div>
 

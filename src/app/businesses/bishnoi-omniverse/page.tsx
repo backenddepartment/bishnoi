@@ -12,12 +12,10 @@ import { useLenisPage, scrollToOrNavigate } from "@/hooks/useLenisPage";
 const ENTITIES = [
   {
     name: "Bishnoi Omniverse India",
-    url: "https://bishnoi-omniverse.in",
     description: "The India operation of Bishnoi Omniverse's hospital supply and healthcare infrastructure business.",
   },
   {
     name: "Bishnoi Omniverse Philippines",
-    url: "https://bishnoi-omniverse.ph",
     description: "The Philippines operation of Bishnoi Omniverse's hospital supply and healthcare infrastructure business.",
   },
 ];

@@ -2,7 +2,9 @@
 
 export interface RelatedEntity {
   name: string;
-  url: string;
+  /* Absent for entities with no live site of their own. The "#" sentinel
+     predates this and is kept working. */
+  url?: string;
   description: string;
 }
 
@@ -81,7 +83,7 @@ export default function BusinessProfile({
               >
                 <h3 style={{ fontSize: "1.125rem", fontWeight: 700, color: "#2E2822" }}>{e.name}</h3>
                 <p style={{ fontSize: ".9375rem", lineHeight: 1.6, color: "var(--ink-soft)", flex: 1 }}>{e.description}</p>
-                {e.url !== "#" && (
+                {e.url && e.url !== "#" && (
                   <a
                     href={e.url}
                     target="_blank"

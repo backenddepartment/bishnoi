@@ -99,9 +99,9 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li><a className="animated-link legal" href="https://getmeds.ph" target="_blank" rel="noreferrer"><span>Getmeds Philippines</span></a></li>
               <li><a className="animated-link legal" href="https://getmedshealthcare.com" target="_blank" rel="noreferrer"><span>Getmeds India</span></a></li>
-              <li><a className="animated-link legal" href="https://getmedsvanuatu.com" target="_blank" rel="noreferrer"><span>Getmeds Vanuatu</span></a></li>
-              <li><a className="animated-link legal" href="https://getmedslatam.com" target="_blank" rel="noreferrer"><span>Getmeds Latam</span></a></li>
-              <li><a className="animated-link legal" href="https://getmedssea.com" target="_blank" rel="noreferrer"><span>Getmeds SEA</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/getmeds"><span>Getmeds Vanuatu</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/getmeds"><span>Getmeds Latam</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/getmeds"><span>Getmeds SEA</span></a></li>
               <li><a className="animated-link legal" href="https://2mginc.com/" target="_blank" rel="noreferrer"><span>2MG Incorporated</span></a></li>
             </ul>
           </div>
@@ -109,16 +109,16 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
           <div>
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Corporate Hubs</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
-              <li><a className="animated-link legal" href="https://bishnoi-omniverse.ph" target="_blank" rel="noreferrer"><span>Bishnoi Omniverse Philippines</span></a></li>
-              <li><a className="animated-link legal" href="https://bishnoi-omniverse.in" target="_blank" rel="noreferrer"><span>Bishnoi Omniverse India</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/bishnoi-omniverse"><span>Bishnoi Omniverse Philippines</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/bishnoi-omniverse"><span>Bishnoi Omniverse India</span></a></li>
             </ul>
           </div>
 
           <div>
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Foundation & Office</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
-              <li><a className="animated-link legal" href="https://nbf.com" target="_blank" rel="noreferrer"><span>Naresh Bishnoi Foundation</span></a></li>
-              <li><a className="animated-link legal" href="https://nkb.com" target="_blank" rel="noreferrer"><span>Naresh Kumar Bishnoi</span></a></li>
+              <li><a className="animated-link legal" href="/businesses/foundation"><span>Naresh Bishnoi Foundation</span></a></li>
+              <li><a className="animated-link legal" href="/leadership/naresh-bishnoi"><span>Naresh Kumar Bishnoi</span></a></li>
             </ul>
           </div>
         </div>

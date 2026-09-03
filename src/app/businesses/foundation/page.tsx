@@ -12,7 +12,6 @@ import { useLenisPage, scrollToOrNavigate } from "@/hooks/useLenisPage";
 const ENTITIES = [
   {
     name: "Naresh Bishnoi Foundation",
-    url: "https://nbf.com",
     description: "A lifelong commitment to education, empowerment, innovation, and cultural growth — creating opportunities through education, emerging fields, agricultural development, and the advancement of Indian culture.",
   },
   {

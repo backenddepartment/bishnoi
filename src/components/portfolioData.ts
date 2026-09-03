@@ -1,7 +1,13 @@
 export interface Entity {
   name: string;
   domain: string;
-  url: string;
+  /* Omitted where the domain does not resolve, is parked, or resolves to
+     an unrelated third party (nbf.com serves a US furniture retailer).
+     EntityChips renders those as plain text — the division card above
+     already links to the entity’s profile page here, so repointing the
+     chip at the same route would only duplicate that link. Restore a url
+     when the domain actually serves the entity. */
+  url?: string;
 }
 
 export interface Division {
@@ -30,9 +36,9 @@ export const businesses: Division[] = [
     entities: [
       { name: "Getmeds Philippines", domain: "getmeds.ph", url: "https://getmeds.ph" },
       { name: "Getmeds India", domain: "getmedshealthcare.com", url: "https://getmedshealthcare.com" },
-      { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com", url: "https://getmedsvanuatu.com" },
-      { name: "Getmeds Latam", domain: "getmedslatam.com", url: "https://getmedslatam.com" },
-      { name: "Getmeds SEA", domain: "getmedssea.com", url: "https://getmedssea.com" },
+      { name: "Getmeds Vanuatu", domain: "getmedsvanuatu.com" },
+      { name: "Getmeds Latam", domain: "getmedslatam.com" },
+      { name: "Getmeds SEA", domain: "getmedssea.com" },
       { name: "2MG Incorporated", domain: "2mginc.com", url: "https://2mginc.com/" },
     ],
   },
@@ -45,8 +51,8 @@ export const businesses: Division[] = [
     href: "/businesses/bishnoi-omniverse",
     linkLabel: "Explore Omniverse Profile →",
     entities: [
-      { name: "Bishnoi Omniverse India", domain: "bishnoi-omniverse.in", url: "https://bishnoi-omniverse.in" },
-      { name: "Bishnoi Omniverse Philippines", domain: "bishnoi-omniverse.ph", url: "https://bishnoi-omniverse.ph" },
+      { name: "Bishnoi Omniverse India", domain: "bishnoi-omniverse.in" },
+      { name: "Bishnoi Omniverse Philippines", domain: "bishnoi-omniverse.ph" },
     ],
   },
   {
@@ -57,7 +63,7 @@ export const businesses: Division[] = [
     description: "Desert eco-restoration, mass afforestation, wildlife protection, and United Nations Global Compact environmental commitments.",
     href: "/businesses/foundation",
     linkLabel: "Explore Foundation Profile →",
-    entities: [{ name: "Naresh Bishnoi Foundation", domain: "nbf.com", url: "https://nbf.com" }],
+    entities: [{ name: "Naresh Bishnoi Foundation", domain: "nbf.com" }],
   },
   {
     numeral: "04",
@@ -67,7 +73,7 @@ export const businesses: Division[] = [
     description: "Group central intelligence, managing strategic capital frameworks and global venture holdings aligned with founding values.",
     href: "/leadership/naresh-bishnoi",
     linkLabel: "Full Leadership Profile ↗",
-    entities: [{ name: "Naresh Kumar Bishnoi", domain: "nkb.com", url: "https://nkb.com" }],
+    entities: [{ name: "Naresh Kumar Bishnoi", domain: "nkb.com" }],
   },
 ];
 

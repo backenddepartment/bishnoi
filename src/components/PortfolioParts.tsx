@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import type { Entity } from "./portfolioData";
 
 export function SectionHeading({ light, compact }: { light?: boolean; compact?: boolean }) {
@@ -52,15 +54,9 @@ export function EntityChips({ entities, glass, compact }: { entities: Entity[]; 
     // pills off the edge. Desktop cards already fit every row on one line,
     // so wrapping here doesn't change how they render there.
     <div className="flex-wrap" style={{ display: "flex", gap: ".375rem" }}>
-      {entities.map((entity) => (
-        <a
-          key={entity.name}
-          href={entity.url}
-          target="_blank"
-          rel="noreferrer"
-          className="hover-lift"
-          style={
-            glass
+      {entities.map((entity) => {
+        const chipStyle: CSSProperties =
+          glass
               ? {
                   display: "inline-flex",
                   alignItems: "center",
@@ -90,12 +86,21 @@ export function EntityChips({ entities, glass, compact }: { entities: Entity[]; 
                   color: "#1C1815",
                   whiteSpace: "nowrap",
                   cursor: "pointer",
-                }
-          }
-        >
-          {entity.name}
-        </a>
-      ))}
+                };
+
+        // Entities whose domain is dead, parked, or serves an unrelated
+        // party carry no url (see portfolioData). They stay listed, but as
+        // text rather than as a link that goes nowhere.
+        return entity.url ? (
+          <a key={entity.name} href={entity.url} target="_blank" rel="noreferrer" className="hover-lift" style={chipStyle}>
+            {entity.name}
+          </a>
+        ) : (
+          <span key={entity.name} style={{ ...chipStyle, cursor: "default" }}>
+            {entity.name}
+          </span>
+        );
+      })}
     </div>
   );
 }

@@ -273,27 +273,21 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Getmeds India
           </a>
           <a
-            href="https://getmedsvanuatu.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/getmeds"
             className="hover-underline-slide"
             style={getLinkStyle(0, 2)}
           >
             Getmeds Vanuatu
           </a>
           <a
-            href="https://getmedslatam.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/getmeds"
             className="hover-underline-slide"
             style={getLinkStyle(0, 3)}
           >
             Getmeds Latam
           </a>
           <a
-            href="https://getmedssea.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/getmeds"
             className="hover-underline-slide"
             style={getLinkStyle(0, 4)}
           >
@@ -320,18 +314,14 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Bishnoi Omniverse →
           </a>
           <a
-            href="https://bishnoi-omniverse.in"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/bishnoi-omniverse"
             className="hover-underline-slide"
             style={getLinkStyle(1, 0)}
           >
             Bishnoi Omniverse India
           </a>
           <a
-            href="https://bishnoi-omniverse.ph"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/bishnoi-omniverse"
             className="hover-underline-slide"
             style={getLinkStyle(1, 1)}
           >
@@ -349,18 +339,14 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Foundation →
           </a>
           <a
-            href="https://nbf.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/businesses/foundation"
             className="hover-underline-slide"
             style={getLinkStyle(2, 0)}
           >
             Naresh Bishnoi Foundation
           </a>
           <a
-            href="https://nkb.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/leadership/naresh-bishnoi"
             className="hover-underline-slide"
             style={getLinkStyle(2, 1)}
           >

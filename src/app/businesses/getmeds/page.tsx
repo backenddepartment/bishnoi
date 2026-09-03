@@ -22,12 +22,10 @@ const ENTITIES = [
   },
   {
     name: "Getmeds Vanuatu",
-    url: "https://getmedsvanuatu.com",
     description: "The first specialty pharmacy in the Pacific, serving communities in Vanuatu with local access to life-saving cancer medicines.",
   },
   {
     name: "Getmeds Latin America",
-    url: "https://getmedslatam.com",
     description: "Expanding Getmeds' footprint across Latin America, forging new partnerships and establishing a stronger presence across the region.",
   },
   {

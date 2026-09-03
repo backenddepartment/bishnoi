@@ -57,14 +57,19 @@ export const BUSINESS_HERO_CAROUSEL: HeroCarouselSlide[] = [
 const ECOSYSTEM_PILLS: HeroPill[] = [
   { label: "Getmeds Phils", href: "https://getmeds.ph" },
   { label: "Getmeds India", href: "https://getmedshealthcare.com" },
-  { label: "Getmeds Vanuatu", href: "https://getmedsvanuatu.com" },
-  { label: "Getmeds Latam", href: "https://getmedslatam.com" },
-  { label: "Getmeds SEA", href: "https://getmedssea.com" },
+  // No href — these three domains do not resolve. HeroPillList renders a
+  // plain <span> for a pill without one.
+  { label: "Getmeds Vanuatu" },
+  { label: "Getmeds Latam" },
+  { label: "Getmeds SEA" },
   { label: "2MG Incorporated", href: "https://2mginc.com/" },
-  { label: "Bishnoi India", href: "https://bishnoi-omniverse.in" },
-  { label: "Bishnoi Phils", href: "https://bishnoi-omniverse.ph" },
-  { label: "N. Bishnoi Foundation", href: "https://nbf.com" },
-  { label: "N. K. Bishnoi Office", href: "https://nkb.com" },
+  // bishnoi-omniverse.in does not resolve and .ph is a parked domain;
+  // nbf.com serves an unrelated US furniture retailer and nkb.com does
+  // not resolve. Point at the profile pages this site already has.
+  { label: "Bishnoi India", href: "/businesses/bishnoi-omniverse" },
+  { label: "Bishnoi Phils", href: "/businesses/bishnoi-omniverse" },
+  { label: "N. Bishnoi Foundation", href: "/businesses/foundation" },
+  { label: "N. K. Bishnoi Office", href: "/leadership/naresh-bishnoi" },
 ];
 
 export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
