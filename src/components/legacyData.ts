@@ -29,8 +29,8 @@ export const chapters: Chapter[] = [
     image: "/legacy/sacrifice.jpg",
     credit: "Photo: Kaushal Bishnoi · CC BY-SA 4.0",
     body: [
-      "In September 1730, Maharaja Abhay Singh of Marwar sent soldiers to the village of Khejarli, near Jodhpur, to fell khejri trees for a new palace. A village woman, Amrita Devi, stood in their way. Cutting a living tree went against everything her faith stood for, and she refused to let it happen — even when the soldiers offered a bribe to stand down. She and her three daughters, Asu, Ratni, and Bhagu, embraced the trees and were killed.",
-      "Word spread to the other Bishnoi villages nearby. One by one, more villagers arrived and embraced the remaining trees, each pledging a life for every tree standing. By the time the Maharaja himself rode out to stop it, 363 Bishnois had died protecting the grove. He is said to have apologized to the community and issued a decree banning the felling of trees and hunting of animals on Bishnoi land — among the earliest known conservation orders in Indian history.",
+      "In September 1730, Maharaja Abhay Singh of Marwar sent a party to the village of Khejarli, near Jodhpur, to fell khejri trees for a royal building project — accounts differ on whether the wood was wanted for a new palace or for lime kilns. A village woman, Amrita Devi, stood in their way. Cutting a living tree went against everything her faith stood for, and she refused to let it happen — even when the soldiers offered a bribe to stand down. She and her three daughters, named in community tradition as Asu, Ratni, and Bhagu, embraced the trees and were killed.",
+      "Word spread to the other Bishnoi villages nearby. One by one, more villagers arrived and embraced the remaining trees, each pledging a life for every tree standing. The elders went first, deliberately, before the young — everyone who died after Amrita Devi did so knowing exactly what had already happened. By the time the Maharaja himself rode out to stop it, 363 Bishnois had died protecting the grove. He is said to have travelled to the village to apologize, and to have decreed that Khejarli would never again be compelled to supply wood to the kingdom; later tradition remembers that protection as extending more broadly across Bishnoi land.",
       "The sacrifice is remembered every year at Khejarli, and September 11 is now observed across India as National Forest Martyrs Day in honor of Amrita Devi and the 363 who died beside her. Environmental historians widely point to Khejarli as a forerunner of the 20th-century Chipko movement, which used the same tree-hugging protest more than two centuries later.",
     ],
   },
@@ -42,7 +42,7 @@ export const chapters: Chapter[] = [
     image: "/legacy/homeland.jpg",
     credit: "Photo: Clément Bardot · CC BY-SA 4.0",
     body: [
-      "The Bishnoi community's roots are in the Thar Desert of western Rajasthan — around Bikaner, Jodhpur, and Nagaur — with communities also found further afield across northern India. Estimates place the community at several hundred thousand people. The Bishnoi are organized into roughly 360 gotras, or clans, of equal social standing, and today include descendants of Jat, Rajput, Bania, and other communities — a reminder that Bishnoi has always been a code of conduct and a faith open to anyone who takes up its principles, not a single bloodline.",
+      "The Bishnoi community's roots are in the Thar Desert of western Rajasthan — around Bikaner, Jodhpur, and Nagaur — with communities also found further afield across northern India. Estimates of its size vary widely, from around 600,000 to roughly 1.5 million, depending on whether the count is of religious adherents or of the wider community. The Bishnoi are organized into roughly 360 gotras, or clans, of equal social standing, and today include descendants of Jat, Rajput, Bania, and other communities — a reminder that Bishnoi has always been a code of conduct and a faith open to anyone who takes up its principles, not a single bloodline.",
     ],
   },
   {
@@ -66,7 +66,7 @@ export const chapters: Chapter[] = [
     image: "/legacy/bustard.jpg",
     credit: "Photo: SVKMBFLY, edited by MPF · CC BY-SA 4.0",
     body: [
-      "The same stretch of the Thar Desert the Bishnoi call home is also the last stronghold of one of the rarest birds on Earth. The Great Indian Bustard has been pushed to the edge of extinction — fewer than 150 are believed to survive in the wild, down from around 250 just a decade ago — largely by collisions with overhead power lines and the rapid spread of new roads, solar farms, and wind turbines across its desert grassland habitat in Rajasthan. It's the same desert, and the same instinct that drove Amrita Devi in 1730: the conviction that this landscape, and what lives in it, is worth protecting.",
+      "The same stretch of the Thar Desert the Bishnoi call home is also the last stronghold of one of the rarest birds on Earth. The Great Indian Bustard has been pushed to the edge of extinction — recent estimates put fewer than 150 surviving in the wild, down from around 250 a decade earlier — largely by collisions with overhead power lines and the rapid spread of new roads, solar farms, and wind turbines across its desert grassland habitat in Rajasthan. It's the same desert, and the same instinct that drove Amrita Devi in 1730: the conviction that this landscape, and what lives in it, is worth protecting.",
     ],
   },
   {
@@ -77,7 +77,7 @@ export const chapters: Chapter[] = [
     image: "/legacy/groves.jpg",
     credit: "Photo: LRBurdak · CC BY-SA 4.0",
     body: [
-      "The reverence for the khejri tree extends beyond individual trees to whole patches of land. Bishnoi villages are known for maintaining orans — community-protected stretches of native scrub forest, off-limits to cutting or grazing, that function as informal sacred groves. Across Rajasthan, thousands of these groves quietly do real ecological work: holding down soil and slowing the spread of desertification in one of India's driest regions. That same instinct for stewardship runs through how desert communities, Bishnoi included, have long managed water in a landscape that gets almost none of it — treating every drop as something to be caught, stored, and shared rather than wasted.",
+      "The reverence for the khejri tree extends beyond individual trees to whole patches of land. Bishnoi villages are known for maintaining orans — community-protected stretches of native scrub forest, off-limits to cutting or grazing, that function as informal sacred groves. Thousands are maintained across Rajasthan, and they are widely credited with holding down soil and slowing the spread of desertification in one of India's driest regions. That same instinct for stewardship runs through how desert communities, Bishnoi included, have long managed water in a landscape that gets almost none of it — treating every drop as something to be caught, stored, and shared rather than wasted.",
     ],
   },
   {

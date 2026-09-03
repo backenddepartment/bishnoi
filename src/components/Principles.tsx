@@ -6,6 +6,24 @@ interface PrinciplesProps {
   introReady?: boolean;
 }
 
+/* The 29 niyamas, as they come down through the Shabadwani.
+
+   Renderings and groupings vary between sources; these four categories are
+   this site's own, arranged to show how far the rules reach into ordinary
+   life rather than to reproduce a traditional division. The section intro
+   below says so — do not let the page imply the grouping is inherited.
+
+   Three corrections against the standard enumeration, made 2026-09-03 (see
+   research/claims-register.md item 4):
+
+   - "Never wearing blue" was missing entirely. It is the indigo rule, and
+     arguably the most telling of the 29: a prohibition on a COLOUR, derived
+     from a prohibition on harming the plant the dye comes from.
+   - "Use filtered water, milk, and cleaned firewood" had been split across
+     three items, padding the count.
+   - Alcohol and meat had been merged into one item, offsetting that padding.
+
+   The total is 29 either way, which is how the gap went unnoticed. */
 const groups = [
   {
     label: "Personal Hygiene & Health",
@@ -17,9 +35,7 @@ const groups = [
       "Prayer twice daily, morning and evening.",
       "Evening aarti in devotion to God.",
       "Yajna (fire ritual) to release lust, anger, greed, attachment, and ego.",
-      "Drinking only filtered water and milk.",
-      "Checking firewood for living creatures before burning it.",
-      "Using only clean, strained cooking fuel.",
+      "Using filtered water, filtered milk, and firewood cleaned of living creatures.",
     ],
   },
   {
@@ -53,7 +69,9 @@ const groups = [
       "Never using or trading opium.",
       "Never smoking or using tobacco.",
       "Never consuming bhang, hemp, or other intoxicants.",
-      "Living free of alcohol and meat, in a strict vegetarian way.",
+      "Never drinking alcohol.",
+      "Never eating meat; keeping a strict vegetarian diet.",
+      "Never wearing blue \u2014 the dye is drawn from the indigo plant.",
     ],
   },
 ];
@@ -154,7 +172,7 @@ export default function Principles({}: PrinciplesProps) {
               transitionDelay: "200ms",
             }}
           >
-            The 29 rules of Guru Jambheshwar are divided into four practical categories, covering personal hygiene, social health, ethical conduct, and environmental conservation.
+            The 29 rules of Guru Jambheshwar come down through the Shabadwani, his 120 shabads. Renderings and groupings vary between sources \u2014 the four categories below are our own, arranged to show how far the rules reach into ordinary life.
           </p>
         </div>
 

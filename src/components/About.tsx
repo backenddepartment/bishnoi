@@ -69,7 +69,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                 color: "var(--ink-deep)",
               }}
             >
-              India&apos;s Original<br />Environmentalists
+              A Conservation Ethic<br />Born in the Desert
             </h2>
           </div>
 
@@ -93,7 +93,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                 color: "var(--ink-soft)",
               }}
             >
-              For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 simple rules: protect every tree, protect every animal, live in balance with the desert. In 1730, 363 Bishnois gave their lives defending trees at Khejarli — decades before the word &ldquo;environmentalism&rdquo; existed. Today, the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
+              For more than 500 years, the Bishnoi community of Rajasthan has lived by 29 principles that reach into everything — what a household may cut, what it may kill, what it may drink, even what colour it may wear. In 1730, 363 Bishnois gave their lives defending trees at Khejarli. Today the community still guards the Thar Desert&rsquo;s wildlife with the same conviction.
             </p>
 
             {/* Hero CTAs */}

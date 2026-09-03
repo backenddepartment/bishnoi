@@ -238,12 +238,12 @@ export default function Services({ lenis }: ServicesProps) {
               <span className="dot dot-blink"></span> Join the Story
             </div>
             <h3 style={{ margin: ".75rem 0 1rem", fontSize: "1.875rem", fontWeight: 600, letterSpacing: "-.01em" }}>
-              Green Before Green Was a Movement
+              Faith and Ecology, Never Separate
             </h3>
             <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "rgba(74,68,60,.75)" }}>
-              Five centuries before climate change entered the global conversation, the Bishnoi were already living the answer to it. Explore
-              the 29 principles, walk through the story of Khejarli, or discover how a 15th-century faith still shapes conservation in the Thar
-              Desert today.
+              Long before conservation was a matter of policy, it was a matter of obligation — written into rules about what a household may cut,
+              kill, drink and wear. Explore the 29 principles, walk through the story of Khejarli, or see how a 15th-century faith still shapes
+              the Thar Desert today.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: ".75rem", marginTop: "1.5rem" }}>
