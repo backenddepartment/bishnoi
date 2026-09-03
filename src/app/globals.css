@@ -1391,6 +1391,69 @@ section[id] {
   }
 }
 
+/* ── Rail layout ────────────────────────────────────────────────────────────
+   The whole page as one grid: facts panel and Continue cards together in a
+   left column that pins, article scrolling past on the right. */
+.article-rail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  gap: 0 3rem;
+  align-items: start;
+}
+
+/* Both in row 1, so the rail's grid area is as tall as the article beside
+   it — that area is the track the pinned rail is free to travel down. */
+.article-rail-main {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+/* Breadcrumbs bring their own .shell; inside the column its padding would
+   indent them out of line with the title above. */
+.article-rail-main .shell {
+  padding-inline: 0;
+}
+
+.article-rail {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  /* Pins by whichever edge makes sense for the window it is in. --rail-h is
+     the rail's measured height, set by ArticlePage:
+       · rail taller than the viewport → the calc goes negative, pinning the
+         top above the fold so the LAST card comes to rest on screen. This is
+         what `bottom: 2rem` should have done, but bottom-sticky silently does
+         nothing once the box no longer fits the sticky constraint rectangle.
+       · rail shorter → 7rem wins and it pins below the header, all visible.
+     Until the measurement lands, --rail-h is unset and 7rem is used. */
+  position: sticky;
+  top: min(7rem, calc(100dvh - var(--rail-h, 0px) - 2rem));
+  align-self: start;
+}
+
+.article-rail-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Stacked: no left column to pin to, and source order (title, article,
+   facts, Continue) is the reading order. */
+@media (max-width: 900px) {
+  .article-rail-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .article-rail {
+    position: static;
+  }
+}
+
 /* Runs the breadcrumbs and the article body in the same right-hand column
    the hero title uses, opposite the facts panel. The grid goes on each
    block's own .shell so its horizontal padding still lines the columns up
@@ -1429,11 +1492,13 @@ section[id] {
   align-items: baseline;
 }
 
+/* Sentence case, as the labels are written in each page's own facts array —
+   no transform and no label tracking, so they read as words rather than as
+   a small-caps key. Sized with the value beside them; at the old 0.8125rem
+   they looked undersized once the caps came off. */
 .fact-row dt {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 
@@ -1533,21 +1598,94 @@ section[id] {
 
 .rule-list li {
   display: grid;
-  grid-template-columns: 2.25rem minmax(0, 1fr);
-  gap: 0.75rem;
-  padding: 0.6875rem 0;
+  /* Column widened with the numeral below — "01" at the larger size needs
+     the room, and the rule text has to keep a clean left edge. */
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0.875rem;
+  padding: 0.875rem 0;
   border-bottom: 1px solid var(--line);
   align-items: baseline;
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 1.1875rem;
+  line-height: 1.6;
   color: var(--ink-soft);
 }
 
 .rule-list li > span:first-child {
-  font-size: 0.8125rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--brand-orange);
   font-variant-numeric: tabular-nums;
+}
+
+/* Figures in an article body. The caption carries the credit, because these
+   pages publish CC BY-SA photographs and the licence asks for attribution
+   wherever the image appears — see public/legacy/CREDITS.md. It is also where
+   an image that is a modern depiction rather than a record says so. */
+.prose figure {
+  margin: 1.25rem 0;
+  max-width: 68ch;
+}
+
+/* Capped by height rather than width, so a tall devotional painting and a
+   wide landscape photograph both come out about as big on the page. Sizing
+   on width alone gave the portrait images a metre of column each. */
+.prose figure img {
+  display: block;
+  max-height: 24rem;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-card-sm);
+}
+
+/* Text on the left, image on the right, for a section short enough that the
+   image would otherwise leave a band of empty column beside it. The prose
+   column is 68ch, so the image column is kept narrow — a wider one would
+   squeeze the text to an unreadable measure. */
+.prose .prose-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.prose .prose-split > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+/* The figure's own margin would break the alignment with the heading. */
+.prose .prose-split figure {
+  margin: 0;
+  max-width: none;
+}
+
+.prose .prose-split figure img {
+  max-height: none;
+  width: 100%;
+}
+
+/* Too narrow to hold two columns — stack, image last. */
+@media (max-width: 760px) {
+  .prose .prose-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.prose figcaption {
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.prose figcaption .figure-credit {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
 }
 
 /* Pulled-out quotation or a claim we are deliberately attributing. */
@@ -1650,6 +1788,36 @@ section[id] {
   color: var(--brand-orange);
 }
 
+/* ── Rail Continue cards ────────────────────────────────────────────────────
+   Same white card as the foot of the other reference pages, but sized up:
+   in a narrow column the destination has to carry itself on type alone, so
+   the label leads in brand orange and the blurb sits a step larger than the
+   default card's. */
+.article-rail .related-card {
+  background: var(--card-bg, #ffffff);
+  border-color: var(--card-bg, var(--line));
+}
+
+.article-rail .related-label {
+  font-size: 1.25rem;
+  color: var(--card-ink, var(--brand-orange));
+}
+
+.article-rail .related-blurb {
+  font-size: 1.0625rem;
+  color: var(--card-ink-soft, var(--ink-soft));
+}
+
+.article-rail .related-arrow {
+  color: var(--card-ink, var(--brand-orange));
+}
+
+/* The hover border has to stay visible against the card's own fill, so it
+   goes to the text colour rather than to orange on an orange card. */
+.no-touch .article-rail .related-card:hover {
+  border-color: var(--card-ink, var(--brand-orange));
+}
+
 /* ── History timeline (/bishnoi) ────────────────────────────────────────────
    A dated spine rather than prose, because "what happened when" is the
    question the page is answering. The rule down the left is the continuity;
@@ -1665,7 +1833,10 @@ section[id] {
 
 .timeline li {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
+  /* Wide enough for the longest label ("September 1730") to clear the marker
+     at the date size below — the spine and dot are pinned to this same value,
+     so the three move together if it ever changes. */
+  grid-template-columns: 10.5rem minmax(0, 1fr);
   gap: 1.25rem;
   padding: 0 0 1.5rem 0;
   position: relative;
@@ -1674,7 +1845,7 @@ section[id] {
 .timeline li::before {
   content: "";
   position: absolute;
-  left: 7.5rem;
+  left: 10.5rem;
   top: 0.55rem;
   bottom: -0.35rem;
   width: 1px;
@@ -1689,7 +1860,7 @@ section[id] {
 .timeline li::after {
   content: "";
   position: absolute;
-  left: 7.5rem;
+  left: 10.5rem;
   top: 0.5rem;
   width: 0.4375rem;
   height: 0.4375rem;
@@ -1713,12 +1884,12 @@ section[id] {
 }
 
 .timeline-when {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--ink-deep);
   font-variant-numeric: tabular-nums;
-  padding-top: 0.125rem;
+  padding-top: 0.0625rem;
 }
 
 .timeline-body {

@@ -1,10 +1,13 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 
 export default function NameAndOriginPage() {
   return (
     <ArticlePage
+      tone="white"
+      layout="rail"
       kicker="The name"
       title="What does Bishnoi mean?"
       standfirst="Most commonly, twenty-nine — bis and noi, for the twenty-nine principles. That is the community's own account of its name. A second reading connects it instead to Vishnu, and the community has not accepted it."
@@ -22,11 +25,11 @@ export default function NameAndOriginPage() {
         { label: "Bishnoi (surname) — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi_(surname)" },
         { label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies", href: "https://ivsjournal.com/index.php/jvs/article/view/202" },
       ]}
-      related={[
+      related={withCardColors([
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "The twenty-nine the name most likely counts." },
         { href: "/bishnoi/guru-jambheshwar", label: "Guru Jambheshwar", blurb: "Who set them out, and the tradition's Vaishnava core." },
         { href: "/bishnoi", label: "Who are the Bishnois?", blurb: "The community, its structure, and what it is today." },
-      ]}
+      ])}
     >
       <p className="lead">
         The name is commonly derived from the Rajasthani <em>bis</em> (twenty) and <em>noi</em> (nine), for the
@@ -59,6 +62,16 @@ export default function NameAndOriginPage() {
         The honest summary is that the twenty-nine reading is the mainstream and the community&rsquo;s own, and that a
         minority tradition of writing connects the name to Vishnu instead.
       </p>
+
+
+      <figure>
+        <img src="/legacy/lineage.jpg" alt="A Bishnoi village in Rajasthan." />
+        <figcaption>
+          A Bishnoi village. The name marks a creed rather than a lineage &mdash; people took it up, and set aside the
+         caste names they arrived with.
+          <span className="figure-credit">Photo: Omprakash bishnoi 12451 &middot; CC BY-SA 4.0</span>
+        </figcaption>
+      </figure>
 
       <h2>Is Bishnoi a caste?</h2>
       <p>

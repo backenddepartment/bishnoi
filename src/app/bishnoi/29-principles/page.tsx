@@ -1,6 +1,7 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 
 /* The full enumeration, corrected 2026-09-03 against
    research/ch03-29-principles.md. The homepage carries the same 29 grouped
@@ -71,6 +72,8 @@ const NUMBERED = RULES.map((g) => ({
 export default function TwentyNinePrinciplesPage() {
   return (
     <ArticlePage
+      tone="white"
+      layout="rail"
       kicker="The niyamas"
       title="The 29 Principles"
       standfirst="Twenty-nine rules set out by Guru Jambheshwar in 1485, covering worship, conduct, personal discipline and the treatment of animals and vegetation. They give the community its name — and, at Khejarli in 1730, its defining moment."
@@ -87,11 +90,11 @@ export default function TwentyNinePrinciplesPage() {
         { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
         { label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies", href: "https://ivsjournal.com/index.php/jvs/article/view/202" },
       ]}
-      related={[
+      related={withCardColors([
         { href: "/bishnoi/guru-jambheshwar", label: "Guru Jambheshwar", blurb: "Who set the rules out, and the drought they answered." },
         { href: "/bishnoi/khejarli", label: "Khejarli, 1730", blurb: "The day one of these rules was tested to the limit." },
         { href: "/bishnoi/name-and-origin", label: "Where the name comes from", blurb: "Twenty and nine — and the reading that competes with it." },
-      ]}
+      ])}
     >
       <p className="lead">
         The principles come down through the <strong>Shabadwani</strong>, the 120 <em>shabads</em> attributed to Guru
@@ -129,6 +132,16 @@ export default function TwentyNinePrinciplesPage() {
         </section>
       ))}
 
+
+      <figure>
+        <img src="/legacy/groves.jpg" alt="A khejri tree (Prosopis cineraria) in dry scrub." />
+        <figcaption>
+          The khejri, <em>Prosopis cineraria</em>. Rule 02 &mdash; do not cut a green tree &mdash; is the one that has
+         cost lives, and this is the tree it usually means.
+          <span className="figure-credit">Photo: LRBurdak &middot; CC BY-SA 4.0</span>
+        </figcaption>
+      </figure>
+
       <h2>The rule about the colour blue</h2>
       <p>
         Of the twenty-nine, this is the one that most repays a second look. Indigo dye is extracted from the indigo
@@ -140,6 +153,16 @@ export default function TwentyNinePrinciplesPage() {
         also the rule that makes the eight environmental niyamas legible as something other than a modern reading: no
         one arrives at a clothing prohibition by way of conservation policy.
       </p>
+
+
+      <figure>
+        <img src="/legacy/wardens.jpg" alt="Blackbuck grazing in open scrub at Tal Chhapar." />
+        <figcaption>
+          Blackbuck at Tal Chhapar. Eight of the twenty-nine concern animals; the shelter they ask for is why these
+         antelope graze within sight of Bishnoi houses.
+          <span className="figure-credit">Photo: Tisha Mukherjee &middot; CC BY-SA 4.0</span>
+        </figcaption>
+      </figure>
 
       <h2>Where sources disagree</h2>
       <ul>

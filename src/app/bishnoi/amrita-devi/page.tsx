@@ -1,10 +1,13 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 
 export default function AmritaDeviPage() {
   return (
     <ArticlePage
+      tone="white"
+      layout="rail"
       kicker="d. 1730"
       title="Amrita Devi"
       standfirst="A woman of a Bishnoi village in Marwar who refused to let the Maharaja's men fell the khejri trees, and was killed for it. 362 others died after her that day — every one of them knowing what had already happened."
@@ -23,11 +26,11 @@ export default function AmritaDeviPage() {
         { label: "Amrita Devi Bishnoi National Award — Wikipedia", href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award" },
         { label: "Khejarli massacre — Wikipedia", href: "https://en.wikipedia.org/wiki/Khejarli_massacre" },
       ]}
-      related={[
+      related={withCardColors([
         { href: "/bishnoi/khejarli", label: "Khejarli, 1730", blurb: "The full sequence of the day, and what followed it." },
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "The rule she was defending, and the twenty-eight around it." },
         { href: "/bishnoi", label: "Who are the Bishnois?", blurb: "The community she belonged to, then and now." },
-      ]}
+      ])}
     >
       <p className="lead">
         Amrita Devi lived in a Bishnoi village near Jodhpur, in the kingdom of Marwar. In September 1730 a party sent by
@@ -36,13 +39,21 @@ export default function AmritaDeviPage() {
         where she stood, the first of 363.
       </p>
 
-      <h2>Her daughters</h2>
-      <p>
-        Three of her daughters, having watched her die, took hold of the trees in turn and were killed after her.{" "}
-        <strong>Community tradition names them Asu, Ratni and Bhagu.</strong> Those names are repeated consistently
-        across community sources; the encyclopedic record refers only to &ldquo;three of her daughters&rdquo; without
-        naming them, so we give them as tradition rather than as documented fact.
-      </p>
+      <div className="prose-split">
+        <div>
+          <h2>Her daughters</h2>
+          <p>
+            Three of her daughters, having watched her die, took hold of the trees in turn and were killed after her.{" "}
+            <strong>Community tradition names them Asu, Ratni and Bhagu.</strong> Those names are repeated consistently
+            across community sources; the encyclopedic record refers only to &ldquo;three of her daughters&rdquo; without
+            naming them, so we give them as tradition rather than as documented fact.
+          </p>
+        </div>
+
+        <figure>
+          <img src="/khejarlitrees.png" alt="A stone memorial pillar on a paved terrace, set among trees." />
+        </figure>
+      </div>
       <p>
         The saying attributed to her — that a head given for a tree is a fair exchange — appears in several renderings
         and is almost certainly later tradition too. It is no less true to what she did for that.
@@ -64,16 +75,24 @@ export default function AmritaDeviPage() {
         The Government of India&rsquo;s <strong>Amrita Devi Bishnoi National Award</strong> recognises individuals and rural
         community organisations that have shown exemplary courage or done exceptional work in wildlife protection.
       </p>
-      <p>
-        This is the single clearest piece of evidence that the events of 1730 left a mark outside the community that
-        remembers them. A woman killed defending trees in the eighteenth century now has her name on the instrument by
-        which the modern Indian state recognises the same act. It is not community memory; it is a government
-        instrument, and it is citable as such.
-      </p>
-      <p>
-        Since 2013, <strong>11 September</strong> has been observed across India as National Forest Martyrs Day, in
-        memory of Khejarli.
-      </p>
+      <div className="prose-split">
+        <div>
+          <p>
+            This is the single clearest piece of evidence that the events of 1730 left a mark outside the community that
+            remembers them. A woman killed defending trees in the eighteenth century now has her name on the instrument
+            by which the modern Indian state recognises the same act. It is not community memory; it is a government
+            instrument, and it is citable as such.
+          </p>
+          <p>
+            Since 2013, <strong>11 September</strong> has been observed across India as National Forest Martyrs Day, in
+            memory of Khejarli.
+          </p>
+        </div>
+
+        <figure>
+          <img src="/legacy/bustard.jpg" alt="A Great Indian Bustard in Desert National Park, Rajasthan." />
+        </figure>
+      </div>
 
       <h2>A note on the shape of this history</h2>
       <p>
@@ -86,13 +105,6 @@ export default function AmritaDeviPage() {
         but because their actions demonstrate the principles. That test is worth applying strictly.
       </p>
 
-      <h2>Open questions</h2>
-      <ul>
-        <li>Her age, and her family beyond the three daughters.</li>
-        <li>Whether any near-contemporary source names her, or whether the name enters the record later.</li>
-        <li>The award&rsquo;s founding date and the ministry that administers it.</li>
-        <li>Whether the Khejarli commemoration predates the 2013 national designation, and by how long.</li>
-      </ul>
     </ArticlePage>
   );
 }

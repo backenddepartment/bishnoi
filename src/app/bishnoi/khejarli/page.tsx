@@ -1,10 +1,13 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 
 export default function KhejarliPage() {
   return (
     <ArticlePage
+      tone="white"
+      layout="rail"
       kicker="1730"
       title="Khejarli"
       standfirst="In September 1730, 363 Bishnois were killed defending a grove of khejri trees from the Maharaja of Marwar's timber party. Almost all of them arrived after the killing had already started."
@@ -24,11 +27,11 @@ export default function KhejarliPage() {
         { label: "When Amrita Devi and 362 Bishnois sacrificed their lives for the Khejri tree — Sahapedia", href: "http://www.sahapedia.org/when-amrita-devi-and-362-bishnois-sacrificed-their-lives-khejri-tree" },
         { label: "National Forest Martyrs Day — Vajiram & Ravi", href: "https://vajiramandravi.com/current-affairs/national-forest-martyrs-day-2025/" },
       ]}
-      related={[
+      related={withCardColors([
         { href: "/bishnoi/amrita-devi", label: "Amrita Devi", blurb: "The woman who refused first, and the award that carries her name." },
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "The rule they were defending, and the twenty-eight around it." },
         { href: "/bishnoi", label: "Who are the Bishnois?", blurb: "The community, the creed, and what it looks like today." },
-      ]}
+      ])}
     >
       <p className="lead">
         In September 1730, a party sent by Maharaja Abhai Singh of Marwar came to a Bishnoi village near Jodhpur to fell
@@ -54,6 +57,11 @@ export default function KhejarliPage() {
         A council decided that each volunteer would take one tree. The elders went first, deliberately, before the
         young. By the time the Maharaja himself rode out to stop it, 363 Bishnois were dead.
       </p>
+
+
+      <figure>
+        <img src="/legacy/sacrifice.jpg" alt="The memorial at Khejarli to the 363 Bishnois killed in 1730." />
+      </figure>
 
       <h2>What happened afterwards</h2>
       <p>
@@ -99,26 +107,6 @@ export default function KhejarliPage() {
       <p>
         A commemoration is held at Khejarli each September, at the site of the graves.
       </p>
-
-      <h2>Open questions</h2>
-      <ul>
-        <li>
-          <strong>How many villages.</strong> Sources give both 83 and 49. We have not printed a figure because we
-          cannot resolve it.
-        </li>
-        <li>
-          <strong>The decree.</strong> Whether a copper-plate order survives in Marwar records. If it does, the scope
-          question above is settled and this becomes one of the best-documented facts in the whole history.
-        </li>
-        <li>
-          <strong>Contemporary evidence.</strong> Everything here descends from accounts written after the fact. What,
-          if anything, was recorded at the time is unknown to us.
-        </li>
-        <li>
-          <strong>Amrita Devi&rsquo;s words.</strong> The saying attributed to her — that a head given for a tree is a fair
-          exchange — appears in several renderings and is almost certainly later tradition.
-        </li>
-      </ul>
     </ArticlePage>
   );
 }

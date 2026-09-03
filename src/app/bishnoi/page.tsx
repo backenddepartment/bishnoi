@@ -1,6 +1,7 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 import { BISHNOI_FAQ, BISHNOI_TIMELINE } from "@/components/bishnoiFaq";
 
 /* FAQPage built from the same array the page renders as visible text, so
@@ -23,6 +24,7 @@ export default function BishnoiHubPage() {
       kicker="The community"
       title="Who are the Bishnois?"
       tone="white"
+      layout="rail"
       standfirst="A Vaishnava community of the Thar Desert, formed around twenty-nine principles set out by Guru Jambheshwar in 1485 — rules that govern how a household treats its neighbours, its animals, and the land it lives on."
       breadcrumbs={[{ label: "Home", href: "/" }, { label: "The Bishnois" }]}
       facts={[
@@ -39,13 +41,33 @@ export default function BishnoiHubPage() {
         { label: "Khejarli massacre — Wikipedia", href: "https://en.wikipedia.org/wiki/Khejarli_massacre" },
         { label: "Amrita Devi Bishnoi National Award — Wikipedia", href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award" },
       ]}
-      related={[
-        { href: "/bishnoi/guru-jambheshwar", label: "Guru Jambheshwar", blurb: "The teacher around whom the way of life formed, and the drought that shaped it." },
-        { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "All twenty-nine niyamas, and what living by them actually meant." },
-        { href: "/bishnoi/name-and-origin", label: "Where the name comes from", blurb: "Twenty-nine, or Vishnu? Two readings, and why the community holds to one." },
-        { href: "/bishnoi/khejarli", label: "Khejarli, 1730", blurb: "The day the principles stopped being advisory. 363 people died." },
-        { href: "/bishnoi/amrita-devi", label: "Amrita Devi", blurb: "The woman who refused first, and the national award that now carries her name." },
-      ]}
+      related={withCardColors([
+        {
+          href: "/bishnoi/guru-jambheshwar",
+          label: "Guru Jambheshwar",
+          blurb: "The teacher around whom the way of life formed, and the drought that shaped it.",
+        },
+        {
+          href: "/bishnoi/29-principles",
+          label: "The 29 Principles",
+          blurb: "All twenty-nine niyamas, and what living by them actually meant.",
+        },
+        {
+          href: "/bishnoi/name-and-origin",
+          label: "Where the name comes from",
+          blurb: "Twenty-nine, or Vishnu? Two readings, and why the community holds to one.",
+        },
+        {
+          href: "/bishnoi/khejarli",
+          label: "Khejarli, 1730",
+          blurb: "The day the principles stopped being advisory. 363 people died.",
+        },
+        {
+          href: "/bishnoi/amrita-devi",
+          label: "Amrita Devi",
+          blurb: "The woman who refused first, and the national award that now carries her name.",
+        },
+      ])}
     >
       <p className="lead">
         The Bishnois are a religious and social community of western Rajasthan, concentrated around Bikaner, Jodhpur and
@@ -53,6 +75,10 @@ export default function BishnoiHubPage() {
         not a territory or a lineage but a code: twenty-nine rules, the <em>niyamas</em>, set out by Guru Jambheshwar in
         the fifteenth century and kept as a way of life ever since.
       </p>
+
+      <figure>
+        <img src="/bishnois.png" alt="Everyday life in a Bishnoi village: women preparing food, a boy seated nearby, cattle and mud-walled houses behind." />
+      </figure>
 
       <h2>A creed, not a bloodline</h2>
       <p>
@@ -160,20 +186,6 @@ export default function BishnoiHubPage() {
         </section>
       ))}
 
-      <h2>What the Bishnois are not</h2>
-      <p>
-        It is tempting to reduce this to a conservation story, because the conservation story is extraordinary. That
-        reading is too narrow. The Bishnoi tradition is a philosophy about how people should live — with each other,
-        with animals, and with the land — of which the protection of trees and wildlife is one visible expression among
-        many. Community, ethics, restraint, compassion, devotional practice, custom and festival are all part of the
-        same code.
-      </p>
-      <p>
-        It is equally tempting, and equally wrong, to apply modern labels backwards. Calling the Bishnois India&rsquo;s first
-        environmentalists takes a twentieth-century category and fits a fifteenth-century religious community into it.
-        The tradition is better described on its own terms: one in which spiritual practice and ecological obligation
-        were never separate things.
-      </p>
     </ArticlePage>
   );
 }

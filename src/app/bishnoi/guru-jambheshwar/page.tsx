@@ -1,10 +1,13 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { withCardColors } from "@/components/bishnoiRelated";
 
 export default function GuruJambheshwarPage() {
   return (
     <ArticlePage
+      tone="white"
+      layout="rail"
       kicker="1451 – 1536"
       title="Guru Jambheshwar"
       standfirst="The teacher around whom the Bishnoi way of life formed. Faced with drought in the fifteenth-century Thar, he answered not with appeal or migration but with twenty-nine rules about restraint."
@@ -23,11 +26,11 @@ export default function GuruJambheshwarPage() {
         { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
         { label: "Guru Jambheshwar University of Science and Technology, Hisar", href: "https://www.gjust.ac.in/" },
       ]}
-      related={[
+      related={withCardColors([
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "What he set out, in full, and what living by it meant." },
         { href: "/bishnoi/name-and-origin", label: "Where the name comes from", blurb: "Twenty and nine — and the reading that competes with it." },
         { href: "/bishnoi", label: "Who are the Bishnois?", blurb: "The community that formed around the teaching, and what it is today." },
-      ]}
+      ])}
     >
       <p className="lead">
         Guru Jambheshwar — known also as Jambhoji — was born in 1451 at Peepasar in Nagaur district, and died in 1536.
@@ -35,6 +38,16 @@ export default function GuruJambheshwarPage() {
         he preached for fifty-one years afterwards. His final rites were performed at Mukam, in Nokha, Bikaner district,
         which remains the community&rsquo;s principal pilgrimage site.
       </p>
+
+      <figure>
+        <img src="/gurujambheshwar.png" alt="A devotional painting of Guru Jambheshwar seated beneath a tree, surrounded by animals." />
+        <figcaption>
+          Guru Jambheshwar as the tradition pictures him. He died in 1536, so no likeness taken from life exists; what
+          this is instead is the standard devotional image, and it argues a case &mdash; the deer, the cow, the peacock
+          and the birds around him are the twenty-nine principles drawn rather than written.
+          <span className="figure-credit">Devotional depiction &middot; not a portrait from life</span>
+        </figcaption>
+      </figure>
 
       <h2>He is not the founder of a philosophy. He is the person a way of life formed around.</h2>
       <p>
@@ -49,6 +62,7 @@ export default function GuruJambheshwarPage() {
         Everything downstream of that — the villages, the gotras, the festivals, Khejarli — belongs to the Bishnois, not
         to him alone.
       </p>
+
 
       <h2>The drought</h2>
       <p>
@@ -96,6 +110,16 @@ export default function GuruJambheshwarPage() {
           <strong>Jambholav</strong> — site of the Chaitra Amavasya fair.
         </li>
       </ul>
+
+
+      <figure>
+        <img src="/legacy/faith.jpg" alt="The Mukti Dham temple at Mukam, Bikaner district." />
+        <figcaption>
+          Mukam, in Nokha tehsil, Bikaner district &mdash; the temple over the site of his final rites, and the
+         community&rsquo;s principal pilgrimage site.
+          <span className="figure-credit">Photo: Kaushal Bishnoi &middot; CC BY-SA 4.0</span>
+        </figcaption>
+      </figure>
 
       <h2>His name today</h2>
       <p>
