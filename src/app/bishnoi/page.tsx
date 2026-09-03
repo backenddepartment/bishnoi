@@ -1,10 +1,25 @@
 "use client";
 
 import ArticlePage from "@/components/ArticlePage";
+import { BISHNOI_FAQ, BISHNOI_TIMELINE } from "@/components/bishnoiFaq";
+
+/* FAQPage built from the same array the page renders as visible text, so
+   the markup and the page can never disagree — which is the usual way FAQ
+   structured data goes wrong. */
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: BISHNOI_FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 export default function BishnoiHubPage() {
   return (
     <ArticlePage
+      jsonLd={faqJsonLd}
       kicker="The community"
       title="Who are the Bishnois?"
       tone="white"
@@ -94,6 +109,25 @@ export default function BishnoiHubPage() {
         <a href="/bishnoi/khejarli">The full account of Khejarli &rarr;</a>
       </p>
 
+      <h2>The history of the Bishnoi community, in order</h2>
+      <p>
+        The tradition is 541 years old as of 2026. Most short accounts of Bishnoi history jump from 1485 straight to
+        1730 and then to the present day, which leaves out more than it includes. The sequence below marks what is
+        documented, and marks the stretch that is not.
+      </p>
+
+      <ol className="timeline">
+        {BISHNOI_TIMELINE.map((t) => (
+          <li key={t.when} className={t.gap ? "timeline-gap" : undefined}>
+            <span className="timeline-when">{t.when}</span>
+            <span className="timeline-body">
+              <strong>{t.what}</strong>
+              <span>{t.detail}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+
       <h2>The Bishnois today</h2>
       <p>
         The tradition is living, not commemorated. Blackbuck and chinkara move freely through Bishnoi villages, where
@@ -113,6 +147,18 @@ export default function BishnoiHubPage() {
         born; the Bhadrapad Amavasya fair at Mukam, the community&rsquo;s largest yearly gathering; the Chaitra Amavasya
         fair at Jambholav; monthly Amavasya fasting and satsang; and the Khejarli commemoration each September.
       </p>
+
+      <h2>Common questions about Bishnoi history</h2>
+      <p>
+        Short answers to what people most often ask. Each links through to the page that treats it properly.
+      </p>
+
+      {BISHNOI_FAQ.map((f) => (
+        <section key={f.q} style={{ display: "contents" }}>
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </section>
+      ))}
 
       <h2>What the Bishnois are not</h2>
       <p>

@@ -19,19 +19,19 @@ export const metadata: Metadata = {
   description:
     "The history of the Bishnoi community of Rajasthan — Guru Jambheshwar, the 29 principles, and the 363 killed at Khejarli in 1730 — and the modern business ecosystem that carries the name.",
   keywords: [
-    // The informational cluster this site can realistically win. The bare
-    // term "bishnoi" belongs to an encyclopedia, and in news to an
-    // unrelated crime story — these long-tail queries are the winnable
-    // ground, and ranking for them is what builds standing on the head term.
+    // Brand-level only. The history queries — "history of Bishnoi",
+    // "Bishnoi ka itihas", "when was Bishnoi founded" and the rest — are
+    // deliberately NOT here: /bishnoi owns that cluster, and it is the page
+    // that can actually answer them (a dated timeline, ten FAQ answers,
+    // FAQPage markup). Home mentions "history" once in its visible copy.
+    // Listing the cluster in both places would put the two pages in
+    // competition and split the signal towards the weaker one. Home already
+    // links to /bishnoi five times, which is the useful thing it can do.
     "Bishnoi",
     "Bishnoi community",
-    "Bishnoi history",
-    "who are the Bishnoi",
-    "29 Bishnoi principles",
     "Guru Jambheshwar",
-    "Khejarli massacre",
-    "Amrita Devi Bishnoi",
-    "Bishnoi meaning",
+    "29 Bishnoi principles",
+    "Khejarli",
     "Bishnoi conservation",
     // The business ecosystem.
     "Naresh Kumar Bishnoi",
