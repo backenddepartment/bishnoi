@@ -1295,3 +1295,60 @@ section[id] {
     font-size: 3.75rem !important;
   }
 }
+
+/* ── Act marker ─────────────────────────────────────────────────────────────
+   Sits where an .eyebrow would on the four act-opening sections. Built from
+   the same tokens the eyebrow uses (orange accent, --ink-soft label, --line
+   rule) so it reads as part of the existing system rather than a new one. */
+.act-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.act-mark-numeral {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--brand-orange);
+  flex-shrink: 0;
+}
+
+.act-mark-rule {
+  width: 2.25rem;
+  height: 1px;
+  background: var(--brand-orange);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.act-mark-era {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-deep);
+  flex-shrink: 0;
+}
+
+.act-mark-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.act-mark-light .act-mark-era {
+  color: #fff;
+}
+
+.act-mark-light .act-mark-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 639px) {
+  .act-mark-label {
+    width: 100%;
+  }
+}

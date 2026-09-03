@@ -135,7 +135,7 @@ export default function Mukam({}: MukamProps) {
             <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
               <span className="dot dot-blink"></span> Faith & The Sacred Land
             </div>
-            <h2 style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
+            <h2 style={{ fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
               Mukam: The Heart of the Faith
             </h2>
           </div>

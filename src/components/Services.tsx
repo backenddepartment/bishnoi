@@ -6,6 +6,7 @@ import type Lenis from "lenis";
 import { chapters, COL_FR, LEGACY_EASE as EASE, MOBILE_ROWS, placement, ROW_FR } from "./legacyData";
 import LegacyCard from "./LegacyCard";
 import LegacyOverlay from "./LegacyOverlay";
+import ActMark from "./ActMark";
 
 interface ServicesProps {
   introReady: boolean;
@@ -136,10 +137,8 @@ export default function Services({ lenis }: ServicesProps) {
           style={{ alignItems: "flex-start", gap: "2rem", marginBottom: "1.75rem", flexShrink: 0 }}
         >
           <div className="lg:col-span-5">
-            <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.25rem" }}>
-              <span className="dot dot-blink"></span> 1730 &middot; Khejarli &amp; the Centuries After
-            </div>
-            <h2 style={{ margin: ".75rem 0 0", fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-.02em" }}>
+            <ActMark numeral="II" era="1730" label="The principles are tested" />
+            <h2 className="act-title" style={{ margin: ".75rem 0 0", fontSize: "clamp(2.5rem, 4vw, 3.75rem)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-.02em" }}>
               <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
                 <span className="line-inner">Bishnoi Legacy</span>
               </span>

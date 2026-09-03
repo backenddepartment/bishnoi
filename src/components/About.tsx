@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import ActMark from "./ActMark";
+
 interface AboutProps {
   onScrollTo?: (id: string) => void;
   introReady?: boolean;
@@ -54,8 +56,8 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
         {/* Headline & Narrative Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            <div id="about-eyebrow" className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
-              <span className="dot dot-blink"></span> The Bishnoi Community
+            <div id="about-eyebrow">
+              <ActMark numeral="I" era="1485" label="Where it began" />
             </div>
             <h2
               id="about-h2"

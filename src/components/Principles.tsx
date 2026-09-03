@@ -136,7 +136,7 @@ export default function Principles({}: PrinciplesProps) {
             <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
               <span className="dot dot-blink"></span> The 29 Principles
             </div>
-            <h2 style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
+            <h2 style={{ fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
               29 Principles, One Way of Life
             </h2>
           </div>

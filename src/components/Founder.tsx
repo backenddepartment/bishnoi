@@ -53,7 +53,7 @@ export default function Founder({}: FounderProps) {
             </div>
             <h2
               style={{
-                fontSize: "clamp(2.25rem, 3.5vw, 3rem)",
+                fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)",
                 fontWeight: 700,
                 lineHeight: 1.15,
                 letterSpacing: "-.02em",
