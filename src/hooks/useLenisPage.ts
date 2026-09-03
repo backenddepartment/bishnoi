@@ -72,7 +72,7 @@ export function useLenisPage() {
 export const HEADER_OFFSET_PX = 96;
 
 // Every section id that lives on the home page. The heritage sections
-// (about/founder/mukam/principles/services) joined this set when the
+// (about/founder/mukam/principles/legacy) joined this set when the
 // standalone /heritage route was removed and its content moved to home.
 const HOME_SECTION_IDS = new Set([
   "works",
@@ -82,7 +82,7 @@ const HOME_SECTION_IDS = new Set([
   "founder",
   "mukam",
   "principles",
-  "services",
+  "legacy",
 ]);
 
 // Shared nav-target resolution for any secondary page: ids that live on the

@@ -23,7 +23,7 @@ interface HeaderProps {
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
   { label: "History", id: "founder", href: "/#founder" },
-  { label: "Legacy", id: "services", href: "/#services" },
+  { label: "Legacy", id: "legacy", href: "/#legacy" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];

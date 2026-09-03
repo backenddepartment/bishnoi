@@ -75,9 +75,9 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     // Explicit break — Hero's h1 renders with white-space: pre-line, so the
     // headline sets its own two lines rather than wrapping wherever the
     // width cap happens to fall.
-    headline: "Five Hundred Years\nof Heritage",
+    headline: "A 500-Year Heritage.\nA Future Still Being Built.",
     subtitle:
-      "The story of the Bishnoi community — a 1485 faith, 29 guiding principles, and 363 lives given at Khejarli — and how those principles still shape the businesses built in its name.",
+      "A philosophy born in the Thar Desert in 1485 — 29 principles, and 363 lives given to defend them. This is how a new generation is carrying that ethic forward.",
     // No backgroundImage — this is the one variant that runs the rotating
     // HERO_CAROUSEL rather than pinning a single still.
     pills: ECOSYSTEM_PILLS,

@@ -1184,7 +1184,7 @@ section[id] {
   #about-p,
   #founder p,
   #principles p,
-  #services p,
+  #legacy p,
   #mukam p,
   #works p {
     font-size: 1.0625rem !important;
@@ -1273,4 +1273,25 @@ section[id] {
   }
 }
 
-
+/* ── Heading tiers ──────────────────────────────────────────────────────────
+   Three tiers, not one. `.act-title` opens an act (About / the act openers);
+   a plain `section h2` is a heading INSIDE an act, one tier down; `h3` is a
+   card title. The blanket `section h2` mobile size above is the tier-2 size,
+   so act titles opt back out of it and keep the ladder they had when the
+   About heading was still (wrongly) a second <h1>. */
+@media (max-width: 1023px) {
+  section h2.act-title {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+  }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  section h2.act-title {
+    font-size: 3.25rem !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  section h2.act-title {
+    font-size: 3.75rem !important;
+  }
+}

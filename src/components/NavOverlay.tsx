@@ -41,7 +41,7 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   const navItems = [
     { label: "Home", href: "/" },
     { label: "History", href: "/#founder" },
-    { label: "Legacy", href: "/#services" },
+    { label: "Legacy", href: "/#legacy" },
     { label: "Leadership", href: "/leadership/naresh-bishnoi" },
     { label: "Businesses", href: "/businesses" },
     { label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },

@@ -77,7 +77,7 @@ export default function Stats({ introReady }: StatsProps) {
           </div>
           <h2 style={{ marginTop: "1rem", maxWidth: "24ch", fontSize: "1.875rem", fontWeight: 500, letterSpacing: "-.01em" }}>
             <span className={`reveal-line ${isVisible ? "visible" : ""}`}>
-              <span className="line-inner">Rooted in principles that endure.</span>
+              <span className="line-inner">What we hold ourselves to, and what we intend to leave behind.</span>
             </span>
           </h2>
 
@@ -160,7 +160,7 @@ export default function Stats({ introReady }: StatsProps) {
                 <span style={{ fontSize: "1.75rem", marginLeft: ".5rem", color: "#ffffff" }}>Years</span>
               </div>
               <div style={{ marginTop: ".75rem", fontSize: ".875rem", color: "rgba(247,243,232,.7)", lineHeight: 1.5 }}>
-                Five hundred years of stewardship, environmental protection, and principled enterprise.
+                Five centuries of living principles — an ethic of stewardship and restraint older than the word “environmentalism,” and the inheritance every business built in this name answers to.
               </div>
             </li>
           </ul>

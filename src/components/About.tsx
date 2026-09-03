@@ -57,9 +57,9 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
             <div id="about-eyebrow" className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
               <span className="dot dot-blink"></span> The Bishnoi Community
             </div>
-            <h1
-              id="about-h1"
-              className="break-words text-[2.5rem] sm:text-[3.25rem] md:text-[3.75rem]"
+            <h2
+              id="about-h2"
+              className="act-title break-words text-[2.5rem] sm:text-[3.25rem] md:text-[3.75rem]"
               style={{
                 fontWeight: 700,
                 lineHeight: 1.1,
@@ -68,7 +68,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
               }}
             >
               India&apos;s Original<br />Environmentalists
-            </h1>
+            </h2>
           </div>
 
           <div
@@ -101,7 +101,7 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                   Explore the 29 Principles <span className="pill-badge">→</span>
                 </span>
               </button>
-              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("services") : (window.location.href = "/#services")}>
+              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("legacy") : (window.location.href = "/#legacy")}>
                 <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
                   The Story of Khejarli <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
                 </span>
