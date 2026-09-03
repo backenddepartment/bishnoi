@@ -39,22 +39,20 @@ export default function GuruJambheshwarPage() {
         which remains the community&rsquo;s principal pilgrimage site.
       </p>
 
-      <figure>
-        <img src="/gurujambheshwar.png" alt="A devotional painting of Guru Jambheshwar seated beneath a tree, surrounded by animals." />
-        <figcaption>
-          Guru Jambheshwar as the tradition pictures him. He died in 1536, so no likeness taken from life exists; what
-          this is instead is the standard devotional image, and it argues a case &mdash; the deer, the cow, the peacock
-          and the birds around him are the twenty-nine principles drawn rather than written.
-          <span className="figure-credit">Devotional depiction &middot; not a portrait from life</span>
-        </figcaption>
-      </figure>
+      <div className="prose-split">
+        <div>
+          <h2>He is not the founder of a philosophy. He is the person a way of life formed around.</h2>
+          <p>
+            The distinction is worth insisting on, because the shorter version misleads. Jambheshwar did not hand down a
+            doctrine that a community then adopted; the community, its practices, its clans and its identity took shape
+            over generations around what he taught. The line runs:
+          </p>
+        </div>
 
-      <h2>He is not the founder of a philosophy. He is the person a way of life formed around.</h2>
-      <p>
-        The distinction is worth insisting on, because the shorter version misleads. Jambheshwar did not hand down a
-        doctrine that a community then adopted; the community, its practices, its clans and its identity took shape over
-        generations around what he taught. The line runs:
-      </p>
+        <figure>
+          <img src="/gurujambheshwar.png" alt="A devotional painting of Guru Jambheshwar seated beneath a tree, surrounded by animals." />
+        </figure>
+      </div>
       <p>
         <strong>Guru Jambheshwar &rarr; teachings &rarr; community &rarr; generations &rarr; a living tradition.</strong>
       </p>
@@ -114,11 +112,6 @@ export default function GuruJambheshwarPage() {
 
       <figure>
         <img src="/legacy/faith.jpg" alt="The Mukti Dham temple at Mukam, Bikaner district." />
-        <figcaption>
-          Mukam, in Nokha tehsil, Bikaner district &mdash; the temple over the site of his final rites, and the
-         community&rsquo;s principal pilgrimage site.
-          <span className="figure-credit">Photo: Kaushal Bishnoi &middot; CC BY-SA 4.0</span>
-        </figcaption>
       </figure>
 
       <h2>His name today</h2>

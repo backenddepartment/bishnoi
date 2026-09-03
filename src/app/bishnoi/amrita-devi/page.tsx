@@ -39,21 +39,17 @@ export default function AmritaDeviPage() {
         where she stood, the first of 363.
       </p>
 
-      <div className="prose-split">
-        <div>
-          <h2>Her daughters</h2>
-          <p>
-            Three of her daughters, having watched her die, took hold of the trees in turn and were killed after her.{" "}
-            <strong>Community tradition names them Asu, Ratni and Bhagu.</strong> Those names are repeated consistently
-            across community sources; the encyclopedic record refers only to &ldquo;three of her daughters&rdquo; without
-            naming them, so we give them as tradition rather than as documented fact.
-          </p>
-        </div>
+      <figure>
+        <img src="/amritadevi.png" alt="A woman in a pale sari holding on to the trunk of a khejri tree in open scrub." />
+      </figure>
 
-        <figure>
-          <img src="/khejarlitrees.png" alt="A stone memorial pillar on a paved terrace, set among trees." />
-        </figure>
-      </div>
+      <h2>Her daughters</h2>
+      <p>
+        Three of her daughters, having watched her die, took hold of the trees in turn and were killed after her.{" "}
+        <strong>Community tradition names them Asu, Ratni and Bhagu.</strong> Those names are repeated consistently
+        across community sources; the encyclopedic record refers only to &ldquo;three of her daughters&rdquo; without
+        naming them, so we give them as tradition rather than as documented fact.
+      </p>
       <p>
         The saying attributed to her — that a head given for a tree is a fair exchange — appears in several renderings
         and is almost certainly later tradition too. It is no less true to what she did for that.
