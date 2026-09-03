@@ -1349,3 +1349,256 @@ section[id] {
     width: 100%;
   }
 }
+
+/* ── Reference pages (/bishnoi/*) ───────────────────────────────────────────
+   Long-form reading, not a landing page. Everything here renders statically
+   and at full opacity: these pages are the record, so nothing may sit behind
+   a click or a scroll observer. */
+.article-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .article-head {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.fact-panel {
+  margin: 0;
+  border-top: 1px solid rgba(74, 68, 60, 0.18);
+}
+
+.fact-row {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.6875rem 0;
+  border-bottom: 1px solid rgba(74, 68, 60, 0.12);
+  align-items: baseline;
+}
+
+.fact-row dt {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fact-row dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-deep);
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .fact-row {
+    grid-template-columns: 1fr;
+    gap: 0.125rem;
+  }
+}
+
+/* Reading measure. .shell is full-bleed by design, so prose sets its own. */
+.prose {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.prose h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink-deep);
+  margin: 2rem 0 0;
+  text-wrap: balance;
+}
+
+.prose h3 {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-deep);
+  margin: 1.25rem 0 0;
+}
+
+.prose p {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+.prose p.lead {
+  font-size: 1.1875rem;
+  color: var(--ink);
+}
+
+.prose strong {
+  color: var(--ink-deep);
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--ink-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-orange);
+  text-underline-offset: 3px;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prose li {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.prose li::marker {
+  color: var(--brand-orange);
+}
+
+/* A numbered list of rules is data, not prose — it gets its own treatment
+   so the reader can scan for one rule rather than read all of them. */
+.rule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.rule-list li {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.6875rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.rule-list li > span:first-child {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--brand-orange);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pulled-out quotation or a claim we are deliberately attributing. */
+.prose blockquote {
+  margin: 0.5rem 0;
+  padding: 0 0 0 1.25rem;
+  border-left: 2px solid var(--brand-orange);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.prose blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
+.article-sources {
+  max-width: 68ch;
+  margin-top: 3.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.article-sources h2 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.article-sources ul {
+  margin: 0;
+  padding-left: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.article-sources li {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.article-sources a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 68, 60, 0.3);
+  text-underline-offset: 2px;
+}
+
+.source-note {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.375rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card-sm);
+  text-decoration: none;
+  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.no-touch .related-card:hover {
+  border-color: var(--brand-orange);
+  transform: translateY(-2px);
+}
+
+.related-label {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--ink-deep);
+  letter-spacing: -0.01em;
+}
+
+.related-blurb {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.related-arrow {
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: var(--brand-orange);
+}

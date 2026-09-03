@@ -62,8 +62,8 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
             <div style={{ fontSize: ".9375rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".025em", color: "#fff" }}>Organization</div>
             <ul style={{ marginTop: ".75rem", fontSize: ".9375rem", display: "flex", flexDirection: "column", gap: ".5rem" }}>
               <li>
-                <a className="animated-link legal" href="/#founder">
-                  <span>History</span>
+                <a className="animated-link legal" href="/bishnoi">
+                  <span>The Bishnois</span>
                 </a>
               </li>
               <li>
@@ -82,8 +82,13 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
                 </a>
               </li>
               <li>
-                <a className="animated-link legal" href="/#about">
-                  <span>Heritage</span>
+                <a className="animated-link legal" href="/bishnoi/29-principles">
+                  <span>The 29 Principles</span>
+                </a>
+              </li>
+              <li>
+                <a className="animated-link legal" href="/bishnoi/khejarli">
+                  <span>Khejarli, 1730</span>
                 </a>
               </li>
               <li>

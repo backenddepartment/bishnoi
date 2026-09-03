@@ -13,12 +13,27 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bishnoi.ai";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Bishnoi | Global Business Ecosystem & Healthcare",
+    default: "Bishnoi | The Community, Its History and Its Living Legacy",
     template: "%s | Bishnoi",
   },
   description:
-    "Naresh Kumar Bishnoi — Founder of Getmeds & 2MG Inc, Oncology Medicine Supply Specialist, and leader behind Getmeds Ecosystem, Bishnoi Omniverse, Naresh Bishnoi Foundation, and global healthcare initiatives.",
+    "The history of the Bishnoi community of Rajasthan — Guru Jambheshwar, the 29 principles, and the 363 killed at Khejarli in 1730 — and the modern business ecosystem that carries the name.",
   keywords: [
+    // The informational cluster this site can realistically win. The bare
+    // term "bishnoi" belongs to an encyclopedia, and in news to an
+    // unrelated crime story — these long-tail queries are the winnable
+    // ground, and ranking for them is what builds standing on the head term.
+    "Bishnoi",
+    "Bishnoi community",
+    "Bishnoi history",
+    "who are the Bishnoi",
+    "29 Bishnoi principles",
+    "Guru Jambheshwar",
+    "Khejarli massacre",
+    "Amrita Devi Bishnoi",
+    "Bishnoi meaning",
+    "Bishnoi conservation",
+    // The business ecosystem.
     "Naresh Kumar Bishnoi",
     "Naresh Bishnoi",
     "Getmeds",
@@ -50,9 +65,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Bishnoi | Global Business Ecosystem & Healthcare",
+    title: "Bishnoi | The Community, Its History and Its Living Legacy",
     description:
-      "From a small village in Haryana, India, to building businesses serving healthcare markets and communities around the world.",
+      "A philosophy born in the Thar Desert in 1485, the community that formed around it, and the enterprise a new generation is building in its name.",
     url: baseUrl,
     siteName: "Bishnoi Omniverse",
     locale: "en_US",
@@ -68,7 +83,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bishnoi | Global Business Ecosystem & Healthcare",
+    title: "Bishnoi | The Community, Its History and Its Living Legacy",
     description:
       "Advancing healthcare across borders through Getmeds Ecosystem, Bishnoi Omniverse, and global initiatives.",
     images: ["/hero_pharma.jpg"],
@@ -180,6 +195,69 @@ const jsonLd = {
       publisher: {
         "@id": `${baseUrl}/#organization`,
       },
+      about: [{ "@id": `${baseUrl}/#community` }, { "@id": `${baseUrl}/#organization` }],
+    },
+
+    // ── The Bishnoi community as an entity in its own right ────────────────
+    // This node exists to make an explicit separation that matters three ways
+    // over: the community is not the company; the company does not own the
+    // heritage; and "Bishnoi" in current news is dominated by an unrelated
+    // crime story, so the graph should say plainly which Bishnoi this site is
+    // about. sameAs points at the encyclopedia entry so the entity resolves.
+    {
+      "@type": "Organization",
+      "@id": `${baseUrl}/#community`,
+      name: "Bishnoi community",
+      alternateName: ["Bishnoi", "Vishnoi", "Bishnoi Panth"],
+      url: `${baseUrl}/bishnoi`,
+      foundingDate: "1485",
+      founder: { "@id": `${baseUrl}/#jambheshwar` },
+      description:
+        "A Vaishnava religious and social community of the Thar Desert in western Rajasthan, formed around the twenty-nine niyamas set out by Guru Jambheshwar in 1485.",
+      sameAs: ["https://en.wikipedia.org/wiki/Bishnoi"],
+    },
+    {
+      "@type": "Person",
+      "@id": `${baseUrl}/#jambheshwar`,
+      name: "Guru Jambheshwar",
+      alternateName: ["Jambhoji", "Jambhaji", "Jambheshwar Bhagwan"],
+      birthDate: "1451",
+      deathDate: "1536",
+      birthPlace: { "@type": "Place", name: "Peepasar, Nagaur, Rajasthan" },
+      url: `${baseUrl}/bishnoi/guru-jambheshwar`,
+      description:
+        "The teacher around whom the Bishnoi way of life formed. Established the tradition at Samrathal Dhora in 1485 and set out the twenty-nine niyamas recorded in the Shabadwani.",
+    },
+    {
+      "@type": "Person",
+      "@id": `${baseUrl}/#amritadevi`,
+      name: "Amrita Devi",
+      alternateName: "Amrita Devi Bishnoi",
+      deathDate: "1730-09",
+      url: `${baseUrl}/bishnoi/amrita-devi`,
+      description:
+        "A Bishnoi woman of Marwar killed in September 1730 refusing to let khejri trees be felled. The Government of India's Amrita Devi Bishnoi National Award for wildlife protection carries her name.",
+      sameAs: ["https://en.wikipedia.org/wiki/Amrita_Devi"],
+    },
+    {
+      "@type": "Event",
+      "@id": `${baseUrl}/#khejarli`,
+      name: "The Khejarli massacre",
+      startDate: "1730-09",
+      url: `${baseUrl}/bishnoi/khejarli`,
+      location: { "@type": "Place", name: "Khejarli, near Jodhpur, Rajasthan" },
+      description:
+        "363 Bishnois were killed defending a grove of khejri trees from a timber party sent by Maharaja Abhai Singh of Marwar. Commemorated in India on 11 September as National Forest Martyrs Day.",
+      sameAs: ["https://en.wikipedia.org/wiki/Khejarli_massacre"],
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": `${baseUrl}/#niyamas`,
+      name: "The 29 Bishnoi principles",
+      alternateName: "The 29 niyamas",
+      url: `${baseUrl}/bishnoi/29-principles`,
+      description:
+        "Twenty-nine rules set out by Guru Jambheshwar in 1485, recorded in the Shabadwani, covering worship, personal discipline, social conduct, and the treatment of animals and vegetation. Eight concern the environment.",
     },
   ],
 };

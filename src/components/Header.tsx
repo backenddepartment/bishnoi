@@ -22,7 +22,11 @@ interface HeaderProps {
 // `id` must match the target section id for that scroll to find it.
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
-  { label: "History", id: "founder", href: "/#founder" },
+  // The reference pages under /bishnoi own the history. The two in-page
+  // anchors below stay because they are the homepage's own acts, but a
+  // visitor looking for the actual record goes to the route, not a scroll
+  // position.
+  { label: "The Bishnois", id: "bishnoi", href: "/bishnoi" },
   { label: "Legacy", id: "legacy", href: "/#legacy" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },

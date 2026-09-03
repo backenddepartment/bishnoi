@@ -40,7 +40,7 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
   // sections; the handler below scrolls them when already on /.
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "History", href: "/#founder" },
+    { label: "The Bishnois", href: "/bishnoi" },
     { label: "Legacy", href: "/#legacy" },
     { label: "Leadership", href: "/leadership/naresh-bishnoi" },
     { label: "Businesses", href: "/businesses" },

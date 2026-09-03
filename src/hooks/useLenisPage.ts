@@ -74,6 +74,9 @@ export const HEADER_OFFSET_PX = 96;
 // Every section id that lives on the home page. The heritage sections
 // (about/founder/mukam/principles/legacy) joined this set when the
 // standalone /heritage route was removed and its content moved to home.
+// "bishnoi" is deliberately absent: it is a route of its own, so the nav
+// item must navigate rather than try to scroll to a section that is not
+// on the home page.
 const HOME_SECTION_IDS = new Set([
   "works",
   "vision",
