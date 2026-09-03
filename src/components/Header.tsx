@@ -16,18 +16,14 @@ interface HeaderProps {
   lightNav?: boolean;
 }
 
-// "History" and "Legacy" are home-page sections, not routes — /about and
-// /what-we-do were removed and their content now lives on Home. NavItems
-// smooth-scrolls a "/#" href when already on /, and navigates otherwise;
-// `id` must match the target section id for that scroll to find it.
+// NavItems smooth-scrolls a "/#" href when already on /, and navigates
+// otherwise; `id` must match the target section id for that scroll to find
+// it. Every item below is now a route — the last in-page anchor (Legacy)
+// was dropped, since the reference pages under /bishnoi own that material
+// and a scroll position is a worse destination than the record itself.
 const NAV_ITEMS = [
   { label: "Home", id: "home", href: "/" },
-  // The reference pages under /bishnoi own the history. The two in-page
-  // anchors below stay because they are the homepage's own acts, but a
-  // visitor looking for the actual record goes to the route, not a scroll
-  // position.
   { label: "The Bishnois", id: "bishnoi", href: "/bishnoi" },
-  { label: "Legacy", id: "legacy", href: "/#legacy" },
   { label: "Leadership", id: "leadership", href: "/leadership/naresh-bishnoi" },
   { label: "Businesses", id: "works", href: "/businesses", hasDropdown: true },
 ];

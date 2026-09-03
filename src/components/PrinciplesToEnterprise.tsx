@@ -27,7 +27,7 @@ const bridges = [
     venture: "Getmeds Healthcare Network",
     href: "/businesses/getmeds",
     icon: (
-      <svg width="42" height="42" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <svg width="58" height="58" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <path d="M14 25s-9-5.4-9-12a5 5 0 019-3 5 5 0 019 3c0 6.6-9 12-9 12z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
         <path d="M14 9.5v6M11 12.5h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
@@ -43,7 +43,7 @@ const bridges = [
     venture: "Bishnoi Omniverse",
     href: "/businesses/bishnoi-omniverse",
     icon: (
-      <svg width="42" height="42" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <svg width="58" height="58" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <path d="M4 25V10l10-6 10 6v15" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
         <path d="M2 25h24" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         <path d="M14 12v7M10.5 15.5h7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -58,7 +58,7 @@ const bridges = [
     venture: "Naresh Bishnoi Foundation",
     href: "/businesses/foundation",
     icon: (
-      <svg width="42" height="42" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <svg width="58" height="58" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <path d="M14 25V14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         <path d="M14 14c0-5 3.5-9 9-9 0 5-3.5 9-9 9z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
         <path d="M14 19c0-4-3-7-7-7 0 4 3 7 7 7z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
@@ -72,7 +72,7 @@ const bridges = [
     venture: "2MG Incorporated & the N. K. Bishnoi Office",
     href: "/businesses",
     icon: (
-      <svg width="42" height="42" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <svg width="58" height="58" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="1.8" />
         <path d="M14 7.5V14l4.5 2.75" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -104,10 +104,10 @@ export default function PrinciplesToEnterprise() {
       ref={sectionRef}
       id="vision"
       style={{
-        // The one background break on the page. Acts I and II run white and
-        // Act IV opens on the green panel, so this ivory band is what marks
-        // the turn from heritage into enterprise.
-        background: "var(--brand-ivory)",
+        // Runs white, continuous with Acts I and II — the turn from heritage
+        // into enterprise is carried by the act mark and the rule below the
+        // heading, not by a background break.
+        background: "#fff",
         padding: "5rem 0 6rem",
         position: "relative",
         overflow: "hidden",
@@ -128,8 +128,13 @@ export default function PrinciplesToEnterprise() {
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
             <ActMark numeral="III" era="Today" label="From principles to enterprise" />
             <h2
-              className="act-title break-words text-[2.5rem] sm:text-[3.25rem] md:text-[3.75rem]"
-              style={{ fontWeight: 700, lineHeight: 1.1, letterSpacing: "-.025em", color: "var(--ink-deep)" }}
+              // Sized as the "29 Principles, One Way of Life" heading in
+              // Principles.tsx, so the two section titles read as one tier.
+              // No `.act-title` here on purpose: that class carries the larger
+              // act-opener sizes as `!important` mobile overrides, which would
+              // win against this inline size below 1024px.
+              className="break-words"
+              style={{ fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "var(--ink-deep)" }}
             >
               The world changed.<br />The principles didn&rsquo;t.
             </h2>
@@ -170,8 +175,8 @@ export default function PrinciplesToEnterprise() {
             >
               <div
                 style={{
-                  width: "3.5rem",
-                  height: "3.5rem",
+                  width: "4.5rem",
+                  height: "4.5rem",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "flex-start",
@@ -186,10 +191,12 @@ export default function PrinciplesToEnterprise() {
                   two lines is the whole point of the section. */}
               <div
                 style={{
-                  fontSize: ".8125rem",
-                  fontWeight: 700,
-                  letterSpacing: ".08em",
-                  textTransform: "uppercase",
+                  // Sentence case, not the uppercase label treatment: these
+                  // are the principles themselves, read as written, rather
+                  // than a category tag over the practice below.
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  letterSpacing: "0",
                   color: "var(--brand-orange)",
                   lineHeight: 1.45,
                   marginBottom: ".5rem",

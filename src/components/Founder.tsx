@@ -45,8 +45,10 @@ export default function Founder({}: FounderProps) {
       style={{ background: "#fff" }}
     >
       <div className="shell" style={{ paddingTop: "2rem", paddingBottom: "5rem", display: "flex", flexDirection: "column", gap: "3.5rem" }}>
-        {/* Eyebrow + headline (left) / quote (right, smaller) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "flex-start", gap: "2.5rem" }}>
+        {/* Eyebrow + headline (left) / quote (right, smaller). Bottom-aligned,
+            so the quote's last line sits level with the button rather than
+            floating up beside the heading. */}
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ alignItems: "end", gap: "2.5rem" }}>
           <div className="lg:col-span-6 xl:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
             <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem" }}>
               <span className="dot dot-blink"></span> 1485 &middot; Guru Jambheshwar
@@ -69,8 +71,10 @@ export default function Founder({}: FounderProps) {
 
             <div>
               <a href="/bishnoi/guru-jambheshwar" className="pill-btn">
-                <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
-                  Guru Jambheshwar, 1451&ndash;1536 <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
+                {/* Same treatment as "Read all 29, with sources" in
+                    Principles.tsx — the solid accent pill, not the outline. */}
+                <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
+                  Guru Jambheshwar, 1451&ndash;1536 <span className="pill-badge">→</span>
                 </span>
               </a>
             </div>
@@ -89,7 +93,6 @@ export default function Founder({}: FounderProps) {
                 color: "var(--ink-soft)",
                 maxWidth: "46ch",
                 margin: 0,
-                marginTop: "1.5rem",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(16px)",
                 transition: `transform .6s ${EASE}, opacity .6s ${EASE}`,

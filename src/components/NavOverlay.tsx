@@ -36,12 +36,11 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Mirrors the navbar's own item set. History/Legacy are home-page
-  // sections; the handler below scrolls them when already on /.
+  // Mirrors the navbar's own item set. The handler below scrolls a "/#"
+  // href when already on /, though none of the items use one today.
   const navItems = [
     { label: "Home", href: "/" },
     { label: "The Bishnois", href: "/bishnoi" },
-    { label: "Legacy", href: "/#legacy" },
     { label: "Leadership", href: "/leadership/naresh-bishnoi" },
     { label: "Businesses", href: "/businesses" },
     { label: "Contact", action: () => { onClose(); onOpenRequestModal(); } },

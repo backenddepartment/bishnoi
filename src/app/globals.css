@@ -1361,10 +1361,57 @@ section[id] {
   align-items: start;
 }
 
+/* With a facts panel present the narrow column leads: facts left, title and
+   standfirst right. Placement rather than markup order, so the stacked
+   layout below can fall back to source order and open on the title. */
+.article-head--facts {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+}
+
+.article-head--facts .article-head-main {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.article-head--facts .fact-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 @media (max-width: 900px) {
-  .article-head {
+  .article-head,
+  .article-head--facts {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  .article-head--facts .article-head-main,
+  .article-head--facts .fact-panel {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* Runs the breadcrumbs and the article body in the same right-hand column
+   the hero title uses, opposite the facts panel. The grid goes on each
+   block's own .shell so its horizontal padding still lines the columns up
+   with the hero's; the row gap is zeroed so only the column split applies
+   and the blocks keep their own vertical rhythm. */
+.article-indent > .shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  gap: 0 3rem;
+}
+
+.article-indent > .shell > * {
+  grid-column: 2;
+  min-width: 0;
+}
+
+/* Below the head's own breakpoint the facts panel stacks, so there is no
+   left column left to clear. */
+@media (max-width: 900px) {
+  .article-indent > .shell {
+    display: block;
   }
 }
 

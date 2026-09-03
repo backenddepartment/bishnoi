@@ -7,6 +7,7 @@ export default function BishnoiHubPage() {
     <ArticlePage
       kicker="The community"
       title="Who are the Bishnois?"
+      tone="white"
       standfirst="A Vaishnava community of the Thar Desert, formed around twenty-nine principles set out by Guru Jambheshwar in 1485 — rules that govern how a household treats its neighbours, its animals, and the land it lives on."
       breadcrumbs={[{ label: "Home", href: "/" }, { label: "The Bishnois" }]}
       facts={[

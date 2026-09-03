@@ -30,6 +30,10 @@ interface ArticlePageProps {
   related: RelatedLink[];
   /** Grading note shown above the sources, when a page rests on tradition. */
   sourceNote?: string;
+  /** Fill for the page's two tinted bands — the opening hero and the
+      "Continue" block at the foot. Ivory by default; "white" drops both
+      tints so the page runs flush from top to bottom. */
+  tone?: "ivory" | "white";
 }
 
 /* Shared shell for the /bishnoi/* reference pages.
@@ -52,6 +56,7 @@ export default function ArticlePage({
   sources,
   related,
   sourceNote,
+  tone = "ivory",
 }: ArticlePageProps) {
   const { navOpen, setNavOpen, modalOpen, setModalOpen, lenisRef } = useLenisPage();
   const handleScrollTo = (id: string) => scrollToOrNavigate(id, lenisRef);
@@ -83,13 +88,17 @@ export default function ArticlePage({
       <RequestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
       <main id="main-content" style={{ background: "#ffffff", color: "var(--ink)" }}>
-        {/* Opening band. Ivory rather than a photographic hero: these are
+        {/* Opening band. A tint rather than a photographic hero: these are
             reference pages, and a full-bleed image would push the answer
             below the fold on every one of them. */}
-        <div style={{ background: "var(--brand-ivory)", paddingTop: "7.5rem", paddingBottom: "3.5rem" }}>
+        <div style={{ background: tone === "white" ? "#ffffff" : "var(--brand-ivory)", paddingTop: "7.5rem", paddingBottom: "3.5rem" }}>
           <div className="shell">
-            <div className="article-head">
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", minWidth: 0 }}>
+            <div className={`article-head${facts && facts.length > 0 ? " article-head--facts" : ""}`}>
+              {/* Kept first in the DOM even though the facts panel sits to its
+                  left: the stacked layout follows source order, and the title
+                  has to be the first thing read there. The swap is done with
+                  grid placement in globals.css, not by reordering markup. */}
+              <div className="article-head-main" style={{ display: "flex", flexDirection: "column", gap: "1.25rem", minWidth: 0 }}>
                 <div className="act-mark">
                   <span className="act-mark-rule" aria-hidden="true" />
                   <span className="act-mark-era">{kicker}</span>
@@ -119,32 +128,38 @@ export default function ArticlePage({
           </div>
         </div>
 
-        <Breadcrumbs items={breadcrumbs} />
+        {/* Breadcrumbs and body share the hero's column split, so the whole
+            page reads down one right-hand column with the facts panel alone
+            on the left. Applied on a wrapper rather than on each block, and
+            only when there is a facts panel to sit opposite. */}
+        <div className={facts && facts.length > 0 ? "article-indent" : undefined}>
+          <Breadcrumbs items={breadcrumbs} />
 
-        <article className="shell" style={{ paddingTop: "2.5rem", paddingBottom: "4rem" }}>
-          <div className="prose">{children}</div>
+          <article className="shell" style={{ paddingTop: "2.5rem", paddingBottom: "4rem" }}>
+            <div className="prose">{children}</div>
 
-          <div className="article-sources">
-            <h2>Sources</h2>
-            {sourceNote && <p className="source-note">{sourceNote}</p>}
-            <ul>
-              {sources.map((s) => (
-                <li key={s.href}>
-                  <a href={s.href} target="_blank" rel="noreferrer">
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="source-note">
-              This page describes the history of the Bishnoi community, which is far larger than, and mostly unconnected
-              to, the businesses that carry the Bishnoi name. Nothing here is a claim on that heritage.
-            </p>
-          </div>
-        </article>
+            <div className="article-sources">
+              <h2>Sources</h2>
+              {sourceNote && <p className="source-note">{sourceNote}</p>}
+              <ul>
+                {sources.map((s) => (
+                  <li key={s.href}>
+                    <a href={s.href} target="_blank" rel="noreferrer">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="source-note">
+                This page describes the history of the Bishnoi community, which is far larger than, and mostly unconnected
+                to, the businesses that carry the Bishnoi name. Nothing here is a claim on that heritage.
+              </p>
+            </div>
+          </article>
+        </div>
 
         {related.length > 0 && (
-          <section style={{ background: "var(--brand-ivory)", padding: "4rem 0 5rem" }}>
+          <section style={{ background: tone === "white" ? "#ffffff" : "var(--brand-ivory)", padding: "4rem 0 5rem" }}>
             <div className="shell">
               <div className="eyebrow eyebrow-dark" style={{ fontSize: "1.125rem", marginBottom: "1.75rem" }}>
                 <span className="dot"></span> Continue

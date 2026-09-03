@@ -61,11 +61,17 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
             </div>
             <h2
               id="about-h2"
-              className="act-title break-words text-[2.5rem] sm:text-[3.25rem] md:text-[3.75rem]"
+              // Sized as the "The Man Who Answered a / Drought With 29 Rules"
+              // heading in Founder.tsx, so the two read as one tier.
+              // No `.act-title` here on purpose: that class carries the larger
+              // act-opener sizes as `!important` mobile overrides, which would
+              // win against this inline size below 1024px.
+              className="break-words"
               style={{
+                fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)",
                 fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: "-.025em",
+                lineHeight: 1.15,
+                letterSpacing: "-.02em",
                 color: "var(--ink-deep)",
               }}
             >

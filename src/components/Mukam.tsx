@@ -136,7 +136,7 @@ export default function Mukam({}: MukamProps) {
               <span className="dot dot-blink"></span> Faith & The Sacred Land
             </div>
             <h2 style={{ fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
-              Mukam: The Heart of the Faith
+              Mukam: The Heart<br />of the Faith
             </h2>
           </div>
 

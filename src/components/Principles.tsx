@@ -133,6 +133,22 @@ export default function Principles({}: PrinciplesProps) {
     };
   }, []);
 
+  /* The full reference lives at /bishnoi/29-principles, which renders all 29
+     statically, with sources. This section only previews them.
+
+     Declared once and placed in one of two spots below: on the wide layout it
+     sits inside the left column so the row's flex-end alignment drops the
+     intro paragraph's last line level with the button rather than with the
+     heading; on the stacked layout it stays after the paragraph, so the
+     explanation still comes before the call to action. */
+  const readAllCta = (
+    <a href="/bishnoi/29-principles" className="pill-btn">
+      <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
+        Read all 29, with sources <span className="pill-badge">&rarr;</span>
+      </span>
+    </a>
+  );
+
   return (
     <section
       id="principles"
@@ -157,6 +173,7 @@ export default function Principles({}: PrinciplesProps) {
             <h2 style={{ fontSize: "clamp(1.875rem, 2.8vw, 2.375rem)", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-.02em", color: "#2E2822" }}>
               29 Principles, One Way of Life
             </h2>
+            {!compact && <div style={{ marginTop: ".5rem" }}>{readAllCta}</div>}
           </div>
           <p
             style={{
@@ -176,15 +193,7 @@ export default function Principles({}: PrinciplesProps) {
           </p>
         </div>
 
-        {/* The full reference lives at /bishnoi/29-principles, which renders
-            all 29 statically, with sources. This section only previews them. */}
-        <div style={{ marginTop: "1.75rem" }}>
-          <a href="/bishnoi/29-principles" className="pill-btn">
-            <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
-              Read all 29, with sources <span className="pill-badge">→</span>
-            </span>
-          </a>
-        </div>
+        {compact && <div style={{ marginTop: "1.75rem" }}>{readAllCta}</div>}
 
         <div
           style={{
