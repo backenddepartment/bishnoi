@@ -172,8 +172,18 @@ export default function Principles({}: PrinciplesProps) {
               transitionDelay: "200ms",
             }}
           >
-            The 29 rules of Guru Jambheshwar come down through the Shabadwani, his 120 shabads. Renderings and groupings vary between sources \u2014 the four categories below are our own, arranged to show how far the rules reach into ordinary life.
+            The 29 rules of Guru Jambheshwar come down through the Shabadwani, his 120 shabads. Renderings and groupings vary between sources &mdash; the four categories below are our own, arranged to show how far the rules reach into ordinary life.
           </p>
+        </div>
+
+        {/* The full reference lives at /bishnoi/29-principles, which renders
+            all 29 statically, with sources. This section only previews them. */}
+        <div style={{ marginTop: "1.75rem" }}>
+          <a href="/bishnoi/29-principles" className="pill-btn">
+            <span className="pill-inner pill-accent pill-with-arrow" style={{ color: "#ffffff" }}>
+              Read all 29, with sources <span className="pill-badge">→</span>
+            </span>
+          </a>
         </div>
 
         <div

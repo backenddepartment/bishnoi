@@ -52,6 +52,14 @@ export default function EthosGateway() {
                 What We Do - View Capabilities <span className="pill-badge up-right">→</span>
               </span>
             </a>
+
+            {/* The history is not ours to close on. This sends the reader to
+                the community, not to a third page about the company. */}
+            <a href="/bishnoi" className="pill-btn" style={{ width: "100%" }}>
+              <span className="pill-inner pill-outline pill-with-arrow" style={{ width: "100%", justifyContent: "space-between", padding: "1rem 1.75rem", fontSize: "1.0625rem" }}>
+                The Bishnois - The Full History <span className="pill-badge up-right">→</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>

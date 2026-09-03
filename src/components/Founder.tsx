@@ -66,6 +66,14 @@ export default function Founder({}: FounderProps) {
               <span className="block lg:whitespace-nowrap">The Man Who Answered a</span>
               <span className="block lg:whitespace-nowrap">Drought With 29 Rules</span>
             </h2>
+
+            <div>
+              <a href="/bishnoi/guru-jambheshwar" className="pill-btn">
+                <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
+                  Guru Jambheshwar, 1451&ndash;1536 <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
+                </span>
+              </a>
+            </div>
           </div>
 
           <div

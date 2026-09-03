@@ -227,9 +227,10 @@ export default function Services({ lenis }: ServicesProps) {
               Faces of the Community
             </h3>
             <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "rgba(74,68,60,.75)" }}>
-              The community&rsquo;s values live on through people like Bhajan Lal, a former Chief Minister of Haryana; Ravi Bishnoi, an Indian
-              international cricketer; and conservationists Khamu Ram Bishnoi and Radheshyam Bishnoi, who carry the community&rsquo;s
-              centuries-old commitment to wildlife into the present day.
+              A person belongs in this story when their actions demonstrate the principles, not when they share the name. By that test the
+              clearest contemporary voices are conservationists: Khamu Ram Bishnoi and Radheshyam Bishnoi, both recognised for grassroots
+              wildlife protection in Rajasthan. The community is visible in public life more widely too &mdash; Bhajan Lal, a former Chief
+              Minister of Haryana, and Ravi Bishnoi, an India international cricketer, among others.
             </p>
           </div>
 
@@ -247,14 +248,14 @@ export default function Services({ lenis }: ServicesProps) {
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: ".75rem", marginTop: "1.5rem" }}>
-              <a href="#principles" className="pill-btn">
+              <a href="/bishnoi/29-principles" className="pill-btn">
                 <span className="pill-inner pill-accent pill-no-arrow" style={{ color: "#fff" }}>
                   Explore the 29 Principles
                 </span>
               </a>
-              <button type="button" className="pill-btn" onClick={(e) => open(0, e.currentTarget)}>
+              <a href="/bishnoi/amrita-devi" className="pill-btn">
                 <span className="pill-inner pill-outline pill-no-arrow">The Story of Amrita Devi</span>
-              </button>
+              </a>
               <a href="#mukam" className="pill-btn">
                 <span className="pill-inner pill-outline pill-no-arrow">Visit Mukam</span>
               </a>

@@ -103,11 +103,13 @@ export default function About({ onScrollTo, introReady = true }: AboutProps) {
                   Explore the 29 Principles <span className="pill-badge">→</span>
                 </span>
               </button>
-              <button className="pill-btn" onClick={() => onScrollTo ? onScrollTo("legacy") : (window.location.href = "/#legacy")}>
+              {/* Leaves the page on purpose: /bishnoi/khejarli is the canonical
+                  account, and this act only previews it. */}
+              <a href="/bishnoi/khejarli" className="pill-btn">
                 <span className="pill-inner pill-outline pill-with-arrow" style={{ borderColor: "rgba(74,68,60,0.25)", background: "rgba(74,68,60,0.04)", color: "var(--ink)" }}>
                   The Story of Khejarli <span className="pill-badge" style={{ background: "#F36B21", color: "#2A1206" }}>→</span>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

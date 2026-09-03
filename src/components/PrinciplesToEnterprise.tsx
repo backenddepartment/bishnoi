@@ -36,7 +36,10 @@ const bridges = [
   {
     principle: "Serve the community",
     practice: "Medical infrastructure",
-    body: "Supplying the hospitals themselves — the consumables, equipment and specialised products that make care possible at all.",
+    // Bishnoi Omniverse could not be verified as an operating organisation
+    // (see research/claims-register.md), so this reads as intent rather
+    // than as track record. Restore the stronger wording with evidence.
+    body: "Building towards supplying the hospitals themselves: the consumables, equipment and specialised products that make care possible at all.",
     venture: "Bishnoi Omniverse",
     href: "/businesses/bishnoi-omniverse",
     icon: (
@@ -50,7 +53,8 @@ const bridges = [
   {
     principle: "Guard what cannot speak for itself",
     practice: "Conservation",
-    body: "Wildlife protection and mass afforestation in the Thar — funding, today, the stewardship eight of the 29 principles ask for.",
+    // Same as above, for the Foundation.
+    body: "A commitment to wildlife protection and afforestation in the Thar, answering the stewardship that eight of the 29 principles ask for.",
     venture: "Naresh Bishnoi Foundation",
     href: "/businesses/foundation",
     icon: (
