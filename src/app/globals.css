@@ -199,16 +199,34 @@ img {
   }
 }
 
+/* Gutters around the Legacy Banner's dark card — side padding matches
+   `.shell`, and the bottom gutter separates it from the footer below.
+   No padding-top: the card stays flush with the showcase section above. */
+.legacy-banner-wrap {
+  padding: 0 3.5rem 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .legacy-banner-wrap {
+    padding: 0 1.5rem 1.5rem;
+  }
+}
+
 /* Mobile only — the Legacy Banner drops its dark card treatment and sits
    flush against the section above it instead of floating as a separate
    block; text switches to the page's normal dark ink so it still reads
    against the (now visible) light page background. Desktop untouched. */
 @media (max-width: 639px) {
+  /* No card, so no gutters and no rounding to hold it away from the edges. */
+  .legacy-banner-wrap {
+    padding: 0;
+  }
   .legacy-banner {
     /* Explicit white, not transparent — transparent just reveals the page's
        ivory <main> background (#FBF8F1) behind it, not true white. */
     background: #ffffff !important;
     padding-top: 1rem !important;
+    border-radius: 0 !important;
   }
   .legacy-banner-heading {
     color: #2e2822 !important;

@@ -1063,42 +1063,48 @@ export default function BusinessesPage() {
           </div>
         </section>
 
-        {/* Legacy Banner — on mobile this loses its dark card treatment
-            entirely (transparent, sits right under the showcase above) and
-            switches its text to the page's normal dark ink so it still
-            reads against the light page background; desktop is untouched. */}
-        <section
-          className="legacy-banner"
-          style={{
-            padding: "5rem 0",
-            background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)",
-            color: "#ffffff",
-            textAlign: "center",
-          }}
-        >
-          <div className="shell" style={{ maxWidth: "800px", margin: "0 auto" }}>
-            <h2
-              className="legacy-banner-heading"
-              style={{
-                fontSize: "clamp(2rem, 4vw, 3.25rem)",
-                fontWeight: 700,
-                letterSpacing: "-.02em",
-                marginBottom: "1rem",
-                color: "#ffffff",
-              }}
-            >
-              A Legacy Still in the Making.
-            </h2>
-            <p
-              className="legacy-banner-text"
-              style={{
-                fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
-                color: "rgba(247,243,232,0.75)",
-                lineHeight: 1.5,
-              }}
-            >
-              The journey continues—across markets, industries, and generations.
-            </p>
+        {/* Legacy Banner — the dark block is inset rather than full-bleed:
+            the wrapper carries the side and bottom gutters (white, so it
+            reads as a continuation of the showcase section above) and the
+            card itself is rounded. Top stays flush with that section.
+            On mobile this loses the dark card treatment entirely (white,
+            no gutters, sits right under the showcase) and switches its text
+            to the page's normal dark ink — see globals.css. */}
+        <section className="legacy-banner-wrap" style={{ background: "#ffffff" }}>
+          <div
+            className="legacy-banner"
+            style={{
+              padding: "5rem 0",
+              background: "linear-gradient(158deg,#2E2822 0%,#1C1815 100%)",
+              color: "#ffffff",
+              textAlign: "center",
+              borderRadius: "2rem",
+            }}
+          >
+            <div className="shell" style={{ maxWidth: "800px", margin: "0 auto" }}>
+              <h2
+                className="legacy-banner-heading"
+                style={{
+                  fontSize: "clamp(2rem, 4vw, 3.25rem)",
+                  fontWeight: 700,
+                  letterSpacing: "-.02em",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                }}
+              >
+                A Legacy Still in the Making.
+              </h2>
+              <p
+                className="legacy-banner-text"
+                style={{
+                  fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
+                  color: "rgba(247,243,232,0.75)",
+                  lineHeight: 1.5,
+                }}
+              >
+                The journey continues—across markets, industries, and generations.
+              </p>
+            </div>
           </div>
         </section>
       </main>
