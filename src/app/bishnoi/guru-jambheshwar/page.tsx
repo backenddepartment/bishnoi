@@ -120,16 +120,6 @@ export default function GuruJambheshwarPage() {
         1995, named in tribute. The university describes him as &ldquo;a saint environmentalist of the 15th century&rdquo; —
         a description worth noting precisely because it comes from an institution rather than from the community.
       </p>
-
-      <h2>Open questions</h2>
-      <ul>
-        <li>Which parts of the biography beyond the dates are documented rather than traditional.</li>
-        <li>The content of the Shabadwani outside the twenty-nine niyamas.</li>
-        <li>
-          His travels. That he &ldquo;preached for fifty-one years, travelling across India&rdquo; is repeated
-          everywhere and specified nowhere.
-        </li>
-      </ul>
     </ArticlePage>
   );
 }

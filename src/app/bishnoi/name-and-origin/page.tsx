@@ -105,17 +105,6 @@ export default function NameAndOriginPage() {
           <strong>Khejarli / Khejadli</strong> — the village where the 1730 killings took place.
         </li>
       </ul>
-
-      <h2>Open questions</h2>
-      <ul>
-        <li>
-          Whether the Census of India&rsquo;s 1961 monograph records the twenty-plus-nine explanation in official terms. If
-          so, the mainstream reading moves from &ldquo;most sources follow it&rdquo; to &ldquo;documented in official
-          record&rdquo;, which is materially stronger.
-        </li>
-        <li>Which gazetteer records the Vishnu association, and in what words. We have this at second hand only.</li>
-        <li>The earliest attestation of the name in any record.</li>
-      </ul>
     </ArticlePage>
   );
 }
