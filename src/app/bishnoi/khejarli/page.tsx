@@ -21,11 +21,23 @@ export default function KhejarliPage() {
         { label: "First", value: "Amrita Devi, then three of her daughters" },
         { label: "Remembered", value: "11 September — National Forest Martyrs Day" },
       ]}
-      sourceNote="The account below comes from sources written well after 1730. Where the record and community memory diverge — particularly on the decree that followed — both are given and labelled."
+      sourceNote="No account of 1730 survives from 1730. Everything above was written down long afterwards, and where the written record parts from community memory — chiefly on how far the decree reached — this page gives both."
       sources={[
-        { label: "Khejarli massacre — Wikipedia", href: "https://en.wikipedia.org/wiki/Khejarli_massacre" },
-        { label: "When Amrita Devi and 362 Bishnois sacrificed their lives for the Khejri tree — Sahapedia", href: "http://www.sahapedia.org/when-amrita-devi-and-362-bishnois-sacrificed-their-lives-khejri-tree" },
-        { label: "National Forest Martyrs Day — Vajiram & Ravi", href: "https://vajiramandravi.com/current-affairs/national-forest-martyrs-day-2025/" },
+        {
+          label: "Khejarli massacre — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Khejarli_massacre",
+          note: "September 1730, Abhai Singh, the refused bribe, the elders first, 363 killed, 83 villages. Hedges on whether the timber was wanted for a palace or for lime kilns.",
+        },
+        {
+          label: "When Amrita Devi and 362 Bishnois sacrificed their lives for the Khejri tree — Sahapedia",
+          href: "http://www.sahapedia.org/when-amrita-devi-and-362-bishnois-sacrificed-their-lives-khejri-tree",
+          note: "Narrative detail, told from the community's side rather than peer-reviewed. Its title does the arithmetic behind the number: Amrita Devi, and 362 others.",
+        },
+        {
+          label: "National Forest Martyrs Day — Vajiram & Ravi",
+          href: "https://vajiramandravi.com/current-affairs/national-forest-martyrs-day-2025/",
+          note: "Civil-service exam material, not a historical source. Cited only for the 2013 declaration of 11 September — and it gives 49 villages where Wikipedia gives 83.",
+        },
       ]}
       related={withCardColors([
         { href: "/bishnoi/amrita-devi", label: "Amrita Devi", blurb: "The woman who refused first, and the award that carries her name." },

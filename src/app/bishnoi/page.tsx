@@ -35,11 +35,23 @@ export default function BishnoiHubPage() {
         { label: "Also in", value: "Haryana, Punjab, Uttar Pradesh, Madhya Pradesh, Gujarat" },
         { label: "Clans", value: "About 360 gotras, of equal standing" },
       ]}
-      sourceNote="Graded against research/claims-register.md. Where sources disagree — the community's size, the scope of the Khejarli decree — both readings are given rather than one chosen."
+      sourceNote="Where the record is contested — how many Bishnois there are, how far the Khejarli decree actually reached — this page gives both readings rather than quietly picking one."
       sources={[
-        { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
-        { label: "Khejarli massacre — Wikipedia", href: "https://en.wikipedia.org/wiki/Khejarli_massacre" },
-        { label: "Amrita Devi Bishnoi National Award — Wikipedia", href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award" },
+        {
+          label: "Bishnoi — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Bishnoi",
+          note: "The encyclopedic account: Jambheshwar's dates, the 1485 founding, the twenty-nine niyamas, the roughly 360 gotras. It contradicts itself on population, which is why this page gives no single figure.",
+        },
+        {
+          label: "Khejarli massacre — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Khejarli_massacre",
+          note: "The 1730 killings and the decree that followed — which it states narrowly, as one village's exemption from supplying wood to the kingdom.",
+        },
+        {
+          label: "Amrita Devi Bishnoi National Award — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award",
+          note: "The clearest documented line from 1730 to the present day: a national award for courage in wildlife protection, carrying her name.",
+        },
       ]}
       related={withCardColors([
         {
@@ -174,10 +186,7 @@ export default function BishnoiHubPage() {
         fair at Jambholav; monthly Amavasya fasting and satsang; and the Khejarli commemoration each September.
       </p>
 
-      <h2>Common questions about Bishnoi history</h2>
-      <p>
-        Short answers to what people most often ask. Each links through to the page that treats it properly.
-      </p>
+      <h2>History of Bishnois</h2>
 
       {BISHNOI_FAQ.map((f) => (
         <section key={f.q} style={{ display: "contents" }}>
