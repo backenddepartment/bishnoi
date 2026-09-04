@@ -19,11 +19,23 @@ export default function NameAndOriginPage() {
         { label: "Community view", value: "Rejects Vishnoi as a substitute" },
         { label: "Clans", value: "About 360 gotras, of equal standing" },
       ]}
-      sourceNote="A genuinely contested etymology. Both readings are given because choosing one silently would misrepresent the record — and because the community's own account is not merely one opinion among several."
+      sourceNote="Neither etymology is settled. Both are given here because choosing one silently would misrepresent the record — and because the community's own reading is not merely one opinion among several."
       sources={[
-        { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
-        { label: "Bishnoi (surname) — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi_(surname)" },
-        { label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies", href: "https://ivsjournal.com/index.php/jvs/article/view/202" },
+        {
+          label: "Bishnoi — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Bishnoi",
+          note: "Gives only the bis + nau derivation — twenty plus nine — and records no competing reading at all.",
+        },
+        {
+          label: "Bishnoi (surname) — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Bishnoi_(surname)",
+          note: "Where the Vishnoi spelling appears, and with it the reading that traces the name to Vishnu.",
+        },
+        {
+          label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies",
+          href: "https://ivsjournal.com/index.php/jvs/article/view/202",
+          note: "Paywalled, and not consulted for this page. Listed for anyone who can reach it: it would be the strongest scholarly source on the question.",
+        },
       ]}
       related={withCardColors([
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "The twenty-nine the name most likely counts." },

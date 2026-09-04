@@ -21,10 +21,18 @@ export default function GuruJambheshwarPage() {
         { label: "Teachings", value: "The Shabadwani — 120 shabads" },
         { label: "Also called", value: "Jambhoji, Jambhaji, Jambheshwar Bhagwan" },
       ]}
-      sourceNote="The dates are unusually well supported for a fifteenth-century religious figure. Much of the surrounding biography is traditional account rather than documented record, and is labelled where it appears."
+      sourceNote="His dates are firmer than those of most fifteenth-century religious figures. The life around them is traditional account rather than documented record, and is marked as such wherever it appears."
       sources={[
-        { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
-        { label: "Guru Jambheshwar University of Science and Technology, Hisar", href: "https://www.gjust.ac.in/" },
+        {
+          label: "Bishnoi — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Bishnoi",
+          note: "The dates 1451–1536, Peepasar, Samrathal Dhora in 1485, Mukam, and the 120 shabads of the Shabadwani.",
+        },
+        {
+          label: "Guru Jambheshwar University of Science and Technology, Hisar",
+          href: "https://www.gjust.ac.in/",
+          note: "The university named after him in 1995. Cited for how it describes him in its own words, not for anything about his life.",
+        },
       ]}
       related={withCardColors([
         { href: "/bishnoi/29-principles", label: "The 29 Principles", blurb: "What he set out, in full, and what living by it meant." },

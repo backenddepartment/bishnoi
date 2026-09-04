@@ -85,10 +85,18 @@ export default function TwentyNinePrinciplesPage() {
         { label: "Environment", value: "8 of the 29" },
         { label: "The name", value: "bis (20) + noi (9)" },
       ]}
-      sourceNote="Renderings and numbering vary between sources; the wording below follows the standard English enumeration. The four groupings are this site's own — see the note above the list."
+      sourceNote="The wording and numbering on this page follow the standard English rendering; other renderings differ. The four groupings are this site's own, made for readability — they are not traditional."
       sources={[
-        { label: "Bishnoi — Wikipedia", href: "https://en.wikipedia.org/wiki/Bishnoi" },
-        { label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies", href: "https://ivsjournal.com/index.php/jvs/article/view/202" },
+        {
+          label: "Bishnoi — Wikipedia",
+          href: "https://en.wikipedia.org/wiki/Bishnoi",
+          note: "The twenty-nine niyamas themselves, and the conventional four-way grouping this page departs from.",
+        },
+        {
+          label: "Bishnoi: An Eco-Theological Movement — Journal of Vaishnava Studies",
+          href: "https://ivsjournal.com/index.php/jvs/article/view/202",
+          note: "Paywalled, and not consulted for this page. Listed for anyone who can reach it: it is the strongest scholarly treatment identified so far.",
+        },
       ]}
       related={withCardColors([
         { href: "/bishnoi/guru-jambheshwar", label: "Guru Jambheshwar", blurb: "Who set the rules out, and the drought they answered." },
