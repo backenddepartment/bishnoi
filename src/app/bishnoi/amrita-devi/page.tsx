@@ -20,23 +20,10 @@ export default function AmritaDeviPage() {
         { label: "Named for her", value: "Amrita Devi Bishnoi National Award" },
         { label: "Observed", value: "11 September, National Forest Martyrs Day" },
       ]}
-      sourceNote="That she refused, and died for it, is well attested. Her daughters' names are not — they come from community memory, and this page says so wherever it uses them."
       sources={[
-        {
-          label: "Amrita Devi — Wikipedia",
-          href: "https://en.wikipedia.org/wiki/Amrita_Devi",
-          note: "The encyclopedic account of her refusal, and of the words she is remembered for.",
-        },
-        {
-          label: "Amrita Devi Bishnoi National Award — Wikipedia",
-          href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award",
-          note: "The award that carries her name, and what it is given for — the one documented link between 1730 and the present.",
-        },
-        {
-          label: "Khejarli massacre — Wikipedia",
-          href: "https://en.wikipedia.org/wiki/Khejarli_massacre",
-          note: "The fuller sequence around her death. Note that it refers only to “three of her daughters”, without naming them.",
-        },
+        { label: "Amrita Devi — Wikipedia", href: "https://en.wikipedia.org/wiki/Amrita_Devi" },
+        { label: "Amrita Devi Bishnoi National Award — Wikipedia", href: "https://en.wikipedia.org/wiki/Amrita_Devi_Bishnoi_National_Award" },
+        { label: "Khejarli massacre — Wikipedia", href: "https://en.wikipedia.org/wiki/Khejarli_massacre" },
       ]}
       related={withCardColors([
         { href: "/bishnoi/khejarli", label: "Khejarli, 1730", blurb: "The full sequence of the day, and what followed it." },

@@ -34,15 +34,8 @@ interface ArticlePageProps {
   children: ReactNode;
   /** Right-hand key facts panel beside the standfirst. Optional. */
   facts?: { label: string; value: ReactNode }[];
-  /** Each entry carries what it actually supports. The note is not optional in
-      spirit: a source nobody can say a sentence about is a source that should
-      not be in the list. */
-  sources: { label: string; href: string; note?: string }[];
+  sources: { label: string; href: string }[];
   related: RelatedLink[];
-  /** One line telling the reader how far to trust the page — where it rests on
-      tradition, where the record is contested. Reader-facing: it says what is
-      uncertain, not how the page was assembled. */
-  sourceNote?: string;
   /** Fill for the page's two tinted bands — the opening hero and the
       "Continue" block at the foot. Ivory by default; "white" drops both
       tints so the page runs flush from top to bottom. */
@@ -94,7 +87,6 @@ export default function ArticlePage({
   facts,
   sources,
   related,
-  sourceNote,
   tone = "ivory",
   jsonLd,
   layout = "default",
@@ -163,15 +155,13 @@ export default function ArticlePage({
       <div className="prose">{children}</div>
 
       <div className="article-sources">
-        <h2>Where this comes from</h2>
-        {sourceNote && <p className="source-note">{sourceNote}</p>}
+        <h2>Sources</h2>
         <ul>
           {sources.map((s) => (
             <li key={s.href}>
               <a href={s.href} target="_blank" rel="noreferrer">
                 {s.label}
               </a>
-              {s.note && <span className="source-what">{s.note}</span>}
             </li>
           ))}
         </ul>
