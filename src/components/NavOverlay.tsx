@@ -23,10 +23,6 @@ interface NavOverlayProps {
 
 export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestModal }: NavOverlayProps) {
   const [time, setTime] = useState("9:41am");
-  // Which top-level item has its sub-pages expanded. One at a time — the
-  // drawer is short, and a second open group would push the rest of the nav
-  // off a phone screen.
-  const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     function updateClock() {
@@ -130,8 +126,8 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
         </button>
       </div>
 
-      {/* Scrolls instead of centering rigidly — with a group expanded the
-          list can outgrow a short phone viewport. */}
+      {/* Scrolls instead of centering rigidly — with the sub-pages always
+          listed, the nav can outgrow a short phone viewport. */}
       <nav
         className="shell"
         style={{
@@ -146,7 +142,6 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
         <ul style={{ display: "flex", flexDirection: "column", gap: ".25rem" }}>
           {navItems.map((item, index) => {
             const delay = 80 + index * 45;
-            const isExpanded = expanded === item.label;
             return (
               <li
                 key={item.label}
@@ -157,72 +152,32 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
                   transitionDelay: `${delay}ms`,
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
-                  <button
-                    className="nav-item"
-                    onClick={() => {
-                      if (item.action) {
-                        item.action();
-                      } else if (item.href) {
-                        navigate(item.href);
-                      }
-                    }}
-                    style={{
-                      display: "flex",
-                      paddingBlock: ".5rem",
-                      textAlign: "left",
-                      fontSize: "1.5rem",
-                      fontWeight: 600,
-                      letterSpacing: "-.02em",
-                      flex: 1,
-                      color: "rgba(247,243,232,.7)",
-                      transition: "color .3s",
-                    }}
-                  >
-                    {item.label}
-                  </button>
+                <button
+                  className="nav-item"
+                  onClick={() => {
+                    if (item.action) {
+                      item.action();
+                    } else if (item.href) {
+                      navigate(item.href);
+                    }
+                  }}
+                  style={{
+                    display: "flex",
+                    paddingBlock: ".5rem",
+                    textAlign: "left",
+                    fontSize: "1.5rem",
+                    fontWeight: 600,
+                    letterSpacing: "-.02em",
+                    width: "100%",
+                    color: "rgba(247,243,232,.7)",
+                    transition: "color .3s",
+                  }}
+                >
+                  {item.label}
+                </button>
 
-                  {/* Kept separate from the label so the parent route stays
-                      one tap away: the label goes to /bishnoi, the chevron
-                      opens the pages beneath it. */}
-                  {item.children && (
-                    <button
-                      onClick={() => setExpanded(isExpanded ? null : item.label)}
-                      aria-expanded={isExpanded}
-                      aria-label={`${isExpanded ? "Hide" : "Show"} ${item.label} pages`}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "2.25rem",
-                        height: "2.25rem",
-                        flexShrink: 0,
-                        border: "1px solid rgba(247,243,232,.15)",
-                        borderRadius: "9999px",
-                        color: "rgba(247,243,232,.7)",
-                        transition: "border .2s, color .2s",
-                      }}
-                    >
-                      <svg
-                        width="11"
-                        height="7"
-                        viewBox="0 0 10 6"
-                        fill="none"
-                        aria-hidden="true"
-                        style={{
-                          transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
-                          transition: "transform .3s cubic-bezier(.22,1,.36,1)",
-                        }}
-                      >
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-
-                {/* max-height rather than a display toggle, so the group
-                    slides open instead of snapping. The value only has to
-                    clear the real height of the list. */}
+                {/* Always rendered, never collapsed — the sub-pages are part
+                    of the menu itself, not something to go looking for. */}
                 {item.children && (
                   <ul
                     style={{
@@ -231,19 +186,14 @@ export default function NavOverlay({ isOpen, onClose, onScrollTo, onOpenRequestM
                       gap: ".125rem",
                       paddingLeft: ".875rem",
                       marginLeft: ".125rem",
+                      marginBlock: ".25rem",
                       borderLeft: "1px solid rgba(247,243,232,.15)",
-                      maxHeight: isExpanded ? "24rem" : 0,
-                      opacity: isExpanded ? 1 : 0,
-                      overflow: "hidden",
-                      marginBlock: isExpanded ? ".25rem" : 0,
-                      transition: "max-height .4s cubic-bezier(.22,1,.36,1), opacity .3s ease, margin .3s ease",
                     }}
                   >
                     {item.children.map((child) => (
                       <li key={child.label}>
                         <button
                           className="nav-item"
-                          tabIndex={isExpanded ? 0 : -1}
                           onClick={() => navigate(child.href)}
                           style={{
                             display: "flex",

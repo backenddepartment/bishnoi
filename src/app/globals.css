@@ -112,24 +112,25 @@ img {
   }
 }
 
-@media (max-width: 1920px) {
+/* Root type scale. Every size on the site is authored in rem, so this one
+   value scales the whole page.
+
+   It holds at the 16px the design was drawn against from phone through
+   desktop, and only grows past the 1920px master artboard, where a fixed
+   16px would leave the composition looking undersized on a very wide
+   display.
+
+   It used to ramp with `vw` inside a stack of `max-width` queries, which
+   anchored every range at its TOP edge: the whole page shrank as the window
+   narrowed — down to a ~10px root at 700px, i.e. the site rendered at
+   two-thirds scale — and then snapped back at the next breakpoint. Worst of
+   them was 640/641px, where the root went from 12px to 28.4px across a
+   single pixel of resize and the page's height tripled. Each breakpoint
+   below already restyles the layout for its width, so the type must not
+   shrink to fit on top of that. */
+@media (min-width: 1921px) {
   html {
-    font-size: 0.833333vw;
-  }
-}
-@media (max-width: 1440px) {
-  html {
-    font-size: 1.111111vw;
-  }
-}
-@media (max-width: 1024px) {
-  html {
-    font-size: 1.5625vw;
-  }
-}
-@media (max-width: 640px) {
-  html {
-    font-size: 4.444444vw;
+    font-size: min(0.833333vw, 20px);
   }
 }
 

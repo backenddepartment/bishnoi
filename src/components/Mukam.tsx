@@ -141,8 +141,12 @@ export default function Mukam({}: MukamProps) {
           </div>
 
           <div
-            className="lg:col-span-6 xl:col-span-7"
-            style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", paddingLeft: "2rem" }}
+            /* The right-align and the left gutter belong to the two-column layout
+               only. Below lg the grid collapses to one full-width column, where
+               flex-end would push this 46ch paragraph against the right edge and
+               leave a dead gutter down the left. */
+            className="lg:col-span-6 xl:col-span-7 lg:justify-end lg:pl-8"
+            style={{ display: "flex", alignItems: "center" }}
           >
             <p
               style={{
