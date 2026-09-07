@@ -2045,3 +2045,47 @@ section[id] {
     top: 0.4rem;
   }
 }
+
+/* Leadership hero — phone-only layout (≤767px; tablet and desktop keep the
+   shared hero rules above untouched).
+
+   The mobile portrait crop puts the subject's face where the hero copy sits,
+   so on phones the bio moves out to `.founder-bio-mobile` (rendered just
+   below the hero on that page) and the headline block takes the space back:
+   left-aligned to line up with the subtitle under it, nudged down, and set a
+   little larger now that it isn't sharing the frame with three paragraphs.
+   Scoped by [data-variant] because every hero shares the id `#home`. */
+@media (max-width: 767px) {
+  #home[data-variant="founder"] #hero-bio {
+    display: none !important;
+  }
+  /* Overrides the ≤1023px centering rule, which is what left the headline
+     visibly indented against the subtitle beneath it. */
+  #home[data-variant="founder"] #hero-h1,
+  #home[data-variant="founder"] #hero-h1 .line-inner {
+    text-align: left !important;
+  }
+  #home[data-variant="founder"] #hero-h1 {
+    margin-inline: 0 !important;
+    font-size: 2.05rem !important;
+  }
+  #home[data-variant="founder"] #hero-title-wrapper {
+    margin-top: 3.5rem !important;
+  }
+  #home[data-variant="founder"] #hero-title-wrapper p {
+    font-size: 1.3125rem !important;
+  }
+}
+
+/* The moved bio itself: shown only where the hero drops it, so the copy is
+   never on the page twice at one width. */
+.founder-bio-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .founder-bio-mobile {
+    display: block;
+    padding-block: 2.5rem 0.5rem;
+  }
+}

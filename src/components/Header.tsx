@@ -472,7 +472,10 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
         </div>
 
         {/* Mobile/tablet nav trigger — the inline `nav` above is `hidden`
-            below `lg`, so this is the only way to reach NavOverlay there. */}
+            below `lg`, so this is the only way to reach NavOverlay there.
+            Its color has to track `lightNav` the same way the nav text and
+            logo do: on a light hero a white icon is invisible, which left
+            the mobile menu unreachable on those pages. */}
         <button
           className="hover-spring-sm flex lg:hidden"
           aria-label="Open menu"
@@ -481,7 +484,7 @@ export default function Header({ onOpenNav, onOpenRequestModal, onScrollTo, intr
             alignItems: "center",
             justifyContent: "center",
             padding: ".625rem",
-            color: heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
+            color: lightNav ? "#000000" : heroDropdown.open ? "var(--brand-orange)" : "#ffffff",
             transition: "color .35s ease",
           }}
         >

@@ -16,6 +16,10 @@ export interface HeroContent {
   pills: HeroPill[];
   /** Fixed single background image — overrides the rotating carousel. */
   backgroundImage?: string;
+  /** Phone-only swap for `backgroundImage` (<=767px), served through a
+   *  <picture> source so the browser downloads one file, not both. Only
+   *  meaningful alongside `backgroundImage`; tablet and desktop keep it. */
+  mobileBackgroundImage?: string;
 }
 
 export type HeroVariant =
@@ -113,6 +117,9 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     // Pinned still. Without this the variant falls through to HERO_CAROUSEL
     // and the Leadership hero rotates the Home page's slides.
     backgroundImage: "/leadersection.png",
+    // Phones get a separately framed crop of the same portrait — the wide
+    // still loses the subject at narrow widths under object-fit: cover.
+    mobileBackgroundImage: "/leadershipmobile.png",
   },
   intro: {
     headline: "Global Enterprises & Initiatives",

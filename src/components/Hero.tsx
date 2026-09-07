@@ -127,8 +127,8 @@ export default function Hero({
   // One entry when the variant pins a background, the whole carousel
   // otherwise — rendered as a stack either way so both paths share markup.
   const slides = content.backgroundImage
-    ? [{ image: content.backgroundImage, alt: "Hero background" }]
-    : HERO_CAROUSEL.map((slide) => ({ image: slide.image, alt: slide.title }));
+    ? [{ image: content.backgroundImage, mobileImage: content.mobileBackgroundImage, alt: "Hero background" }]
+    : HERO_CAROUSEL.map((slide) => ({ image: slide.image, mobileImage: undefined, alt: slide.title }));
   const activeSlide = slides.length > 1 ? imageIdx % slides.length : 0;
 
   // Self-contained entrance trigger for the background image slide and the
@@ -327,6 +327,9 @@ export default function Hero({
   return (
     <section
       id="home"
+      // The section id is shared by every hero (it's a scroll target), so
+      // per-page responsive rules in globals.css key off this instead.
+      data-variant={variant}
       style={{
         position: "relative",
         isolation: "isolate",
@@ -358,21 +361,29 @@ export default function Hero({
               single <img>'s src would blank the hero while the next file
               downloads. A pinned backgroundImage collapses this to one. */}
           {slides.map((slide, i) => (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              key={slide.image}
-              src={slide.image}
-              alt={slide.alt}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                opacity: i === activeSlide ? 1 : 0,
-                transition: "opacity 1.6s cubic-bezier(.16,1,.3,1)",
-              }}
-            />
+            /* A <picture> rather than a JS breakpoint check: the media query
+               is resolved by the browser before the request goes out, so the
+               phone never downloads the wide still (and there's no
+               server/client mismatch on first paint). Positioning stays on
+               the <img>, so the inline <picture> wrapper is layout-inert. */
+            <picture key={slide.image}>
+              {slide.mobileImage && <source media="(max-width: 767px)" srcSet={slide.mobileImage} />}
+              {/* no-img-element doesn't fire inside <picture>, so no disable
+                  directive here (an unused one is itself a lint warning). */}
+              <img
+                src={slide.image}
+                alt={slide.alt}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: i === activeSlide ? 1 : 0,
+                  transition: "opacity 1.6s cubic-bezier(.16,1,.3,1)",
+                }}
+              />
+            </picture>
           ))}
         </div>
 
@@ -508,20 +519,29 @@ export default function Hero({
                   {content.subtitle}
                 </p>
               )}
-              {content.bio?.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  style={{
-                    maxWidth: bioMaxWidth,
-                    fontSize: "1.0625rem",
-                    lineHeight: 1.7,
-                    color: bioColor,
-                    textShadow: hideCopyShadow ? "none" : "0 2px 10px rgba(0,0,0,.7)",
-                  }}
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {content.bio && (
+                /* Wrapped rather than bare <p>s so a page can hide the whole
+                   block at one breakpoint and render the same copy below the
+                   hero instead (see the founder rules in globals.css). The
+                   flex/gap here reproduces what the parent column gave the
+                   paragraphs, so nothing shifts where it stays in place. */
+                <div id="hero-bio" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {content.bio.map((paragraph) => (
+                    <p
+                      key={paragraph}
+                      style={{
+                        maxWidth: bioMaxWidth,
+                        fontSize: "1.0625rem",
+                        lineHeight: 1.7,
+                        color: bioColor,
+                        textShadow: hideCopyShadow ? "none" : "0 2px 10px rgba(0,0,0,.7)",
+                      }}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

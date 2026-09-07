@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 import Hero from "@/components/Hero";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { HERO_CONTENT } from "@/components/heroContent";
 import { useLenisPage, scrollToOrNavigate } from "@/hooks/useLenisPage";
 
 export default function LeadershipPage() {
@@ -56,6 +57,21 @@ export default function LeadershipPage() {
           headlineOffsetY="1.25rem"
           statusLabelColor="#ffffff"
         />
+
+        {/* Phone-only home for the hero's bio, which over the mobile crop of
+            the portrait ran across his face. The hero keeps the same copy for
+            tablet and up; exactly one of the two is ever displayed, so this
+            reads as a single block of text either way. Sourced from the same
+            HERO_CONTENT entry the hero renders, so the two can't drift. */}
+        <section className="founder-bio-mobile">
+          <div className="shell" style={{ display: "flex", flexDirection: "column", gap: "1.125rem" }}>
+            {HERO_CONTENT.founder.bio?.map((paragraph) => (
+              <p key={paragraph} style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "#2E2822" }}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </section>
 
         <Breadcrumbs
           items={[
