@@ -38,7 +38,13 @@
   --radius-card: 2rem;
   --radius-card-sm: 1.25rem;
   --radius-control: 0.875rem;
-  --text-watermark: 13rem;
+  /* The oversized BISHNOI wordmark behind the hero and the footer. At a flat
+     13rem the seven glyphs measure ~875px, so it ran past both edges of any
+     viewport under ~900px -- the hero has its own narrow-screen override,
+     the footer had none and was left with the word cropped mid-letter. The
+     vw term keeps it inside the viewport on the way down; 13rem is still the
+     ceiling, and it is already reached by ~990px, so desktop is unchanged. */
+  --text-watermark: clamp(3.5rem, 21vw, 13rem);
   --container-shell: 100%;
 }
 
@@ -115,22 +121,29 @@ img {
 /* Root type scale. Every size on the site is authored in rem, so this one
    value scales the whole page.
 
-   It holds at the 16px the design was drawn against from phone through
-   desktop, and only grows past the 1920px master artboard, where a fixed
-   16px would leave the composition looking undersized on a very wide
-   display.
+   Phones (<=640px) keep the 16px the mobile design was drawn against — the
+   base above. From 641px up the type eases back down to the desktop sizes
+   the site has always had: ~14px of root around a 1280px window, settling at
+   13.5px from 1440px on. Body copy is set in rem on top of that, so 1.25rem
+   still lands at ~17-18px of actual text through the whole desktop range.
+   Text does not need to grow just because the window did; the layout has its
+   own breakpoints for that.
 
-   It used to ramp with `vw` inside a stack of `max-width` queries, which
-   anchored every range at its TOP edge: the whole page shrank as the window
-   narrowed — down to a ~10px root at 700px, i.e. the site rendered at
-   two-thirds scale — and then snapped back at the next breakpoint. Worst of
-   them was 640/641px, where the root went from 12px to 28.4px across a
-   single pixel of resize and the page's height tripled. Each breakpoint
-   below already restyles the layout for its width, so the type must not
-   shrink to fit on top of that. */
-@media (min-width: 1921px) {
+   The expression is deliberately one continuous line rather than a stack of
+   breakpoints. The previous scale ramped with `vw` inside a stack of
+   `max-width` queries, which anchored every range at its TOP edge: the page
+   shrank as the window narrowed — down to a ~10px root at 700px, so the site
+   rendered at two-thirds scale — and then snapped back at the next
+   breakpoint. Worst was 640/641px, where the root went from 12px to 28.4px
+   across a single pixel of resize and the page's height tripled. Here the
+   value moves smoothly and is bounded at both ends, so dragging the window
+   never jumps.
+
+   To tune: raise/lower the 18px constant to shift the whole desktop range up
+   or down; the 13.5px floor sets where it stops shrinking on wide screens. */
+@media (min-width: 641px) {
   html {
-    font-size: min(0.833333vw, 20px);
+    font-size: clamp(13.5px, 18px - 0.3125vw, 16px);
   }
 }
 
@@ -1289,6 +1302,61 @@ section[id] {
   }
 }
 
+/* ── Businesses mega panel, narrow desktop ──────────────────────────────────
+   The panel's four columns are drawn for a 1440px window. The desktop nav
+   that opens it runs all the way down to 1024px, where the same tracks leave
+   each link column under 200px and every second entry ("Getmeds Philippines",
+   "Bishnoi Omniverse India") wraps onto a second line. Narrowing the intro
+   column -- the one holding prose, which reads fine at a shorter measure --
+   and tightening the panel's own gutters hands that width back to the links.
+   Below 1024px the nav is a hamburger and this panel is unreachable. */
+@media (max-width: 1279px) {
+  .mega-panel-grid {
+    grid-template-columns: minmax(0, 0.9fr) repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+    padding: 1.75rem !important;
+  }
+  .mega-panel-intro {
+    padding-right: 1.25rem !important;
+  }
+}
+
+/* ── Legacy mosaic on small screens ─────────────────────────────────────────
+   The compact (<=1023px) mosaic packs the same eight chapter tiles into two
+   columns, so each tile is a fraction of the width the per-chapter type tiers
+   in LegacyCard's TYPE table were drawn against. In the narrow column on a
+   phone the title's text measure drops to around 100px, where a long single
+   word ("Traditions", "Festivals") has no break point and has to break
+   mid-word to fit -- the card's overflowWrap safety net firing as a last
+   resort and reading as broken text. Stepping the title and its arrow badge
+   down here gives the measure enough room to keep whole words on a line, and
+   evening out the columns below 480px buys back the rest. Desktop keeps the
+   tiers the chapters set for themselves. */
+@media (max-width: 767px) {
+  .legacy-card-title {
+    font-size: 1rem !important;
+  }
+  .legacy-card-mark {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    font-size: 0.9375rem !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .legacy-mosaic {
+    grid-template-columns: 1.15fr 1fr !important;
+  }
+  .legacy-card-title {
+    font-size: 0.875rem !important;
+  }
+  .legacy-card-mark {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
 /* ── Heading tiers ──────────────────────────────────────────────────────────
    Three tiers, not one. `.act-title` opens an act (About / the act openers);
    a plain `section h2` is a heading INSIDE an act, one tier down; `h3` is a
@@ -1309,6 +1377,30 @@ section[id] {
 @media (min-width: 768px) and (max-width: 1023px) {
   section h2.act-title {
     font-size: 3.75rem !important;
+  }
+}
+
+/* Phone-width steps for the same two tiers. The blanket 2.25rem above was set
+   against a tablet measure; on a 360-390px screen the text column is only
+   ~310-340px, where a 36px heading no longer fits the line the copy was
+   written for. The headings that hard-code their own break ("A Conservation
+   Ethic<br>Born in the Desert", "Mukam: The Heart<br>of the Faith") then wrap
+   a second time inside each half, so the authored break lands mid-thought and
+   the ragging reads as accidental. Stepping down here restores one line per
+   authored line. `section h2.act-title` outranks `section h2` on specificity,
+   so act titles hold their larger tier until the narrowest step. */
+@media (max-width: 479px) {
+  section h2 {
+    font-size: 1.875rem !important;
+  }
+}
+
+@media (max-width: 359px) {
+  section h2 {
+    font-size: 1.625rem !important;
+  }
+  section h2.act-title {
+    font-size: 2rem !important;
   }
 }
 

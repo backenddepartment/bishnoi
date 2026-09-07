@@ -62,11 +62,14 @@ export default function Founder({}: FounderProps) {
                 color: "#2E2822",
               }}
             >
-              {/* Nowrap only from lg: up — the exact two-line break is a
-                  desktop design choice; on mobile each line just wraps
-                  normally so it can't overflow a narrow viewport. */}
-              <span className="block lg:whitespace-nowrap">The Man Who Answered a</span>
-              <span className="block lg:whitespace-nowrap">Drought With 29 Rules</span>
+              {/* The two-line break is a desktop design choice, so the spans
+                  only become their own nowrap lines from lg: up. Below that
+                  they stay inline and the heading wraps as one sentence — as
+                  blocks, "The Man Who Answered a" is wider than a phone's text
+                  column on its own and wrapped to leave "a" orphaned on a line
+                  of its own. The {" "} keeps the word space once inline. */}
+              <span className="lg:block lg:whitespace-nowrap">The Man Who Answered a</span>{" "}
+              <span className="lg:block lg:whitespace-nowrap">Drought With 29 Rules</span>
             </h2>
 
             <div>

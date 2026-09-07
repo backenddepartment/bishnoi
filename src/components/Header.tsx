@@ -215,7 +215,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
       }}
     >
       <div
-        className="shell"
+        className="shell mega-panel-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0,1.2fr) repeat(3, minmax(0,1fr))",
@@ -226,6 +226,7 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
         {/* Intro column — heading + short description, mirrors the linked
             navigation columns to its right. */}
         <div
+          className="mega-panel-intro"
           style={{
             display: "flex",
             flexDirection: "column",

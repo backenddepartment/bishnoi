@@ -179,6 +179,7 @@ export default function LegacyCard({
 
           <div style={{ position: "relative", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: ".75rem" }}>
             <h3
+              className="legacy-card-title"
               style={{
                 minWidth: 0,
                 fontSize: type.title,
@@ -202,6 +203,7 @@ export default function LegacyCard({
             </h3>
             <span
               aria-hidden
+              className="legacy-card-mark"
               style={{
                 flexShrink: 0,
                 width: type.mark,

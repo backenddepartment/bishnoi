@@ -157,7 +157,7 @@ export default function Services({ lenis }: ServicesProps) {
             out of .shell-full's own padding so it spans the entire section
             width, not just the padded measure the heading sits in. */}
         <div
-          className="full-bleed"
+          className="full-bleed legacy-mosaic"
           style={{
             display: "grid",
             gridTemplateColumns: compact
