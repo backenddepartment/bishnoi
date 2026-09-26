@@ -2089,3 +2089,103 @@ section[id] {
     padding-block: 2.5rem 0.5rem;
   }
 }
+
+/* ---- Human sitemap (/sitemap) ------------------------------------------- */
+
+.sitemap-page {
+  padding: 2rem 1.25rem 5rem;
+}
+
+.sitemap-head {
+  max-width: 68ch;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sitemap-kicker {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sitemap-head h1 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.sitemap-standfirst {
+  margin: 1rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.sitemap-standfirst a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sitemap-section {
+  margin-top: 2.75rem;
+}
+
+.sitemap-section h2 {
+  margin: 0 0 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sitemap-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: 1.5rem 2.5rem;
+}
+
+.sitemap-section li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sitemap-section li > a {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.sitemap-section li > a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sitemap-blurb {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* The crawl metadata is for anyone auditing the sitemap, so it is present but
+   set well back from the link and the blurb a reader is actually here for. */
+.sitemap-meta {
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  opacity: 0.85;
+}
