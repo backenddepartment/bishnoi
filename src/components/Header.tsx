@@ -322,7 +322,9 @@ function BusinessesPanel({ dropdown }: BusinessesPanelProps) {
             Bishnoi Omniverse India
           </a>
           <a
-            href="/businesses/bishnoi-omniverse"
+            href="https://bishnoiomniverse.com/"
+            target="_blank"
+            rel="noreferrer"
             className="hover-underline-slide"
             style={getLinkStyle(1, 1)}
           >
