@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — local plugin scratch state (sqlite caches, WAL sidecars).
+# .claude/launch.json and any shared config stay tracked; only data/ is local.
+.claude/data/

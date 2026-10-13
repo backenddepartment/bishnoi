@@ -131,6 +131,11 @@ export default function Footer({ onOpenRequestModal, introReady }: FooterProps) 
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem", borderTop: "1px solid rgba(247,243,232,.1)", paddingTop: "2rem", fontSize: ".8125rem", color: "rgba(247,243,232,.45)" }}>
           <span>© {new Date().getFullYear()} Bishnoi. All rights reserved.</span>
           <div style={{ display: "flex", gap: "1.5rem" }}>
+            {/* The HTML sitemap needs one crawlable link from every page, or it
+                is a page only the XML sitemap knows about. */}
+            <a className="animated-link legal" href="/sitemap">
+              <span>Sitemap</span>
+            </a>
             <a className="animated-link legal" href="#">
               <span>Privacy Policy</span>
             </a>
