@@ -146,7 +146,11 @@ export const HERO_CONTENT: Record<HeroVariant, HeroContent> = {
     subtitle:
       "Building a healthcare supply powerhouse designed to serve hospitals across the full spectrum of their needs — from essential medical supplies and medicines to specialized products and large-scale hospital requirements.",
     pills: [],
-    backgroundImage: "/bishnoiimage.jpeg",
+    // Bottom-cropped copy of /bishnoiimage.jpeg (top 700x250) — the wide
+    // desktop hero's cover-fit showed the photo's middle band and cut the
+    // team's heads off. Phones keep the full 4:3 original.
+    backgroundImage: "/bishnoiimagehero.jpeg",
+    mobileBackgroundImage: "/bishnoiimage.jpeg",
   },
   foundation: {
     headline: "Naresh Bishnoi Foundation",
