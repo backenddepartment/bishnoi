@@ -44,6 +44,10 @@ export interface SiteRoute {
   section: string;
   tier: Tier;
   changeFrequency: ChangeFrequency;
+  /** Kept off the human /sitemap page (and the site carries no nav link to
+      it), but still submitted to crawlers via sitemap.xml — for pages that
+      should rank on Google without being reachable from the site itself. */
+  hidden?: boolean;
   /** Images that actually appear on this page. Empty is fine and common —
       a page whose only images are the logo and chrome contributes nothing to
       an image sitemap, and padding it with furniture would be noise. */
@@ -190,6 +194,20 @@ export const ROUTES: SiteRoute[] = [
     images: [{ loc: "/bishnoiimage.jpeg", title: "Bishnoi Omniverse", caption: "The infrastructure powering healthcare supply." }],
   },
   {
+    // Unlinked landing page reached by QR code / direct URL only — indexable,
+    // but deliberately absent from the header, footer, and human sitemap.
+    path: "/businesses/our-ventures",
+    label: "Our Ventures",
+    blurb: "Getmeds and 2MG Incorporated — the healthcare network and the holding company behind it.",
+    section: "Businesses",
+    tier: "secondary",
+    changeFrequency: "monthly",
+    hidden: true,
+    // Only the two company logos appear here — chrome, not photography, so
+    // nothing for the image sitemap.
+    images: [],
+  },
+  {
     path: "/businesses/foundation",
     label: "Naresh Bishnoi Foundation",
     blurb: "The foundation's conservation and community work, rooted in the twenty-nine principles.",
@@ -230,12 +248,16 @@ export const absolute = (path: string) => `${SITE_URL}${path}`;
 /** Only the routes that carry images, for the image sitemap. */
 export const ROUTES_WITH_IMAGES = ROUTES.filter((r) => r.images.length > 0);
 
-/** The human sitemap groups by section, in the order sections first appear. */
+/** What the human sitemap page shows: everything except hidden routes. */
+export const VISIBLE_ROUTES = ROUTES.filter((r) => !r.hidden);
+
+/** The human sitemap groups by section, in the order sections first appear.
+    Hidden routes stay out — they are in sitemap.xml for crawlers only. */
 export function routesBySection(): { section: string; routes: SiteRoute[] }[] {
   const order: string[] = [];
   const groups = new Map<string, SiteRoute[]>();
 
-  for (const route of ROUTES) {
+  for (const route of VISIBLE_ROUTES) {
     if (!groups.has(route.section)) {
       order.push(route.section);
       groups.set(route.section, []);

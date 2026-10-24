@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import RequestModal from "@/components/RequestModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useLenisPage, scrollToOrNavigate } from "@/hooks/useLenisPage";
-import { PRIORITY, ROUTES, routesBySection } from "@/lib/seo";
+import { PRIORITY, VISIBLE_ROUTES, routesBySection } from "@/lib/seo";
 
 /* The human sitemap. Built from the same manifest as /sitemap.xml, so the page
    a reader sees and the file a crawler reads can never list different routes.
@@ -19,7 +19,7 @@ export default function SitemapPage() {
   const handleScrollTo = (id: string) => scrollToOrNavigate(id, lenisRef);
 
   const sections = routesBySection();
-  const imageCount = ROUTES.reduce((total, route) => total + route.images.length, 0);
+  const imageCount = VISIBLE_ROUTES.reduce((total, route) => total + route.images.length, 0);
 
   return (
     <>
@@ -54,7 +54,7 @@ export default function SitemapPage() {
             <span className="sitemap-kicker">Sitemap</span>
             <h1>Every page on this site</h1>
             <p className="sitemap-standfirst">
-              {ROUTES.length} pages, grouped as the site is. For crawlers, the same list is served as{" "}
+              {VISIBLE_ROUTES.length} pages, grouped as the site is. For crawlers, the same list is served as{" "}
               <a href="/sitemap.xml">sitemap.xml</a>, and the {imageCount} photographs across these pages as{" "}
               <a href="/image-sitemap.xml">image-sitemap.xml</a>.
             </p>
