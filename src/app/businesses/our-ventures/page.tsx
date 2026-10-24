@@ -100,18 +100,16 @@ export default function OurVenturesPage() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: ".5rem",
                       padding: ".875rem 2rem",
                       borderRadius: "9999px",
-                      background: "linear-gradient(135deg, #1EA0DA 0%, #61A644 100%)",
+                      background: "#1EA0DA",
                       color: "#fff",
                       fontSize: ".9375rem",
                       fontWeight: 700,
                       textDecoration: "none",
-                      boxShadow: "0 8px 24px rgba(30,160,218,.28)",
                     }}
                   >
-                    Visit Website <span aria-hidden="true">→</span>
+                    Visit Website
                   </a>
                 </div>
               ))}
